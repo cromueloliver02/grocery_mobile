@@ -9,5 +9,5 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  runApp(const GroceryApp());
+  runApp(GroceryApp());
 }
