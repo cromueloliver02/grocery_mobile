@@ -13,6 +13,10 @@ class ThemeHandler {
           secondary: const Color(0xFFE8FDFD),
           brightness: Brightness.light,
         ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.black87),
+      unselectedIconTheme: IconThemeData(color: Colors.black54),
+    ),
   );
 
   final darkTheme = ThemeData(
@@ -27,5 +31,9 @@ class ThemeHandler {
           secondary: const Color(0xFF1a1f3c),
           brightness: Brightness.dark,
         ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.lightBlue.shade200),
+      unselectedIconTheme: const IconThemeData(color: Colors.white70),
+    ),
   );
 }
