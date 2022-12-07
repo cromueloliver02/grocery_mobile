@@ -7,6 +7,7 @@ class GroceryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Grocery Mobile',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: const Scaffold(
         body: Center(
