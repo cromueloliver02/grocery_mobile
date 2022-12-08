@@ -24,6 +24,7 @@ class GroceryApp extends StatelessWidget {
           darkTheme: _themeHandler.darkTheme,
           initialRoute: NavigationPage.id,
           routes: _routeHandler.routes,
+          onUnknownRoute: _routeHandler.onUnknownRoute,
         ),
       ),
     );
