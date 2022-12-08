@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/gcr_category_card.dart';
 import '../pages.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -9,8 +10,8 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('CATEGORY PAGE'),
+    return Center(
+      child: GCRCategoryCard(onTap: () {}),
     );
   }
 }
