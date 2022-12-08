@@ -41,7 +41,22 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        const GCRProductCard()
+        const SizedBox(height: 5),
+        GCRButton.text(
+          labelText: 'View All',
+          onPressed: () {},
+        ),
+        const SizedBox(height: 5),
+        SizedBox(
+          height: 200,
+          child: ListView.separated(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
+            itemBuilder: (ctx, idx) => const GCRProductCard(),
+          ),
+        ),
       ],
     );
   }

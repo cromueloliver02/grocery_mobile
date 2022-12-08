@@ -16,7 +16,8 @@ class GCRProductCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {},
-        child: Padding(
+        child: Container(
+          width: 200,
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
@@ -83,13 +84,18 @@ class GCRProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const Spacer(),
               Text(
                 'Product Name',
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
                 style: textTheme.headline4!.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              const Spacer(),
+              const SizedBox(height: 5),
             ],
           ),
         ),

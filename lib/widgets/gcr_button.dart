@@ -42,7 +42,7 @@ class GCRButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           disabledBackgroundColor: Colors.grey,
           textStyle: const TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -73,7 +73,7 @@ class GCRButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           disabledForegroundColor: Colors.grey,
           textStyle: const TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
