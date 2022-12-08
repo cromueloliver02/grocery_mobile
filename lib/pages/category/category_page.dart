@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
-import '../../widgets/gcr_category_card.dart';
+import '../../widgets/widgets.dart';
 import '../pages.dart';
 
 class CategoryPage extends StatelessWidget {

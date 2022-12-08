@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
+import '../../widgets/widgets.dart';
 import '../pages.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,24 +20,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return SizedBox(
-      height: screenSize.height / 3,
-      child: Swiper(
-        autoplay: true,
-        itemCount: _bannerImages.length,
-        // control: const SwiperControl(color: Colors.black),
-        pagination: const SwiperPagination(
-          alignment: Alignment.bottomCenter,
-          builder: DotSwiperPaginationBuilder(
-            color: Colors.white,
-            activeColor: Colors.red,
+    return Column(
+      children: [
+        SizedBox(
+          height: screenSize.height / 3,
+          child: Swiper(
+            autoplay: true,
+            itemCount: _bannerImages.length,
+            // control: const SwiperControl(color: Colors.black),
+            pagination: const SwiperPagination(
+              alignment: Alignment.bottomCenter,
+              builder: DotSwiperPaginationBuilder(
+                color: Colors.white,
+                activeColor: Colors.red,
+              ),
+            ),
+            itemBuilder: (ctx, idx) => Image.asset(
+              _bannerImages[idx],
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-        itemBuilder: (ctx, idx) => Image.asset(
-          _bannerImages[idx],
-          fit: BoxFit.cover,
-        ),
-      ),
+        const GCRProductCard()
+      ],
     );
   }
 }
