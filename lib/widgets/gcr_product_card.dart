@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class GCRProductCard extends StatelessWidget {
@@ -25,11 +26,11 @@ class GCRProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.network(
-                    'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                  FancyShimmerImage(
+                    imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
                     width: screenSize.width * 0.22,
                     height: screenSize.width * 0.22,
-                    fit: BoxFit.cover,
+                    boxFit: BoxFit.cover,
                   ),
                   const SizedBox(width: 5),
                   Column(

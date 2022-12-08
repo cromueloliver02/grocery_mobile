@@ -85,6 +85,23 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Our Products',
+                style: textTheme.headline3,
+              ),
+              GCRButton.text(
+                labelText: 'Browse All',
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
