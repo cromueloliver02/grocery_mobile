@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 import '../../cubits/cubits.dart';
 import '../../pages/pages.dart';
@@ -11,24 +10,21 @@ class NavigationPage extends StatelessWidget {
   const NavigationPage({super.key});
 
   final _pages = const [
-    Tuple2(HomePage(), 'Home Page'),
-    Tuple2(CategoryPage(), 'Category Page'),
-    Tuple2(CartPage(), 'Cart Page'),
-    Tuple2(UserPage(), 'User Page'),
+    HomePage(),
+    CategoryPage(),
+    CartPage(),
+    UserPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (ctx, state) => Scaffold(
-        // appBar: AppBar(
-        //   title: Text(_pages[state.currentIndex].item2),
-        // ),
         bottomNavigationBar: const NavigationPageBottomBar(),
         body: SafeArea(
           child: IndexedStack(
             index: state.currentIndex,
-            children: _pages.map((d) => d.item1).toList(),
+            children: _pages,
           ),
         ),
       ),

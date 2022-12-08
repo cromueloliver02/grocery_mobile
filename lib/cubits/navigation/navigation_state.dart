@@ -8,7 +8,7 @@ class NavigationState extends Equatable {
   });
 
   factory NavigationState.initial() {
-    return const NavigationState(currentIndex: 0);
+    return const NavigationState(currentIndex: 1);
   }
 
   @override
