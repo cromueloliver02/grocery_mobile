@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../widgets/widgets.dart';
 import '../pages.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final screenSize = MediaQuery.of(context).size;
 
     return Column(
@@ -49,12 +51,38 @@ class HomePage extends StatelessWidget {
         const SizedBox(height: 5),
         SizedBox(
           height: 200,
-          child: ListView.separated(
-            itemCount: 10,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
-            itemBuilder: (ctx, idx) => const GCRProductCard(),
+          child: Row(
+            children: [
+              RotatedBox(
+                quarterTurns: -1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'ON SALE',
+                      style: textTheme.headline3!.copyWith(
+                        color: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    const Icon(
+                      IconlyLight.discount,
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: 10,
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.only(right: 10),
+                  separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
+                  itemBuilder: (ctx, idx) => const GCRProductCard(),
+                ),
+              ),
+            ],
           ),
         ),
       ],
