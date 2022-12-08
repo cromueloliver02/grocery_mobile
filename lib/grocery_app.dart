@@ -15,15 +15,16 @@ class GroceryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: _blocHandler.blocProviders,
-      child: MaterialApp(
-        title: 'Grocery Mobile',
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        // themeMode: ThemeMode.dark,
-        theme: _themeHandler.lightTheme,
-        darkTheme: _themeHandler.darkTheme,
-        initialRoute: NavigationPage.id,
-        routes: _routeHandler.routes,
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (ctx, state) => MaterialApp(
+          title: 'Grocery Mobile',
+          debugShowCheckedModeBanner: false,
+          themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
+          theme: _themeHandler.lightTheme,
+          darkTheme: _themeHandler.darkTheme,
+          initialRoute: NavigationPage.id,
+          routes: _routeHandler.routes,
+        ),
       ),
     );
   }
