@@ -7,13 +7,13 @@ import './components/navigation_page_bottom_bar.dart';
 class NavigationPage extends StatelessWidget {
   static const id = '/navigation';
 
-  const NavigationPage({super.key});
+  NavigationPage({super.key});
 
-  final _pages = const [
+  final _pages = [
     HomePage(),
-    CategoryPage(),
-    CartPage(),
-    UserPage(),
+    const CategoryPage(),
+    const CartPage(),
+    const UserPage(),
   ];
 
   @override
