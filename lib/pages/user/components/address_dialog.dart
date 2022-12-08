@@ -30,8 +30,12 @@ class _AddressDialogState extends State<AddressDialog> {
       ),
       actions: [
         GCRButton.text(
+          labelText: 'Cancel',
+          foregroundColor: Colors.red,
+          onPressed: () => Navigator.pop(context),
+        ),
+        GCRButton.text(
           labelText: 'Save',
-          loading: false,
           onPressed: () {},
         ),
       ],

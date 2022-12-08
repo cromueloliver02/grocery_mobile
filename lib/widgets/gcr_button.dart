@@ -5,6 +5,8 @@ class GCRButton extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.onPressed,
+    this.foregroundColor = Colors.white,
+    this.backgroundColor = Colors.cyan,
     this.loading = false,
     this.isElevated = true,
     this.isText = false,
@@ -14,12 +16,16 @@ class GCRButton extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.onPressed,
+    this.foregroundColor = Colors.cyan,
+    this.backgroundColor = Colors.transparent,
     this.loading = false,
     this.isElevated = false,
     this.isText = true,
   });
 
   final String labelText;
+  final Color foregroundColor;
+  final Color backgroundColor;
   final bool loading;
   final bool isElevated;
   final bool isText;
@@ -32,7 +38,8 @@ class GCRButton extends StatelessWidget {
         onPressed: loading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          backgroundColor: Colors.cyan,
+          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor,
           disabledBackgroundColor: Colors.grey,
           textStyle: const TextStyle(
             fontSize: 14,
@@ -62,7 +69,8 @@ class GCRButton extends StatelessWidget {
         onPressed: loading ? null : onPressed,
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          foregroundColor: Colors.cyan,
+          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor,
           disabledForegroundColor: Colors.grey,
           textStyle: const TextStyle(
             fontSize: 14,

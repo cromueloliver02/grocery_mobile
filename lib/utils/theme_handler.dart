@@ -55,12 +55,12 @@ class ThemeHandler {
       ),
       bodyText1: TextStyle(
         color: Colors.black87,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
       bodyText2: TextStyle(
         color: Colors.black87,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.normal,
       ),
     ),
@@ -120,12 +120,12 @@ class ThemeHandler {
       ),
       bodyText1: TextStyle(
         color: Colors.grey[200],
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
       bodyText2: TextStyle(
         color: Colors.grey[200],
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.normal,
       ),
     ),

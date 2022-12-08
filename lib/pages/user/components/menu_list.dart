@@ -4,14 +4,21 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import './address_dialog.dart';
+import './sign_out_dialog.dart';
 
 class MenuList extends StatelessWidget {
   const MenuList({super.key});
 
   void _showAddressDialog(BuildContext ctx) => showDialog(
         context: ctx,
-        barrierDismissible: true,
+        barrierDismissible: false,
         builder: (ctx) => const AddressDialog(),
+      );
+
+  void _showSignOutDialog(BuildContext ctx) => showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) => const SignOutDialog(),
       );
 
   @override
@@ -87,7 +94,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.logout,
             color: Colors.grey[600],
           ),
-          onTap: () {},
+          onTap: () => _showSignOutDialog(context),
         ),
       ],
     );
