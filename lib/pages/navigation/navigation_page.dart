@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../cubits/cubits.dart';
 import '../../pages/pages.dart';
@@ -19,11 +20,17 @@ class NavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
-      builder: (ctx, state) => Scaffold(
-        bottomNavigationBar: const NavigationPageBottomBar(),
-        body: IndexedStack(
-          index: state.currentIndex,
-          children: _pages,
+      builder: (ctx, state) => KeyboardDismisser(
+        gestures: const [
+          GestureType.onDoubleTap,
+          GestureType.onPanUpdateDownDirection,
+        ],
+        child: Scaffold(
+          bottomNavigationBar: const NavigationPageBottomBar(),
+          body: IndexedStack(
+            index: state.currentIndex,
+            children: _pages,
+          ),
         ),
       ),
     );
