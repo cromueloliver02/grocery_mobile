@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-import '../../cubits/cubits.dart';
+import '../../../business_logic/cubits/cubits.dart';
 import '../../pages/pages.dart';
 import './components/navigation_page_bottom_bar.dart';
 

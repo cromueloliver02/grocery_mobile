@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import '../pages.dart';
-import 'components/menu_list.dart';
+import './components/menu_list.dart';
 
 class UserPage extends StatelessWidget {
   static const id = '${NavigationPage.id}/user';

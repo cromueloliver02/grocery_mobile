@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './cubits/cubits.dart';
-import './pages/pages.dart';
-import './utils/utils.dart';
+import './business_logic/cubits/cubits.dart';
+import './presentation/pages/pages.dart';
+import './presentation/utils/utils.dart';
 
 class GroceryApp extends StatelessWidget {
   GroceryApp({super.key});

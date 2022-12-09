@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-import '../../../cubits/cubits.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import './address_dialog.dart';
 import './sign_out_dialog.dart';

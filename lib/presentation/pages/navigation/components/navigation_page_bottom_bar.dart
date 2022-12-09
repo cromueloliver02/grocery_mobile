@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-import '../../../cubits/cubits.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 
 class NavigationPageBottomBar extends StatelessWidget {
   const NavigationPageBottomBar({super.key});

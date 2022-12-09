@@ -21,16 +21,16 @@ class GCRProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isSale) return const _SaleCard();
+    if (isSale) return const _ProductSaleCard();
 
-    if (isFeed) return const _FeedCard();
+    if (isFeed) return const _ProductFeedCard();
 
     return const SizedBox.shrink();
   }
 }
 
-class _SaleCard extends StatelessWidget {
-  const _SaleCard({Key? key}) : super(key: key);
+class _ProductSaleCard extends StatelessWidget {
+  const _ProductSaleCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,14 +139,14 @@ class _SaleCard extends StatelessWidget {
   }
 }
 
-class _FeedCard extends StatefulWidget {
-  const _FeedCard({Key? key}) : super(key: key);
+class _ProductFeedCard extends StatefulWidget {
+  const _ProductFeedCard({Key? key}) : super(key: key);
 
   @override
-  State<_FeedCard> createState() => _FeedCardState();
+  State<_ProductFeedCard> createState() => _FeedCardState();
 }
 
-class _FeedCardState extends State<_FeedCard> {
+class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
   @override
