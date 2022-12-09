@@ -21,11 +21,9 @@ class NavigationPage extends StatelessWidget {
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (ctx, state) => Scaffold(
         bottomNavigationBar: const NavigationPageBottomBar(),
-        body: SafeArea(
-          child: IndexedStack(
-            index: state.currentIndex,
-            children: _pages,
-          ),
+        body: IndexedStack(
+          index: state.currentIndex,
+          children: _pages,
         ),
       ),
     );
