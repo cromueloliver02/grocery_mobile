@@ -80,7 +80,10 @@ class HomePage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.only(right: 10),
                     separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
-                    itemBuilder: (ctx, idx) => const GCRProductCard.sale(),
+                    itemBuilder: (ctx, idx) => GCRProductCard.sale(
+                      price: 2.24 + idx,
+                      salePrice: idx.isEven ? 1.84 + idx : null,
+                    ),
                   ),
                 ),
               ],
@@ -113,11 +116,20 @@ class HomePage extends StatelessWidget {
             crossAxisCount: 2,
             childAspectRatio: 370 / 450,
             children: const [
-              GCRProductCard.feed(),
-              GCRProductCard.feed(),
-              GCRProductCard.feed(),
-              GCRProductCard.feed(),
-              GCRProductCard.feed(),
+              GCRProductCard.feed(
+                price: 3.92,
+                salePrice: 2.477777,
+              ),
+              GCRProductCard.feed(price: 4.92),
+              GCRProductCard.feed(
+                price: 5.92,
+                salePrice: 5.2,
+              ),
+              GCRProductCard.feed(price: 6.92),
+              GCRProductCard.feed(
+                price: 7.92,
+                salePrice: 5.95,
+              ),
             ],
           )
         ],

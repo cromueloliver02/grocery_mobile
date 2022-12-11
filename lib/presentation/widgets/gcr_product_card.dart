@@ -1,36 +1,61 @@
+// ignore_for_file: unused_element
+
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
     super.key,
+    required this.price,
+    this.salePrice,
     this.isSale = true,
     this.isFeed = false,
   });
 
   const GCRProductCard.feed({
     super.key,
+    required this.price,
+    this.salePrice,
     this.isSale = false,
     this.isFeed = true,
   });
 
+  final double price;
+  final double? salePrice;
   final bool isSale;
   final bool isFeed;
 
   @override
   Widget build(BuildContext context) {
-    if (isSale) return const _ProductSaleCard();
+    if (isSale) {
+      return _ProductSaleCard(
+        price: price,
+        salePrice: salePrice,
+      );
+    }
 
-    if (isFeed) return const _ProductFeedCard();
+    if (isFeed) {
+      return _ProductFeedCard(
+        price: price,
+        salePrice: salePrice,
+      );
+    }
 
     return const SizedBox.shrink();
   }
 }
 
 class _ProductSaleCard extends StatelessWidget {
-  const _ProductSaleCard({Key? key}) : super(key: key);
+  const _ProductSaleCard({
+    Key? key,
+    required this.price,
+    this.salePrice,
+  }) : super(key: key);
+
+  final double price;
+  final double? salePrice;
 
   @override
   Widget build(BuildContext context) {
@@ -96,21 +121,30 @@ class _ProductSaleCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        '\$1.59',
-                        style: textTheme.headline2!.copyWith(
-                          color: Colors.green,
+                      if (salePrice == null)
+                        Text(
+                          '\$${price.toStringAsFixed(2)}',
+                          style: textTheme.headline2!.copyWith(
+                            color: Colors.green,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        '\$2.59',
-                        style: textTheme.headline4!.copyWith(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.lineThrough,
+                      if (salePrice != null) ...[
+                        Text(
+                          '\$${salePrice!.toStringAsFixed(2)}',
+                          style: textTheme.headline2!.copyWith(
+                            color: Colors.green,
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 10),
+                        Text(
+                          '\$${price.toStringAsFixed(2)}',
+                          style: textTheme.headline4!.copyWith(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -140,7 +174,14 @@ class _ProductSaleCard extends StatelessWidget {
 }
 
 class _ProductFeedCard extends StatefulWidget {
-  const _ProductFeedCard({Key? key}) : super(key: key);
+  const _ProductFeedCard({
+    Key? key,
+    required this.price,
+    this.salePrice,
+  }) : super(key: key);
+
+  final double price;
+  final double? salePrice;
 
   @override
   State<_ProductFeedCard> createState() => _FeedCardState();
@@ -200,16 +241,38 @@ class _FeedCardState extends State<_ProductFeedCard> {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text(
-                        '\$1.59',
-                        style: textTheme.headline2!.copyWith(
-                          color: Colors.green,
-                        ),
+                      Column(
+                        children: [
+                          if (widget.salePrice == null)
+                            Text(
+                              '\$${widget.price.toStringAsFixed(2)}',
+                              style: textTheme.headline2!.copyWith(
+                                color: Colors.green,
+                              ),
+                            ),
+                          if (widget.salePrice != null) ...[
+                            Text(
+                              '\$${widget.salePrice!.toStringAsFixed(2)}',
+                              style: textTheme.headline2!.copyWith(
+                                color: Colors.green,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              '\$${widget.price.toStringAsFixed(2)}',
+                              style: textTheme.headline4!.copyWith(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                       const Spacer(),
                       Text(
                         'KG',
-                        style: textTheme.headline4,
+                        style: textTheme.headline5,
                       ),
                       Container(
                         width: 50,
