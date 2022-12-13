@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import './presentation/utils/utils.dart';
 import './grocery_app.dart';
 
 void main() async {
@@ -9,5 +10,9 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  runApp(GroceryApp());
+  runApp(GroceryApp(
+    blocHandler: BlocHandler(),
+    routeHandler: RouteHandler(),
+    themeHandler: ThemeHandler(),
+  ));
 }

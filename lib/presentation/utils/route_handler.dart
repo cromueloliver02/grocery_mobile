@@ -4,13 +4,22 @@ import '../widgets/widgets.dart';
 import '../pages/pages.dart';
 
 class RouteHandler {
-  final Map<String, WidgetBuilder> routes = {
-    NavigationPage.id: (ctx) => NavigationPage(),
-    HomePage.id: (ctx) => HomePage(),
-    CategoryPage.id: (ctx) => const CategoryPage(),
-    CartPage.id: (ctx) => const CartPage(),
-    UserPage.id: (ctx) => const UserPage(),
-  };
+  Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case NavigationPage.id:
+        return NavigationPage.route(settings);
+      case HomePage.id:
+        return HomePage.route(settings);
+      case CategoryPage.id:
+        return CategoryPage.route(settings);
+      case CartPage.id:
+        return CartPage.route(settings);
+      case UserPage.id:
+        return UserPage.route(settings);
+    }
+
+    return null;
+  }
 
   Route<dynamic>? onUnknownRoute(RouteSettings settings) {
     return MaterialPageRoute(

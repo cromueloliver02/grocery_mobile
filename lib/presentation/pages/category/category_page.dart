@@ -1,33 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/models.dart';
-import '../../widgets/widgets.dart';
 import '../pages.dart';
+import './components/category_view.dart';
 
 class CategoryPage extends StatelessWidget {
   static const id = '${NavigationPage.id}/category';
 
+  static Route<void> route(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (ctx) => const CategoryPage(),
+    );
+  }
+
   const CategoryPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: Category.categories.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 230 / 250,
-        ),
-        itemBuilder: (ctx, idx) => GCRCategoryCard(
-          name: Category.categories[idx].name,
-          imageUrl: Category.categories[idx].imageUrl,
-          color: Category.categories[idx].color,
-          onTap: () {},
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => const CategoryView();
 }
