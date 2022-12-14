@@ -16,6 +16,8 @@ class RouteHandler {
         return CartPage.route(settings);
       case UserPage.id:
         return UserPage.route(settings);
+      case OnSalePage.id:
+        return OnSalePage.route(settings);
     }
 
     return null;

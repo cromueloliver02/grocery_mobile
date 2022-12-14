@@ -3,6 +3,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -13,6 +14,10 @@ class HomeView extends StatelessWidget {
     'assets/images/offers/Offer3.jpg',
     'assets/images/offers/Offer4.jpg',
   ];
+
+  void _goToOnSalePage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, OnSalePage.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class HomeView extends StatelessWidget {
           const SizedBox(height: 5),
           GCRButton.text(
             labelText: 'View All',
-            onPressed: () {},
+            onPressed: () => _goToOnSalePage(context),
           ),
           const SizedBox(height: 5),
           SizedBox(
@@ -128,7 +133,7 @@ class HomeView extends StatelessWidget {
                 salePrice: 5.95,
               ),
             ],
-          )
+          ),
         ],
       ),
     );
