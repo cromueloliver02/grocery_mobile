@@ -19,6 +19,10 @@ class HomeView extends StatelessWidget {
     Navigator.pushNamed(ctx, OnSalePage.id);
   }
 
+  void _goToFeedPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, FeedPage.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -103,7 +107,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GCRButton.text(
                   labelText: 'Browse All',
-                  onPressed: () {},
+                  onPressed: () => _goToFeedPage(context),
                 ),
               ],
             ),
