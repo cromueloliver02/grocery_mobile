@@ -22,6 +22,9 @@ class ThemeHandler {
       selectedIconTheme: IconThemeData(color: Colors.black87),
       unselectedIconTheme: IconThemeData(color: Colors.black54),
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: Colors.grey,
+    ),
     textTheme: const TextTheme(
       headline1: TextStyle(
         color: Colors.black87,
@@ -86,6 +89,9 @@ class ThemeHandler {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.lightBlue.shade200),
       unselectedIconTheme: const IconThemeData(color: Colors.white70),
+    ),
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: Colors.white,
     ),
     textTheme: TextTheme(
       headline1: TextStyle(

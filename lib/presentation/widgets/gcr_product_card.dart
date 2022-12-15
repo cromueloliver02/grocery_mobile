@@ -1,9 +1,12 @@
 // ignore_for_file: unused_element
 
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+
+import './widgets.dart';
 
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
@@ -12,6 +15,7 @@ class GCRProductCard extends StatelessWidget {
     this.salePrice,
     this.isSale = true,
     this.isFeed = false,
+    this.isCart = false,
   });
 
   const GCRProductCard.feed({
@@ -20,12 +24,23 @@ class GCRProductCard extends StatelessWidget {
     this.salePrice,
     this.isSale = false,
     this.isFeed = true,
+    this.isCart = false,
+  });
+
+  const GCRProductCard.cart({
+    super.key,
+    required this.price,
+    this.salePrice,
+    this.isSale = false,
+    this.isFeed = false,
+    this.isCart = true,
   });
 
   final double price;
   final double? salePrice;
   final bool isSale;
   final bool isFeed;
+  final bool isCart;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +53,13 @@ class GCRProductCard extends StatelessWidget {
 
     if (isFeed) {
       return _ProductFeedCard(
+        price: price,
+        salePrice: salePrice,
+      );
+    }
+
+    if (isCart) {
+      return _ProductCartCard(
         price: price,
         salePrice: salePrice,
       );
@@ -331,5 +353,81 @@ class _FeedCardState extends State<_ProductFeedCard> {
   void dispose() {
     _quantityController.dispose();
     super.dispose();
+  }
+}
+
+class _ProductCartCard extends StatelessWidget {
+  const _ProductCartCard({
+    Key? key,
+    required this.price,
+    this.salePrice,
+  }) : super(key: key);
+
+  final double price;
+  final double? salePrice;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final screenSize = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 20),
+      child: Row(
+        children: [
+          FancyShimmerImage(
+            imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+            width: screenSize.width * 0.3,
+            height: screenSize.width * 0.3,
+            boxFit: BoxFit.cover,
+          ),
+          const SizedBox(width: 10),
+          Column(
+            children: [
+              Text(
+                'Product Name',
+                style: textTheme.headline4!.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const GCRQuantityController(),
+            ],
+          ),
+          const Spacer(),
+          Column(
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  CupertinoIcons.cart_badge_minus,
+                  color: Colors.red,
+                  size: 30,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                color: Colors.red,
+                iconSize: 30,
+                icon: const Icon(IconlyBold.heart),
+              ),
+              if (salePrice == null)
+                Text(
+                  '\$${price.toStringAsFixed(2)}',
+                  style: textTheme.bodyText1!.copyWith(
+                    fontSize: textTheme.bodyText1!.fontSize! + 4,
+                  ),
+                ),
+              if (salePrice != null)
+                Text(
+                  '\$${salePrice!.toStringAsFixed(2)}',
+                  style: textTheme.bodyText1!.copyWith(
+                    fontSize: textTheme.bodyText1!.fontSize! + 4,
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
