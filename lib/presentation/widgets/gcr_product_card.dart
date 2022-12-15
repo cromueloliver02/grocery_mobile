@@ -1,5 +1,3 @@
-// ignore_for_file: unused_element
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -7,58 +5,51 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import './widgets.dart';
+import '../utils/utils.dart';
 
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
     super.key,
     required this.price,
     this.salePrice,
-    this.isSale = true,
-    this.isFeed = false,
-    this.isCart = false,
+    this.type = ProductCardType.sale,
   });
 
   const GCRProductCard.feed({
     super.key,
     required this.price,
     this.salePrice,
-    this.isSale = false,
-    this.isFeed = true,
-    this.isCart = false,
+    this.type = ProductCardType.feed,
   });
 
   const GCRProductCard.cart({
     super.key,
     required this.price,
     this.salePrice,
-    this.isSale = false,
-    this.isFeed = false,
-    this.isCart = true,
+    this.type = ProductCardType.cart,
   });
 
   final double price;
   final double? salePrice;
-  final bool isSale;
-  final bool isFeed;
-  final bool isCart;
+  final ProductCardType type;
 
   @override
   Widget build(BuildContext context) {
-    if (isSale) {
+    if (type == ProductCardType.sale) {
       return _ProductSaleCard(
         price: price,
         salePrice: salePrice,
       );
     }
 
-    if (isFeed) {
+    if (type == ProductCardType.feed) {
       return _ProductFeedCard(
         price: price,
         salePrice: salePrice,
       );
     }
 
-    if (isCart) {
+    if (type == ProductCardType.cart) {
       return _ProductCartCard(
         price: price,
         salePrice: salePrice,
