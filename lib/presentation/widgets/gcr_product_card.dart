@@ -5,6 +5,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import './widgets.dart';
+import '../pages/pages.dart';
 import '../utils/utils.dart';
 
 class GCRProductCard extends StatelessWidget {
@@ -70,6 +71,10 @@ class _ProductSaleCard extends StatelessWidget {
   final double price;
   final double? salePrice;
 
+  void _goToProductDetailsPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -81,7 +86,7 @@ class _ProductSaleCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {},
+        onTap: () => _goToProductDetailsPage(context),
         child: Container(
           width: 200,
           padding: const EdgeInsets.all(10),
@@ -203,6 +208,10 @@ class _ProductFeedCard extends StatefulWidget {
 class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
+  void _goToProductDetailsPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -213,7 +222,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
       color: theme.cardColor,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () {},
+        onTap: () => _goToProductDetailsPage(context),
         borderRadius: BorderRadius.circular(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -357,67 +366,80 @@ class _ProductCartCard extends StatelessWidget {
   final double price;
   final double? salePrice;
 
+  void _goToProductDetailsPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: Row(
-        children: [
-          FancyShimmerImage(
-            imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-            width: screenSize.width * 0.3,
-            height: screenSize.width * 0.3,
-            boxFit: BoxFit.cover,
-          ),
-          const SizedBox(width: 10),
-          Column(
+    return Material(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: () => _goToProductDetailsPage(context),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Row(
             children: [
-              Text(
-                'Product Name',
-                style: textTheme.headline4!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+              FancyShimmerImage(
+                imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                width: screenSize.width * 0.3,
+                height: screenSize.width * 0.3,
+                boxFit: BoxFit.cover,
               ),
-              const GCRQuantityController(),
+              const SizedBox(width: 10),
+              Column(
+                children: [
+                  Text(
+                    'Product Name',
+                    style: textTheme.headline4!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const GCRQuantityController(),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Icon(
+                      CupertinoIcons.cart_badge_minus,
+                      color: Colors.red,
+                      size: 30,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    color: Colors.red,
+                    iconSize: 30,
+                    icon: const Icon(IconlyBold.heart),
+                  ),
+                  if (salePrice == null)
+                    Text(
+                      '\$${price.toStringAsFixed(2)}',
+                      style: textTheme.bodyText1!.copyWith(
+                        fontSize: textTheme.bodyText1!.fontSize! + 4,
+                      ),
+                    ),
+                  if (salePrice != null)
+                    Text(
+                      '\$${salePrice!.toStringAsFixed(2)}',
+                      style: textTheme.bodyText1!.copyWith(
+                        fontSize: textTheme.bodyText1!.fontSize! + 4,
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
-          const Spacer(),
-          Column(
-            children: [
-              GestureDetector(
-                onTap: () {},
-                child: const Icon(
-                  CupertinoIcons.cart_badge_minus,
-                  color: Colors.red,
-                  size: 30,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                color: Colors.red,
-                iconSize: 30,
-                icon: const Icon(IconlyBold.heart),
-              ),
-              if (salePrice == null)
-                Text(
-                  '\$${price.toStringAsFixed(2)}',
-                  style: textTheme.bodyText1!.copyWith(
-                    fontSize: textTheme.bodyText1!.fontSize! + 4,
-                  ),
-                ),
-              if (salePrice != null)
-                Text(
-                  '\$${salePrice!.toStringAsFixed(2)}',
-                  style: textTheme.bodyText1!.copyWith(
-                    fontSize: textTheme.bodyText1!.fontSize! + 4,
-                  ),
-                ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

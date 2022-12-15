@@ -20,6 +20,8 @@ class RouteHandler {
         return OnSalePage.route(settings);
       case FeedPage.id:
         return FeedPage.route(settings);
+      case ProductDetailsPage.id:
+        return ProductDetailsPage.route(settings);
     }
 
     return null;
