@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import './presentation/utils/utils.dart';
-import './grocery_app.dart';
+import './presentation/grocery_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
