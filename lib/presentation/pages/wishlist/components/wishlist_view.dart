@@ -18,6 +18,7 @@ class WishlistView extends StatelessWidget {
               const SizedBox(height: 10),
               Expanded(
                 child: GridView.builder(
+                  itemCount: 16,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,

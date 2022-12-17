@@ -24,6 +24,8 @@ class RouteHandler {
         return ProductDetailsPage.route(settings);
       case WishlistPage.id:
         return WishlistPage.route(settings);
+      case OrdersPage.id:
+        return OrdersPage.route(settings);
     }
 
     return null;

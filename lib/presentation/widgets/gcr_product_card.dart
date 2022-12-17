@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
@@ -15,6 +16,8 @@ class GCRProductCard extends StatelessWidget {
     super.key,
     required this.price,
     this.salePrice,
+    this.quantity = 0,
+    this.date,
     this.type = ProductCardType.sale,
   });
 
@@ -22,6 +25,8 @@ class GCRProductCard extends StatelessWidget {
     super.key,
     required this.price,
     this.salePrice,
+    this.quantity = 0,
+    this.date,
     this.type = ProductCardType.feed,
   });
 
@@ -29,6 +34,8 @@ class GCRProductCard extends StatelessWidget {
     super.key,
     required this.price,
     this.salePrice,
+    this.quantity = 0,
+    this.date,
     this.type = ProductCardType.cart,
   });
 
@@ -36,11 +43,24 @@ class GCRProductCard extends StatelessWidget {
     super.key,
     required this.price,
     this.salePrice,
+    this.quantity = 0,
+    this.date,
     this.type = ProductCardType.wishlist,
+  });
+
+  const GCRProductCard.order({
+    super.key,
+    required this.price,
+    required this.quantity,
+    required this.date,
+    this.salePrice,
+    this.type = ProductCardType.order,
   });
 
   final double price;
   final double? salePrice;
+  final int quantity;
+  final DateTime? date;
   final ProductCardType type;
 
   @override
@@ -70,6 +90,14 @@ class GCRProductCard extends StatelessWidget {
       return _ProductWishlistCard(
         price: price,
         salePrice: salePrice,
+      );
+    }
+
+    if (type == ProductCardType.order) {
+      return _ProductOrderCard(
+        price: price,
+        quantity: quantity,
+        date: date!,
       );
     }
 

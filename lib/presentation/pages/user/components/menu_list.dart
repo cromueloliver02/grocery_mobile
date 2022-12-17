@@ -16,6 +16,11 @@ class MenuList extends StatelessWidget {
         builder: (ctx) => const AddressDialog(),
       );
 
+  void _goToOrdersPage(BuildContext ctx) => Navigator.pushNamed(
+        ctx,
+        OrdersPage.id,
+      );
+
   void _goToWishlistPage(BuildContext ctx) => Navigator.pushNamed(
         ctx,
         WishlistPage.id,
@@ -53,7 +58,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.bag,
             color: Colors.grey[600],
           ),
-          onTap: () {},
+          onTap: () => _goToOrdersPage(context),
         ),
         GCRMenuListTile(
           title: 'Wishlist',

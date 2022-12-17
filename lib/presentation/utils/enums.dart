@@ -1,3 +1,3 @@
-enum ProductCardType { sale, feed, cart, wishlist }
+enum ProductCardType { sale, feed, cart, wishlist, order }
 
 enum ButtonType { elevated, text }
