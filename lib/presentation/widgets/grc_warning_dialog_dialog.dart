@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../widgets/widgets.dart';
+import './widgets.dart';
 
-class SignOutDialog extends StatelessWidget {
-  const SignOutDialog({super.key});
+class GCRWarningDialog extends StatelessWidget {
+  const GCRWarningDialog({
+    super.key,
+    required this.title,
+    required this.message,
+  });
+
+  final String title;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +27,24 @@ class SignOutDialog extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text(
-            'Sign Out',
+            title,
             style: textTheme.headline4,
           ),
         ],
       ),
       content: Text(
-        'Do you wanna sign out?',
+        message,
         style: textTheme.bodyText1,
       ),
       actions: [
         GCRButton.text(
           labelText: 'Cancel',
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, false),
         ),
         GCRButton.text(
           labelText: 'Yes',
           foregroundColor: Colors.red,
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context, true),
         ),
       ],
     );

@@ -4,8 +4,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
+import '../../../utils/utils.dart';
 import './address_dialog.dart';
-import './sign_out_dialog.dart';
 
 class MenuList extends StatelessWidget {
   const MenuList({super.key});
@@ -21,11 +21,16 @@ class MenuList extends StatelessWidget {
         WishlistPage.id,
       );
 
-  void _showSignOutDialog(BuildContext ctx) => showDialog(
-        context: ctx,
-        barrierDismissible: false,
-        builder: (ctx) => const SignOutDialog(),
-      );
+  void _showSignOutDialog(BuildContext ctx) async {
+    final bool? response = await FunctionHandler.showWarningDialog(
+      ctx,
+      title: 'Sign Out',
+      message: 'Do you wanna sign out?',
+    );
+
+    debugPrint(response.toString());
+    // sign out functionality
+  }
 
   @override
   Widget build(BuildContext context) {

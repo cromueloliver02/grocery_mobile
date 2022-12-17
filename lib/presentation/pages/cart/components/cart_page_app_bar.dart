@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../widgets/gcr_button.dart';
+import '../../../utils/utils.dart';
 
 class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});
+
+  void _showClearCartDialog(BuildContext ctx) async {
+    final bool? response = await FunctionHandler.showWarningDialog(
+      ctx,
+      title: 'Clear Cart',
+      message: 'Do you wanna clear your cart?',
+    );
+
+    debugPrint(response.toString());
+    // clear cart functionality
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class CartPageAppBar extends StatelessWidget {
             style: textTheme.headline3,
           ),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () => _showClearCartDialog(context),
             iconSize: 30,
             icon: const Icon(IconlyBroken.delete),
           ),
