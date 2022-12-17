@@ -22,6 +22,8 @@ class RouteHandler {
         return FeedPage.route(settings);
       case ProductDetailsPage.id:
         return ProductDetailsPage.route(settings);
+      case WishlistPage.id:
+        return WishlistPage.route(settings);
     }
 
     return null;

@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 import './address_dialog.dart';
 import './sign_out_dialog.dart';
 
@@ -13,6 +14,11 @@ class MenuList extends StatelessWidget {
         context: ctx,
         barrierDismissible: false,
         builder: (ctx) => const AddressDialog(),
+      );
+
+  void _goToWishlistPage(BuildContext ctx) => Navigator.pushNamed(
+        ctx,
+        WishlistPage.id,
       );
 
   void _showSignOutDialog(BuildContext ctx) => showDialog(
@@ -51,7 +57,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.heart,
             color: Colors.grey[600],
           ),
-          onTap: () {},
+          onTap: () => _goToWishlistPage(context),
         ),
         GCRMenuListTile(
           title: 'Viewed',
