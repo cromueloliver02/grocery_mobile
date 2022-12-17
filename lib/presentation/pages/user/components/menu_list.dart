@@ -83,20 +83,18 @@ class MenuList extends StatelessWidget {
           onTap: () {},
         ),
         BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (ctx, state) {
-            return GCRMenuListTile(
-              title: 'Dark mode',
-              leading: Icon(
-                state.isDark ? Icons.dark_mode : Icons.light_mode,
-                color: Colors.grey[600],
-              ),
-              trailing: Switch(
-                value: state.isDark,
-                onChanged: (value) => ctx.read<ThemeCubit>().toggleTheme(),
-              ),
-              onTap: () {},
-            );
-          },
+          builder: (ctx, state) => GCRMenuListTile(
+            title: 'Dark mode',
+            leading: Icon(
+              state.isDark ? Icons.dark_mode : Icons.light_mode,
+              color: Colors.grey[600],
+            ),
+            trailing: Switch(
+              value: state.isDark,
+              onChanged: (value) => ctx.read<ThemeCubit>().toggleTheme(),
+            ),
+            onTap: () {},
+          ),
         ),
         GCRMenuListTile(
           title: 'Logout',
