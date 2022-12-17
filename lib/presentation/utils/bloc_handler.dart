@@ -5,5 +5,8 @@ class BlocHandler {
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),
+    BlocProvider<NavigationCubit>(
+      create: (ctx) => NavigationCubit(),
+    ),
   ];
 }
