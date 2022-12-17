@@ -400,87 +400,95 @@ class _ProductWishlistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
 
-    return InkWell(
-      onTap: () => _goToProductDetailsPage(context),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey),
-        ),
-        child: Row(
-          children: [
-            FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-              width: screenSize.width * 0.2,
-              height: screenSize.width * 0.2,
-              boxFit: BoxFit.cover,
-            ),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    return Material(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: () => _goToProductDetailsPage(context),
+        borderRadius: BorderRadius.circular(12),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                FancyShimmerImage(
+                  imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                  width: screenSize.width * 0.2,
+                  height: screenSize.width * 0.2,
+                  boxFit: BoxFit.cover,
+                ),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          IconlyBold.bag2,
-                          color: Colors.green,
-                          size: 28,
+                      Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Icon(
+                              IconlyBold.bag2,
+                              color: Colors.green,
+                              size: 28,
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Icon(
+                              IconlyBold.heart,
+                              color: Colors.red,
+                              size: 28,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        'Tomatoes',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.headline4!.copyWith(
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          IconlyBold.heart,
-                          color: Colors.red,
-                          size: 28,
+                      const SizedBox(height: 15),
+                      if (salePrice == null)
+                        Text(
+                          '\$$price',
+                          style: textTheme.headline2!.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
+                      if (salePrice != null) ...[
+                        Text(
+                          '\$$salePrice',
+                          style: textTheme.headline2!.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '\$$price',
+                          style: textTheme.headline4!.copyWith(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w400,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    'Tomatoes',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.headline4!.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  if (salePrice == null)
-                    Text(
-                      '\$$price',
-                      style: textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  if (salePrice != null) ...[
-                    Text(
-                      '\$$salePrice',
-                      style: textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '\$$price',
-                      style: textTheme.headline4!.copyWith(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
