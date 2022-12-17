@@ -26,6 +26,11 @@ class MenuList extends StatelessWidget {
         WishlistPage.id,
       );
 
+  void _goToViewedRecentlyPage(BuildContext ctx) => Navigator.pushNamed(
+        ctx,
+        ViewedRecentlyPage.id,
+      );
+
   void _showSignOutDialog(BuildContext ctx) async {
     final bool? response = await FunctionHandler.showWarningDialog(
       ctx,
@@ -70,13 +75,13 @@ class MenuList extends StatelessWidget {
           onTap: () => _goToWishlistPage(context),
         ),
         GCRMenuListTile(
-          title: 'Viewed',
+          title: 'Viewed Recently',
           trailing: const Icon(IconlyLight.arrowRight2),
           leading: Icon(
             IconlyLight.show,
             color: Colors.grey[600],
           ),
-          onTap: () {},
+          onTap: () => _goToViewedRecentlyPage(context),
         ),
         GCRMenuListTile(
           title: 'Forget password',

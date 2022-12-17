@@ -57,6 +57,15 @@ class GCRProductCard extends StatelessWidget {
     this.type = ProductCardType.order,
   });
 
+  const GCRProductCard.viewed({
+    super.key,
+    required this.price,
+    this.salePrice,
+    this.quantity = 0,
+    this.date,
+    this.type = ProductCardType.viewed,
+  });
+
   final double price;
   final double? salePrice;
   final int quantity;
@@ -98,6 +107,13 @@ class GCRProductCard extends StatelessWidget {
         price: price,
         quantity: quantity,
         date: date!,
+      );
+    }
+
+    if (type == ProductCardType.viewed) {
+      return _ProductViewedCard(
+        price: price,
+        salePrice: salePrice,
       );
     }
 

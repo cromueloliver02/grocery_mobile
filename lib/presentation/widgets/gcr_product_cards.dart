@@ -469,7 +469,7 @@ class _ProductWishlistCard extends StatelessWidget {
                         ),
                       if (salePrice != null) ...[
                         Text(
-                          '\$$salePrice',
+                          '\$${salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline2!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
@@ -558,6 +558,109 @@ class _ProductOrderCard extends StatelessWidget {
               DateFormat('MM/d/yyyy').format(date),
               style: textTheme.headline5!.copyWith(
                 fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductViewedCard extends StatelessWidget {
+  const _ProductViewedCard({
+    Key? key,
+    required this.price,
+    this.salePrice,
+  }) : super(key: key);
+
+  final double price;
+  final double? salePrice;
+
+  void _goToProductDetailsPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final screenSize = MediaQuery.of(context).size;
+
+    return InkWell(
+      onTap: () => _goToProductDetailsPage(context),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            FancyShimmerImage(
+              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+              width: screenSize.width * 0.25,
+              height: screenSize.width * 0.25,
+              boxFit: BoxFit.cover,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Product Name',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.headline4!.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      if (salePrice == null)
+                        Text(
+                          '\$${price.toStringAsFixed(2)}',
+                          style: textTheme.headline3!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      if (salePrice != null) ...[
+                        Text(
+                          '\$${salePrice!.toStringAsFixed(2)}',
+                          style: textTheme.headline3!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          '\$${price.toStringAsFixed(2)}',
+                          style: textTheme.headline5!.copyWith(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w400,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: theme.canvasColor,
+                ),
               ),
             ),
           ],
