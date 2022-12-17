@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../utils/utils.dart';
+
 class GCRButton extends StatelessWidget {
   const GCRButton.elevated({
     super.key,
     required this.labelText,
     required this.onPressed,
+    this.loading = false,
     this.foregroundColor = Colors.white,
     this.backgroundColor = Colors.cyan,
-    this.loading = false,
-    this.isElevated = true,
-    this.isText = false,
+    this.type = ButtonType.elevated,
   });
 
   const GCRButton.text({
@@ -19,8 +20,7 @@ class GCRButton extends StatelessWidget {
     this.loading = false,
     this.foregroundColor = Colors.cyan,
     this.backgroundColor = Colors.transparent,
-    this.isElevated = false,
-    this.isText = true,
+    this.type = ButtonType.text,
   });
 
   final String labelText;
@@ -28,12 +28,11 @@ class GCRButton extends StatelessWidget {
   final bool loading;
   final Color foregroundColor;
   final Color backgroundColor;
-  final bool isElevated;
-  final bool isText;
+  final ButtonType type;
 
   @override
   Widget build(BuildContext context) {
-    if (isElevated) {
+    if (type == ButtonType.elevated) {
       return _ElevatedButton(
         labelText: labelText,
         onPressed: onPressed,
@@ -43,7 +42,7 @@ class GCRButton extends StatelessWidget {
       );
     }
 
-    if (isText) {
+    if (type == ButtonType.text) {
       return _TextButton(
         labelText: labelText,
         onPressed: onPressed,
