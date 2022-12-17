@@ -11,7 +11,10 @@ class WishlistPageAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Icon(Icons.arrow_back),
+        IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back),
+        ),
         Text(
           'Wishlist (13)',
           style: textTheme.headline3,
