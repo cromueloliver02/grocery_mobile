@@ -1,50 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../widgets/widgets.dart';
+import './cart_page_app_bar.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            ListTile(
-              contentPadding: const EdgeInsets.only(left: 10),
-              title: Text(
-                'Cart (13)',
-                style: textTheme.headline3,
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                iconSize: 30,
-                icon: const Icon(IconlyBroken.delete),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GCRButton.elevated(
-                    labelText: 'Order Now',
-                    onPressed: () {},
-                  ),
-                  Text(
-                    'Total: \$10.38',
-                    style: textTheme.headline4!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const CartPageAppBar(),
             const SizedBox(height: 10),
             Expanded(
               child: ListView.separated(
