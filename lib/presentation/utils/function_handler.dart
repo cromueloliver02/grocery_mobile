@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
 
-import '../widgets/grc_warning_dialog_dialog.dart';
+import '../widgets/widgets.dart';
 
 class FunctionHandler {
   static Future<bool?> showWarningDialog(
