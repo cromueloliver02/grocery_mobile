@@ -4,51 +4,69 @@ import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
 import '../../../utils/utils.dart';
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  State<SignUpForm> createState() => _SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignInFormState extends State<SignUpForm> {
+  late final FocusNode _emailNode; // might remove all nodes in the future
   late final FocusNode _passwordNode;
+  late final FocusNode _shippingNode;
   final _formKey = GlobalKey<FormState>();
 
-  void _signIn(BuildContext ctx) {
-    ctx.read<SignInFormBloc>().add(SignInFormAutovalidateEnabled());
+  void _signUp(BuildContext ctx) {
+    ctx.read<SignUpFormBloc>().add(SignUpFormAutovalidateEnabled());
 
     final FormState? form = _formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
     form.save();
-    // sign in functionality
+    // sign up functionality
+  }
+
+  void _nameHandler(BuildContext ctx, String? name) {
+    ctx.read<SignUpFormBloc>().add(SignUpFormNameChanged(name: name));
   }
 
   void _emailHandler(BuildContext ctx, String? email) {
-    ctx.read<SignInFormBloc>().add(SignInFormEmailChanged(email: email));
+    ctx.read<SignUpFormBloc>().add(SignUpFormEmailChanged(email: email));
   }
 
   void _passwordHandler(BuildContext ctx, String? password) {
-    ctx.read<SignInFormBloc>().add(SignInFormPassChanged(password: password));
+    ctx.read<SignUpFormBloc>().add(SignUpFormPassChanged(password: password));
+  }
+
+  void _shipAddressHandler(BuildContext ctx, String? shipAddress) {
+    ctx
+        .read<SignUpFormBloc>()
+        .add(SignUpFormShipAddressChanged(shipAddress: shipAddress));
   }
 
   void _togglePasswordHandler(BuildContext ctx) {
-    ctx.read<SignInFormBloc>().add(SignInFormPassToggled());
+    ctx.read<SignUpFormBloc>().add(SignUpFormPassToggled());
   }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return BlocBuilder<SignInFormBloc, SignInFormState>(
+    return BlocBuilder<SignUpFormBloc, SignUpFormState>(
       builder: (ctx, state) => Form(
         key: _formKey,
         autovalidateMode: state.autovalidateMode,
         child: Column(
           children: [
             GCRTextFormField(
+              hintText: 'Full name',
+              textInputAction: TextInputAction.next,
+              validator: FunctionHandler.nameValidator,
+              onSaved: (String? value) => _nameHandler(context, value),
+            ),
+            const SizedBox(height: 20),
+            GCRTextFormField(
+              focusNode: _emailNode,
               hintText: 'Email Address',
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -61,7 +79,7 @@ class _SignInFormState extends State<SignInForm> {
               obscureText: state.hidePassword,
               hintText: 'Password',
               keyboardType: TextInputType.visiblePassword,
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.next,
               suffixIcon: GestureDetector(
                 onTap: () => _togglePasswordHandler(context),
                 child: Icon(
@@ -71,32 +89,24 @@ class _SignInFormState extends State<SignInForm> {
                 ),
               ),
               validator: FunctionHandler.passwordValidator,
-              onEditingComplete: () => _signIn(context),
               onSaved: (String? value) => _passwordHandler(context, value),
             ),
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Forgot Password?',
-                  style: textTheme.bodyText1!.copyWith(
-                    color: Colors.lightBlue,
-                    fontSize: textTheme.bodyText1!.fontSize! + 2,
-                    fontStyle: FontStyle.italic,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
+            GCRTextFormField(
+              focusNode: _shippingNode,
+              hintText: 'Shipping Address',
+              textInputAction: TextInputAction.done,
+              validator: FunctionHandler.shipAddressValidator,
+              onEditingComplete: () => _signUp(context),
+              onSaved: (String? value) => _shipAddressHandler(context, value),
             ),
             const SizedBox(height: 15),
             SizedBox(
               width: double.infinity,
               child: GCRButton.elevated(
-                labelText: 'Sign In',
+                labelText: 'Sign Up',
                 backgroundColor: Colors.white38,
-                onPressed: () => _signIn(context),
+                onPressed: () => _signUp(context),
               ),
             ),
           ],
@@ -108,12 +118,16 @@ class _SignInFormState extends State<SignInForm> {
   @override
   void initState() {
     super.initState();
+    _emailNode = FocusNode();
     _passwordNode = FocusNode();
+    _shippingNode = FocusNode();
   }
 
   @override
   void dispose() {
+    _emailNode.dispose();
     _passwordNode.dispose();
+    _shippingNode.dispose();
     super.dispose();
   }
 }

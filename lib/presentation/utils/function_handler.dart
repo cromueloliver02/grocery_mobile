@@ -19,6 +19,18 @@ class FunctionHandler {
     );
   }
 
+  static String? nameValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Name is required';
+    }
+
+    if (value.trim().length < 6) {
+      return 'Name should be at least 6 characters long';
+    }
+
+    return null;
+  }
+
   static String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Email is required';
@@ -37,7 +49,19 @@ class FunctionHandler {
     }
 
     if (value.length < 6) {
-      return 'Password should be at least 6 characters';
+      return 'Password should be at least 6 characters long';
+    }
+
+    return null;
+  }
+
+  static String? shipAddressValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Shipping address is required';
+    }
+
+    if (value.trim().length < 12) {
+      return 'Shipping address should be at least 12 characters long';
     }
 
     return null;
