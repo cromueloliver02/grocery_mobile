@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
+import '../../../utils/utils.dart';
 import './on_sale_section.dart';
 import './our_products_section.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-
-  final _bannerImages = [
-    'assets/images/offers/Offer1.jpg',
-    'assets/images/offers/Offer2.jpg',
-    'assets/images/offers/Offer3.jpg',
-    'assets/images/offers/Offer4.jpg',
-  ];
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +19,7 @@ class HomeView extends StatelessWidget {
             height: screenSize.height / 3,
             child: Swiper(
               autoplay: true,
-              itemCount: _bannerImages.length,
+              itemCount: bannerImages.length,
               // control: const SwiperControl(color: Colors.black),
               pagination: const SwiperPagination(
                 alignment: Alignment.bottomCenter,
@@ -35,7 +29,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               itemBuilder: (ctx, idx) => Image.asset(
-                _bannerImages[idx],
+                bannerImages[idx],
                 fit: BoxFit.cover,
               ),
             ),
