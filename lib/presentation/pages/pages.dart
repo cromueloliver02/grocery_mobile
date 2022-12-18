@@ -1,5 +1,6 @@
 export './sign_in/sign_in_page.dart';
 export './sign_up/sign_up_page.dart';
+export './forgot_password/forgot_password_page.dart';
 export './navigation/navigation_page.dart';
 export './home/home_page.dart';
 export './category/category_page.dart';
