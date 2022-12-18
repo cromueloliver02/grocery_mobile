@@ -28,22 +28,22 @@ class _SignInFormState extends State<SignUpForm> {
     // sign up functionality
   }
 
-  void _nameHandler(BuildContext ctx, String? name) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormNameChanged(name: name));
+  void _saveName(BuildContext ctx, String? name) {
+    ctx.read<SignUpFormBloc>().add(SignUpFormNameSaved(name: name));
   }
 
-  void _emailHandler(BuildContext ctx, String? email) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormEmailChanged(email: email));
+  void _saveEmail(BuildContext ctx, String? email) {
+    ctx.read<SignUpFormBloc>().add(SignUpFormEmailSaved(email: email));
   }
 
-  void _passwordHandler(BuildContext ctx, String? password) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormPassChanged(password: password));
+  void _savePassword(BuildContext ctx, String? password) {
+    ctx.read<SignUpFormBloc>().add(SignUpFormPassSaved(password: password));
   }
 
-  void _shipAddressHandler(BuildContext ctx, String? shipAddress) {
+  void _saveShipAddress(BuildContext ctx, String? shipAddress) {
     ctx
         .read<SignUpFormBloc>()
-        .add(SignUpFormShipAddressChanged(shipAddress: shipAddress));
+        .add(SignUpFormShipAddressSaved(shipAddress: shipAddress));
   }
 
   void _togglePasswordHandler(BuildContext ctx) {
@@ -62,7 +62,7 @@ class _SignInFormState extends State<SignUpForm> {
               hintText: 'Full name',
               textInputAction: TextInputAction.next,
               validator: FunctionHandler.nameValidator,
-              onSaved: (String? value) => _nameHandler(context, value),
+              onSaved: (String? value) => _saveName(context, value),
             ),
             const SizedBox(height: 20),
             GCRTextFormField(
@@ -71,7 +71,7 @@ class _SignInFormState extends State<SignUpForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               validator: FunctionHandler.emailValidator,
-              onSaved: (String? value) => _emailHandler(context, value),
+              onSaved: (String? value) => _saveEmail(context, value),
             ),
             const SizedBox(height: 20),
             GCRTextFormField(
@@ -89,7 +89,7 @@ class _SignInFormState extends State<SignUpForm> {
                 ),
               ),
               validator: FunctionHandler.passwordValidator,
-              onSaved: (String? value) => _passwordHandler(context, value),
+              onSaved: (String? value) => _savePassword(context, value),
             ),
             const SizedBox(height: 20),
             GCRTextFormField(
@@ -98,7 +98,7 @@ class _SignInFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               validator: FunctionHandler.shipAddressValidator,
               onEditingComplete: () => _signUp(context),
-              onSaved: (String? value) => _shipAddressHandler(context, value),
+              onSaved: (String? value) => _saveShipAddress(context, value),
             ),
             const SizedBox(height: 15),
             SizedBox(

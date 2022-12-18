@@ -7,10 +7,10 @@ abstract class SignInFormEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class SignInFormEmailChanged extends SignInFormEvent {
+class SignInFormEmailSaved extends SignInFormEvent {
   final String? email;
 
-  const SignInFormEmailChanged({
+  const SignInFormEmailSaved({
     required this.email,
   });
 
@@ -18,10 +18,10 @@ class SignInFormEmailChanged extends SignInFormEvent {
   List<Object?> get props => [email];
 }
 
-class SignInFormPassChanged extends SignInFormEvent {
+class SignInFormPassSaved extends SignInFormEvent {
   final String? password;
 
-  const SignInFormPassChanged({
+  const SignInFormPassSaved({
     required this.password,
   });
 

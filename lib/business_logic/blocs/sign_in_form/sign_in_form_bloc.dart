@@ -7,21 +7,21 @@ part 'sign_in_form_state.dart';
 
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   SignInFormBloc() : super(SignInFormState.initial()) {
-    on<SignInFormEmailChanged>(_onChangeEmail);
-    on<SignInFormPassChanged>(_onChangePassword);
+    on<SignInFormEmailSaved>(_onSaveEmail);
+    on<SignInFormPassSaved>(_onSavePassword);
     on<SignInFormPassToggled>(_onTogglePassword);
     on<SignInFormAutovalidateEnabled>(_onEnableAutovalidate);
   }
 
-  void _onChangeEmail(
-    SignInFormEmailChanged event,
+  void _onSaveEmail(
+    SignInFormEmailSaved event,
     Emitter<SignInFormState> emit,
   ) {
     emit(state.copyWith(email: event.email ?? state.email));
   }
 
-  void _onChangePassword(
-    SignInFormPassChanged event,
+  void _onSavePassword(
+    SignInFormPassSaved event,
     Emitter<SignInFormState> emit,
   ) {
     emit(state.copyWith(password: event.password ?? state.password));
