@@ -5,3 +5,6 @@ export './gcr_product_card.dart';
 export './gcr_message_card.dart';
 export './gcr_empty_message_card.dart';
 export './gcr_quantity_controller.dart';
+export './gcr_auth_background_carousel.dart';
+export './gcr_text_form_field.dart';
+export './gcr_google_button.dart';

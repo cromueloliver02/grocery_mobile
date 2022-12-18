@@ -3,6 +3,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../pages/pages.dart';
+import '../../../utils/utils.dart';
 import './navigation_page_bottom_bar.dart';
 
 class NavigationView extends StatelessWidget {
@@ -19,10 +20,7 @@ class NavigationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (ctx, state) => KeyboardDismisser(
-        gestures: const [
-          GestureType.onDoubleTap,
-          GestureType.onPanUpdateDownDirection,
-        ],
+        gestures: dismissKeyboardGestures,
         child: Scaffold(
           bottomNavigationBar: const NavigationPageBottomBar(),
           body: IndexedStack(

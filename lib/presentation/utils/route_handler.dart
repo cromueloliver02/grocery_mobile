@@ -6,6 +6,8 @@ import '../pages/pages.dart';
 class RouteHandler {
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case SignInPage.id:
+        return SignInPage.route(settings);
       case NavigationPage.id:
         return NavigationPage.route(settings);
       case HomePage.id:
