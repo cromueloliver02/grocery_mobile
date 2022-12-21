@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-const uuid = Uuid();
+const _uuid = Uuid();
 
 class Category extends Equatable {
   final String id;
@@ -41,37 +41,37 @@ class Category extends Equatable {
 
   static final List<Category> categories = [
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Fruits',
       imageUrl: 'assets/images/category/fruits.png',
       color: const Color(0xff53B175),
     ),
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Vegetables',
       imageUrl: 'assets/images/category/veg.png',
       color: const Color(0xffF8A44C),
     ),
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Herbs',
       imageUrl: 'assets/images/category/spinach.png',
       color: const Color(0xffF7A593),
     ),
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Nuts',
       imageUrl: 'assets/images/category/nuts.png',
       color: const Color(0xffD3B0E0),
     ),
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Spices',
       imageUrl: 'assets/images/category/spices.png',
       color: const Color(0xffFDE598),
     ),
     Category(
-      id: uuid.v4(),
+      id: _uuid.v4(),
       name: 'Grains',
       imageUrl: 'assets/images/category/grains.png',
       color: const Color(0xffB7DFF5),

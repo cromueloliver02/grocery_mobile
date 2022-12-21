@@ -14,6 +14,8 @@ part './gcr_product_cards.dart';
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
     super.key,
+    this.name = 'Product Name',
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
     required this.price,
     this.salePrice,
     this.quantity = 0,
@@ -23,6 +25,8 @@ class GCRProductCard extends StatelessWidget {
 
   const GCRProductCard.feed({
     super.key,
+    required this.name,
+    required this.imageUrl,
     required this.price,
     this.salePrice,
     this.quantity = 0,
@@ -32,6 +36,8 @@ class GCRProductCard extends StatelessWidget {
 
   const GCRProductCard.cart({
     super.key,
+    this.name = 'Product Name',
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
     required this.price,
     this.salePrice,
     this.quantity = 0,
@@ -41,6 +47,8 @@ class GCRProductCard extends StatelessWidget {
 
   const GCRProductCard.wishlist({
     super.key,
+    this.name = 'Product Name',
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
     required this.price,
     this.salePrice,
     this.quantity = 0,
@@ -50,6 +58,8 @@ class GCRProductCard extends StatelessWidget {
 
   const GCRProductCard.order({
     super.key,
+    this.name = 'Product Name',
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
     required this.price,
     required this.quantity,
     required this.date,
@@ -59,6 +69,8 @@ class GCRProductCard extends StatelessWidget {
 
   const GCRProductCard.viewed({
     super.key,
+    this.name = 'Product Name',
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
     required this.price,
     this.salePrice,
     this.quantity = 0,
@@ -66,6 +78,8 @@ class GCRProductCard extends StatelessWidget {
     this.type = ProductCardType.viewed,
   });
 
+  final String name;
+  final String imageUrl;
   final double price;
   final double? salePrice;
   final int quantity;
@@ -83,6 +97,8 @@ class GCRProductCard extends StatelessWidget {
 
     if (type == ProductCardType.feed) {
       return _ProductFeedCard(
+        name: name,
+        imageUrl: imageUrl,
         price: price,
         salePrice: salePrice,
       );

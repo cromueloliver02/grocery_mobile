@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './feed_page_search_bar.dart';
 
@@ -25,7 +26,7 @@ class FeedView extends StatelessWidget {
             const FeedPageSearchBar(),
             Expanded(
               child: GridView.builder(
-                itemCount: 15,
+                itemCount: Product.products.length,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   mainAxisSpacing: 10,
@@ -33,10 +34,16 @@ class FeedView extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 370 / 450,
                 ),
-                itemBuilder: (ctx, idx) => const GCRProductCard.feed(
-                  price: 7.92,
-                  salePrice: 5.95,
-                ),
+                itemBuilder: (ctx, idx) {
+                  final Product product = Product.products[idx];
+
+                  return GCRProductCard.feed(
+                    name: product.name,
+                    imageUrl: product.imageUrl,
+                    price: product.price,
+                    salePrice: product.salePrice,
+                  );
+                },
               ),
             ),
           ],

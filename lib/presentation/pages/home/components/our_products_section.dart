@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import '../../pages.dart';
 
@@ -41,22 +42,15 @@ class OurProductsSection extends StatelessWidget {
           crossAxisSpacing: 10,
           crossAxisCount: 2,
           childAspectRatio: 370 / 450,
-          children: const [
-            GCRProductCard.feed(
-              price: 3.92,
-              salePrice: 2.477777,
+          children: List.generate(
+            Product.products.length < 6 ? Product.products.length : 6,
+            (idx) => GCRProductCard.feed(
+              name: Product.products[idx].name,
+              imageUrl: Product.products[idx].imageUrl,
+              price: Product.products[idx].price,
+              salePrice: Product.products[idx].salePrice,
             ),
-            GCRProductCard.feed(price: 4.92),
-            GCRProductCard.feed(
-              price: 5.92,
-              salePrice: 5.2,
-            ),
-            GCRProductCard.feed(price: 6.92),
-            GCRProductCard.feed(
-              price: 7.92,
-              salePrice: 5.95,
-            ),
-          ],
+          ),
         ),
       ],
     );

@@ -133,10 +133,14 @@ class _ProductSaleCard extends StatelessWidget {
 class _ProductFeedCard extends StatefulWidget {
   const _ProductFeedCard({
     Key? key,
+    required this.name,
+    required this.imageUrl,
     required this.price,
     this.salePrice,
   }) : super(key: key);
 
+  final String name;
+  final String imageUrl;
   final double price;
   final double? salePrice;
 
@@ -171,7 +175,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
               child: Column(
                 children: [
                   FancyShimmerImage(
-                    imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                    imageUrl: widget.imageUrl,
                     width: screenSize.width * 0.22,
                     height: screenSize.width * 0.22,
                     boxFit: BoxFit.cover,
@@ -181,11 +185,10 @@ class _FeedCardState extends State<_ProductFeedCard> {
                     children: [
                       Flexible(
                         child: Text(
-                          'Product Name',
-                          maxLines: 2,
+                          widget.name,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.headline4!.copyWith(
+                          style: textTheme.headline5!.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
