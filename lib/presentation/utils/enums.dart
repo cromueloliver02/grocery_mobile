@@ -1,3 +1,5 @@
+enum MeasureUnit { kg, piece }
+
 enum ProductCardType {
   sale,
   feed,
