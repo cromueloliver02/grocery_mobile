@@ -4,7 +4,7 @@ import '../pages.dart';
 import './components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {
-  static const id = '${UserPage.id}/wishlist';
+  static const id = '${NavigationPage.id}/wishlist';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

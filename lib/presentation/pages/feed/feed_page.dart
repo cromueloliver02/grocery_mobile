@@ -4,7 +4,7 @@ import '../pages.dart';
 import './components/feed_view.dart';
 
 class FeedPage extends StatelessWidget {
-  static const id = '${HomePage.id}/feed';
+  static const id = '${NavigationPage.id}/feed';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

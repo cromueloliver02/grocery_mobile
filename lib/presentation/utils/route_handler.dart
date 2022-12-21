@@ -14,14 +14,6 @@ class RouteHandler {
         return ForgotPasswordPage.route(settings);
       case NavigationPage.id:
         return NavigationPage.route(settings);
-      case HomePage.id:
-        return HomePage.route(settings);
-      case CategoryPage.id:
-        return CategoryPage.route(settings);
-      case CartPage.id:
-        return CartPage.route(settings);
-      case UserPage.id:
-        return UserPage.route(settings);
       case OnSalePage.id:
         return OnSalePage.route(settings);
       case FeedPage.id:

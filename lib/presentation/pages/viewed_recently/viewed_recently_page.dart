@@ -4,7 +4,7 @@ import '../pages.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
-  static const id = '${UserPage.id}/viewed-recently';
+  static const id = '${NavigationPage.id}/viewed-recently';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

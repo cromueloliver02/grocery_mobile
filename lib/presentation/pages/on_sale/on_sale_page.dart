@@ -4,7 +4,7 @@ import '../pages.dart';
 import './components/on_sale_view.dart';
 
 class OnSalePage extends StatelessWidget {
-  static const id = '${HomePage.id}/on-sale';
+  static const id = '${NavigationPage.id}/on-sale';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
