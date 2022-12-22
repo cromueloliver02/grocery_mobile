@@ -18,7 +18,7 @@ class GCROrderCard extends StatelessWidget {
   final DateTime date;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override
