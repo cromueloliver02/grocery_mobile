@@ -16,44 +16,44 @@ class OurProductsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Our Products',
-                style: textTheme.headline3,
+    return BlocBuilder<ProductFeedBloc, ProductFeedState>(
+      builder: (ctx, state) {
+        if (state.status == ProductFeedStatus.initial) {
+          return const SizedBox.shrink();
+        }
+
+        if (state.status == ProductFeedStatus.loading) {
+          return const GCRLoadingCard();
+        }
+
+        if (state.status == ProductFeedStatus.failure) {
+          return const GCRErrorCard();
+        }
+
+        if (state.productFeeds.isEmpty) {
+          return const GCRMessageCard(message: 'Product feeds is empty');
+        }
+
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Our Products',
+                    style: textTheme.headline3,
+                  ),
+                  GCRButton.text(
+                    labelText: 'Browse All',
+                    onPressed: () => _goToFeedPage(context),
+                  ),
+                ],
               ),
-              GCRButton.text(
-                labelText: 'Browse All',
-                onPressed: () => _goToFeedPage(context),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 10),
-        BlocBuilder<ProductFeedBloc, ProductFeedState>(
-          builder: (ctx, state) {
-            if (state.status == ProductFeedStatus.initial) {
-              return const SizedBox.shrink();
-            }
-
-            if (state.status == ProductFeedStatus.loading) {
-              return const GCRLoadingCard();
-            }
-
-            if (state.status == ProductFeedStatus.failure) {
-              return const GCRErrorCard();
-            }
-
-            if (state.productFeeds.isEmpty) {
-              return const GCRMessageCard(message: 'Products feeds is empty');
-            }
-
-            return GridView.count(
+            ),
+            const SizedBox(width: 10),
+            GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -70,10 +70,10 @@ class OurProductsSection extends StatelessWidget {
                   salePrice: state.productFeeds[idx].salePrice,
                 ),
               ),
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './feed_page_search_bar.dart';
@@ -25,25 +26,27 @@ class FeedView extends StatelessWidget {
           children: [
             const FeedPageSearchBar(),
             Expanded(
-              child: GridView.builder(
-                itemCount: Product.productFeeds.length,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  childAspectRatio: 370 / 450,
-                ),
-                itemBuilder: (ctx, idx) {
-                  final Product product = Product.productFeeds[idx];
+              child: BlocBuilder<ProductFeedBloc, ProductFeedState>(
+                builder: (ctx, state) => GridView.builder(
+                  itemCount: state.productFeeds.length,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    childAspectRatio: 370 / 450,
+                  ),
+                  itemBuilder: (ctx, idx) {
+                    final Product product = state.productFeeds[idx];
 
-                  return GCRProductCard.feed(
-                    name: product.name,
-                    imageUrl: product.imageUrl,
-                    price: product.price,
-                    salePrice: product.salePrice,
-                  );
-                },
+                    return GCRProductCard.feed(
+                      name: product.name,
+                      imageUrl: product.imageUrl,
+                      price: product.price,
+                      salePrice: product.salePrice,
+                    );
+                  },
+                ),
               ),
             ),
           ],
