@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
 import '../../pages.dart';
 
@@ -17,21 +16,9 @@ class OnSaleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return BlocBuilder<ProductListBloc, ProductListState>(
-      builder: (ctx, productListState) {
-        if (productListState.status == ProductListStatus.initial) {
-          return const SizedBox.shrink();
-        }
-
-        if (productListState.status == ProductListStatus.loading) {
-          return const GCRLoadingCard();
-        }
-
-        if (productListState.status == ProductListStatus.failure) {
-          return const GCRErrorCard();
-        }
-
-        if (ctx.watch<ProductsOnSaleBloc>().state.productsOnSale.isEmpty) {
+    return BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
+      builder: (ctx, state) {
+        if (state.productsOnSale.isEmpty) {
           return const GCRMessageCard(message: 'Product on sale is empty');
         }
 
@@ -87,8 +74,8 @@ class _ProductOnSaleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
-      builder: (ctx, productOnSaleState) {
-        final int productSaleCount = productOnSaleState.productsOnSale.length;
+      builder: (ctx, state) {
+        final int productSaleCount = state.productsOnSale.length;
 
         return ListView.separated(
           itemCount: productSaleCount < 5 ? productSaleCount : 5,
@@ -96,11 +83,11 @@ class _ProductOnSaleList extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
           itemBuilder: (ctx, idx) => GCRProductCard.sale(
-            name: productOnSaleState.productsOnSale[idx].name,
-            imageUrl: productOnSaleState.productsOnSale[idx].imageUrl,
-            price: productOnSaleState.productsOnSale[idx].price,
-            salePrice: productOnSaleState.productsOnSale[idx].salePrice,
-            measureUnit: productOnSaleState.productsOnSale[idx].measureUnit,
+            name: state.productsOnSale[idx].name,
+            imageUrl: state.productsOnSale[idx].imageUrl,
+            price: state.productsOnSale[idx].price,
+            salePrice: state.productsOnSale[idx].salePrice,
+            measureUnit: state.productsOnSale[idx].measureUnit,
           ),
         );
       },

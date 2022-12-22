@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
+import '../../../widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import './on_sale_section.dart';
 import './our_products_section.dart';
@@ -34,11 +36,31 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 5),
-          const OnSaleSection(),
-          const SizedBox(height: 10),
-          const OurProductsSection(),
-          const SizedBox(height: 10),
+          BlocBuilder<ProductListBloc, ProductListState>(
+            builder: (ctx, state) {
+              if (state.status == ProductListStatus.initial) {
+                return const SizedBox.shrink();
+              }
+
+              if (state.status == ProductListStatus.loading) {
+                return const GCRLoadingCard();
+              }
+
+              if (state.status == ProductListStatus.failure) {
+                return const GCRErrorCard();
+              }
+
+              return Column(
+                children: const [
+                  SizedBox(height: 10),
+                  OnSaleSection(),
+                  SizedBox(height: 10),
+                  OurProductsSection(),
+                  SizedBox(height: 10),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
 import '../../pages.dart';
-import '../../../utils/utils.dart';
 
 class OurProductsSection extends StatelessWidget {
   const OurProductsSection({super.key});
@@ -18,18 +17,6 @@ class OurProductsSection extends StatelessWidget {
 
     return BlocBuilder<ProductListBloc, ProductListState>(
       builder: (ctx, state) {
-        if (state.status == ProductListStatus.initial) {
-          return const SizedBox.shrink();
-        }
-
-        if (state.status == ProductListStatus.loading) {
-          return const GCRLoadingCard();
-        }
-
-        if (state.status == ProductListStatus.failure) {
-          return const GCRErrorCard();
-        }
-
         if (state.productList.isEmpty) {
           return const GCRMessageCard(message: 'Product feeds is empty');
         }
