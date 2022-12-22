@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
 
 class OnSaleView extends StatelessWidget {
@@ -17,21 +18,26 @@ class OnSaleView extends StatelessWidget {
           style: textTheme.headline3,
         ),
       ),
-      body: GridView.builder(
-        itemCount: 15,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 20,
-        ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          crossAxisCount: 2,
-          childAspectRatio: 370 / 450,
-        ),
-        itemBuilder: (ctx, idx) => const GCRProductCard.sale(
-          price: 7.92,
-          salePrice: 5.95,
+      body: BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
+        builder: (ctx, state) => GridView.builder(
+          itemCount: 15,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 20,
+          ),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            crossAxisCount: 2,
+            childAspectRatio: 370 / 450,
+          ),
+          itemBuilder: (ctx, idx) => GCRProductCard.sale(
+            name: state.productsOnSale[idx].name,
+            imageUrl: state.productsOnSale[idx].imageUrl,
+            price: state.productsOnSale[idx].price,
+            salePrice: state.productsOnSale[idx].salePrice,
+            measureUnit: state.productsOnSale[idx].measureUnit,
+          ),
         ),
       ),
     );

@@ -14,13 +14,13 @@ part './gcr_product_cards.dart';
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
     super.key,
-    this.name = 'Product Name', // TODO: temp
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
+    required this.name,
+    required this.imageUrl,
     required this.price,
     this.salePrice,
     this.quantity = 0,
     this.date,
-    this.measureUnit = MeasureUnit.kg, // TODO: temp
+    required this.measureUnit,
     this.type = ProductCardType.sale,
   });
 
@@ -97,8 +97,11 @@ class GCRProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     if (type == ProductCardType.sale) {
       return _ProductSaleCard(
+        name: name,
+        imageUrl: imageUrl,
         price: price,
         salePrice: salePrice,
+        measureUnit: measureUnit,
       );
     }
 

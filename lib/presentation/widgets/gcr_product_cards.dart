@@ -3,12 +3,18 @@ part of './gcr_product_card.dart';
 class _ProductSaleCard extends StatelessWidget {
   const _ProductSaleCard({
     Key? key,
+    required this.name,
+    required this.imageUrl,
     required this.price,
     this.salePrice,
+    required this.measureUnit,
   }) : super(key: key);
 
+  final String name;
+  final String imageUrl;
   final double price;
   final double? salePrice;
+  final MeasureUnit measureUnit;
 
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id);
@@ -36,7 +42,7 @@ class _ProductSaleCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FancyShimmerImage(
-                    imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                    imageUrl: imageUrl,
                     width: screenSize.width * 0.22,
                     height: screenSize.width * 0.22,
                     boxFit: BoxFit.cover,
@@ -45,7 +51,7 @@ class _ProductSaleCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        '1KG',
+                        '1 ${measureUnit == MeasureUnit.kg ? "Kg." : "Pcs."}',
                         style: textTheme.headline5,
                       ),
                       const SizedBox(height: 5),
@@ -110,7 +116,7 @@ class _ProductSaleCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product Name',
+                  name,
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,

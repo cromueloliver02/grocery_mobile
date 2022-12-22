@@ -12,8 +12,8 @@ class BlocHandler {
     BlocProvider<ProductListBloc>(
       create: (ctx) => ProductListBloc()..add(ProductListStarted()),
     ),
-    BlocProvider<ProductOnSaleBloc>(
-      create: (ctx) => ProductOnSaleBloc(),
+    BlocProvider<ProductsOnSaleBloc>(
+      create: (ctx) => ProductsOnSaleBloc(),
     ),
   ];
 }

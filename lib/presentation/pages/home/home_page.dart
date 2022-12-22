@@ -15,8 +15,8 @@ class HomePage extends StatelessWidget {
 
     if (state.status == ProductListStatus.success) {
       ctx
-          .read<ProductOnSaleBloc>()
-          .add(ProductOnSaleStarted(productList: state.productList));
+          .read<ProductsOnSaleBloc>()
+          .add(ProductsOnSaleStarted(productList: state.productList));
     }
   }
 

@@ -31,7 +31,7 @@ class OnSaleSection extends StatelessWidget {
           return const GCRErrorCard();
         }
 
-        if (ctx.watch<ProductOnSaleBloc>().state.productsOnSale.isEmpty) {
+        if (ctx.watch<ProductsOnSaleBloc>().state.productsOnSale.isEmpty) {
           return const GCRMessageCard(message: 'Product on sale is empty');
         }
 
@@ -86,17 +86,24 @@ class _ProductOnSaleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductOnSaleBloc, ProductOnSaleState>(
-      builder: (ctx, productOnSaleState) => ListView.separated(
-        itemCount: productOnSaleState.productsOnSale.length,
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.only(right: 10),
-        separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
-        itemBuilder: (ctx, idx) => GCRProductCard.sale(
-          price: productOnSaleState.productsOnSale[idx].price,
-          salePrice: productOnSaleState.productsOnSale[idx].salePrice,
-        ),
-      ),
+    return BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
+      builder: (ctx, productOnSaleState) {
+        final int productSaleCount = productOnSaleState.productsOnSale.length;
+
+        return ListView.separated(
+          itemCount: productSaleCount < 5 ? productSaleCount : 5,
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.only(right: 10),
+          separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
+          itemBuilder: (ctx, idx) => GCRProductCard.sale(
+            name: productOnSaleState.productsOnSale[idx].name,
+            imageUrl: productOnSaleState.productsOnSale[idx].imageUrl,
+            price: productOnSaleState.productsOnSale[idx].price,
+            salePrice: productOnSaleState.productsOnSale[idx].salePrice,
+            measureUnit: productOnSaleState.productsOnSale[idx].measureUnit,
+          ),
+        );
+      },
     );
   }
 }
