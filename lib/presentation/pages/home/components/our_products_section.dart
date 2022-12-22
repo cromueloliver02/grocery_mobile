@@ -42,7 +42,7 @@ class OurProductsSection extends StatelessWidget {
             }
 
             if (state.status == ProductFeedStatus.loading) {
-              return const GCRLoading();
+              return const GCRLoadingCard();
             }
 
             if (state.status == ProductFeedStatus.failure) {
