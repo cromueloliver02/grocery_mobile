@@ -38,6 +38,7 @@ class HomeView extends StatelessWidget {
           const OnSaleSection(),
           const SizedBox(height: 10),
           const OurProductsSection(),
+          const SizedBox(height: 10),
         ],
       ),
     );

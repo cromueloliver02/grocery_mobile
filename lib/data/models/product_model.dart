@@ -23,7 +23,7 @@ class Product {
     required this.measureUnit,
   });
 
-  static final List<Product> products = [
+  static final List<Product> productFeeds = [
     Product(
       id: _uuid.v4(),
       name: 'Apricot',

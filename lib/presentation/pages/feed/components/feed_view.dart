@@ -26,7 +26,7 @@ class FeedView extends StatelessWidget {
             const FeedPageSearchBar(),
             Expanded(
               child: GridView.builder(
-                itemCount: Product.products.length,
+                itemCount: Product.productFeeds.length,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   mainAxisSpacing: 10,
@@ -35,7 +35,7 @@ class FeedView extends StatelessWidget {
                   childAspectRatio: 370 / 450,
                 ),
                 itemBuilder: (ctx, idx) {
-                  final Product product = Product.products[idx];
+                  final Product product = Product.productFeeds[idx];
 
                   return GCRProductCard.feed(
                     name: product.name,

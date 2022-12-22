@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:validators/validators.dart';
 
+import '../../data/models/models.dart';
 import '../widgets/widgets.dart';
 
 class FunctionHandler {
@@ -17,6 +21,22 @@ class FunctionHandler {
         message: message,
       ),
     );
+  }
+
+  static void showErrorDialog(BuildContext ctx, GCRError err) {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: ctx,
+        builder: (ctx) => GCRErrorDialog.iOS(error: err),
+      );
+    }
+
+    if (Platform.isAndroid) {
+      showDialog(
+        context: ctx,
+        builder: (ctx) => GCRErrorDialog.android(error: err),
+      );
+    }
   }
 
   static String? nameValidator(String? value) {

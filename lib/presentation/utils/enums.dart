@@ -10,3 +10,8 @@ enum ProductCardType {
 }
 
 enum ButtonType { elevated, text }
+
+enum GCRPlatform { iOs, android }
+
+// ASYNC
+enum ProductFeedStatus { initial, loading, success, failure }
