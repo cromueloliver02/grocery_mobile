@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './feed_page_search_bar.dart';
 
@@ -36,16 +35,13 @@ class FeedView extends StatelessWidget {
                     crossAxisCount: 2,
                     childAspectRatio: 370 / 450,
                   ),
-                  itemBuilder: (ctx, idx) {
-                    final Product product = state.productFeeds[idx];
-
-                    return GCRProductCard.feed(
-                      name: product.name,
-                      imageUrl: product.imageUrl,
-                      price: product.price,
-                      salePrice: product.salePrice,
-                    );
-                  },
+                  itemBuilder: (ctx, idx) => GCRProductCard.feed(
+                    name: state.productFeeds[idx].name,
+                    imageUrl: state.productFeeds[idx].imageUrl,
+                    price: state.productFeeds[idx].price,
+                    salePrice: state.productFeeds[idx].salePrice,
+                    measureUnit: state.productFeeds[idx].measureUnit,
+                  ),
                 ),
               ),
             ),

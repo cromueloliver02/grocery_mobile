@@ -137,12 +137,14 @@ class _ProductFeedCard extends StatefulWidget {
     required this.imageUrl,
     required this.price,
     this.salePrice,
+    required this.measureUnit,
   }) : super(key: key);
 
   final String name;
   final String imageUrl;
   final double price;
   final double? salePrice;
+  final MeasureUnit measureUnit;
 
   @override
   State<_ProductFeedCard> createState() => _FeedCardState();
@@ -235,7 +237,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                       ),
                       const Spacer(),
                       Text(
-                        'KG',
+                        widget.measureUnit == MeasureUnit.kg ? 'Kg.' : 'Pcs.',
                         style: textTheme.headline5,
                       ),
                       Container(

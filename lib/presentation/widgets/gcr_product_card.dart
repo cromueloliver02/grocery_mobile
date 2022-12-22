@@ -14,12 +14,13 @@ part './gcr_product_cards.dart';
 class GCRProductCard extends StatelessWidget {
   const GCRProductCard.sale({
     super.key,
-    this.name = 'Product Name',
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+    this.name = 'Product Name', // TODO: temp
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
     required this.price,
     this.salePrice,
     this.quantity = 0,
     this.date,
+    this.measureUnit = MeasureUnit.kg, // TODO: temp
     this.type = ProductCardType.sale,
   });
 
@@ -31,50 +32,55 @@ class GCRProductCard extends StatelessWidget {
     this.salePrice,
     this.quantity = 0,
     this.date,
+    required this.measureUnit,
     this.type = ProductCardType.feed,
   });
 
   const GCRProductCard.cart({
     super.key,
-    this.name = 'Product Name',
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+    this.name = 'Product Name', // TODO: temp
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
     required this.price,
     this.salePrice,
     this.quantity = 0,
     this.date,
+    this.measureUnit = MeasureUnit.kg, // TODO: temp
     this.type = ProductCardType.cart,
   });
 
   const GCRProductCard.wishlist({
     super.key,
-    this.name = 'Product Name',
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+    this.name = 'Product Name', // TODO: temp
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
     required this.price,
     this.salePrice,
     this.quantity = 0,
     this.date,
+    this.measureUnit = MeasureUnit.kg, // TODO: temp
     this.type = ProductCardType.wishlist,
   });
 
   const GCRProductCard.order({
     super.key,
-    this.name = 'Product Name',
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+    this.name = 'Product Name', // TODO: temp
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
     required this.price,
     required this.quantity,
     required this.date,
     this.salePrice,
+    this.measureUnit = MeasureUnit.kg, // TODO: temp
     this.type = ProductCardType.order,
   });
 
   const GCRProductCard.viewed({
     super.key,
-    this.name = 'Product Name',
-    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+    this.name = 'Product Name', // TODO: temp
+    this.imageUrl = 'https://i.ibb.co/F0s3FHQ/Apricots.png', // TODO: temp
     required this.price,
     this.salePrice,
     this.quantity = 0,
     this.date,
+    this.measureUnit = MeasureUnit.kg, // TODO: temp
     this.type = ProductCardType.viewed,
   });
 
@@ -84,6 +90,7 @@ class GCRProductCard extends StatelessWidget {
   final double? salePrice;
   final int quantity;
   final DateTime? date;
+  final MeasureUnit measureUnit;
   final ProductCardType type;
 
   @override
@@ -101,6 +108,7 @@ class GCRProductCard extends StatelessWidget {
         imageUrl: imageUrl,
         price: price,
         salePrice: salePrice,
+        measureUnit: measureUnit,
       );
     }
 

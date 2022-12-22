@@ -68,6 +68,7 @@ class OurProductsSection extends StatelessWidget {
                   imageUrl: state.productFeeds[idx].imageUrl,
                   price: state.productFeeds[idx].price,
                   salePrice: state.productFeeds[idx].salePrice,
+                  measureUnit: state.productFeeds[idx].measureUnit,
                 ),
               ),
             ),
