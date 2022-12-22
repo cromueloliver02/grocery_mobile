@@ -25,8 +25,7 @@ class GCRMessageCard extends StatelessWidget {
             children: [
               Image.asset(
                 imageUrl,
-                width: 200,
-                height: 200,
+                width: screenSize.width * 0.5,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 25),

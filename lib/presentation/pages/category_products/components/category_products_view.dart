@@ -29,22 +29,35 @@ class CategoryProductsView extends StatelessWidget {
         child: Column(
           children: [
             const CategoryProductsPageSearchBar(),
-            Expanded(
-              child: BlocBuilder<CategoryProductsBloc, CategoryProductsState>(
-                builder: (ctx, state) => GridView.builder(
-                  itemCount: state.categoryProducts.length,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    crossAxisCount: 2,
-                    childAspectRatio: 370 / 450,
+            BlocBuilder<CategoryProductsBloc, CategoryProductsState>(
+              builder: (ctx, state) {
+                if (state.categoryProducts.isEmpty) {
+                  return GCREmptyMessageCard(
+                    message: 'There\'s no ${category.toLowerCase()} products',
+                    onRedirect: () => Navigator.pop(context),
+                  );
+                }
+
+                return Expanded(
+                  child:
+                      BlocBuilder<CategoryProductsBloc, CategoryProductsState>(
+                    builder: (ctx, state) => GridView.builder(
+                      itemCount: state.categoryProducts.length,
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        childAspectRatio: 370 / 450,
+                      ),
+                      itemBuilder: (ctx, idx) => GCRProductCard.feed(
+                        product: state.categoryProducts[idx],
+                      ),
+                    ),
                   ),
-                  itemBuilder: (ctx, idx) => GCRProductCard.feed(
-                    product: state.categoryProducts[idx],
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

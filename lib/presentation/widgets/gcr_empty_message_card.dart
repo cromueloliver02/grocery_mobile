@@ -5,9 +5,9 @@ import './widgets.dart';
 class GCREmptyMessageCard extends StatelessWidget {
   const GCREmptyMessageCard({
     super.key,
-    required this.image,
-    required this.message,
-    required this.buttonText,
+    this.image = 'assets/images/box.png',
+    this.message = 'Nothing to see here',
+    this.buttonText = 'Go Back',
     required this.onRedirect,
   });
 
@@ -18,20 +18,20 @@ class GCREmptyMessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
+    final screenSize = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: const EdgeInsets.all(20),
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: screenSize.width),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               image,
-              width: screenSize.width * 0.75,
+              width: screenSize.width * 0.5,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             Text(
               'Whoops!',
               textAlign: TextAlign.center,
@@ -39,7 +39,7 @@ class GCREmptyMessageCard extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               message,
               textAlign: TextAlign.center,
