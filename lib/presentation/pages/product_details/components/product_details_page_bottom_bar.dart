@@ -48,10 +48,23 @@ class _ProductDetailsPageBottomBarState
                 ),
                 const SizedBox(height: 5),
                 BlocBuilder<QtyControllerCubit, QtyControllerState>(
-                  builder: (ctx, state) => Text(
-                    '\$${(widget.currentPrice * state.quantity).toStringAsFixed(2)}',
-                    style: textTheme.headline3,
-                  ),
+                  builder: (ctx, state) {
+                    final double totalPrice =
+                        widget.currentPrice * state.quantity;
+
+                    return RichText(
+                      text: TextSpan(
+                        text: '\$${(totalPrice).toStringAsFixed(2)} / ',
+                        style: textTheme.headline3,
+                        children: [
+                          TextSpan(
+                            text: '${state.quantity}Kg',
+                            style: textTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
