@@ -32,11 +32,7 @@ class OnSaleView extends StatelessWidget {
             childAspectRatio: 370 / 450,
           ),
           itemBuilder: (ctx, idx) => GCRProductCard.sale(
-            name: state.productsOnSale[idx].name,
-            imageUrl: state.productsOnSale[idx].imageUrl,
-            price: state.productsOnSale[idx].price,
-            salePrice: state.productsOnSale[idx].salePrice,
-            measureUnit: state.productsOnSale[idx].measureUnit,
+            product: state.productsOnSale[idx],
           ),
         ),
       ),

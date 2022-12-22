@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // import '../../../../business_logic/cubits/cubits.dart';
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './viewed_recently_page_app_bar.dart';
 
@@ -37,9 +38,8 @@ class ViewedRecentlyView extends StatelessWidget {
                 child: ListView.separated(
                   itemCount: 19,
                   separatorBuilder: (ctx, idx) => const SizedBox(height: 5),
-                  itemBuilder: (ctx, idx) => const GCRProductCard.viewed(
-                    price: 5.93,
-                    salePrice: 4.85,
+                  itemBuilder: (ctx, idx) => GCRProductCard.viewed(
+                    product: Product.productList[0],
                   ),
                 ),
               ),

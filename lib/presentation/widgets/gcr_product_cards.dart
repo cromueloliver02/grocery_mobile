@@ -3,21 +3,13 @@ part of './gcr_product_card.dart';
 class _ProductSaleCard extends StatelessWidget {
   const _ProductSaleCard({
     Key? key,
-    required this.name,
-    required this.imageUrl,
-    required this.price,
-    this.salePrice,
-    required this.measureUnit,
+    required this.product,
   }) : super(key: key);
 
-  final String name;
-  final String imageUrl;
-  final double price;
-  final double? salePrice;
-  final MeasureUnit measureUnit;
+  final Product product;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override
@@ -26,12 +18,12 @@ class _ProductSaleCard extends StatelessWidget {
     final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
 
-    return Material(
-      color: theme.cardColor.withOpacity(0.9),
+    return InkWell(
       borderRadius: BorderRadius.circular(12),
-      child: InkWell(
+      onTap: () => _goToProductDetailsPage(context),
+      child: Material(
+        color: theme.cardColor.withOpacity(0.9),
         borderRadius: BorderRadius.circular(12),
-        onTap: () => _goToProductDetailsPage(context),
         child: Container(
           width: 200,
           padding: const EdgeInsets.all(10),
@@ -42,7 +34,7 @@ class _ProductSaleCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FancyShimmerImage(
-                    imageUrl: imageUrl,
+                    imageUrl: product.imageUrl,
                     width: screenSize.width * 0.22,
                     height: screenSize.width * 0.22,
                     boxFit: BoxFit.cover,
@@ -51,7 +43,7 @@ class _ProductSaleCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        '1 ${measureUnit == MeasureUnit.kg ? "Kg." : "Pcs."}',
+                        '1 ${product.measureUnit == MeasureUnit.kg ? "Kg." : "Pcs."}',
                         style: textTheme.headline5,
                       ),
                       const SizedBox(height: 5),
@@ -84,23 +76,23 @@ class _ProductSaleCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      if (salePrice == null)
+                      if (product.salePrice == null)
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline2!.copyWith(
                             color: Colors.green,
                           ),
                         ),
-                      if (salePrice != null) ...[
+                      if (product.salePrice != null) ...[
                         Text(
-                          '\$${salePrice!.toStringAsFixed(2)}',
+                          '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline2!.copyWith(
                             color: Colors.green,
                           ),
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline4!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w500,
@@ -116,7 +108,7 @@ class _ProductSaleCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  name,
+                  product.name,
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
@@ -139,18 +131,10 @@ class _ProductSaleCard extends StatelessWidget {
 class _ProductFeedCard extends StatefulWidget {
   const _ProductFeedCard({
     Key? key,
-    required this.name,
-    required this.imageUrl,
-    required this.price,
-    this.salePrice,
-    required this.measureUnit,
+    required this.product,
   }) : super(key: key);
 
-  final String name;
-  final String imageUrl;
-  final double price;
-  final double? salePrice;
-  final MeasureUnit measureUnit;
+  final Product product;
 
   @override
   State<_ProductFeedCard> createState() => _FeedCardState();
@@ -160,7 +144,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
   }
 
   @override
@@ -183,7 +167,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
               child: Column(
                 children: [
                   FancyShimmerImage(
-                    imageUrl: widget.imageUrl,
+                    imageUrl: widget.product.imageUrl,
                     width: screenSize.width * 0.22,
                     height: screenSize.width * 0.22,
                     boxFit: BoxFit.cover,
@@ -193,7 +177,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                     children: [
                       Flexible(
                         child: Text(
-                          widget.name,
+                          widget.product.name,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: textTheme.headline5!.copyWith(
@@ -215,23 +199,23 @@ class _FeedCardState extends State<_ProductFeedCard> {
                     children: [
                       Column(
                         children: [
-                          if (widget.salePrice == null)
+                          if (widget.product.salePrice == null)
                             Text(
-                              '\$${widget.price.toStringAsFixed(2)}',
+                              '\$${widget.product.price.toStringAsFixed(2)}',
                               style: textTheme.headline2!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
-                          if (widget.salePrice != null) ...[
+                          if (widget.product.salePrice != null) ...[
                             Text(
-                              '\$${widget.salePrice!.toStringAsFixed(2)}',
+                              '\$${widget.product.salePrice!.toStringAsFixed(2)}',
                               style: textTheme.headline2!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              '\$${widget.price.toStringAsFixed(2)}',
+                              '\$${widget.product.price.toStringAsFixed(2)}',
                               style: textTheme.headline4!.copyWith(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w500,
@@ -243,7 +227,9 @@ class _FeedCardState extends State<_ProductFeedCard> {
                       ),
                       const Spacer(),
                       Text(
-                        widget.measureUnit == MeasureUnit.kg ? 'Kg.' : 'Pcs.',
+                        widget.product.measureUnit == MeasureUnit.kg
+                            ? 'Kg.'
+                            : 'Pcs.',
                         style: textTheme.headline5,
                       ),
                       Container(
@@ -309,15 +295,13 @@ class _FeedCardState extends State<_ProductFeedCard> {
 class _ProductCartCard extends StatelessWidget {
   const _ProductCartCard({
     Key? key,
-    required this.price,
-    this.salePrice,
+    required this.product,
   }) : super(key: key);
 
-  final double price;
-  final double? salePrice;
+  final Product product;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override
@@ -371,16 +355,16 @@ class _ProductCartCard extends StatelessWidget {
                     iconSize: 30,
                     icon: const Icon(IconlyBold.heart),
                   ),
-                  if (salePrice == null)
+                  if (product.salePrice == null)
                     Text(
-                      '\$${price.toStringAsFixed(2)}',
+                      '\$${product.price.toStringAsFixed(2)}',
                       style: textTheme.bodyText1!.copyWith(
                         fontSize: textTheme.bodyText1!.fontSize! + 4,
                       ),
                     ),
-                  if (salePrice != null)
+                  if (product.salePrice != null)
                     Text(
-                      '\$${salePrice!.toStringAsFixed(2)}',
+                      '\$${product.salePrice!.toStringAsFixed(2)}',
                       style: textTheme.bodyText1!.copyWith(
                         fontSize: textTheme.bodyText1!.fontSize! + 4,
                       ),
@@ -398,15 +382,13 @@ class _ProductCartCard extends StatelessWidget {
 class _ProductWishlistCard extends StatelessWidget {
   const _ProductWishlistCard({
     Key? key,
-    required this.price,
-    this.salePrice,
+    required this.product,
   }) : super(key: key);
 
-  final double price;
-  final double? salePrice;
+  final Product product;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override
@@ -471,22 +453,22 @@ class _ProductWishlistCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      if (salePrice == null)
+                      if (product.salePrice == null)
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline2!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      if (salePrice != null) ...[
+                      if (product.salePrice != null) ...[
                         Text(
-                          '\$${salePrice!.toStringAsFixed(2)}',
+                          '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline2!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline4!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w400,
@@ -506,90 +488,16 @@ class _ProductWishlistCard extends StatelessWidget {
   }
 }
 
-class _ProductOrderCard extends StatelessWidget {
-  const _ProductOrderCard({
-    Key? key,
-    required this.price,
-    required this.quantity,
-    required this.date,
-  }) : super(key: key);
-
-  final double price;
-  final int quantity;
-  final DateTime date;
-
-  void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final screenSize = MediaQuery.of(context).size;
-
-    return InkWell(
-      onTap: () => _goToProductDetailsPage(context),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-              width: screenSize.width * 0.25,
-              height: screenSize.width * 0.25,
-              boxFit: BoxFit.cover,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Product Name x$quantity',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.headline4!.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Paid: \$${price.toStringAsFixed(2)}',
-                    style: textTheme.headline5!.copyWith(
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              DateFormat('MM/d/yyyy').format(date),
-              style: textTheme.headline5!.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _ProductViewedCard extends StatelessWidget {
   const _ProductViewedCard({
     Key? key,
-    required this.price,
-    this.salePrice,
+    required this.product,
   }) : super(key: key);
 
-  final double price;
-  final double? salePrice;
+  final Product product;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override
@@ -626,17 +534,17 @@ class _ProductViewedCard extends StatelessWidget {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      if (salePrice == null)
+                      if (product.salePrice == null)
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                      if (salePrice != null) ...[
+                      if (product.salePrice != null) ...[
                         Text(
-                          '\$${salePrice!.toStringAsFixed(2)}',
+                          '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
@@ -644,7 +552,7 @@ class _ProductViewedCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          '\$${price.toStringAsFixed(2)}',
+                          '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline5!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w400,

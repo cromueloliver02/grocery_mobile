@@ -51,11 +51,7 @@ class OurProductsSection extends StatelessWidget {
               children: List.generate(
                 state.productList.length < 6 ? state.productList.length : 6,
                 (idx) => GCRProductCard.feed(
-                  name: state.productList[idx].name,
-                  imageUrl: state.productList[idx].imageUrl,
-                  price: state.productList[idx].price,
-                  salePrice: state.productList[idx].salePrice,
-                  measureUnit: state.productList[idx].measureUnit,
+                  product: state.productList[idx],
                 ),
               ),
             ),

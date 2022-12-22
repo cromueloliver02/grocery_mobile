@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // import '../../../../business_logic/cubits/cubits.dart';
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './wishlist_page_app_bar.dart';
 
@@ -42,9 +43,8 @@ class WishlistView extends StatelessWidget {
                     crossAxisSpacing: 10,
                     childAspectRatio: 250 / 200,
                   ),
-                  itemBuilder: (ctx, idx) => const GCRProductCard.wishlist(
-                    price: 6.99,
-                    salePrice: 4.99,
+                  itemBuilder: (ctx, idx) => GCRProductCard.wishlist(
+                    product: Product.productList[0],
                   ),
                 ),
               ),

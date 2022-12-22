@@ -36,11 +36,7 @@ class FeedView extends StatelessWidget {
                     childAspectRatio: 370 / 450,
                   ),
                   itemBuilder: (ctx, idx) => GCRProductCard.feed(
-                    name: state.productList[idx].name,
-                    imageUrl: state.productList[idx].imageUrl,
-                    price: state.productList[idx].price,
-                    salePrice: state.productList[idx].salePrice,
-                    measureUnit: state.productList[idx].measureUnit,
+                    product: state.productList[idx],
                   ),
                 ),
               ),

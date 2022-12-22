@@ -5,7 +5,6 @@ enum ProductCardType {
   feed,
   cart,
   wishlist,
-  order,
   viewed,
 }
 

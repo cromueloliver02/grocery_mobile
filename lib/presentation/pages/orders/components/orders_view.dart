@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // import '../../../../business_logic/cubits/cubits.dart';
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import './orders_page_app_bar.dart';
 
@@ -35,8 +36,8 @@ class OrdersView extends StatelessWidget {
         child: ListView.separated(
           itemCount: 17,
           separatorBuilder: (ctx, idx) => const Divider(thickness: 1),
-          itemBuilder: (ctx, idx) => GCRProductCard.order(
-            price: 5.34,
+          itemBuilder: (ctx, idx) => GCROrderCard(
+            product: Product.productList[0],
             quantity: 2,
             date: DateTime.now(),
           ),
