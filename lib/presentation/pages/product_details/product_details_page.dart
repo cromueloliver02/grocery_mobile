@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/models.dart';
+import '../../../business_logic/cubits/cubits.dart';
 import '../pages.dart';
 import './components/product_details_view.dart';
 
@@ -24,5 +25,10 @@ class ProductDetailsPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ProductDetailsView(product: product);
+  Widget build(BuildContext context) {
+    return BlocProvider<QtyControllerCubit>(
+      create: (ctx) => QtyControllerCubit(),
+      child: ProductDetailsView(product: product),
+    );
+  }
 }

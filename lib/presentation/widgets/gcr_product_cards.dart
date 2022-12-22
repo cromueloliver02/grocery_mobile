@@ -292,7 +292,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
   }
 }
 
-class _ProductCartCard extends StatelessWidget {
+class _ProductCartCard extends StatefulWidget {
   const _ProductCartCard({
     Key? key,
     required this.product,
@@ -300,8 +300,15 @@ class _ProductCartCard extends StatelessWidget {
 
   final Product product;
 
+  @override
+  State<_ProductCartCard> createState() => _ProductCartCardState();
+}
+
+class _ProductCartCardState extends State<_ProductCartCard> {
+  late final TextEditingController _qtyController;
+
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
   }
 
   @override
@@ -335,7 +342,7 @@ class _ProductCartCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const GCRQuantityController(),
+                  GCRQuantityController(qtyController: _qtyController),
                 ],
               ),
               const Spacer(),
@@ -355,16 +362,16 @@ class _ProductCartCard extends StatelessWidget {
                     iconSize: 30,
                     icon: const Icon(IconlyBold.heart),
                   ),
-                  if (product.salePrice == null)
+                  if (widget.product.salePrice == null)
                     Text(
-                      '\$${product.price.toStringAsFixed(2)}',
+                      '\$${widget.product.price.toStringAsFixed(2)}',
                       style: textTheme.bodyText1!.copyWith(
                         fontSize: textTheme.bodyText1!.fontSize! + 4,
                       ),
                     ),
-                  if (product.salePrice != null)
+                  if (widget.product.salePrice != null)
                     Text(
-                      '\$${product.salePrice!.toStringAsFixed(2)}',
+                      '\$${widget.product.salePrice!.toStringAsFixed(2)}',
                       style: textTheme.bodyText1!.copyWith(
                         fontSize: textTheme.bodyText1!.fontSize! + 4,
                       ),
@@ -376,6 +383,18 @@ class _ProductCartCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _qtyController = TextEditingController(text: '1');
+  }
+
+  @override
+  void dispose() {
+    _qtyController.dispose();
+    super.dispose();
   }
 }
 

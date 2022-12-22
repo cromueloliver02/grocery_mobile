@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class GCRQuantityController extends StatefulWidget {
-  const GCRQuantityController({super.key});
+class GCRQuantityController extends StatelessWidget {
+  const GCRQuantityController({
+    super.key,
+    required this.qtyController,
+  });
 
-  @override
-  State<GCRQuantityController> createState() => _GCRQuantityControllerState();
-}
+  final TextEditingController qtyController;
 
-class _GCRQuantityControllerState extends State<GCRQuantityController> {
-  late final TextEditingController _controller;
+  void _incrementQuantity() {
+    qtyController.text = (int.parse(qtyController.text) + 1).toString();
+  }
+
+  void _decrementQuantity() {
+    final int quantity = int.parse(qtyController.text);
+
+    if (quantity == 1) return;
+
+    qtyController.text = (quantity - 1).toString();
+  }
+
+  void _onChanged(String value) {
+    if (value.trim().isEmpty) qtyController.text = '1';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +34,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: _decrementQuantity,
           child: Container(
             width: 30,
             height: 30,
@@ -38,9 +52,10 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
         SizedBox(
           width: 30,
           child: TextField(
-            controller: _controller,
+            controller: qtyController,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
+            onChanged: _onChanged,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             ],
@@ -54,7 +69,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
         ),
         const SizedBox(width: 10),
         GestureDetector(
-          onTap: () {},
+          onTap: _incrementQuantity,
           child: Container(
             width: 30,
             height: 30,
@@ -70,17 +85,5 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
         ),
       ],
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: '1');
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

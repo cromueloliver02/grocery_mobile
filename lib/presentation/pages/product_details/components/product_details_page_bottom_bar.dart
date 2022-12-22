@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 
-class ProductDetailsPageBottomBar extends StatelessWidget {
-  const ProductDetailsPageBottomBar({super.key});
+class ProductDetailsPageBottomBar extends StatefulWidget {
+  const ProductDetailsPageBottomBar({
+    super.key,
+    required this.qtyController,
+    required this.currentPrice,
+  });
 
+  final TextEditingController qtyController;
+  final double currentPrice;
+
+  @override
+  State<ProductDetailsPageBottomBar> createState() =>
+      _ProductDetailsPageBottomBarState();
+}
+
+class _ProductDetailsPageBottomBarState
+    extends State<ProductDetailsPageBottomBar> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,16 +47,10 @@ class ProductDetailsPageBottomBar extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                RichText(
-                  text: TextSpan(
-                    text: '\$2.59/',
+                BlocBuilder<QtyControllerCubit, QtyControllerState>(
+                  builder: (ctx, state) => Text(
+                    '\$${(widget.currentPrice * state.quantity).toStringAsFixed(2)}',
                     style: textTheme.headline3,
-                    children: [
-                      TextSpan(
-                        text: '1Kg',
-                        style: textTheme.bodyText1,
-                      ),
-                    ],
                   ),
                 ),
               ],
@@ -54,5 +63,18 @@ class ProductDetailsPageBottomBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final TextEditingController qtyController = widget.qtyController;
+
+    qtyController.addListener(() {
+      final int quantity = int.parse(qtyController.text);
+
+      context.read<QtyControllerCubit>().changeQty(quantity);
+    });
   }
 }

@@ -6,13 +6,20 @@ import '../../../../presentation/widgets/widgets.dart';
 import './product_details_page_bottom_bar.dart';
 import './product_info_section.dart';
 
-class ProductDetailsView extends StatelessWidget {
+class ProductDetailsView extends StatefulWidget {
   const ProductDetailsView({
     super.key,
     required this.product,
   });
 
   final Product product;
+
+  @override
+  State<ProductDetailsView> createState() => _ProductDetailsViewState();
+}
+
+class _ProductDetailsViewState extends State<ProductDetailsView> {
+  late final TextEditingController _qtyController;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +30,14 @@ class ProductDetailsView extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(backgroundColor: Colors.transparent),
-      bottomNavigationBar: const ProductDetailsPageBottomBar(),
+      bottomNavigationBar: ProductDetailsPageBottomBar(
+        qtyController: _qtyController,
+        currentPrice: widget.product.salePrice ?? widget.product.price,
+      ),
       body: Column(
         children: [
           FancyShimmerImage(
-            imageUrl: product.imageUrl,
+            imageUrl: widget.product.imageUrl,
             width: screenSize.width,
             height: screenSize.height * 0.4,
             boxFit: BoxFit.cover,
@@ -40,17 +50,29 @@ class ProductDetailsView extends StatelessWidget {
             child: Column(
               children: [
                 ProductInfoSection(
-                  name: product.name,
-                  price: product.price,
-                  salePrice: product.salePrice,
+                  name: widget.product.name,
+                  price: widget.product.price,
+                  salePrice: widget.product.salePrice,
                 ),
                 const SizedBox(height: 30),
-                const GCRQuantityController(),
+                GCRQuantityController(qtyController: _qtyController),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _qtyController = TextEditingController(text: '1');
+  }
+
+  @override
+  void dispose() {
+    _qtyController.dispose();
+    super.dispose();
   }
 }
