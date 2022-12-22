@@ -23,6 +23,8 @@ class Product {
     required this.measureUnit,
   });
 
+  bool get isOnSale => salePrice != null;
+
   static final List<Product> productList = [
     Product(
       id: _uuid.v4(),
@@ -39,7 +41,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/9VKXw5L/Avocat.png',
       category: 'Fruits',
       price: 0.88,
-      salePrice: 0.5,
+      // salePrice: 0.5,
       measureUnit: MeasureUnit.piece,
     ),
     Product(
@@ -57,7 +59,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/HKx2bsp/Fresh-green-grape.png',
       category: 'Fruits',
       price: 1.5,
-      salePrice: 0.5,
+      // salePrice: 0.5,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -66,7 +68,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/bHKtc33/grape-green.png',
       category: 'Fruits',
       price: 0.99,
-      salePrice: 0.4,
+      // salePrice: 0.4,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -75,7 +77,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/crwwSG2/red-apple.png',
       category: 'Fruits',
       price: 0.6,
-      salePrice: 0.2,
+      // salePrice: 0.2,
       measureUnit: MeasureUnit.piece,
     ),
     // Vegi
@@ -112,7 +114,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/Dtk1YP8/Jalape-o.png',
       category: 'Vegetables',
       price: 1.99,
-      salePrice: 0.89,
+      // salePrice: 0.89,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -130,7 +132,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/GFvm1Zd/Onions.png',
       category: 'Vegetables',
       price: 0.59,
-      salePrice: 0.28,
+      // salePrice: 0.28,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -184,7 +186,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/PcP9xfK/Tomatoes.png',
       category: 'Vegetables',
       price: 0.99,
-      salePrice: 0.39,
+      // salePrice: 0.39,
       measureUnit: MeasureUnit.kg,
     ),
     // Grains
@@ -213,7 +215,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/RYRvx3W/Asparagus.png',
       category: 'Herbs',
       price: 6.99,
-      salePrice: 4.99,
+      // salePrice: 4.99,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -231,7 +233,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/MNDxNnm/Buk-choy.png',
       category: 'Herbs',
       price: 1.99,
-      salePrice: 0.99,
+      // salePrice: 0.99,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -249,7 +251,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/HDSrR2Y/Kangkong.png',
       category: 'Herbs',
       price: 0.99,
-      salePrice: 0.5,
+      // salePrice: 0.5,
       measureUnit: MeasureUnit.kg,
     ),
     Product(
@@ -267,7 +269,7 @@ class Product {
       imageUrl: 'https://i.ibb.co/bbjvgcD/Spinach.png',
       category: 'Herbs',
       price: 0.89,
-      salePrice: 0.59,
+      // salePrice: 0.59,
       measureUnit: MeasureUnit.kg,
     ),
     Product(

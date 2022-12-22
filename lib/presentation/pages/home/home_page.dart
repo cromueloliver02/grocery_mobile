@@ -12,6 +12,12 @@ class HomePage extends StatelessWidget {
     if (state.status == ProductListStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
+
+    if (state.status == ProductListStatus.success) {
+      ctx
+          .read<ProductOnSaleBloc>()
+          .add(ProductOnSaleStarted(productList: state.productList));
+    }
   }
 
   @override
