@@ -8,15 +8,15 @@ import './components/home_view.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  void _productFeedListener(BuildContext ctx, ProductFeedState state) {
-    if (state.status == ProductFeedStatus.failure) {
+  void _productFeedListener(BuildContext ctx, ProductListState state) {
+    if (state.status == ProductListStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductFeedBloc, ProductFeedState>(
+    return BlocListener<ProductListBloc, ProductListState>(
       listener: _productFeedListener,
       child: const HomeView(),
     );

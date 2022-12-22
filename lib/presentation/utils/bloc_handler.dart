@@ -9,8 +9,8 @@ class BlocHandler {
     BlocProvider<NavigationCubit>(
       create: (ctx) => NavigationCubit(),
     ),
-    BlocProvider<ProductFeedBloc>(
-      create: (ctx) => ProductFeedBloc()..add(ProductFeedStarted()),
+    BlocProvider<ProductListBloc>(
+      create: (ctx) => ProductListBloc()..add(ProductListStarted()),
     ),
   ];
 }

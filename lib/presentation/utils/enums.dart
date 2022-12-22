@@ -14,4 +14,4 @@ enum ButtonType { elevated, text }
 enum GCRPlatform { iOs, android }
 
 // ASYNC
-enum ProductFeedStatus { initial, loading, success, failure }
+enum ProductListStatus { initial, loading, success, failure }

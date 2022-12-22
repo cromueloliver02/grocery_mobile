@@ -25,9 +25,9 @@ class FeedView extends StatelessWidget {
           children: [
             const FeedPageSearchBar(),
             Expanded(
-              child: BlocBuilder<ProductFeedBloc, ProductFeedState>(
+              child: BlocBuilder<ProductListBloc, ProductListState>(
                 builder: (ctx, state) => GridView.builder(
-                  itemCount: state.productFeeds.length,
+                  itemCount: state.productList.length,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: 10,
@@ -36,11 +36,11 @@ class FeedView extends StatelessWidget {
                     childAspectRatio: 370 / 450,
                   ),
                   itemBuilder: (ctx, idx) => GCRProductCard.feed(
-                    name: state.productFeeds[idx].name,
-                    imageUrl: state.productFeeds[idx].imageUrl,
-                    price: state.productFeeds[idx].price,
-                    salePrice: state.productFeeds[idx].salePrice,
-                    measureUnit: state.productFeeds[idx].measureUnit,
+                    name: state.productList[idx].name,
+                    imageUrl: state.productList[idx].imageUrl,
+                    price: state.productList[idx].price,
+                    salePrice: state.productList[idx].salePrice,
+                    measureUnit: state.productList[idx].measureUnit,
                   ),
                 ),
               ),

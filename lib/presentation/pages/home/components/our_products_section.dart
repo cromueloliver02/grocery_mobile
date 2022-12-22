@@ -16,21 +16,21 @@ class OurProductsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return BlocBuilder<ProductFeedBloc, ProductFeedState>(
+    return BlocBuilder<ProductListBloc, ProductListState>(
       builder: (ctx, state) {
-        if (state.status == ProductFeedStatus.initial) {
+        if (state.status == ProductListStatus.initial) {
           return const SizedBox.shrink();
         }
 
-        if (state.status == ProductFeedStatus.loading) {
+        if (state.status == ProductListStatus.loading) {
           return const GCRLoadingCard();
         }
 
-        if (state.status == ProductFeedStatus.failure) {
+        if (state.status == ProductListStatus.failure) {
           return const GCRErrorCard();
         }
 
-        if (state.productFeeds.isEmpty) {
+        if (state.productList.isEmpty) {
           return const GCRMessageCard(message: 'Product feeds is empty');
         }
 
@@ -62,13 +62,13 @@ class OurProductsSection extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: 370 / 450,
               children: List.generate(
-                state.productFeeds.length < 6 ? state.productFeeds.length : 6,
+                state.productList.length < 6 ? state.productList.length : 6,
                 (idx) => GCRProductCard.feed(
-                  name: state.productFeeds[idx].name,
-                  imageUrl: state.productFeeds[idx].imageUrl,
-                  price: state.productFeeds[idx].price,
-                  salePrice: state.productFeeds[idx].salePrice,
-                  measureUnit: state.productFeeds[idx].measureUnit,
+                  name: state.productList[idx].name,
+                  imageUrl: state.productList[idx].imageUrl,
+                  price: state.productList[idx].price,
+                  salePrice: state.productList[idx].salePrice,
+                  measureUnit: state.productList[idx].measureUnit,
                 ),
               ),
             ),
