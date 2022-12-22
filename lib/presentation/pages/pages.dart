@@ -12,3 +12,4 @@ export './product_details/product_details_page.dart';
 export './wishlist/wishlist_page.dart';
 export './orders/orders_page.dart';
 export './viewed_recently/viewed_recently_page.dart';
+export './category_products/category_products_page.dart';

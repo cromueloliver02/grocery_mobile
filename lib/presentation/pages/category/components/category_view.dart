@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
+
+  void _goToCategoryProductsPage(BuildContext ctx, {required int idx}) {
+    Navigator.pushNamed(
+      ctx,
+      CategoryProductsPage.id,
+      arguments: Category.categories[idx].name,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +31,7 @@ class CategoryView extends StatelessWidget {
           name: Category.categories[idx].name,
           imageUrl: Category.categories[idx].imageUrl,
           color: Category.categories[idx].color,
-          onTap: () {},
+          onTap: () => _goToCategoryProductsPage(context, idx: idx),
         ),
       ),
     );
