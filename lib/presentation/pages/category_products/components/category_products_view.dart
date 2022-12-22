@@ -32,9 +32,11 @@ class CategoryProductsView extends StatelessWidget {
             BlocBuilder<CategoryProductsBloc, CategoryProductsState>(
               builder: (ctx, state) {
                 if (state.categoryProducts.isEmpty) {
-                  return GCREmptyMessageCard(
-                    message: 'There\'s no ${category.toLowerCase()} products',
-                    onRedirect: () => Navigator.pop(context),
+                  return Expanded(
+                    child: GCREmptyMessageCard(
+                      message: 'There\'s no ${category.toLowerCase()} products',
+                      onRedirect: () => Navigator.pop(context),
+                    ),
                   );
                 }
 
