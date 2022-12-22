@@ -24,4 +24,18 @@ class ThemeState extends Equatable {
       isDark: isDark ?? this.isDark,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'isDark': isDark});
+
+    return result;
+  }
+
+  factory ThemeState.fromMap(Map<String, dynamic> map) {
+    return ThemeState(
+      isDark: map['isDark'] ?? false,
+    );
+  }
 }
