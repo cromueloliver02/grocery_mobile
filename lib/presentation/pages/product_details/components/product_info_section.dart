@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class ProductInfoSection extends StatelessWidget {
-  const ProductInfoSection({super.key});
+  const ProductInfoSection({
+    super.key,
+    required this.name,
+    required this.price,
+    required this.salePrice,
+  });
+
+  final String name;
+  final double price;
+  final double? salePrice;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,7 @@ class ProductInfoSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Apple',
+              name,
               style: textTheme.headline2,
             ),
             IconButton(
@@ -28,28 +37,45 @@ class ProductInfoSection extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            RichText(
-              text: TextSpan(
-                text: '\$5.93 ',
-                style: textTheme.headline2!.copyWith(
-                  color: Colors.green,
+            if (salePrice == null)
+              RichText(
+                text: TextSpan(
+                  text: '\$$price ',
+                  style: textTheme.headline2!.copyWith(
+                    color: Colors.green,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '/Kg',
+                      style: textTheme.bodyText2,
+                    )
+                  ],
                 ),
-                children: [
-                  TextSpan(
-                    text: '/Kg',
-                    style: textTheme.bodyText2,
-                  )
-                ],
               ),
-            ),
-            const SizedBox(width: 15),
-            Text(
-              '\$8.37',
-              style: textTheme.bodyText1!.copyWith(
-                fontSize: textTheme.bodyText1!.fontSize! + 2,
-                decoration: TextDecoration.lineThrough,
+            if (salePrice != null) ...[
+              RichText(
+                text: TextSpan(
+                  text: '\$$salePrice ',
+                  style: textTheme.headline2!.copyWith(
+                    color: Colors.green,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '/Kg',
+                      style: textTheme.bodyText2,
+                    )
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(width: 15),
+              Text(
+                '\$$price',
+                style: textTheme.bodyText1!.copyWith(
+                  fontSize: textTheme.bodyText1!.fontSize! + 2,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              ),
+            ],
             const Spacer(),
             Container(
               color: Colors.green,

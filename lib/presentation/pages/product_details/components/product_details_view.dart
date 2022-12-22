@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../../presentation/widgets/widgets.dart';
 import './product_details_page_bottom_bar.dart';
 import './product_info_section.dart';
 
 class ProductDetailsView extends StatelessWidget {
-  const ProductDetailsView({super.key});
+  const ProductDetailsView({
+    super.key,
+    required this.product,
+  });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class ProductDetailsView extends StatelessWidget {
       body: Column(
         children: [
           FancyShimmerImage(
-            imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+            imageUrl: product.imageUrl,
             width: screenSize.width,
             height: screenSize.height * 0.4,
             boxFit: BoxFit.cover,
@@ -32,10 +38,14 @@ class ProductDetailsView extends StatelessWidget {
               vertical: 10,
             ),
             child: Column(
-              children: const [
-                ProductInfoSection(),
-                SizedBox(height: 30),
-                GCRQuantityController(),
+              children: [
+                ProductInfoSection(
+                  name: product.name,
+                  price: product.price,
+                  salePrice: product.salePrice,
+                ),
+                const SizedBox(height: 30),
+                const GCRQuantityController(),
               ],
             ),
           ),
