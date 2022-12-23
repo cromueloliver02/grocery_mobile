@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -30,6 +31,8 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
         status: ProductListStatus.failure,
         error: err,
       ));
+
+      debugPrint(state.toString());
     }
   }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../data/models/models.dart';
-import './widgets.dart';
 import '../pages/pages.dart';
 import '../utils/utils.dart';
 
@@ -22,12 +20,6 @@ class GCRProductCard extends StatelessWidget {
     super.key,
     required this.product,
     this.type = ProductCardType.feed,
-  });
-
-  const GCRProductCard.cart({
-    super.key,
-    required this.product,
-    this.type = ProductCardType.cart,
   });
 
   const GCRProductCard.wishlist({
@@ -53,10 +45,6 @@ class GCRProductCard extends StatelessWidget {
 
     if (type == ProductCardType.feed) {
       return _ProductFeedCard(product: product);
-    }
-
-    if (type == ProductCardType.cart) {
-      return _ProductCartCard(product: product);
     }
 
     if (type == ProductCardType.wishlist) {

@@ -14,3 +14,5 @@ enum GCRPlatform { iOs, android }
 
 // ASYNC
 enum ProductListStatus { initial, loading, success, failure }
+
+enum CartStatus { initial, loading, success, failure }

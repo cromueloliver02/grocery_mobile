@@ -15,12 +15,10 @@ class GCRErrorCard extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: screenSize.width,
-        minHeight: screenSize.width,
-      ),
+      constraints: BoxConstraints(minHeight: screenSize.width),
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 100,

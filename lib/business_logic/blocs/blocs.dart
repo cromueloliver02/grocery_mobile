@@ -6,3 +6,4 @@ export './forgot_pwd_form/forgot_pwd_form_bloc.dart';
 export './product_list/product_list_bloc.dart';
 export './products_on_sale/products_on_sale_bloc.dart';
 export './category_products/category_products_bloc.dart';
+export './cart/cart_bloc.dart';
