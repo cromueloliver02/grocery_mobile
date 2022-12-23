@@ -9,13 +9,15 @@ class CartItem {
   final Product product;
   final int quantity;
   final String userId;
+  final DateTime dateCreated;
 
   CartItem({
     required this.id,
     required this.product,
     required this.quantity,
     required this.userId,
-  });
+    DateTime? dateCreated,
+  }) : dateCreated = dateCreated ?? DateTime.now();
 
   double get totalPrice {
     final double currentPrice = product.salePrice ?? product.price;
