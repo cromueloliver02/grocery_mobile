@@ -15,5 +15,8 @@ class BlocHandler {
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
     ),
+    BlocProvider<CartBloc>(
+      create: (ctx) => CartBloc()..add(CartStarted()),
+    ),
   ];
 }

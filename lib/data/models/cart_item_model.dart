@@ -25,6 +25,22 @@ class CartItem {
     return currentPrice * quantity;
   }
 
+  CartItem copyWith({
+    String? id,
+    Product? product,
+    int? quantity,
+    String? userId,
+    DateTime? dateCreated,
+  }) {
+    return CartItem(
+      id: id ?? this.id,
+      product: product ?? this.product,
+      quantity: quantity ?? this.quantity,
+      userId: userId ?? this.userId,
+      dateCreated: dateCreated ?? this.dateCreated,
+    );
+  }
+
   static List<CartItem> cartItems = [
     CartItem(
       id: _uuid.v4(),

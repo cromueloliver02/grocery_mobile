@@ -33,6 +33,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       bottomNavigationBar: ProductDetailsPageBottomBar(
         qtyController: _qtyController,
         currentPrice: widget.product.salePrice ?? widget.product.price,
+        product: widget.product,
       ),
       body: Column(
         children: [

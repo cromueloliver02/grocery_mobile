@@ -15,12 +15,9 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc()..add(CartStarted()),
-      child: BlocListener<CartBloc, CartState>(
-        listener: _cartListener,
-        child: const CartView(),
-      ),
+    return BlocListener<CartBloc, CartState>(
+      listener: _cartListener,
+      child: const CartView(),
     );
   }
 }

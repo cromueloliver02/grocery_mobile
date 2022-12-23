@@ -22,6 +22,7 @@ class CartItemList extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             separatorBuilder: (ctx, idx) => const SizedBox(height: 5),
             itemBuilder: (ctx, idx) => GCRCartCard(
+              key: ValueKey(cartItems[idx].id),
               product: cartItems[idx].product,
               quantity: cartItems[idx].quantity,
             ),

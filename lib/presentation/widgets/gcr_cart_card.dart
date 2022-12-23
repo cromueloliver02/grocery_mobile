@@ -102,6 +102,15 @@ class _GCRCartCardState extends State<GCRCartCard> {
   }
 
   @override
+  void didUpdateWidget(covariant GCRCartCard oldWidget) {
+    if (widget.quantity != oldWidget.quantity) {
+      _qtyController.text = widget.quantity.toString();
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void dispose() {
     _qtyController.dispose();
     super.dispose();

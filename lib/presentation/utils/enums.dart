@@ -16,3 +16,5 @@ enum GCRPlatform { iOs, android }
 enum ProductListStatus { initial, loading, success, failure }
 
 enum CartStatus { initial, loading, success, failure }
+
+enum CartFormStatus { initial, loading, success, failure }
