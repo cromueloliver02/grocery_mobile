@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/gcr_button.dart';
 import '../../../utils/utils.dart';
 
@@ -8,14 +9,17 @@ class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});
 
   void _showClearCartDialog(BuildContext ctx) async {
+    final CartBloc cartBloc = ctx.read<CartBloc>();
+
     final bool? response = await FunctionHandler.showWarningDialog(
       ctx,
       title: 'Clear Cart',
       message: 'Do you wanna clear your cart?',
     );
 
-    debugPrint(response.toString());
-    // clear cart functionality
+    if (response == null || !response) return;
+
+    cartBloc.add(CartCleared());
   }
 
   @override

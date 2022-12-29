@@ -16,6 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartStarted>(_onStartCart);
     on<CartItemAdded>(_onAddCartItem);
     on<CartItemRemoved>(_onRemoveCartItem);
+    on<CartCleared>(_onClearCart);
   }
 
   void _onStartCart(CartStarted event, Emitter<CartState> emit) async {
@@ -95,6 +96,26 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       ));
 
       await Future.delayed(const Duration(seconds: 3)); // DELETE Cart item
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: CartFormStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onClearCart(CartCleared event, Emitter<CartState> emit) async {
+    emit(state.copyWith(formStatus: CartFormStatus.loading));
+
+    try {
+      emit(state.copyWith(
+        formStatus: CartFormStatus.success,
+        cart: Cart(cartItems: []),
+      ));
+
+      await Future.delayed(const Duration(seconds: 3)); // CLEAR Cart
     } on GCRError catch (err) {
       emit(state.copyWith(
         formStatus: CartFormStatus.failure,
