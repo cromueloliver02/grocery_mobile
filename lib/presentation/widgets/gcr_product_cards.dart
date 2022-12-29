@@ -143,6 +143,10 @@ class _ProductFeedCard extends StatefulWidget {
 class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
+  void _addToCart(BuildContext ctx, Product product) {
+    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
   }
@@ -257,7 +261,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                 bottomRight: Radius.circular(12),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () => _addToCart(context, widget.product),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),

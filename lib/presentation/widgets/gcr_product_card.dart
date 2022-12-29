@@ -4,6 +4,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../data/models/models.dart';
+import '../../business_logic/blocs/blocs.dart';
 import '../pages/pages.dart';
 import '../utils/utils.dart';
 

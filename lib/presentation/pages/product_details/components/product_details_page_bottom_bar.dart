@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
-import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import '../../../utils/utils.dart';
 
@@ -25,8 +25,8 @@ class ProductDetailsPageBottomBar extends StatefulWidget {
 
 class _ProductDetailsPageBottomBarState
     extends State<ProductDetailsPageBottomBar> {
-  void _addToCart(BuildContext ctx) {
-    ctx.read<CartBloc>().add(CartItemAdded(product: widget.product));
+  void _addToCart(BuildContext ctx, Product product) {
+    ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
   @override
@@ -84,7 +84,9 @@ class _ProductDetailsPageBottomBarState
                 return GCRButton.elevated(
                   labelText: loading ? 'Adding To Cart' : 'Add To Cart',
                   loading: loading,
-                  onPressed: loading ? null : () => _addToCart(context),
+                  onPressed: loading
+                      ? null
+                      : () => _addToCart(context, widget.product),
                 );
               },
             ),
