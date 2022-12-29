@@ -15,6 +15,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState.initial()) {
     on<CartStarted>(_onStartCart);
     on<CartItemAdded>(_onAddCartItem);
+    on<CartItemIncremented>(_onIncrementCartItem);
+    on<CartItemDecremented>(_onDecrementCartItem);
     on<CartItemRemoved>(_onRemoveCartItem);
     on<CartCleared>(_onClearCart);
   }
@@ -73,6 +75,58 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         formStatus: CartFormStatus.success,
         cart: Cart(cartItems: cartItems),
       ));
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: CartFormStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onIncrementCartItem(
+      CartItemIncremented event, Emitter<CartState> emit) async {
+    emit(state.copyWith(formStatus: CartFormStatus.loading));
+
+    try {
+      final List<CartItem> cartItems = state.cart.cartItems
+          .map((d) =>
+              d.id == event.id ? d.copyWith(quantity: d.quantity + 1) : d)
+          .toList();
+
+      emit(state.copyWith(
+        formStatus: CartFormStatus.success,
+        cart: Cart(cartItems: cartItems),
+      ));
+
+      await Future.delayed(const Duration(seconds: 3)); // INCREMENT Cart item
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: CartFormStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onDecrementCartItem(
+      CartItemDecremented event, Emitter<CartState> emit) async {
+    emit(state.copyWith(formStatus: CartFormStatus.loading));
+
+    try {
+      final List<CartItem> cartItems = state.cart.cartItems
+          .map((d) =>
+              d.id == event.id ? d.copyWith(quantity: d.quantity - 1) : d)
+          .toList();
+
+      emit(state.copyWith(
+        formStatus: CartFormStatus.success,
+        cart: Cart(cartItems: cartItems),
+      ));
+
+      await Future.delayed(const Duration(seconds: 3)); // DECREMENT Cart item
     } on GCRError catch (err) {
       emit(state.copyWith(
         formStatus: CartFormStatus.failure,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import '../../../../data/models/models.dart';
-import '../../../../presentation/widgets/widgets.dart';
+// import '../../../../presentation/widgets/widgets.dart';
 import './product_details_page_bottom_bar.dart';
 import './product_info_section.dart';
 
@@ -56,7 +56,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   salePrice: widget.product.salePrice,
                 ),
                 const SizedBox(height: 30),
-                GCRQuantityController(qtyController: _qtyController),
+                // temporarily hidden
+                // GCRQuantityController(qtyController: _qtyController),
               ],
             ),
           ),

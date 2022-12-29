@@ -66,7 +66,11 @@ class _GCRCartCardState extends State<GCRCartCard> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  GCRQuantityController(qtyController: _qtyController),
+                  GCRQuantityController(
+                    qtyController: _qtyController,
+                    cartItemId: widget.cartItem.id,
+                    quantity: widget.cartItem.quantity,
+                  ),
                 ],
               ),
               const Spacer(),

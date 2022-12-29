@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../business_logic/blocs/blocs.dart';
+
 class GCRQuantityController extends StatelessWidget {
   const GCRQuantityController({
     super.key,
     required this.qtyController,
+    required this.cartItemId,
+    required this.quantity,
   });
 
   final TextEditingController qtyController;
+  final String cartItemId;
+  final int quantity;
 
-  void _incrementQuantity() {
-    qtyController.text = (int.parse(qtyController.text) + 1).toString();
+  void _incrementQuantity(BuildContext ctx) {
+    ctx.read<CartBloc>().add(CartItemIncremented(id: cartItemId));
   }
 
-  void _decrementQuantity() {
-    final int quantity = int.parse(qtyController.text);
+  void _decrementQuantity(BuildContext ctx) {
+    if (quantity <= 1) return;
 
-    if (quantity == 1) return;
-
-    qtyController.text = (quantity - 1).toString();
+    ctx.read<CartBloc>().add(CartItemDecremented(id: cartItemId));
   }
 
   void _onChanged(String value) {
@@ -34,7 +38,7 @@ class GCRQuantityController extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: _decrementQuantity,
+          onTap: () => _decrementQuantity(context),
           child: Container(
             width: 30,
             height: 30,
@@ -69,7 +73,7 @@ class GCRQuantityController extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         GestureDetector(
-          onTap: _incrementQuantity,
+          onTap: () => _incrementQuantity(context),
           child: Container(
             width: 30,
             height: 30,

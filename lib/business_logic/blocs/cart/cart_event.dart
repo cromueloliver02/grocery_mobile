@@ -20,6 +20,28 @@ class CartItemAdded extends CartEvent {
   List<Object> get props => [product];
 }
 
+class CartItemIncremented extends CartEvent {
+  final String id;
+
+  const CartItemIncremented({
+    required this.id,
+  });
+
+  @override
+  List<Object> get props => [id];
+}
+
+class CartItemDecremented extends CartEvent {
+  final String id;
+
+  const CartItemDecremented({
+    required this.id,
+  });
+
+  @override
+  List<Object> get props => [id];
+}
+
 class CartItemRemoved extends CartEvent {
   final String id;
 
