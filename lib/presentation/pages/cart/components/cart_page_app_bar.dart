@@ -53,7 +53,7 @@ class CartPageAppBar extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Text(
-                  'Total: \$${state.cart.grandTotalPrice}',
+                  'Total: \$${state.cart.grandTotalPrice.toStringAsFixed(2)}',
                   style: textTheme.headline4!.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
