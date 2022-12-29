@@ -23,8 +23,7 @@ class CartItemList extends StatelessWidget {
             separatorBuilder: (ctx, idx) => const SizedBox(height: 5),
             itemBuilder: (ctx, idx) => GCRCartCard(
               key: ValueKey(cartItems[idx].id),
-              product: cartItems[idx].product,
-              quantity: cartItems[idx].quantity,
+              cartItem: cartItems[idx],
             ),
           ),
         ),

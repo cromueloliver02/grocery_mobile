@@ -4,18 +4,17 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../data/models/models.dart';
+import '../../business_logic/blocs/blocs.dart';
 import './widgets.dart';
 import '../pages/pages.dart';
 
 class GCRCartCard extends StatefulWidget {
   const GCRCartCard({
     Key? key,
-    required this.product,
-    required this.quantity,
+    required this.cartItem,
   }) : super(key: key);
 
-  final Product product;
-  final int quantity;
+  final CartItem cartItem;
 
   @override
   State<GCRCartCard> createState() => _GCRCartCardState();
@@ -24,8 +23,13 @@ class GCRCartCard extends StatefulWidget {
 class _GCRCartCardState extends State<GCRCartCard> {
   late final TextEditingController _qtyController;
 
+  void _removeCartItem(BuildContext ctx) {
+    ctx.read<CartBloc>().add(CartItemRemoved(id: widget.cartItem.id));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id,
+        arguments: widget.cartItem.product);
   }
 
   @override
@@ -45,7 +49,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
           child: Row(
             children: [
               FancyShimmerImage(
-                imageUrl: widget.product.imageUrl,
+                imageUrl: widget.cartItem.product.imageUrl,
                 width: screenSize.width * 0.3,
                 height: screenSize.width * 0.3,
                 boxFit: BoxFit.cover,
@@ -55,7 +59,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.product.name,
+                    widget.cartItem.product.name,
                     style: textTheme.headline4!.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -67,7 +71,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => _removeCartItem(context),
                     child: const Icon(
                       CupertinoIcons.cart_badge_minus,
                       color: Colors.red,
@@ -81,7 +85,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
                     icon: const Icon(IconlyBold.heart),
                   ),
                   Text(
-                    '\$${(widget.quantity * widget.product.price).toStringAsFixed(2)}',
+                    '\$${(widget.cartItem.quantity * widget.cartItem.product.price).toStringAsFixed(2)}',
                     style: textTheme.bodyText1!.copyWith(
                       fontSize: textTheme.bodyText1!.fontSize! + 4,
                     ),
@@ -98,13 +102,14 @@ class _GCRCartCardState extends State<GCRCartCard> {
   @override
   void initState() {
     super.initState();
-    _qtyController = TextEditingController(text: widget.quantity.toString());
+    _qtyController =
+        TextEditingController(text: widget.cartItem.quantity.toString());
   }
 
   @override
   void didUpdateWidget(covariant GCRCartCard oldWidget) {
-    if (widget.quantity != oldWidget.quantity) {
-      _qtyController.text = widget.quantity.toString();
+    if (widget.cartItem.quantity != oldWidget.cartItem.quantity) {
+      _qtyController.text = widget.cartItem.quantity.toString();
     }
 
     super.didUpdateWidget(oldWidget);
