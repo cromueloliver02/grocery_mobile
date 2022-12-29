@@ -4,6 +4,7 @@ import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
+import '../../../utils/utils.dart';
 
 class ProductDetailsPageBottomBar extends StatefulWidget {
   const ProductDetailsPageBottomBar({
@@ -76,9 +77,16 @@ class _ProductDetailsPageBottomBarState
                 ),
               ],
             ),
-            GCRButton.elevated(
-              labelText: 'Add To Cart',
-              onPressed: () => _addToCart(context),
+            BlocBuilder<CartBloc, CartState>(
+              builder: (ctx, state) {
+                final bool loading = state.formStatus == CartFormStatus.loading;
+
+                return GCRButton.elevated(
+                  labelText: loading ? 'Adding To Cart' : 'Add To Cart',
+                  loading: loading,
+                  onPressed: loading ? null : () => _addToCart(context),
+                );
+              },
             ),
           ],
         ),
