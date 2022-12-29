@@ -26,39 +26,43 @@ class CartPageAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      children: [
-        ListTile(
-          contentPadding: const EdgeInsets.only(left: 10),
-          title: Text(
-            'Cart (13)',
-            style: textTheme.headline3,
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (ctx, state) => Column(
+        children: [
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 10),
+            title: Text(
+              'Cart (${state.cart.cartItems.length})',
+              style: textTheme.headline3,
+            ),
+            trailing: state.cart.cartItems.isEmpty
+                ? null
+                : IconButton(
+                    onPressed: () => _showClearCartDialog(context),
+                    iconSize: 30,
+                    icon: const Icon(IconlyBroken.delete),
+                  ),
           ),
-          trailing: IconButton(
-            onPressed: () => _showClearCartDialog(context),
-            iconSize: 30,
-            icon: const Icon(IconlyBroken.delete),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GCRButton.elevated(
-                labelText: 'Order Now',
-                onPressed: () {},
-              ),
-              Text(
-                'Total: \$10.38',
-                style: textTheme.headline4!.copyWith(
-                  fontWeight: FontWeight.w500,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GCRButton.elevated(
+                  labelText: 'Order Now',
+                  onPressed: () {},
                 ),
-              ),
-            ],
+                Text(
+                  'Total: \$${state.cart.grandTotalPrice}',
+                  style: textTheme.headline4!.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

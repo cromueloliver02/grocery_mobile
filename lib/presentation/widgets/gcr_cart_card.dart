@@ -37,6 +37,8 @@ class _GCRCartCardState extends State<GCRCartCard> {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
+    final double currentPrice =
+        widget.cartItem.product.salePrice ?? widget.cartItem.product.price;
 
     return Material(
       color: theme.cardColor,
@@ -85,7 +87,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
                     icon: const Icon(IconlyBold.heart),
                   ),
                   Text(
-                    '\$${(widget.cartItem.quantity * widget.cartItem.product.price).toStringAsFixed(2)}',
+                    '\$${(widget.cartItem.quantity * currentPrice).toStringAsFixed(2)}',
                     style: textTheme.bodyText1!.copyWith(
                       fontSize: textTheme.bodyText1!.fontSize! + 4,
                     ),
