@@ -18,5 +18,8 @@ class BlocHandler {
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc()..add(CartStarted()),
     ),
+    BlocProvider<WishlistBloc>(
+      create: (ctx) => WishlistBloc()..add(WishlistStarted()),
+    ),
   ];
 }
