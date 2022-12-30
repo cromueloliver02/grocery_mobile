@@ -1,44 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../utils/utils.dart';
 
 class ViewedRecentlyPageAppBar extends StatelessWidget {
   const ViewedRecentlyPageAppBar({super.key});
-
-  void _showClearHistoryDialog(BuildContext ctx) async {
-    final bool? response = await FunctionHandler.showWarningDialog(
-      ctx,
-      title: 'Clear History',
-      message: 'Do you wanna clear your history?',
-    );
-
-    debugPrint(response.toString());
-    // clear recently viewed/hisoty functionality
-  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      alignment: Alignment.center,
       children: [
-        IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
-        ),
-        BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
-          builder: (ctx, state) => Text(
-            'History (${state.viewedItems.length})',
-            style: textTheme.headline3,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back),
           ),
         ),
-        IconButton(
-          onPressed: () => _showClearHistoryDialog(context),
-          iconSize: 30,
-          icon: const Icon(IconlyBroken.delete),
+        Align(
+          alignment: Alignment.center,
+          child: BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
+            builder: (ctx, state) => Text(
+              'History (${state.viewedItems.length})',
+              style: textTheme.headline3,
+            ),
+          ),
         ),
       ],
     );
