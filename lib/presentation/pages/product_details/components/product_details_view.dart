@@ -50,11 +50,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
             ),
             child: Column(
               children: [
-                ProductInfoSection(
-                  name: widget.product.name,
-                  price: widget.product.price,
-                  salePrice: widget.product.salePrice,
-                ),
+                ProductInfoSection(product: widget.product),
                 const SizedBox(height: 30),
                 // temporarily hidden
                 // GCRQuantityController(qtyController: _qtyController),

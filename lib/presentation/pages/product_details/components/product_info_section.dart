@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../data/models/models.dart';
+import '../../../../business_logic/blocs/blocs.dart';
+
 class ProductInfoSection extends StatelessWidget {
   const ProductInfoSection({
     super.key,
-    required this.name,
-    required this.price,
-    required this.salePrice,
+    required this.product,
   });
 
-  final String name;
-  final double price;
-  final double? salePrice;
+  final Product product;
+
+  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +26,28 @@ class ProductInfoSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              name,
+              product.name,
               style: textTheme.headline2,
             ),
-            IconButton(
-              onPressed: () {},
-              iconSize: 30,
-              color: Colors.red,
-              icon: const Icon(IconlyLight.heart),
+            BlocBuilder<WishlistBloc, WishlistState>(
+              builder: (ctx, state) => IconButton(
+                onPressed: () => _addOrRemoveWishlist(context, product),
+                iconSize: 30,
+                color: Colors.red,
+                icon: state.wishlist.inWishlist(product.id)
+                    ? const Icon(IconlyBold.heart)
+                    : const Icon(IconlyLight.heart),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           children: [
-            if (salePrice == null)
+            if (product.salePrice == null)
               RichText(
                 text: TextSpan(
-                  text: '\$$price ',
+                  text: '\$${product.price} ',
                   style: textTheme.headline2!.copyWith(
                     color: Colors.green,
                   ),
@@ -52,10 +59,10 @@ class ProductInfoSection extends StatelessWidget {
                   ],
                 ),
               ),
-            if (salePrice != null) ...[
+            if (product.salePrice != null) ...[
               RichText(
                 text: TextSpan(
-                  text: '\$$salePrice ',
+                  text: '\$${product.salePrice} ',
                   style: textTheme.headline2!.copyWith(
                     color: Colors.green,
                   ),
@@ -69,7 +76,7 @@ class ProductInfoSection extends StatelessWidget {
               ),
               const SizedBox(width: 15),
               Text(
-                '\$$price',
+                '\$${product.price}',
                 style: textTheme.bodyText1!.copyWith(
                   fontSize: textTheme.bodyText1!.fontSize! + 2,
                   decoration: TextDecoration.lineThrough,
