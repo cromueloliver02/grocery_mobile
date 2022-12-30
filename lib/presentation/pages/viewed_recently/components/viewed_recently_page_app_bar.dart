@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../utils/utils.dart';
 
 class ViewedRecentlyPageAppBar extends StatelessWidget {
@@ -28,9 +29,11 @@ class ViewedRecentlyPageAppBar extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        Text(
-          'History (24)',
-          style: textTheme.headline3,
+        BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
+          builder: (ctx, state) => Text(
+            'History (${state.viewedItems.length})',
+            style: textTheme.headline3,
+          ),
         ),
         IconButton(
           onPressed: () => _showClearHistoryDialog(context),
