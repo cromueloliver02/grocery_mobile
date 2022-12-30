@@ -24,14 +24,14 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       // FETCH wishlist products
       await Future.delayed(const Duration(seconds: 3));
 
-      final List<Product> wishlist = [
+      final List<Product> wishlistItems = [
         Product.productList[5],
         Product.productList[7],
         Product.productList[2],
       ];
 
       emit(state.copyWith(
-        wishlist: wishlist,
+        wishlist: Wishlist(wishlistItems: wishlistItems),
         status: WishlistStatus.success,
       ));
     } on GCRError catch (err) {
@@ -51,10 +51,13 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(formStatus: WishlistFormStatus.loading));
 
     try {
-      final List<Product> wishlist = [event.product, ...state.wishlist];
+      final List<Product> wishlistItems = [
+        event.product,
+        ...state.wishlist.wishlistItems,
+      ];
 
       emit(state.copyWith(
-        wishlist: wishlist,
+        wishlist: Wishlist(wishlistItems: wishlistItems),
         formStatus: WishlistFormStatus.success,
       ));
 

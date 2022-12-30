@@ -67,18 +67,21 @@ class _ProductSaleCard extends StatelessWidget {
                                     ? IconlyBold.bag2
                                     : IconlyLight.bag2,
                                 size: 22,
-                                color: state.cart.inCart(product.id)
-                                    ? Colors.green
-                                    : null,
+                                color: Colors.green,
                               ),
                             ),
                           ),
                           const SizedBox(width: 5),
-                          GestureDetector(
-                            onTap: () => _addToWishlist(context, product),
-                            child: const Icon(
-                              IconlyLight.heart,
-                              size: 22,
+                          BlocBuilder<WishlistBloc, WishlistState>(
+                            builder: (ctx, state) => GestureDetector(
+                              onTap: () => _addToWishlist(context, product),
+                              child: Icon(
+                                state.wishlist.inWishlist(product.id)
+                                    ? IconlyBold.heart
+                                    : IconlyLight.heart,
+                                color: Colors.red,
+                                size: 22,
+                              ),
                             ),
                           ),
                         ],
@@ -210,11 +213,16 @@ class _FeedCardState extends State<_ProductFeedCard> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => _addToWishlist(context, widget.product),
-                        child: const Icon(
-                          IconlyLight.heart,
-                          size: 22,
+                      BlocBuilder<WishlistBloc, WishlistState>(
+                        builder: (ctx, state) => GestureDetector(
+                          onTap: () => _addToWishlist(context, widget.product),
+                          child: Icon(
+                            state.wishlist.inWishlist(widget.product.id)
+                                ? IconlyBold.heart
+                                : IconlyLight.heart,
+                            color: Colors.red,
+                            size: 22,
+                          ),
                         ),
                       ),
                     ],

@@ -1,7 +1,7 @@
 part of 'wishlist_bloc.dart';
 
 class WishlistState extends Equatable {
-  final List<Product> wishlist;
+  final Wishlist wishlist;
   final WishlistStatus status;
   final WishlistFormStatus formStatus;
   final GCRError error;
@@ -14,11 +14,11 @@ class WishlistState extends Equatable {
   });
 
   factory WishlistState.initial() {
-    return const WishlistState(
-      wishlist: [],
+    return WishlistState(
+      wishlist: Wishlist(wishlistItems: <Product>[]),
       status: WishlistStatus.initial,
       formStatus: WishlistFormStatus.initial,
-      error: GCRError(),
+      error: const GCRError(),
     );
   }
 
@@ -31,7 +31,7 @@ class WishlistState extends Equatable {
   }
 
   WishlistState copyWith({
-    List<Product>? wishlist,
+    Wishlist? wishlist,
     WishlistStatus? status,
     WishlistFormStatus? formStatus,
     GCRError? error,

@@ -39,7 +39,7 @@ class WishlistView extends StatelessWidget {
                       return const GCRErrorCard();
                     }
 
-                    if (state.wishlist.isEmpty) {
+                    if (state.wishlist.wishlistItems.isEmpty) {
                       return GCREmptyMessageCard(
                         image: 'assets/images/wishlist.png',
                         message: 'Your wishlist is empty.',
@@ -49,7 +49,7 @@ class WishlistView extends StatelessWidget {
                     }
 
                     return GridView.builder(
-                      itemCount: state.wishlist.length,
+                      itemCount: state.wishlist.wishlistItems.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -58,7 +58,7 @@ class WishlistView extends StatelessWidget {
                         childAspectRatio: 250 / 200,
                       ),
                       itemBuilder: (ctx, idx) => GCRProductCard.wishlist(
-                        product: state.wishlist[idx],
+                        product: state.wishlist.wishlistItems[idx],
                       ),
                     );
                   },
