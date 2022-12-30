@@ -32,9 +32,11 @@ class WishlistPageAppBar extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        Text(
-          'Wishlist (13)',
-          style: textTheme.headline3,
+        BlocBuilder<WishlistBloc, WishlistState>(
+          builder: (ctx, state) => Text(
+            'Wishlist (${state.wishlist.wishlistItems.length})',
+            style: textTheme.headline3,
+          ),
         ),
         IconButton(
           onPressed: () => _showClearWishlistDialog(context),
