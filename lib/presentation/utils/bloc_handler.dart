@@ -21,5 +21,8 @@ class BlocHandler {
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc()..add(WishlistStarted()),
     ),
+    BlocProvider<ViewedRecentlyBloc>(
+      create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
+    ),
   ];
 }
