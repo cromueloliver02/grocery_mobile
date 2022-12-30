@@ -12,6 +12,10 @@ class _ProductWishlistCard extends StatelessWidget {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
+  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
@@ -67,7 +71,7 @@ class _ProductWishlistCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 15),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () => _addOrRemoveWishlist(context, product),
                             child: const Icon(
                               IconlyBold.heart,
                               color: Colors.red,
