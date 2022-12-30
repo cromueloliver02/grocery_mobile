@@ -323,6 +323,10 @@ class _ProductWishlistCard extends StatelessWidget {
 
   final Product product;
 
+  void _addToCart(BuildContext ctx, Product product) {
+    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
@@ -349,23 +353,31 @@ class _ProductWishlistCard extends StatelessWidget {
             child: Row(
               children: [
                 FancyShimmerImage(
-                  imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                  width: screenSize.width * 0.2,
-                  height: screenSize.width * 0.2,
+                  imageUrl: product.imageUrl,
+                  width: screenSize.width * 0.18,
+                  height: screenSize.width * 0.18,
                   boxFit: BoxFit.cover,
                 ),
+                const SizedBox(width: 5),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              IconlyBold.bag2,
-                              color: Colors.green,
-                              size: 28,
+                          BlocBuilder<CartBloc, CartState>(
+                            builder: (ctx, state) => GestureDetector(
+                              onTap: state.cart.inCart(product.id)
+                                  ? null
+                                  : () => _addToCart(context, product),
+                              child: Icon(
+                                state.cart.inCart(product.id)
+                                    ? IconlyBold.bag2
+                                    : IconlyLight.bag2,
+                                color: state.cart.inCart(product.id)
+                                    ? Colors.green
+                                    : null,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 15),
@@ -374,15 +386,14 @@ class _ProductWishlistCard extends StatelessWidget {
                             child: const Icon(
                               IconlyBold.heart,
                               color: Colors.red,
-                              size: 28,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        'Tomatoes',
-                        maxLines: 3,
+                        product.name,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.w400,
@@ -392,20 +403,20 @@ class _ProductWishlistCard extends StatelessWidget {
                       if (product.salePrice == null)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline2!.copyWith(
+                          style: textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       if (product.salePrice != null) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.headline2!.copyWith(
+                          style: textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline4!.copyWith(
+                          style: textTheme.headline5!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w400,
                             decoration: TextDecoration.lineThrough,
