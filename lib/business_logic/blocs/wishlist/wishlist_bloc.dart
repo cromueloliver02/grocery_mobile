@@ -11,7 +11,7 @@ part 'wishlist_state.dart';
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistState.initial()) {
     on<WishlistStarted>(_onStartWishlist);
-    on<WishlistItemAdded>(_onAddItemWishlist);
+    on<WishlistAddedOrRemoved>(_onAddOrRemoveWishlist);
   }
 
   void _onStartWishlist(
@@ -44,25 +44,44 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     }
   }
 
-  void _onAddItemWishlist(
-    WishlistItemAdded event,
+  void _onAddOrRemoveWishlist(
+    WishlistAddedOrRemoved event,
     Emitter<WishlistState> emit,
   ) async {
     emit(state.copyWith(formStatus: WishlistFormStatus.loading));
 
     try {
-      final List<Product> wishlistItems = [
-        event.product,
-        ...state.wishlist.wishlistItems,
-      ];
+      final Product product = event.product;
 
-      emit(state.copyWith(
-        wishlist: Wishlist(wishlistItems: wishlistItems),
-        formStatus: WishlistFormStatus.success,
-      ));
+      final bool isExist =
+          state.wishlist.wishlistItems.any((d) => d.id == product.id);
 
-      // POST wishlist product
-      await Future.delayed(const Duration(seconds: 3));
+      if (isExist) {
+        final List<Product> wishlistItems = state.wishlist.wishlistItems
+            .where((d) => d.id != product.id)
+            .toList();
+
+        emit(state.copyWith(
+          wishlist: Wishlist(wishlistItems: wishlistItems),
+          formStatus: WishlistFormStatus.success,
+        ));
+
+        // DELETE wishlist item
+        await Future.delayed(const Duration(seconds: 3));
+      } else {
+        final List<Product> wishlistItems = [
+          event.product,
+          ...state.wishlist.wishlistItems,
+        ];
+
+        emit(state.copyWith(
+          wishlist: Wishlist(wishlistItems: wishlistItems),
+          formStatus: WishlistFormStatus.success,
+        ));
+
+        // POST wishlist item
+        await Future.delayed(const Duration(seconds: 3));
+      }
     } on GCRError catch (err) {
       emit(state.copyWith(
         formStatus: WishlistFormStatus.failure,

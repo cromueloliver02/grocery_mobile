@@ -12,8 +12,8 @@ class _ProductSaleCard extends StatelessWidget {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
-  void _addToWishlist(BuildContext ctx, Product product) {
-    ctx.read<WishlistBloc>().add(WishlistItemAdded(product: product));
+  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
@@ -74,7 +74,8 @@ class _ProductSaleCard extends StatelessWidget {
                           const SizedBox(width: 5),
                           BlocBuilder<WishlistBloc, WishlistState>(
                             builder: (ctx, state) => GestureDetector(
-                              onTap: () => _addToWishlist(context, product),
+                              onTap: () =>
+                                  _addOrRemoveWishlist(context, product),
                               child: Icon(
                                 state.wishlist.inWishlist(product.id)
                                     ? IconlyBold.heart
@@ -167,8 +168,8 @@ class _FeedCardState extends State<_ProductFeedCard> {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
-  void _addToWishlist(BuildContext ctx, Product product) {
-    ctx.read<WishlistBloc>().add(WishlistItemAdded(product: product));
+  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
@@ -215,7 +216,8 @@ class _FeedCardState extends State<_ProductFeedCard> {
                       ),
                       BlocBuilder<WishlistBloc, WishlistState>(
                         builder: (ctx, state) => GestureDetector(
-                          onTap: () => _addToWishlist(context, widget.product),
+                          onTap: () =>
+                              _addOrRemoveWishlist(context, widget.product),
                           child: Icon(
                             state.wishlist.inWishlist(widget.product.id)
                                 ? IconlyBold.heart

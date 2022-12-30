@@ -9,10 +9,10 @@ abstract class WishlistEvent extends Equatable {
 
 class WishlistStarted extends WishlistEvent {}
 
-class WishlistItemAdded extends WishlistEvent {
+class WishlistAddedOrRemoved extends WishlistEvent {
   final Product product;
 
-  const WishlistItemAdded({
+  const WishlistAddedOrRemoved({
     required this.product,
   });
 
