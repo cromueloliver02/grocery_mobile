@@ -44,25 +44,25 @@ class CartItem {
   static List<CartItem> cartItems = [
     CartItem(
       id: _uuid.v4(),
-      product: Product.productList[0],
+      product: Product.productList[9],
       quantity: 2,
       userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
-      product: Product.productList[1],
+      product: Product.productList[0],
       quantity: 1,
       userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
-      product: Product.productList[2],
+      product: Product.productList[7],
       quantity: 4,
       userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
-      product: Product.productList[3],
+      product: Product.productList[8],
       quantity: 3,
       userId: 'cromuel-unique-id',
     ),
@@ -74,7 +74,7 @@ class CartItem {
     ),
     CartItem(
       id: _uuid.v4(),
-      product: Product.productList[5],
+      product: Product.productList[11],
       quantity: 1,
       userId: 'cromuel-unique-id',
     ),

@@ -4,7 +4,6 @@ import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
 
 class ProductDetailsPageBottomBar extends StatefulWidget {
   const ProductDetailsPageBottomBar({
@@ -27,6 +26,11 @@ class _ProductDetailsPageBottomBarState
     extends State<ProductDetailsPageBottomBar> {
   void _addToCart(BuildContext ctx, Product product) {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
+  }
+
+  void _goToCartPage(BuildContext ctx) {
+    Navigator.pop(context);
+    ctx.read<NavigationCubit>().setCurrentIndex(2);
   }
 
   @override
@@ -79,14 +83,16 @@ class _ProductDetailsPageBottomBarState
             ),
             BlocBuilder<CartBloc, CartState>(
               builder: (ctx, state) {
-                final bool loading = state.formStatus == CartFormStatus.loading;
+                if (state.cart.inCart(widget.product.id)) {
+                  return GCRButton.elevated(
+                    labelText: 'Go To Cart',
+                    onPressed: () => _goToCartPage(context),
+                  );
+                }
 
                 return GCRButton.elevated(
-                  labelText: loading ? 'Adding To Cart' : 'Add To Cart',
-                  loading: loading,
-                  onPressed: loading
-                      ? null
-                      : () => _addToCart(context, widget.product),
+                  labelText: 'Add To Cart',
+                  onPressed: () => _addToCart(context, widget.product),
                 );
               },
             ),

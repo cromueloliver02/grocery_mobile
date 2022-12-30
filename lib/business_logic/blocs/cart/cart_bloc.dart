@@ -59,8 +59,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 : d)
             .toList();
       } else {
-        await Future.delayed(const Duration(seconds: 3)); // POST Cart item
-
         final CartItem cartItem = CartItem(
           id: _uuid.v4(),
           product: product,
@@ -75,6 +73,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         formStatus: CartFormStatus.success,
         cart: Cart(cartItems: cartItems),
       ));
+
+      if (isExist) {
+        await Future.delayed(const Duration(seconds: 3)); // INCREASE Cart item
+      } else {
+        await Future.delayed(const Duration(seconds: 3)); // POST Cart item
+      }
     } on GCRError catch (err) {
       emit(state.copyWith(
         formStatus: CartFormStatus.failure,

@@ -8,6 +8,10 @@ class _ProductSaleCard extends StatelessWidget {
 
   final Product product;
 
+  void _addToCart(BuildContext ctx, Product product) {
+    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
@@ -49,11 +53,20 @@ class _ProductSaleCard extends StatelessWidget {
                       const SizedBox(height: 5),
                       Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              IconlyLight.bag,
-                              size: 22,
+                          BlocBuilder<CartBloc, CartState>(
+                            builder: (ctx, state) => GestureDetector(
+                              onTap: state.cart.inCart(product.id)
+                                  ? null
+                                  : () => _addToCart(context, product),
+                              child: Icon(
+                                state.cart.inCart(product.id)
+                                    ? IconlyBold.bag2
+                                    : IconlyLight.bag2,
+                                size: 22,
+                                color: state.cart.inCart(product.id)
+                                    ? Colors.green
+                                    : null,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 5),
@@ -260,18 +273,24 @@ class _FeedCardState extends State<_ProductFeedCard> {
                 bottomLeft: Radius.circular(12),
                 bottomRight: Radius.circular(12),
               ),
-              child: InkWell(
-                onTap: () => _addToCart(context, widget.product),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Center(
-                    child: Text(
-                      'Add to Cart',
-                      style: textTheme.bodyText1,
+              child: BlocBuilder<CartBloc, CartState>(
+                builder: (ctx, state) => InkWell(
+                  onTap: state.cart.inCart(widget.product.id)
+                      ? null
+                      : () => _addToCart(context, widget.product),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: Text(
+                        state.cart.inCart(widget.product.id)
+                            ? 'In Cart'
+                            : 'Add to Cart',
+                        style: textTheme.bodyText1,
+                      ),
                     ),
                   ),
                 ),
