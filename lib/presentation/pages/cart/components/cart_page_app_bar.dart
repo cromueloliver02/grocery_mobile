@@ -17,9 +17,9 @@ class CartPageAppBar extends StatelessWidget {
       message: 'Do you wanna clear your cart?',
     );
 
-    if (response == null || !response) return;
-
-    cartBloc.add(CartCleared());
+    if (response != null && response) {
+      cartBloc.add(CartCleared());
+    }
   }
 
   @override

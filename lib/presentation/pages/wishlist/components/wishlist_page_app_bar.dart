@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../utils/utils.dart';
 
 class WishlistPageAppBar extends StatelessWidget {
   const WishlistPageAppBar({super.key});
 
   void _showClearWishlistDialog(BuildContext ctx) async {
+    final WishlistBloc wishlistBloc = ctx.read<WishlistBloc>();
+
     final bool? response = await FunctionHandler.showWarningDialog(
       ctx,
       title: 'Clear Wishlist',
       message: 'Do you wanna clear your wishlist?',
     );
 
-    debugPrint(response.toString());
-    // clear wishlist functionality
+    if (response != null && response) {
+      wishlistBloc.add(WishlistCleared());
+    }
   }
 
   @override

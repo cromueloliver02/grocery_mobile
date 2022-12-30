@@ -12,6 +12,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistState.initial()) {
     on<WishlistStarted>(_onStartWishlist);
     on<WishlistAddedOrRemoved>(_onAddOrRemoveWishlist);
+    on<WishlistCleared>(_onClearWishlist);
   }
 
   void _onStartWishlist(
@@ -82,6 +83,29 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         // POST wishlist item
         await Future.delayed(const Duration(seconds: 3));
       }
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: WishlistFormStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onClearWishlist(
+    WishlistCleared event,
+    Emitter<WishlistState> emit,
+  ) async {
+    emit(state.copyWith(formStatus: WishlistFormStatus.loading));
+
+    try {
+      emit(state.copyWith(
+        formStatus: WishlistFormStatus.success,
+        wishlist: Wishlist(wishlistItems: []),
+      ));
+
+      await Future.delayed(const Duration(seconds: 3)); // CLEAR wishlist
     } on GCRError catch (err) {
       emit(state.copyWith(
         formStatus: WishlistFormStatus.failure,

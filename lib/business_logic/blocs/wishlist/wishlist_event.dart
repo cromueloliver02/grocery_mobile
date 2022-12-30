@@ -19,3 +19,5 @@ class WishlistAddedOrRemoved extends WishlistEvent {
   @override
   List<Object> get props => [product];
 }
+
+class WishlistCleared extends WishlistEvent {}
