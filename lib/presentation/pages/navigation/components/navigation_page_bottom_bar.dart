@@ -43,7 +43,7 @@ class NavigationPageBottomBar extends StatelessWidget {
               position: BadgePosition.topEnd(top: -7, end: -7),
               badgeContent: BlocBuilder<CartBloc, CartState>(
                 builder: (ctx, state) => Text(
-                  state.cart.cartItems.length.toString(),
+                  '${state.cart.cartItems.length}',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -55,10 +55,12 @@ class NavigationPageBottomBar extends StatelessWidget {
               badgeColor: Colors.blue,
               borderRadius: BorderRadius.circular(8),
               position: BadgePosition.topEnd(top: -7, end: -7),
-              badgeContent: const FittedBox(
-                child: Text(
-                  '0',
-                  style: TextStyle(color: Colors.white),
+              badgeContent: FittedBox(
+                child: BlocBuilder<CartBloc, CartState>(
+                  builder: (ctx, state) => Text(
+                    '${state.cart.cartItems.length}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
               child: const Icon(IconlyBold.buy),
