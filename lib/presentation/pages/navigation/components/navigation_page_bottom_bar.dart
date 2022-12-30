@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 
 class NavigationPageBottomBar extends StatelessWidget {
@@ -40,9 +41,11 @@ class NavigationPageBottomBar extends StatelessWidget {
               badgeColor: Colors.blue,
               borderRadius: BorderRadius.circular(8),
               position: BadgePosition.topEnd(top: -7, end: -7),
-              badgeContent: const Text(
-                '0',
-                style: TextStyle(color: Colors.white),
+              badgeContent: BlocBuilder<CartBloc, CartState>(
+                builder: (ctx, state) => Text(
+                  state.cart.cartItems.length.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
               child: const Icon(IconlyLight.buy),
             ),
