@@ -11,6 +11,7 @@ part 'wishlist_state.dart';
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistState.initial()) {
     on<WishlistStarted>(_onStartWishlist);
+    on<WishlistItemAdded>(_onAddItemWishlist);
   }
 
   void _onStartWishlist(
@@ -36,6 +37,32 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: WishlistStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onAddItemWishlist(
+    WishlistItemAdded event,
+    Emitter<WishlistState> emit,
+  ) async {
+    emit(state.copyWith(formStatus: WishlistFormStatus.loading));
+
+    try {
+      final List<Product> wishlist = [event.product, ...state.wishlist];
+
+      emit(state.copyWith(
+        wishlist: wishlist,
+        formStatus: WishlistFormStatus.success,
+      ));
+
+      // POST wishlist product
+      await Future.delayed(const Duration(seconds: 3));
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: WishlistFormStatus.failure,
         error: err,
       ));
 

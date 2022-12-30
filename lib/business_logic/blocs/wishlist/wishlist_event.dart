@@ -8,3 +8,14 @@ abstract class WishlistEvent extends Equatable {
 }
 
 class WishlistStarted extends WishlistEvent {}
+
+class WishlistItemAdded extends WishlistEvent {
+  final Product product;
+
+  const WishlistItemAdded({
+    required this.product,
+  });
+
+  @override
+  List<Object> get props => [product];
+}

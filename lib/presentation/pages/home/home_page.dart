@@ -20,10 +20,23 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  void _wishlistListener(BuildContext ctx, WishlistState state) {
+    if (state.formStatus == WishlistFormStatus.failure) {
+      FunctionHandler.showErrorDialog(ctx, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductListBloc, ProductListState>(
-      listener: _productFeedListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProductListBloc, ProductListState>(
+          listener: _productFeedListener,
+        ),
+        BlocListener<WishlistBloc, WishlistState>(
+          listener: _wishlistListener,
+        ),
+      ],
       child: const HomeView(),
     );
   }

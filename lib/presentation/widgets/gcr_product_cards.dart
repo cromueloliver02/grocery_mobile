@@ -12,6 +12,10 @@ class _ProductSaleCard extends StatelessWidget {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
+  void _addToWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
@@ -71,7 +75,7 @@ class _ProductSaleCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () => _addToWishlist(context, product),
                             child: const Icon(
                               IconlyLight.heart,
                               size: 22,
@@ -160,6 +164,10 @@ class _FeedCardState extends State<_ProductFeedCard> {
     ctx.read<CartBloc>().add(CartItemAdded(product: product));
   }
 
+  void _addToWishlist(BuildContext ctx, Product product) {
+    ctx.read<WishlistBloc>().add(WishlistItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
   }
@@ -203,7 +211,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => _addToWishlist(context, widget.product),
                         child: const Icon(
                           IconlyLight.heart,
                           size: 22,
