@@ -7,7 +7,7 @@ import '../pages.dart';
 import '../../utils/utils.dart';
 import './components/product_details_view.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   static const id = '${NavigationPage.id}/product-details';
 
   static Route<void> route(RouteSettings settings) {
@@ -26,20 +26,47 @@ class ProductDetailsPage extends StatelessWidget {
     required this.product,
   });
 
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
   void _cartListener(BuildContext ctx, CartState state) {
     if (state.formStatus == CartFormStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
   }
 
+  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
+    if (state.formStatus == ViewedRecentlyFormStatus.failure) {
+      FunctionHandler.showErrorDialog(ctx, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CartBloc, CartState>(
-      listener: _cartListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CartBloc, CartState>(
+          listener: _cartListener,
+        ),
+        BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
+          listener: _viewedRecentlyListener,
+        ),
+      ],
       child: BlocProvider<QtyControllerCubit>(
         create: (ctx) => QtyControllerCubit(),
-        child: ProductDetailsView(product: product),
+        child: ProductDetailsView(product: widget.product),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    context
+        .read<ViewedRecentlyBloc>()
+        .add(ViewedRecentlyItemAdded(product: widget.product));
   }
 }

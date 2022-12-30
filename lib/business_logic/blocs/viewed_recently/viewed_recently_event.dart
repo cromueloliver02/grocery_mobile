@@ -8,3 +8,14 @@ abstract class ViewedRecentlyEvent extends Equatable {
 }
 
 class ViewedRecentlyStarted extends ViewedRecentlyEvent {}
+
+class ViewedRecentlyItemAdded extends ViewedRecentlyEvent {
+  final Product product;
+
+  const ViewedRecentlyItemAdded({
+    required this.product,
+  });
+
+  @override
+  List<Object> get props => [product];
+}

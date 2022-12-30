@@ -52,7 +52,7 @@ class ViewedRecentlyView extends StatelessWidget {
                       itemCount: state.viewedItems.length,
                       separatorBuilder: (ctx, idx) => const SizedBox(height: 5),
                       itemBuilder: (ctx, idx) => GCRProductCard.viewed(
-                        product: state.viewedItems[idx],
+                        product: state.viewedItems.values.toList()[idx],
                       ),
                     );
                   },

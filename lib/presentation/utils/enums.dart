@@ -24,3 +24,5 @@ enum WishlistStatus { initial, loading, success, failure }
 enum WishlistFormStatus { initial, loading, success, failure }
 
 enum ViewedRecentlyStatus { initial, loading, success, failure }
+
+enum ViewedRecentlyFormStatus { initial, loading, success, failure }
