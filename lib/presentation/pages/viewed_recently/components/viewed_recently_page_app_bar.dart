@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../utils/utils.dart';
 
 class ViewedRecentlyPageAppBar extends StatelessWidget {
   const ViewedRecentlyPageAppBar({super.key});
@@ -23,7 +24,7 @@ class ViewedRecentlyPageAppBar extends StatelessWidget {
           alignment: Alignment.center,
           child: BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
             builder: (ctx, state) => Text(
-              'History (${state.viewedItems.length})',
+              'History ${state.status == ViewedRecentlyStatus.loading ? '' : ' (${state.viewedItems.length})'}',
               style: textTheme.headline3,
             ),
           ),
