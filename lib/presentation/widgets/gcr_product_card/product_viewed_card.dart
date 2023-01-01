@@ -8,6 +8,10 @@ class _ProductViewedCard extends StatelessWidget {
 
   final Product product;
 
+  void _addToCart(BuildContext ctx, Product product) {
+    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+  }
+
   void _goToProductDetailsPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
@@ -78,19 +82,23 @@ class _ProductViewedCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: 30,
-                  color: theme.canvasColor,
+            BlocBuilder<CartBloc, CartState>(
+              builder: (ctx, state) => GestureDetector(
+                onTap: state.cart.inCart(product.id)
+                    ? null
+                    : () => _addToCart(context, product),
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    state.cart.inCart(product.id) ? Icons.check : Icons.add,
+                    size: 30,
+                    color: theme.canvasColor,
+                  ),
                 ),
               ),
             ),
