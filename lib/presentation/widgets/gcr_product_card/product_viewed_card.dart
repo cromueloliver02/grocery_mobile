@@ -25,7 +25,7 @@ class _ProductViewedCard extends StatelessWidget {
         child: Row(
           children: [
             FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+              imageUrl: product.imageUrl,
               width: screenSize.width * 0.25,
               height: screenSize.width * 0.25,
               boxFit: BoxFit.cover,
@@ -36,7 +36,7 @@ class _ProductViewedCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product Name',
+                    product.name,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.headline4!.copyWith(
