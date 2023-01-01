@@ -19,6 +19,11 @@ class BlocHandler {
   ];
 
   final List<BlocProvider> blocProviders = [
+    BlocProvider<AuthBloc>(
+      create: (ctx) => AuthBloc(
+        authRepository: ctx.read<AuthRepository>(),
+      )..add(AuthStarted()),
+    ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),

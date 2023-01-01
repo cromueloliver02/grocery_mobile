@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../services/auth_service.dart';
 import './base_auth_repository.dart';
 
@@ -7,6 +9,9 @@ class AuthRepository extends BaseAuthRepository {
   AuthRepository({
     required this.authService,
   });
+
+  @override
+  Stream<User?> get user => authService.user;
 
   @override
   Future<void> signupWithEmail({
@@ -22,4 +27,7 @@ class AuthRepository extends BaseAuthRepository {
       shipAddress: shipAddress,
     );
   }
+
+  @override
+  void signout() => authService.signout();
 }

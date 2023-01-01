@@ -5,10 +5,12 @@ class GCRLoadingOverlay extends StatelessWidget {
   const GCRLoadingOverlay({
     super.key,
     required this.loading,
+    this.loadingText = 'LOADING',
     required this.child,
   });
 
   final bool loading;
+  final String loadingText;
   final Widget child;
 
   @override
@@ -31,7 +33,7 @@ class GCRLoadingOverlay extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'LOADING',
+                  loadingText,
                   style: textTheme.headline3!.copyWith(
                     color: Colors.white,
                   ),

@@ -13,6 +13,8 @@ class AuthService {
     required this.firebaseFirestore,
   });
 
+  Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+
   Future<void> signupWithEmail({
     required String name,
     required String email,
@@ -52,4 +54,6 @@ class AuthService {
       );
     }
   }
+
+  void signout() => firebaseAuth.signOut();
 }

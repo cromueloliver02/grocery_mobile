@@ -12,6 +12,8 @@ enum ButtonType { elevated, text }
 
 enum GCRPlatform { iOs, android }
 
+enum AuthStatus { unknown, unauthenticated, authenticated }
+
 // ASYNC
 enum SignupStatus { initial, loading, success, failure }
 

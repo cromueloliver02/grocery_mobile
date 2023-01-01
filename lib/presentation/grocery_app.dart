@@ -29,7 +29,7 @@ class GroceryApp extends StatelessWidget {
             themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
             theme: themeHandler.lightTheme,
             darkTheme: themeHandler.darkTheme,
-            initialRoute: SignInPage.id,
+            initialRoute: SplashPage.id,
             onGenerateRoute: routeHandler.onGenerateRoute,
             onUnknownRoute: routeHandler.onUnknownRoute,
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
@@ -32,14 +33,17 @@ class MenuList extends StatelessWidget {
       );
 
   void _showSignOutDialog(BuildContext ctx) async {
+    final AuthBloc authBloc = ctx.read<AuthBloc>();
+
     final bool? response = await FunctionHandler.showWarningDialog(
       ctx,
       title: 'Sign Out',
       message: 'Do you wanna sign out?',
     );
 
-    debugPrint(response.toString());
-    // sign out functionality
+    if (response != null && response) {
+      authBloc.add(AuthSignoutRequested());
+    }
   }
 
   @override
