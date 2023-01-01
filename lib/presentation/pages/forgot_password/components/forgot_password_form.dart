@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -42,7 +42,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
               validator: FunctionHandler.emailValidator,
-              onSaved: (String? value) => _saveEmail(context, value),
+              onChanged: (String? value) => _saveEmail(context, value),
             ),
             const SizedBox(height: 20),
             SizedBox(

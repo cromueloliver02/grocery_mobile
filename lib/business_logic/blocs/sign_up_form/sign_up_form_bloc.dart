@@ -7,37 +7,37 @@ part 'sign_up_form_state.dart';
 
 class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
   SignUpFormBloc() : super(SignUpFormState.initial()) {
-    on<SignUpFormNameSaved>(_onChangeName);
-    on<SignUpFormEmailSaved>(_onChangeEmail);
-    on<SignUpFormPassSaved>(_onChangePassword);
-    on<SignUpFormShipAddressSaved>(_onChangeShipAddress);
+    on<SignUpFormNameChanged>(_onChangeName);
+    on<SignUpFormEmailChanged>(_onChangeEmail);
+    on<SignUpFormPassChanged>(_onChangePassword);
+    on<SignUpFormShipAddressChanged>(_onChangeShipAddress);
     on<SignUpFormPassToggled>(_onTogglePassword);
     on<SignUpFormAutovalidateEnabled>(_onEnableAutovalidate);
   }
 
   void _onChangeName(
-    SignUpFormNameSaved event,
+    SignUpFormNameChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(name: event.name ?? state.name));
   }
 
   void _onChangeEmail(
-    SignUpFormEmailSaved event,
+    SignUpFormEmailChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(email: event.email ?? state.email));
   }
 
   void _onChangePassword(
-    SignUpFormPassSaved event,
+    SignUpFormPassChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(password: event.password ?? state.password));
   }
 
   void _onChangeShipAddress(
-    SignUpFormShipAddressSaved event,
+    SignUpFormShipAddressChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(shipAddress: event.shipAddress ?? state.shipAddress));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 
 class GCRAuthBackgroundCarousel extends StatelessWidget {
   const GCRAuthBackgroundCarousel({super.key});

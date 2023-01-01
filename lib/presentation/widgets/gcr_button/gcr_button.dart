@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 
 part './elevated_button.dart';
 part './text_button.dart';

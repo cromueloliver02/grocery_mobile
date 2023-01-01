@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/widgets.dart';
-import '../pages/pages.dart';
+import '../presentation/widgets/widgets.dart';
+import '../presentation/pages/pages.dart';
 
 class RouteHandler {
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {

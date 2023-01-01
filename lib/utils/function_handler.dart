@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:validators/validators.dart';
 
-import '../../data/models/models.dart';
-import '../widgets/widgets.dart';
+import '../data/models/models.dart';
+import '../presentation/widgets/widgets.dart';
 
 class FunctionHandler {
   static Future<bool?> showWarningDialog(

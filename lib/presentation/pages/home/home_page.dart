@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import '../../../presentation/utils/utils.dart';
+import '../../../utils/utils.dart';
 import './components/home_view.dart';
 
 class HomePage extends StatelessWidget {

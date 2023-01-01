@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
-import '../../../../presentation/utils/utils.dart';
+import '../../../../utils/utils.dart';
 import './cart_page_app_bar.dart';
 import './cart_item_list.dart';
 

@@ -5,29 +5,32 @@ class GCRTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.focusNode,
+    this.enabled = true,
     this.obscureText = false,
     this.keyboardType,
     this.textInputAction,
     this.suffixIcon,
     this.validator,
     this.onEditingComplete,
-    this.onSaved,
+    this.onChanged,
   });
 
   final String hintText;
   final FocusNode? focusNode;
+  final bool enabled;
   final bool obscureText;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final VoidCallback? onEditingComplete;
-  final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       focusNode: focusNode,
+      enabled: enabled,
       obscureText: obscureText,
       textInputAction: textInputAction,
       keyboardType: keyboardType,
@@ -49,7 +52,7 @@ class GCRTextFormField extends StatelessWidget {
       ),
       validator: validator,
       onEditingComplete: onEditingComplete,
-      onSaved: onSaved,
+      onChanged: onChanged,
     );
   }
 }

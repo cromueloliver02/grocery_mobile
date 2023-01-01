@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class WishlistPageAppBar extends StatelessWidget {
   const WishlistPageAppBar({super.key});

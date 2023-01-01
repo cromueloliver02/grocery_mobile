@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 
 class SignInFooter extends StatelessWidget {
   const SignInFooter({super.key});
+
+  void _goToSignupPage(BuildContext ctx) {
+    Navigator.pushReplacementNamed(ctx, SignUpPage.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +65,8 @@ class SignInFooter extends StatelessWidget {
                   color: Colors.lightBlue,
                   fontSize: textTheme.bodyText1!.fontSize! + 2,
                 ),
-                recognizer: TapGestureRecognizer()..onTap = () {},
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => _goToSignupPage(context),
               ),
             ],
           ),

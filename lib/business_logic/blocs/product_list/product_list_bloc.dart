@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
-import '../../../presentation/utils/utils.dart';
+import '../../../utils/utils.dart';
 
 part 'product_list_event.dart';
 part 'product_list_state.dart';

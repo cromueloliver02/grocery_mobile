@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
 import '../pages.dart';
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 import './components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../pages/pages.dart';
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 
 part 'product_sale_card.dart';
 part 'product_feed_card.dart';

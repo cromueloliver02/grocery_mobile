@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});

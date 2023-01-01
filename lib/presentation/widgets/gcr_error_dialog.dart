@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../data/models/models.dart';
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 
 class GCRErrorDialog extends StatelessWidget {
   const GCRErrorDialog.iOS({

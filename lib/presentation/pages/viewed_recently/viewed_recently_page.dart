@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
 import '../pages.dart';
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {

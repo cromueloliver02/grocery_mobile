@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -53,7 +53,7 @@ class _SignInFormState extends State<SignInForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               validator: FunctionHandler.emailValidator,
-              onSaved: (String? value) => _saveEmail(context, value),
+              onChanged: (String? value) => _saveEmail(context, value),
             ),
             const SizedBox(height: 20),
             GCRTextFormField(
@@ -72,7 +72,7 @@ class _SignInFormState extends State<SignInForm> {
               ),
               validator: FunctionHandler.passwordValidator,
               onEditingComplete: () => _signIn(context),
-              onSaved: (String? value) => _savePassword(context, value),
+              onChanged: (String? value) => _savePassword(context, value),
             ),
             const SizedBox(height: 20),
             Align(

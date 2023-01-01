@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-import '../../presentation/utils/utils.dart';
+import '../../utils/utils.dart';
 
 const _uuid = Uuid();
 

@@ -4,7 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 import './address_dialog.dart';
 
 class MenuList extends StatelessWidget {

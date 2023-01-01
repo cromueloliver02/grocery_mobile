@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 import './forgot_password_form.dart';
 
 class ForgotPasswordView extends StatelessWidget {

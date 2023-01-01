@@ -1,5 +1,8 @@
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
+// FIREBASE DOCUMENT PATHS
+const String userCollectionPath = 'users';
+
 const List<String> bannerImages = [
   'assets/images/offers/Offer1.jpg',
   'assets/images/offers/Offer2.jpg',

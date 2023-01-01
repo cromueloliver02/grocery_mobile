@@ -4,7 +4,7 @@ import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../pages.dart';
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 import './components/product_details_view.dart';
 
 class ProductDetailsPage extends StatefulWidget {

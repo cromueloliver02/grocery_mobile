@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class ViewedRecentlyPageAppBar extends StatelessWidget {
   const ViewedRecentlyPageAppBar({super.key});

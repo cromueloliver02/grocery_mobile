@@ -1,7 +1,23 @@
-import '../../business_logic/blocs/blocs.dart';
-import '../../business_logic/cubits/cubits.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../data/services/services.dart';
+import '../data/repositories/repositories.dart';
+import '../business_logic/blocs/blocs.dart';
+import '../business_logic/cubits/cubits.dart';
 
 class BlocHandler {
+  final List<RepositoryProvider> repositoryProviders = [
+    RepositoryProvider<AuthRepository>(
+      create: (ctx) => AuthRepository(
+        authService: AuthService(
+          firebaseAuth: FirebaseAuth.instance,
+          firebaseFirestore: FirebaseFirestore.instance,
+        ),
+      ),
+    ),
+  ];
+
   final List<BlocProvider> blocProviders = [
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),

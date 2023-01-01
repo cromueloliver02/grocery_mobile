@@ -3,7 +3,7 @@ import 'package:card_swiper/card_swiper.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 import './on_sale_section.dart';
 import './our_products_section.dart';
 

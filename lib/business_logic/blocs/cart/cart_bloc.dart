@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../data/models/models.dart';
-import '../../../presentation/utils/utils.dart';
+import '../../../utils/utils.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
