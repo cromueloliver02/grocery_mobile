@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_mobile/presentation/pages/pages.dart';
 
 import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 
 class ProductDetailsPageBottomBar extends StatefulWidget {
   const ProductDetailsPageBottomBar({
@@ -32,7 +32,7 @@ class _ProductDetailsPageBottomBarState
   void _goToCartPage(BuildContext ctx) {
     Navigator.popUntil(
       context,
-      (route) => route.settings.name == NavigationPage.id,
+      (Route route) => route.settings.name == NavigationPage.id,
     );
 
     ctx.read<NavigationCubit>().setCurrentIndex(2);
