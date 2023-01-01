@@ -55,7 +55,7 @@ class WishlistView extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
-                        childAspectRatio: 250 / 200,
+                        childAspectRatio: 240 / 200,
                       ),
                       itemBuilder: (ctx, idx) => GCRProductCard.wishlist(
                         product: state.wishlist.wishlistItems[idx],
