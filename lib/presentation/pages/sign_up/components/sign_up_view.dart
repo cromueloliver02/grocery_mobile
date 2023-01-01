@@ -23,70 +23,78 @@ class SignUpView extends StatelessWidget {
     return KeyboardDismisser(
       gestures: dismissKeyboardGestures,
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Stack(
-            children: [
-              const GCRAuthBackgroundCarousel(),
-              Container(
-                color: Colors.black.withOpacity(0.75),
-                height: screenSize.height,
-              ),
-              Container(
-                height: screenSize.height,
-                padding: const EdgeInsets.all(30),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        body: BlocBuilder<SignUpCubit, SignUpState>(
+          builder: (ctx, state) {
+            final bool loading = state.status == SignupStatus.loading;
+
+            return GCRLoadingOverlay(
+              loading: loading,
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Stack(
                   children: [
-                    Text(
-                      'Welcome',
-                      style: textTheme.headline1!.copyWith(
-                        color: Colors.white,
-                      ),
+                    const GCRAuthBackgroundCarousel(),
+                    Container(
+                      color: Colors.black.withOpacity(0.75),
+                      height: screenSize.height,
                     ),
-                    const SizedBox(height: 15),
-                    Text(
-                      'Sign up to continue',
-                      style: textTheme.bodyText1!.copyWith(
-                        color: Colors.white,
-                        fontSize: textTheme.bodyText1!.fontSize! + 2,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    const SignUpForm(),
-                    const SizedBox(height: 15),
-                    BlocBuilder<SignUpCubit, SignUpState>(
-                      builder: (ctx, state) => RichText(
-                        text: TextSpan(
-                          text: 'Already a user? ',
-                          style: textTheme.bodyText1!.copyWith(
-                            color: Colors.white,
-                            fontSize: textTheme.bodyText1!.fontSize! + 2,
+                    Container(
+                      height: screenSize.height,
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome',
+                            style: textTheme.headline1!.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Sign in',
+                          const SizedBox(height: 15),
+                          Text(
+                            'Sign up to continue',
+                            style: textTheme.bodyText1!.copyWith(
+                              color: Colors.white,
+                              fontSize: textTheme.bodyText1!.fontSize! + 2,
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          const SignUpForm(),
+                          const SizedBox(height: 15),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Already a user? ',
                               style: textTheme.bodyText1!.copyWith(
-                                color: state.status == SignupStatus.loading
-                                    ? Colors.grey
-                                    : Colors.lightBlue,
+                                color: Colors.white,
                                 fontSize: textTheme.bodyText1!.fontSize! + 2,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = state.status == SignupStatus.loading
-                                    ? null
-                                    : () => _goToSigninPage(context),
+                              children: [
+                                TextSpan(
+                                  text: 'Sign in',
+                                  style: textTheme.bodyText1!.copyWith(
+                                    color: loading
+                                        ? Colors.grey
+                                        : Colors.lightBlue,
+                                    fontSize:
+                                        textTheme.bodyText1!.fontSize! + 2,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = loading
+                                        ? null
+                                        : () => _goToSigninPage(context),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
