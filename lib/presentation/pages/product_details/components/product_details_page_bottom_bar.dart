@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_mobile/presentation/pages/pages.dart';
 
 import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
@@ -29,7 +30,11 @@ class _ProductDetailsPageBottomBarState
   }
 
   void _goToCartPage(BuildContext ctx) {
-    Navigator.pop(context);
+    Navigator.popUntil(
+      context,
+      (route) => route.settings.name == NavigationPage.id,
+    );
+
     ctx.read<NavigationCubit>().setCurrentIndex(2);
   }
 
