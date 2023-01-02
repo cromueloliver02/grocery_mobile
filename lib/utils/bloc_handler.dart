@@ -18,6 +18,13 @@ class BlocHandler {
         ),
       ),
     ),
+    RepositoryProvider<UserRepository>(
+      create: (ctx) => UserRepository(
+        userService: UserService(
+          firebaseFirestore: FirebaseFirestore.instance,
+        ),
+      ),
+    ),
   ];
 
   final List<BlocProvider> blocProviders = [
@@ -25,6 +32,11 @@ class BlocHandler {
       create: (ctx) => AuthBloc(
         authRepository: ctx.read<AuthRepository>(),
       )..add(AuthStarted()),
+    ),
+    BlocProvider<UserBloc>(
+      create: (ctx) => UserBloc(
+        userRepository: ctx.read<UserRepository>(),
+      ),
     ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),

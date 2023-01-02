@@ -1,7 +1,7 @@
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 // FIREBASE DOCUMENT PATHS
-const String kUserCollectionPath = 'users';
+const String kUsersCollectionPath = 'users';
 
 const List<String> kBannerImages = [
   'assets/images/offers/Offer1.jpg',

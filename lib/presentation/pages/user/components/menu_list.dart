@@ -51,15 +51,17 @@ class MenuList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GCRMenuListTile(
-          title: 'Address',
-          subtitle: 'Baguio City, Philippines',
-          trailing: const Icon(IconlyLight.arrowRight2),
-          leading: Icon(
-            IconlyLight.profile,
-            color: Colors.grey[600],
+        BlocBuilder<UserBloc, UserState>(
+          builder: (ctx, state) => GCRMenuListTile(
+            title: 'Address',
+            subtitle: state.user.shipAddress,
+            trailing: const Icon(IconlyLight.arrowRight2),
+            leading: Icon(
+              IconlyLight.profile,
+              color: Colors.grey[600],
+            ),
+            onTap: () => _showAddressDialog(context),
           ),
-          onTap: () => _showAddressDialog(context),
         ),
         GCRMenuListTile(
           title: 'Orders',

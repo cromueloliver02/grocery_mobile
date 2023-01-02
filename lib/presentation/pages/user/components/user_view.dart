@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../presentation/widgets/widgets.dart';
+import '../../../../utils/utils.dart';
 import './menu_list.dart';
 
 class UserView extends StatelessWidget {
@@ -20,37 +23,53 @@ class UserView extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: 'Hi, ',
-                        style: textTheme.headline2!.copyWith(
-                          color: Colors.cyan,
-                          fontSize: textTheme.headline2!.fontSize! + 2,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'John Doe',
-                            style: textTheme.headline2,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                // This is just for learning purposes
-                                debugPrint('Tapped...');
-                              },
+                child: BlocBuilder<UserBloc, UserState>(
+                  builder: (ctx, state) {
+                    if (state.status == UserStatus.initial) {
+                      return const SizedBox.shrink();
+                    }
+
+                    if (state.status == UserStatus.loading) {
+                      return const GCRLoadingCard();
+                    }
+
+                    if (state.status == UserStatus.failure) {
+                      return const GCRErrorCard();
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'Hi, ',
+                            style: textTheme.headline2!.copyWith(
+                              color: Colors.cyan,
+                              fontSize: textTheme.headline2!.fontSize! + 2,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: state.user.name,
+                                style: textTheme.headline2,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // This is just for learning purposes
+                                    debugPrint('Tapped...');
+                                  },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'email@email.com',
-                      style: textTheme.bodyText1!.copyWith(
-                        fontSize: textTheme.bodyText1!.fontSize! + 4,
-                      ),
-                    ),
-                  ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          state.user.email,
+                          style: textTheme.bodyText1!.copyWith(
+                            fontSize: textTheme.bodyText1!.fontSize! + 4,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 10),
