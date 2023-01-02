@@ -39,6 +39,22 @@ class FunctionHandler {
     }
   }
 
+  static void showInfoDialog(
+    BuildContext ctx, {
+    required String title,
+    required String message,
+    String okText = 'Ok',
+  }) {
+    showDialog(
+      context: ctx,
+      barrierDismissible: false,
+      builder: (ctx) => GCRInfoDialog(
+        title: title,
+        message: message,
+      ),
+    );
+  }
+
   static String? nameValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Name is required';

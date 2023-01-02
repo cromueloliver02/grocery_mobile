@@ -23,3 +23,6 @@ const List<GestureType> dismissKeyboardGestures = [
   GestureType.onTap,
   GestureType.onPanUpdateDownDirection,
 ];
+
+// FIREBASE AUTH CODES
+const String kEmailAlreadyInUse = 'email-already-in-use';
