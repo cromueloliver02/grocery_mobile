@@ -17,20 +17,21 @@ class MenuList extends StatelessWidget {
         builder: (ctx) => const AddressDialog(),
       );
 
-  void _goToOrdersPage(BuildContext ctx) => Navigator.pushNamed(
-        ctx,
-        OrdersPage.id,
-      );
+  void _goToOrdersPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, OrdersPage.id);
+  }
 
-  void _goToWishlistPage(BuildContext ctx) => Navigator.pushNamed(
-        ctx,
-        WishlistPage.id,
-      );
+  void _goToWishlistPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, WishlistPage.id);
+  }
 
-  void _goToViewedRecentlyPage(BuildContext ctx) => Navigator.pushNamed(
-        ctx,
-        ViewedRecentlyPage.id,
-      );
+  void _goToViewedRecentlyPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ViewedRecentlyPage.id);
+  }
+
+  void _goToForgetPasswordPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ForgotPasswordPage.id);
+  }
 
   void _showSignOutDialog(BuildContext ctx) async {
     final AuthBloc authBloc = ctx.read<AuthBloc>();
@@ -94,7 +95,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.unlock,
             color: Colors.grey[600],
           ),
-          onTap: () {},
+          onTap: () => _goToForgetPasswordPage(context),
         ),
         BlocBuilder<ThemeCubit, ThemeState>(
           builder: (ctx, state) => GCRMenuListTile(

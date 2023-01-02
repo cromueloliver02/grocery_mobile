@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 import '../../../../utils/utils.dart';
 
 class SignInForm extends StatefulWidget {
@@ -41,6 +42,10 @@ class _SignInFormState extends State<SignInForm> {
 
   void _togglePassword(BuildContext ctx) {
     ctx.read<SignInFormBloc>().add(SignInFormPassToggled());
+  }
+
+  void _goToForgetPasswordPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, ForgotPasswordPage.id);
   }
 
   @override
@@ -92,7 +97,8 @@ class _SignInFormState extends State<SignInForm> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: loading ? null : () {},
+                    onPressed:
+                        loading ? null : () => _goToForgetPasswordPage(context),
                     child: Text(
                       'Forgot Password?',
                       style: textTheme.bodyText1!.copyWith(

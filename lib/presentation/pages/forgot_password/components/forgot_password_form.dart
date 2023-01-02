@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
 
@@ -15,17 +16,22 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _forgetPassword(BuildContext ctx) {
-    ctx.read<ForgotPwdFormBloc>().add(ForgotPwdFormAutovalidateEnabled());
+    FocusScope.of(context).unfocus();
+
+    final ForgotPwdFormBloc forgotPwdFormBloc = ctx.read<ForgotPwdFormBloc>();
+
+    forgotPwdFormBloc.add(ForgotPwdFormAutovalidateEnabled());
 
     final FormState? form = _formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
-    form.save();
-    // forget password functionality
+    final ForgotPwdFormState forgotPwdFormState = forgotPwdFormBloc.state;
+
+    ctx.read<ForgetPwdCubit>().forgetPassword(email: forgotPwdFormState.email);
   }
 
-  void _saveEmail(BuildContext ctx, String? email) {
+  void _onChangeEmail(BuildContext ctx, String? email) {
     ctx.read<ForgotPwdFormBloc>().add(ForgotPwdFormEmailSaved(email: email));
   }
 
@@ -42,15 +48,18 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
               validator: FunctionHandler.emailValidator,
-              onChanged: (String? value) => _saveEmail(context, value),
+              onChanged: (String? value) => _onChangeEmail(context, value),
             ),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              child: GCRButton.elevated(
-                labelText: 'Submit',
-                backgroundColor: Colors.white38,
-                onPressed: () => _forgetPassword(context),
+              child: BlocBuilder<ForgetPwdCubit, ForgetPwdState>(
+                builder: (ctx, state) => GCRButton.elevated(
+                  labelText: 'Submit',
+                  loading: state.status == ForgetPwdStatus.loading,
+                  backgroundColor: Colors.white38,
+                  onPressed: () => _forgetPassword(context),
+                ),
               ),
             ),
           ],

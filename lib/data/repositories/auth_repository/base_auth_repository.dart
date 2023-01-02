@@ -17,5 +17,7 @@ abstract class BaseAuthRepository {
 
   Future<void> signinWithGoogle();
 
+  Future<void> forgetPassword({required String email});
+
   void signout();
 }
