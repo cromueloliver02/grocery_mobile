@@ -16,6 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     required this.userRepository,
   }) : super(UserState.initial()) {
     on<UserStarted>(_onUserStarted);
+    on<UserShipAddressUpdated>(_onShipAddressUpdated);
   }
 
   void _onUserStarted(
@@ -34,6 +35,29 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: UserStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
+  void _onShipAddressUpdated(
+    UserShipAddressUpdated event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(state.copyWith(formStatus: UserFormStatus.loading));
+
+    try {
+      await userRepository.updateShipAddress(
+        id: state.user.id,
+        shipAddress: event.shipAddress,
+      );
+
+      emit(state.copyWith(formStatus: UserFormStatus.success));
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        formStatus: UserFormStatus.failure,
         error: err,
       ));
 

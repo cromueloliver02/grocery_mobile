@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
 
 class AddressDialog extends StatefulWidget {
@@ -16,6 +17,14 @@ class AddressDialog extends StatefulWidget {
 
 class _AddressDialogState extends State<AddressDialog> {
   late final TextEditingController _addressController;
+
+  void _updateShipAddress(BuildContext ctx) {
+    Navigator.pop(ctx);
+
+    ctx
+        .read<UserBloc>()
+        .add(UserShipAddressUpdated(shipAddress: _addressController.text));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +50,7 @@ class _AddressDialogState extends State<AddressDialog> {
         ),
         GCRButton.text(
           labelText: 'Save',
-          onPressed: () {},
+          onPressed: () => _updateShipAddress(context),
         ),
       ],
     );

@@ -18,10 +18,14 @@ class AuthRepository extends BaseAuthRepository {
     required String email,
     required String password,
   }) async {
-    await authService.signinWithEmail(
-      email: email,
-      password: password,
-    );
+    try {
+      await authService.signinWithEmail(
+        email: email,
+        password: password,
+      );
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
@@ -31,22 +35,34 @@ class AuthRepository extends BaseAuthRepository {
     required String password,
     required String shipAddress,
   }) async {
-    await authService.signupWithEmail(
-      name: name,
-      email: email,
-      password: password,
-      shipAddress: shipAddress,
-    );
+    try {
+      await authService.signupWithEmail(
+        name: name,
+        email: email,
+        password: password,
+        shipAddress: shipAddress,
+      );
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> signinWithGoogle() async {
-    await authService.signinWithGoogle();
+    try {
+      await authService.signinWithGoogle();
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> forgetPassword({required String email}) async {
-    await authService.forgetPassword(email: email);
+    try {
+      await authService.forgetPassword(email: email);
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override

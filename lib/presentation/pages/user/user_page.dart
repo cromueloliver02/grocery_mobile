@@ -13,7 +13,8 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   void _userListener(BuildContext ctx, UserState state) {
-    if (state.status == UserStatus.failure) {
+    if (state.status == UserStatus.failure ||
+        state.formStatus == UserFormStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
   }

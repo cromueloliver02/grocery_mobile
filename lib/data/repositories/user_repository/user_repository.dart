@@ -14,8 +14,24 @@ class UserRepository extends BaseUserRepository {
 
   @override
   Future<User> fetchUser({required String id}) async {
-    final DocumentSnapshot userDoc = await userService.fetchUser(id: id);
+    try {
+      final DocumentSnapshot userDoc = await userService.fetchUser(id: id);
 
-    return User.fromDoc(userDoc);
+      return User.fromDoc(userDoc);
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateShipAddress({
+    required String id,
+    required String shipAddress,
+  }) async {
+    try {
+      await userService.updateShipAddress(id: id, shipAddress: shipAddress);
+    } catch (err) {
+      rethrow;
+    }
   }
 }

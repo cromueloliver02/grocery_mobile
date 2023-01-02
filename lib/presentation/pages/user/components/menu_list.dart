@@ -11,8 +11,11 @@ import './address_dialog.dart';
 class MenuList extends StatelessWidget {
   const MenuList({super.key});
 
-  void _showAddressDialog(BuildContext ctx, {required String initialValue}) {
-    showDialog(
+  void _showAddressDialog(
+    BuildContext ctx, {
+    required String initialValue,
+  }) {
+    showDialog<bool>(
       context: ctx,
       barrierDismissible: false,
       builder: (ctx) => AddressDialog(initialValue: initialValue),

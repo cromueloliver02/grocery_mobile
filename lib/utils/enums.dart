@@ -23,6 +23,8 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 
 enum UserStatus { initial, loading, success, failure }
 
+enum UserFormStatus { initial, loading, success, failure }
+
 enum ProductListStatus { initial, loading, success, failure }
 
 enum CartStatus { initial, loading, success, failure }
