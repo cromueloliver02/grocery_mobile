@@ -41,28 +41,29 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       builder: (ctx, state) => Form(
         key: _formKey,
         autovalidateMode: state.autovalidateMode,
-        child: Column(
-          children: [
-            GCRTextFormField(
-              hintText: 'Email Address',
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.done,
-              validator: FunctionHandler.emailValidator,
-              onChanged: (String? value) => _onChangeEmail(context, value),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: BlocBuilder<ForgetPwdCubit, ForgetPwdState>(
-                builder: (ctx, state) => GCRButton.elevated(
+        child: BlocBuilder<ForgetPwdCubit, ForgetPwdState>(
+          builder: (ctx, state) => Column(
+            children: [
+              GCRTextFormField(
+                hintText: 'Email Address',
+                enabled: state.status != ForgetPwdStatus.loading,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.done,
+                validator: FunctionHandler.emailValidator,
+                onChanged: (String? value) => _onChangeEmail(context, value),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: GCRButton.elevated(
                   labelText: 'Submit',
                   loading: state.status == ForgetPwdStatus.loading,
                   backgroundColor: Colors.white38,
                   onPressed: () => _forgetPassword(context),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
