@@ -21,7 +21,7 @@ class SignUpView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return KeyboardDismisser(
-      gestures: dismissKeyboardGestures,
+      gestures: kDismissKeyboardGestures,
       child: Scaffold(
         body: BlocBuilder<SignUpCubit, SignUpState>(
           builder: (ctx, state) {

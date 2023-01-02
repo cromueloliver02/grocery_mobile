@@ -16,7 +16,7 @@ class SignInView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return KeyboardDismisser(
-      gestures: dismissKeyboardGestures,
+      gestures: kDismissKeyboardGestures,
       child: Scaffold(
         body: BlocBuilder<SignInCubit, SignInState>(
           builder: (ctx, state) => GCRLoadingOverlay(

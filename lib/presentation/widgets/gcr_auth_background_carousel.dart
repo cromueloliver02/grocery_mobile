@@ -16,9 +16,9 @@ class GCRAuthBackgroundCarousel extends StatelessWidget {
         autoplay: true,
         duration: kDefaultAutoplayTransactionDuration + 500,
         autoplayDelay: kDefaultAutoplayDelayMs + 3000,
-        itemCount: authImagesPaths.length,
+        itemCount: kAuthImagesPaths.length,
         itemBuilder: (ctx, idx) => Image.asset(
-          authImagesPaths[idx],
+          kAuthImagesPaths[idx],
           fit: BoxFit.cover,
         ),
       ),

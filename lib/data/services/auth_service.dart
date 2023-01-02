@@ -61,7 +61,7 @@ class AuthService {
       };
 
       await firebaseFirestore
-          .collection(userCollectionPath)
+          .collection(kUserCollectionPath)
           .doc(user.uid)
           .set(payload);
     } on FirebaseException catch (err) {

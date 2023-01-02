@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
             height: screenSize.height / 3,
             child: Swiper(
               autoplay: true,
-              itemCount: bannerImages.length,
+              itemCount: kBannerImages.length,
               // control: const SwiperControl(color: Colors.black),
               pagination: const SwiperPagination(
                 alignment: Alignment.bottomCenter,
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               itemBuilder: (ctx, idx) => Image.asset(
-                bannerImages[idx],
+                kBannerImages[idx],
                 fit: BoxFit.cover,
               ),
             ),

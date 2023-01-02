@@ -20,7 +20,7 @@ class NavigationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (ctx, state) => KeyboardDismisser(
-        gestures: dismissKeyboardGestures,
+        gestures: kDismissKeyboardGestures,
         child: Scaffold(
           bottomNavigationBar: const NavigationPageBottomBar(),
           body: IndexedStack(

@@ -14,7 +14,7 @@ class ForgotPasswordView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return KeyboardDismisser(
-      gestures: dismissKeyboardGestures,
+      gestures: kDismissKeyboardGestures,
       child: Scaffold(
         body: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
