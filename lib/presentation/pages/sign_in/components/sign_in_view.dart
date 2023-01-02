@@ -17,9 +17,9 @@ class SignInView extends StatelessWidget {
 
     return KeyboardDismisser(
       gestures: dismissKeyboardGestures,
-      child: BlocBuilder<SignInCubit, SignInState>(
-        builder: (ctx, state) => Scaffold(
-          body: GCRLoadingOverlay(
+      child: Scaffold(
+        body: BlocBuilder<SignInCubit, SignInState>(
+          builder: (ctx, state) => GCRLoadingOverlay(
             loading: state.status == SigninStatus.loading,
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),

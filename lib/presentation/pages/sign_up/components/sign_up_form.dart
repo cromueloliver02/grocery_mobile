@@ -60,14 +60,14 @@ class _SignInFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpFormBloc, SignUpFormState>(
-      builder: (ctx, signupFormState) => BlocBuilder<SignUpCubit, SignUpState>(
-        builder: (ctx, signupState) {
-          final bool loading = signupState.status == SignupStatus.loading;
+      builder: (ctx, signupFormState) => Form(
+        key: _formKey,
+        autovalidateMode: signupFormState.autovalidateMode,
+        child: BlocBuilder<SignUpCubit, SignUpState>(
+          builder: (ctx, signupState) {
+            final bool loading = signupState.status == SignupStatus.loading;
 
-          return Form(
-            key: _formKey,
-            autovalidateMode: signupFormState.autovalidateMode,
-            child: Column(
+            return Column(
               children: [
                 GCRTextFormField(
                   hintText: 'Full name',
@@ -130,9 +130,9 @@ class _SignInFormState extends State<SignUpForm> {
                   ),
                 ),
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
