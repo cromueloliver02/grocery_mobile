@@ -15,6 +15,8 @@ enum GCRPlatform { iOs, android }
 enum AuthStatus { unknown, unauthenticated, authenticated }
 
 // ASYNC
+enum SigninStatus { initial, loading, success, failure }
+
 enum SignupStatus { initial, loading, success, failure }
 
 enum ProductListStatus { initial, loading, success, failure }

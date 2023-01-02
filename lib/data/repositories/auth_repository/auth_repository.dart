@@ -14,6 +14,17 @@ class AuthRepository extends BaseAuthRepository {
   Stream<User?> get user => authService.user;
 
   @override
+  Future<void> signinWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    await authService.signinWithEmail(
+      email: email,
+      password: password,
+    );
+  }
+
+  @override
   Future<void> signupWithEmail({
     required String name,
     required String email,

@@ -15,6 +15,30 @@ class AuthService {
 
   Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
 
+  Future<void> signinWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
   Future<void> signupWithEmail({
     required String name,
     required String email,
