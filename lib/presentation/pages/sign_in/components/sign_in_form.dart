@@ -18,13 +18,15 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _signIn(BuildContext ctx) {
-    ctx.read<SignInFormBloc>().add(SignInFormAutovalidateEnabled());
+    final SignInFormBloc signInFormBloc = ctx.read<SignInFormBloc>();
+
+    signInFormBloc.add(SignInFormAutovalidateEnabled());
 
     final FormState? form = _formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
-    final SignInFormState signInFormState = ctx.read<SignInFormBloc>().state;
+    final SignInFormState signInFormState = signInFormBloc.state;
 
     ctx.read<SignInCubit>().signinWithEmail(
           email: signInFormState.email,

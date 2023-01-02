@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import './utils/utils.dart';
-import 'grocery_app.dart';
+import './grocery_app.dart';
 import './firebase_options.dart';
 
 void main() async {
