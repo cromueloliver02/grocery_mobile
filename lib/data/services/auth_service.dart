@@ -57,10 +57,13 @@ class AuthService {
 
       final fb_auth.User user = userCredential.user!;
 
-      final Map<String, String> payload = {
+      final Map<String, dynamic> payload = {
+        'id': user.uid,
         'name': name,
         'email': email,
         'shipAddress': shipAddress,
+        'wishlist': <String>[],
+        'createdAt': Timestamp.now(),
       };
 
       await firebaseFirestore
