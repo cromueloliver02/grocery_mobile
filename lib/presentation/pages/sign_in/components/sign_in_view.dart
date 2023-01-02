@@ -10,6 +10,10 @@ import './sign_in_footer.dart';
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
 
+  void _signinWithGoogle(BuildContext ctx) {
+    ctx.read<SignInCubit>().signinWithGoogle();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -54,7 +58,9 @@ class SignInView extends StatelessWidget {
                         const SizedBox(height: 30),
                         const SignInForm(),
                         const SizedBox(height: 10),
-                        GCRGoogleButton(onPressed: () {}),
+                        GCRGoogleButton(
+                          onPressed: () => _signinWithGoogle(context),
+                        ),
                         const SizedBox(height: 20),
                         const SignInFooter(),
                       ],

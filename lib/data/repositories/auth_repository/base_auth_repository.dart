@@ -15,5 +15,7 @@ abstract class BaseAuthRepository {
     required String shipAddress,
   });
 
+  Future<void> signinWithGoogle();
+
   void signout();
 }

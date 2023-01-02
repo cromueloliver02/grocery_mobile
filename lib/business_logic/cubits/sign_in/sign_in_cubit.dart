@@ -37,4 +37,21 @@ class SignInCubit extends Cubit<SignInState> {
       debugPrint(state.toString());
     }
   }
+
+  void signinWithGoogle() async {
+    emit(state.copyWith(status: SigninStatus.loading));
+
+    try {
+      await authRepository.signinWithGoogle();
+
+      emit(state.copyWith(status: SigninStatus.success));
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        status: SigninStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
 }

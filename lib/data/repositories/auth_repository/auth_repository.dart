@@ -40,5 +40,10 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
+  Future<void> signinWithGoogle() async {
+    await authService.signinWithGoogle();
+  }
+
+  @override
   void signout() => authService.signout();
 }
