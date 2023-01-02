@@ -26,3 +26,5 @@ const List<GestureType> dismissKeyboardGestures = [
 
 // FIREBASE AUTH CODES
 const String kEmailAlreadyInUse = 'email-already-in-use';
+const String kWrongPassword = 'wrong-password';
+const String kUserNotFound = 'user-not-found';
