@@ -11,11 +11,13 @@ import './address_dialog.dart';
 class MenuList extends StatelessWidget {
   const MenuList({super.key});
 
-  void _showAddressDialog(BuildContext ctx) => showDialog(
-        context: ctx,
-        barrierDismissible: false,
-        builder: (ctx) => const AddressDialog(),
-      );
+  void _showAddressDialog(BuildContext ctx, {required String initialValue}) {
+    showDialog(
+      context: ctx,
+      barrierDismissible: false,
+      builder: (ctx) => AddressDialog(initialValue: initialValue),
+    );
+  }
 
   void _goToOrdersPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, OrdersPage.id);
@@ -60,7 +62,10 @@ class MenuList extends StatelessWidget {
               IconlyLight.profile,
               color: Colors.grey[600],
             ),
-            onTap: () => _showAddressDialog(context),
+            onTap: () => _showAddressDialog(
+              context,
+              initialValue: state.user.shipAddress,
+            ),
           ),
         ),
         GCRMenuListTile(

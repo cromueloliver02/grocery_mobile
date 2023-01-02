@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../widgets/widgets.dart';
 
 class AddressDialog extends StatefulWidget {
-  const AddressDialog({super.key});
+  const AddressDialog({
+    super.key,
+    required this.initialValue,
+  });
+
+  final String initialValue;
 
   @override
   State<AddressDialog> createState() => _AddressDialogState();
@@ -45,7 +50,7 @@ class _AddressDialogState extends State<AddressDialog> {
   @override
   void initState() {
     super.initState();
-    _addressController = TextEditingController(text: 'Arabiat');
+    _addressController = TextEditingController(text: widget.initialValue);
   }
 
   @override
