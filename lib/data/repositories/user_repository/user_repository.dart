@@ -13,11 +13,12 @@ class UserRepository extends BaseUserRepository {
   });
 
   @override
-  Future<User> fetchUser({required String id}) async {
+  Stream<User> fetchUser({required String id}) {
     try {
-      final DocumentSnapshot userDoc = await userService.fetchUser(id: id);
+      final Stream<DocumentSnapshot> userSnapStream =
+          userService.fetchUser(id: id);
 
-      return User.fromDoc(userDoc);
+      return userSnapStream.map((doc) => User.fromDoc(doc));
     } catch (err) {
       rethrow;
     }

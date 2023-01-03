@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import '../../../utils/utils.dart';
 import './components/user_view.dart';
 
 class UserPage extends StatefulWidget {
@@ -12,19 +11,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  void _userListener(BuildContext ctx, UserState state) {
-    if (state.status == UserStatus.failure ||
-        state.formStatus == UserFormStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserBloc, UserState>(
-      listener: _userListener,
-      child: const UserView(),
-    );
+    return const UserView();
   }
 
   @override

@@ -10,14 +10,12 @@ class UserService {
     required this.firebaseFirestore,
   });
 
-  Future<DocumentSnapshot> fetchUser({required String id}) async {
+  Stream<DocumentSnapshot> fetchUser({required String id}) {
     try {
-      final DocumentSnapshot userDoc = await firebaseFirestore
+      return firebaseFirestore
           .collection(kUsersCollectionPath)
           .doc(id)
-          .get();
-
-      return userDoc;
+          .snapshots();
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
