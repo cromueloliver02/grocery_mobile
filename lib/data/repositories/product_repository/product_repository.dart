@@ -24,4 +24,16 @@ class ProductRepository extends BaseProductRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Product>> searchProducts(String keywords) async {
+    try {
+      final List<QueryDocumentSnapshot<Map<String, dynamic>>> productDocs =
+          await productService.searchProducts(keywords);
+
+      return productDocs.map((doc) => Product.fromDoc(doc)).toList();
+    } catch (err) {
+      rethrow;
+    }
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../business_logic/cubits/cubits.dart';
+
 class FeedPageSearchBar extends StatefulWidget {
   const FeedPageSearchBar({super.key});
 
@@ -10,22 +12,37 @@ class FeedPageSearchBar extends StatefulWidget {
 class _FeedPageSearchBarState extends State<FeedPageSearchBar> {
   late final TextEditingController _searchController;
 
-  void _clearText() {
+  void _clearText(BuildContext ctx) {
+    final SearchProductCubit searchProdCubit = ctx.read<SearchProductCubit>();
+    searchProdCubit.clearSearchResults();
+    searchProdCubit.clearKeywords();
     _searchController.clear();
+    FocusScope.of(context).unfocus();
     setState(() {});
+  }
+
+  void _onChanged(BuildContext ctx, {required String value}) {
+    context.read<SearchProductCubit>().setKeywords(value);
+    setState(() {});
+  }
+
+  void _onEditingComplete(BuildContext ctx) {
+    context.read<SearchProductCubit>().searchProducts(_searchController.text);
+    FocusScope.of(context).unfocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: _searchController,
+      textInputAction: TextInputAction.search,
       decoration: InputDecoration(
         hintText: 'Search products',
         prefixIcon: const Icon(Icons.search),
         suffixIcon: _searchController.text.isEmpty
             ? null
             : IconButton(
-                onPressed: _clearText,
+                onPressed: () => _clearText(context),
                 color: Colors.red,
                 icon: const Icon(Icons.close),
               ),
@@ -44,7 +61,8 @@ class _FeedPageSearchBarState extends State<FeedPageSearchBar> {
           ),
         ),
       ),
-      onChanged: (value) => setState(() {}),
+      onChanged: (value) => _onChanged(context, value: value),
+      onEditingComplete: () => _onEditingComplete(context),
     );
   }
 

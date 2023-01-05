@@ -41,6 +41,11 @@ class Product {
     );
   }
 
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, category: $category, price: $price, salePrice: $salePrice, measureUnit: $measureUnit)';
+  }
+
   static final List<Product> productList = [
     Product(
       id: _uuid.v4(),
