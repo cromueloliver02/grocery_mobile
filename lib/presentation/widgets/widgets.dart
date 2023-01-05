@@ -14,5 +14,5 @@ export './gcr_loading_card.dart';
 export './gcr_error_card.dart';
 export './gcr_loading_overlay.dart';
 export './gcr_error_dialog.dart';
-export './grc_warning_dialog.dart';
+export './gcr_warning_dialog.dart';
 export './gcr_info_dialog.dart';
