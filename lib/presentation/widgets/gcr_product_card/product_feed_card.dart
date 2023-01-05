@@ -84,25 +84,26 @@ class _FeedCardState extends State<_ProductFeedCard> {
                   Row(
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (widget.product.salePrice == null)
                             Text(
                               '\$${widget.product.price.toStringAsFixed(2)}',
-                              style: textTheme.headline2!.copyWith(
+                              style: textTheme.headline4!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
                           if (widget.product.salePrice != null) ...[
                             Text(
                               '\$${widget.product.salePrice!.toStringAsFixed(2)}',
-                              style: textTheme.headline2!.copyWith(
+                              style: textTheme.headline4!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
                             const SizedBox(width: 10),
                             Text(
                               '\$${widget.product.price.toStringAsFixed(2)}',
-                              style: textTheme.headline4!.copyWith(
+                              style: textTheme.headline6!.copyWith(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.lineThrough,
@@ -112,24 +113,6 @@ class _FeedCardState extends State<_ProductFeedCard> {
                         ],
                       ),
                       const Spacer(),
-                      Text(
-                        widget.product.measureUnit == MeasureUnit.kg
-                            ? 'Kg.'
-                            : 'Pcs.',
-                        style: textTheme.headline5,
-                      ),
-                      Container(
-                        width: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextField(
-                          controller: _quantityController,
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ],

@@ -4,18 +4,15 @@ import '../../data/models/models.dart';
 import '../../utils/utils.dart';
 
 class UserService {
-  final FirebaseFirestore firebaseFirestore;
+  final FirebaseFirestore firestore;
 
   UserService({
-    required this.firebaseFirestore,
+    required this.firestore,
   });
 
   Stream<DocumentSnapshot> fetchUser({required String id}) {
     try {
-      return firebaseFirestore
-          .collection(kUsersCollectionPath)
-          .doc(id)
-          .snapshots();
+      return firestore.collection(kUsersCollectionPath).doc(id).snapshots();
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -36,7 +33,7 @@ class UserService {
     required String shipAddress,
   }) async {
     try {
-      await firebaseFirestore
+      await firestore
           .collection(kUsersCollectionPath)
           .doc(id)
           .update({'shipAddress': shipAddress});

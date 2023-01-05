@@ -94,27 +94,27 @@ class _ProductSaleCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: FittedBox(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (product.salePrice == null)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline2!.copyWith(
+                          style: textTheme.headline4!.copyWith(
                             color: Colors.green,
                           ),
                         ),
                       if (product.salePrice != null) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.headline2!.copyWith(
+                          style: textTheme.headline4!.copyWith(
                             color: Colors.green,
                           ),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline4!.copyWith(
+                          style: textTheme.headline6!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w500,
                             decoration: TextDecoration.lineThrough,

@@ -12,8 +12,8 @@ class BlocHandler {
     RepositoryProvider<AuthRepository>(
       create: (ctx) => AuthRepository(
         authService: AuthService(
-          firebaseAuth: FirebaseAuth.instance,
-          firebaseFirestore: FirebaseFirestore.instance,
+          fireAuth: FirebaseAuth.instance,
+          firestore: FirebaseFirestore.instance,
           googleSignIn: GoogleSignIn(),
         ),
       ),
@@ -21,7 +21,14 @@ class BlocHandler {
     RepositoryProvider<UserRepository>(
       create: (ctx) => UserRepository(
         userService: UserService(
-          firebaseFirestore: FirebaseFirestore.instance,
+          firestore: FirebaseFirestore.instance,
+        ),
+      ),
+    ),
+    RepositoryProvider<ProductRepository>(
+      create: (ctx) => ProductRepository(
+        productService: ProductService(
+          firestore: FirebaseFirestore.instance,
         ),
       ),
     ),
@@ -45,7 +52,9 @@ class BlocHandler {
       create: (ctx) => NavigationCubit(),
     ),
     BlocProvider<ProductListBloc>(
-      create: (ctx) => ProductListBloc()..add(ProductListStarted()),
+      create: (ctx) => ProductListBloc(
+        productRepository: ctx.read<ProductRepository>(),
+      )..add(ProductListStarted()),
     ),
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),

@@ -20,7 +20,7 @@ class OnSaleView extends StatelessWidget {
       ),
       body: BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
         builder: (ctx, state) => GridView.builder(
-          itemCount: 15,
+          itemCount: state.productsOnSale.length,
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 20,

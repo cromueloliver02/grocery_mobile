@@ -6,24 +6,24 @@ import '../../data/models/models.dart';
 import '../../utils/utils.dart';
 
 class AuthService {
-  final fb_auth.FirebaseAuth firebaseAuth;
-  final FirebaseFirestore firebaseFirestore;
+  final fb_auth.FirebaseAuth fireAuth;
+  final FirebaseFirestore firestore;
   final GoogleSignIn googleSignIn;
 
   AuthService({
-    required this.firebaseAuth,
-    required this.firebaseFirestore,
+    required this.fireAuth,
+    required this.firestore,
     required this.googleSignIn,
   });
 
-  Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+  Stream<fb_auth.User?> get user => fireAuth.userChanges();
 
   Future<void> signinWithEmail({
     required String email,
     required String password,
   }) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
+      await fireAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -50,7 +50,7 @@ class AuthService {
   }) async {
     try {
       final fb_auth.UserCredential userCredential =
-          await firebaseAuth.createUserWithEmailAndPassword(
+          await fireAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -66,7 +66,7 @@ class AuthService {
         'createdAt': Timestamp.now(),
       };
 
-      await firebaseFirestore
+      await firestore
           .collection(kUsersCollectionPath)
           .doc(user.uid)
           .set(payload);
@@ -100,7 +100,7 @@ class AuthService {
         accessToken: googleAuth.accessToken,
       );
 
-      await firebaseAuth.signInWithCredential(credential);
+      await fireAuth.signInWithCredential(credential);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -118,7 +118,7 @@ class AuthService {
 
   Future<void> forgetPassword({required String email}) async {
     try {
-      await firebaseAuth.sendPasswordResetEmail(email: email);
+      await fireAuth.sendPasswordResetEmail(email: email);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -135,7 +135,7 @@ class AuthService {
   }
 
   void signout() {
-    firebaseAuth.signOut();
+    fireAuth.signOut();
     googleSignIn.signOut();
   }
 }

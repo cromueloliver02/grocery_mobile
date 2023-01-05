@@ -15,6 +15,7 @@ class HomeView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
       child: Column(
         children: [
           SizedBox(
