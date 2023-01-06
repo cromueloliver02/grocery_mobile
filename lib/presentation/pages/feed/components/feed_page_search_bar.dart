@@ -21,8 +21,21 @@ class _FeedPageSearchBarState extends State<FeedPageSearchBar> {
     setState(() {});
   }
 
+  void _onFocusChange(bool value) {
+    if (!value && _searchController.text.isEmpty) {
+      context.read<SearchProductCubit>().clearSearchResults();
+    }
+  }
+
   void _onChanged(BuildContext ctx, {required String value}) {
-    context.read<SearchProductCubit>().setKeywords(value);
+    final SearchProductCubit searchProdCubit = ctx.read<SearchProductCubit>();
+
+    if (value.isNotEmpty) {
+      searchProdCubit.setKeywords(value);
+    } else {
+      searchProdCubit.resetSearchResults();
+    }
+
     setState(() {});
   }
 
@@ -33,36 +46,39 @@ class _FeedPageSearchBarState extends State<FeedPageSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _searchController,
-      textInputAction: TextInputAction.search,
-      decoration: InputDecoration(
-        hintText: 'Search products',
-        prefixIcon: const Icon(Icons.search),
-        suffixIcon: _searchController.text.isEmpty
-            ? null
-            : IconButton(
-                onPressed: () => _clearText(context),
-                color: Colors.red,
-                icon: const Icon(Icons.close),
-              ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Colors.greenAccent,
-            width: 1,
+    return Focus(
+      onFocusChange: _onFocusChange,
+      child: TextField(
+        controller: _searchController,
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          hintText: 'Search products',
+          prefixIcon: const Icon(Icons.search),
+          suffixIcon: _searchController.text.isEmpty
+              ? null
+              : IconButton(
+                  onPressed: () => _clearText(context),
+                  color: Colors.red,
+                  icon: const Icon(Icons.close),
+                ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: Colors.greenAccent,
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: Colors.greenAccent,
+              width: 1,
+            ),
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Colors.greenAccent,
-            width: 1,
-          ),
-        ),
+        onChanged: (value) => _onChanged(context, value: value),
+        onEditingComplete: () => _onEditingComplete(context),
       ),
-      onChanged: (value) => _onChanged(context, value: value),
-      onEditingComplete: () => _onEditingComplete(context),
     );
   }
 

@@ -40,8 +40,17 @@ class SearchProductCubit extends Cubit<SearchProductState> {
     emit(state.copyWith(keywords: () => keywords));
   }
 
+  void resetSearchResults() {
+    emit(state.copyWith(
+      keywords: () => '',
+      searchResults: [],
+      status: SearchProductStatus.initial,
+    ));
+  }
+
   void clearSearchResults() {
     emit(state.copyWith(
+      keywords: () => null,
       searchResults: [],
       status: SearchProductStatus.initial,
     ));
