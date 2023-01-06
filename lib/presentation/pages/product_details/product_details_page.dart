@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../pages.dart';
@@ -32,12 +33,12 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  void _cartListener(BuildContext ctx, CartState state) {
-    if (state.formStatus == CartFormStatus.failure) {
+  void _cartItemListener(BuildContext ctx, CartItemState state) {
+    if (state.formStatus == CartItemFormStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
 
-    if (state.formStatus == CartFormStatus.success) {
+    if (state.formStatus == CartItemFormStatus.success) {
       FunctionHandler.showToast(
         'Added to cart',
         gravity: ToastGravity.BOTTOM,
@@ -53,17 +54,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<CartBloc, CartState>(
-          listener: _cartListener,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CartItemCubit>(
+          create: (ctx) => CartItemCubit(
+            cartRepository: ctx.read<CartRepository>(),
+          ),
         ),
-        BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
-          listener: _viewedRecentlyListener,
+        BlocProvider<QtyControllerCubit>(
+          create: (ctx) => QtyControllerCubit(),
+          child: ProductDetailsView(product: widget.product),
         ),
       ],
-      child: BlocProvider<QtyControllerCubit>(
-        create: (ctx) => QtyControllerCubit(),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<CartItemCubit, CartItemState>(
+            listener: _cartItemListener,
+          ),
+          BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
+            listener: _viewedRecentlyListener,
+          ),
+        ],
         child: ProductDetailsView(product: widget.product),
       ),
     );

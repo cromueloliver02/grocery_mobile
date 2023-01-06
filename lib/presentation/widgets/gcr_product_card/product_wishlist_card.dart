@@ -11,10 +11,10 @@ class _ProductWishlistCard extends StatelessWidget {
   void _addToCart(BuildContext ctx, Product product) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<CartBloc>().add(CartItemAdded(
+    ctx.read<CartItemCubit>().addToCart(
           userId: userId,
           product: product,
-        ));
+        );
   }
 
   void _addOrRemoveWishlist(BuildContext ctx, Product product) {

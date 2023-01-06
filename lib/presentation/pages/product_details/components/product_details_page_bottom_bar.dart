@@ -29,10 +29,10 @@ class _ProductDetailsPageBottomBarState
   void _addToCart(BuildContext ctx, Product product) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<CartBloc>().add(CartItemAdded(
+    ctx.read<CartItemCubit>().addToCart(
           userId: userId,
           product: product,
-        ));
+        );
   }
 
   void _goToCartPage(BuildContext ctx) {
@@ -92,23 +92,26 @@ class _ProductDetailsPageBottomBarState
                 ),
               ],
             ),
-            BlocBuilder<CartBloc, CartState>(
-              builder: (ctx, state) {
-                if (state.formStatus == CartFormStatus.loading) {}
+            BlocBuilder<CartItemCubit, CartItemState>(
+              builder: (ctx, cartItemState) => BlocBuilder<CartBloc, CartState>(
+                builder: (ctx, cartState) {
+                  final bool cartItemLoading =
+                      cartItemState.formStatus == CartItemFormStatus.loading;
 
-                if (state.cart.inCart(widget.product.id)) {
+                  if (cartState.cart.inCart(widget.product.id)) {
+                    return GCRButton.elevated(
+                      labelText: 'Go To Cart',
+                      onPressed: () => _goToCartPage(context),
+                    );
+                  }
+
                   return GCRButton.elevated(
-                    labelText: 'Go To Cart',
-                    onPressed: () => _goToCartPage(context),
+                    labelText: 'Add To Cart',
+                    loading: cartItemLoading,
+                    onPressed: () => _addToCart(context, widget.product),
                   );
-                }
-
-                return GCRButton.elevated(
-                  labelText: 'Add To Cart',
-                  loading: state.formStatus == CartFormStatus.loading,
-                  onPressed: () => _addToCart(context, widget.product),
-                );
-              },
+                },
+              ),
             ),
           ],
         ),
