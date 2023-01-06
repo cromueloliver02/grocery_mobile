@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../business_logic/cubits/cubits.dart';
+import '../../../../data/repositories/repositories.dart';
 import '../../../widgets/widgets.dart';
 import '../../pages.dart';
 
@@ -50,8 +52,13 @@ class OurProductsSection extends StatelessWidget {
               childAspectRatio: 400 / 450,
               children: List.generate(
                 state.productList.length < 6 ? state.productList.length : 6,
-                (idx) => GCRProductCard.feed(
-                  product: state.productList[idx],
+                (idx) => BlocProvider<CartItemCubit>(
+                  create: (ctx) => CartItemCubit(
+                    cartRepository: ctx.read<CartRepository>(),
+                  ),
+                  child: GCRProductCard.feed(
+                    product: state.productList[idx],
+                  ),
                 ),
               ),
             ),

@@ -15,15 +15,6 @@ class _ProductFeedCard extends StatefulWidget {
 class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
-  void _addToCart(BuildContext ctx, Product product) {
-    final String userId = ctx.read<UserBloc>().state.user.id;
-
-    ctx.read<CartItemCubit>().addToCart(
-          userId: userId,
-          product: product,
-        );
-  }
-
   void _addOrRemoveWishlist(BuildContext ctx, Product product) {
     ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
@@ -124,35 +115,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
               ),
             ),
             const Spacer(),
-            Material(
-              color: theme.cardColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-              child: BlocBuilder<CartBloc, CartState>(
-                builder: (ctx, state) => InkWell(
-                  onTap: state.cart.inCart(widget.product.id)
-                      ? null
-                      : () => _addToCart(context, widget.product),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Center(
-                      child: Text(
-                        state.cart.inCart(widget.product.id)
-                            ? 'In Cart'
-                            : 'Add to Cart',
-                        style: textTheme.bodyText1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            AddToCartButton(product: widget.product),
           ],
         ),
       ),
@@ -169,5 +132,84 @@ class _FeedCardState extends State<_ProductFeedCard> {
   void dispose() {
     _quantityController.dispose();
     super.dispose();
+  }
+}
+
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({
+    super.key,
+    required this.product,
+  });
+
+  final Product product;
+
+  void _addToCart(BuildContext ctx, Product product) {
+    final String userId = ctx.read<UserBloc>().state.user.id;
+
+    ctx.read<CartItemCubit>().addToCart(
+          userId: userId,
+          product: product,
+        );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Material(
+      color: theme.cardColor,
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(12),
+        bottomRight: Radius.circular(12),
+      ),
+      child: BlocBuilder<CartBloc, CartState>(
+        builder: (ctx, cartState) => BlocBuilder<CartItemCubit, CartItemState>(
+          builder: (ctx, cartItemState) {
+            final bool cartItemLoading =
+                cartItemState.formStatus == CartItemFormStatus.loading;
+
+            return InkWell(
+              onTap: cartState.cart.inCart(product.id) || cartItemLoading
+                  ? null
+                  : () => _addToCart(context, product),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
+              child: Container(
+                color: cartItemLoading ? Colors.grey[300] : Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (cartItemLoading)
+                          const SizedBox.square(
+                            dimension: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        const SizedBox(width: 10),
+                        Text(
+                          cartState.cart.inCart(product.id)
+                              ? 'In Cart'
+                              : cartItemLoading
+                                  ? 'Adding to cart...'
+                                  : 'Add to Cart',
+                          style: textTheme.bodyText1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }
