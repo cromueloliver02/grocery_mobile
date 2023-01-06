@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 import './models.dart';
+import '../../utils/utils.dart';
 
 const _uuid = Uuid();
 
@@ -45,7 +46,12 @@ class CartItem {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'productId': product.id});
+    final DocumentReference<Map<String, dynamic>> productRef = FirebaseFirestore
+        .instance
+        .collection(kProductsCollectionPath)
+        .doc(product.id);
+
+    result.addAll({'product': productRef});
     result.addAll({'quantity': quantity});
     result.addAll({'userId': userId});
     result.addAll({'dateCreated': dateCreated.millisecondsSinceEpoch});
