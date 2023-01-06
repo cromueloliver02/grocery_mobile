@@ -32,6 +32,13 @@ class BlocHandler {
         ),
       ),
     ),
+    RepositoryProvider<CartRepository>(
+      create: (ctx) => CartRepository(
+        cartService: CartService(
+          firestore: FirebaseFirestore.instance,
+        ),
+      ),
+    ),
   ];
 
   final List<BlocProvider> blocProviders = [
@@ -60,7 +67,9 @@ class BlocHandler {
       create: (ctx) => ProductsOnSaleBloc(),
     ),
     BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc()..add(CartStarted()),
+      create: (ctx) => CartBloc(
+        cartRepository: ctx.read<CartRepository>(),
+      )..add(CartStarted()),
     ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc()..add(WishlistStarted()),

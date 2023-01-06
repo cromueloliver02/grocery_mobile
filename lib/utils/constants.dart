@@ -3,6 +3,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 // FIREBASE DOCUMENT PATHS
 const String kUsersCollectionPath = 'users';
 const String kProductsCollectionPath = 'products';
+const String kCartItemsCollectionPath = 'cart-items';
 
 const List<String> kBannerImages = [
   'assets/images/offers/Offer1.jpg',

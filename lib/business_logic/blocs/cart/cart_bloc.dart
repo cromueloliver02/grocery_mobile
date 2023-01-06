@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
 
-const _uuid = Uuid();
-
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(CartState.initial()) {
+  final CartRepository cartRepository;
+
+  CartBloc({
+    required this.cartRepository,
+  }) : super(CartState.initial()) {
     on<CartStarted>(_onStartCart);
     on<CartItemAdded>(_onAddCartItem);
     on<CartItemIncremented>(_onIncrementCartItem);
@@ -53,31 +55,35 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       List<CartItem> cartItems = <CartItem>[];
 
       if (isExist) {
+        await Future.delayed(const Duration(seconds: 3)); // INCREASE Cart item
+
         cartItems = state.cart.cartItems
             .map((d) => d.product.id == product.id
                 ? d.copyWith(quantity: d.quantity + 1)
                 : d)
             .toList();
+
+        emit(state.copyWith(
+          formStatus: CartFormStatus.success,
+          cart: Cart(cartItems: cartItems),
+        ));
       } else {
         final CartItem cartItem = CartItem(
-          id: _uuid.v4(),
+          id: '', // id is auto-generated in the backend
           product: product,
           quantity: 1,
-          userId: 'cromuel-unique-id',
+          userId: event.userId,
         );
 
+        await Future.delayed(const Duration(seconds: 3)); // ADD Cart item
+        await cartRepository.addToCart(cartItem);
+
         cartItems = [cartItem, ...state.cart.cartItems];
-      }
 
-      emit(state.copyWith(
-        formStatus: CartFormStatus.success,
-        cart: Cart(cartItems: cartItems),
-      ));
-
-      if (isExist) {
-        await Future.delayed(const Duration(seconds: 3)); // INCREASE Cart item
-      } else {
-        await Future.delayed(const Duration(seconds: 3)); // POST Cart item
+        emit(state.copyWith(
+          formStatus: CartFormStatus.success,
+          cart: Cart(cartItems: cartItems),
+        ));
       }
     } on GCRError catch (err) {
       emit(state.copyWith(

@@ -9,7 +9,12 @@ class _ProductSaleCard extends StatelessWidget {
   final Product product;
 
   void _addToCart(BuildContext ctx, Product product) {
-    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+    final String userId = ctx.read<UserBloc>().state.user.id;
+
+    ctx.read<CartBloc>().add(CartItemAdded(
+          userId: userId,
+          product: product,
+        ));
   }
 
   void _addOrRemoveWishlist(BuildContext ctx, Product product) {

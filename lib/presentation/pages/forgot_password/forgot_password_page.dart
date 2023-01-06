@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
@@ -22,15 +21,7 @@ class ForgotPasswordPage extends StatelessWidget {
   void _forgetPwdListener(BuildContext ctx, ForgetPwdState state) {
     if (state.status == ForgetPwdStatus.success) {
       Navigator.pop(ctx);
-      Fluttertoast.showToast(
-        msg: 'An email has been sent to you email address',
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.grey.shade600,
-        textColor: Colors.white,
-        fontSize: 16,
-      );
+      FunctionHandler.showToast('An email has been sent to you email address');
     }
 
     if (state.status == ForgetPwdStatus.failure) {

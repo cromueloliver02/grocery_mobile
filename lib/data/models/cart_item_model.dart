@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 import './models.dart';
@@ -38,6 +39,32 @@ class CartItem {
       quantity: quantity ?? this.quantity,
       userId: userId ?? this.userId,
       dateCreated: dateCreated ?? this.dateCreated,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'productId': product.id});
+    result.addAll({'quantity': quantity});
+    result.addAll({'userId': userId});
+    result.addAll({'dateCreated': dateCreated.millisecondsSinceEpoch});
+
+    return result;
+  }
+
+  factory CartItem.fromMap(
+    DocumentSnapshot doc, {
+    required Product product,
+  }) {
+    final map = doc.data() as Map<String, dynamic>;
+
+    return CartItem(
+      id: doc.id,
+      product: product,
+      quantity: map['quantity']?.toInt() ?? 0,
+      userId: map['userId'] ?? '',
+      dateCreated: DateTime.fromMillisecondsSinceEpoch(map['dateCreated']),
     );
   }
 

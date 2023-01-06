@@ -16,7 +16,12 @@ class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
   void _addToCart(BuildContext ctx, Product product) {
-    ctx.read<CartBloc>().add(CartItemAdded(product: product));
+    final String userId = ctx.read<UserBloc>().state.user.id;
+
+    ctx.read<CartBloc>().add(CartItemAdded(
+          userId: userId,
+          product: product,
+        ));
   }
 
   void _addOrRemoveWishlist(BuildContext ctx, Product product) {

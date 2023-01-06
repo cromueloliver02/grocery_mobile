@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
@@ -34,6 +35,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   void _cartListener(BuildContext ctx, CartState state) {
     if (state.formStatus == CartFormStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
+    }
+
+    if (state.formStatus == CartFormStatus.success) {
+      FunctionHandler.showToast(
+        'Added to cart',
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
