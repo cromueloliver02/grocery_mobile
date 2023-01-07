@@ -35,6 +35,15 @@ class NavigationPage extends StatelessWidget {
             // TODO: replace AuthBloc with UserBloc soon
           )..add(CartStarted(userId: context.read<AuthBloc>().state.user!.uid)),
         ),
+        BlocProvider<UserBloc>(
+          create: (ctx) {
+            final String userId = context.read<AuthBloc>().state.user!.uid;
+
+            return UserBloc(
+              userRepository: ctx.read<UserRepository>(),
+            )..add(UserStarted(userId: userId));
+          },
+        ),
         BlocProvider<WishlistBloc>(
           create: (ctx) => WishlistBloc()..add(WishlistStarted()),
         ),

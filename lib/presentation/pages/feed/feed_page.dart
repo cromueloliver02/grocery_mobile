@@ -18,11 +18,17 @@ class FeedPage extends StatelessWidget {
             BlocProvider<CartBloc>.value(
               value: ctx.read<CartBloc>(),
             ),
+            BlocProvider<UserBloc>.value(
+              value: ctx.read<UserBloc>(),
+            ),
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),
             ),
             BlocProvider<ViewedRecentlyBloc>.value(
               value: ctx.read<ViewedRecentlyBloc>(),
+            ),
+            BlocProvider<NavigationCubit>.value(
+              value: ctx.read<NavigationCubit>(),
             ),
           ],
           child: const FeedPage(),

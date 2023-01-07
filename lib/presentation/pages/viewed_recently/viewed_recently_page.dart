@@ -15,6 +15,9 @@ class ViewedRecentlyPage extends StatelessWidget {
             BlocProvider<CartBloc>.value(
               value: ctx.read<CartBloc>(),
             ),
+            BlocProvider<UserBloc>.value(
+              value: ctx.read<UserBloc>(),
+            ),
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),
             ),
