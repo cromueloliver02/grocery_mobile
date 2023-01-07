@@ -52,9 +52,6 @@ class BlocHandler {
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
-    BlocProvider<NavigationCubit>(
-      create: (ctx) => NavigationCubit(),
-    ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),

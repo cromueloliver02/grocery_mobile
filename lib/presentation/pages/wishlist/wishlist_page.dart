@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
+import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/wishlist_view.dart';
 
@@ -19,6 +20,9 @@ class WishlistPage extends StatelessWidget {
             ),
             BlocProvider<ViewedRecentlyBloc>.value(
               value: ctx.read<ViewedRecentlyBloc>(),
+            ),
+            BlocProvider<NavigationCubit>.value(
+              value: ctx.read<NavigationCubit>(),
             ),
           ],
           child: const WishlistPage(),

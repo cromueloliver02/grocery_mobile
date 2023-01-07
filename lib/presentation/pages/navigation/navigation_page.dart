@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
+import '../../../business_logic/cubits/cubits.dart';
 import '../../../data/repositories/repositories.dart';
 import './components/navigation_view.dart';
 
@@ -39,6 +40,9 @@ class NavigationPage extends StatelessWidget {
         ),
         BlocProvider<ViewedRecentlyBloc>(
           create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
+        ),
+        BlocProvider<NavigationCubit>(
+          create: (ctx) => NavigationCubit(),
         ),
       ],
       child: NavigationView(),

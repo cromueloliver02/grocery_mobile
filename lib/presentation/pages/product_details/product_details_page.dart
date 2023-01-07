@@ -24,6 +24,9 @@ class ProductDetailsPage extends StatefulWidget {
             BlocProvider<ViewedRecentlyBloc>.value(
               value: ctx.read<ViewedRecentlyBloc>(),
             ),
+            BlocProvider<NavigationCubit>.value(
+              value: ctx.read<NavigationCubit>(),
+            ),
           ],
           child: ProductDetailsPage(product: product),
         ),
