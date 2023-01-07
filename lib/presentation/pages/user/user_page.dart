@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import './components/user_view.dart';
 
@@ -13,15 +14,15 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-    return const UserView();
-  }
+    return BlocProvider<UserBloc>(
+      create: (ctx) {
+        final String userId = context.read<AuthBloc>().state.user!.uid;
 
-  @override
-  void initState() {
-    super.initState();
-
-    final String id = context.read<AuthBloc>().state.user!.uid;
-
-    context.read<UserBloc>().add(UserStarted(id: id));
+        return UserBloc(
+          userRepository: ctx.read<UserRepository>(),
+        )..add(UserStarted(userId: userId));
+      },
+      child: const UserView(),
+    );
   }
 }

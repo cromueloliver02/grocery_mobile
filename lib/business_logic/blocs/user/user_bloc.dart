@@ -24,7 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserStarted event,
     Emitter<UserState> emit,
   ) {
-    userRepository.fetchUser(id: event.id).listen((User user) {
+    userRepository.fetchUser(userId: event.userId).listen((User user) {
       add(UserUpdated(user: user));
     });
   }
@@ -44,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     try {
       await userRepository.updateShipAddress(
-        id: state.user.id,
+        userId: state.user.id,
         shipAddress: event.shipAddress,
       );
 

@@ -10,9 +10,9 @@ class UserService {
     required this.firestore,
   });
 
-  Stream<DocumentSnapshot> fetchUser({required String id}) {
+  Stream<DocumentSnapshot> fetchUser({required String userId}) {
     try {
-      return firestore.collection(kUsersCollectionPath).doc(id).snapshots();
+      return firestore.collection(kUsersCollectionPath).doc(userId).snapshots();
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -29,13 +29,13 @@ class UserService {
   }
 
   Future<void> updateShipAddress({
-    required String id,
+    required String userId,
     required String shipAddress,
   }) async {
     try {
       await firestore
           .collection(kUsersCollectionPath)
-          .doc(id)
+          .doc(userId)
           .update({'shipAddress': shipAddress});
     } on FirebaseException catch (err) {
       throw GCRError(

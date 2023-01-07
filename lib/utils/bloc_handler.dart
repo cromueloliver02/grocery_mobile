@@ -47,11 +47,6 @@ class BlocHandler {
         authRepository: ctx.read<AuthRepository>(),
       )..add(AuthStarted()),
     ),
-    BlocProvider<UserBloc>(
-      create: (ctx) => UserBloc(
-        userRepository: ctx.read<UserRepository>(),
-      ),
-    ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),
