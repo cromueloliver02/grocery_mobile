@@ -5,6 +5,28 @@ import '../../../utils/utils.dart';
 import './components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {
+  static void pushRoute(BuildContext ctx) {
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+            BlocProvider<ViewedRecentlyBloc>.value(
+              value: ctx.read<ViewedRecentlyBloc>(),
+            ),
+          ],
+          child: const WishlistPage(),
+        ),
+      ),
+    );
+  }
+
   const WishlistPage({super.key});
 
   void _wishlistListener(BuildContext ctx, WishlistState state) {

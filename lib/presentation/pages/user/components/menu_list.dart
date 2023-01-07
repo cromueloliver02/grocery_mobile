@@ -27,25 +27,7 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToWishlistPage(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-          ],
-          child: const WishlistPage(),
-        ),
-      ),
-    );
+    WishlistPage.pushRoute(ctx);
   }
 
   void _goToViewedRecentlyPage(BuildContext ctx) {
@@ -64,7 +46,7 @@ class MenuList extends StatelessWidget {
               value: ctx.read<ViewedRecentlyBloc>(),
             ),
           ],
-          child: const WishlistPage(),
+          child: const ViewedRecentlyPage(),
         ),
       ),
     );
