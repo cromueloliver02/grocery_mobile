@@ -20,6 +20,16 @@ class CartItem {
     DateTime? dateCreated,
   }) : dateCreated = dateCreated ?? DateTime.now();
 
+  factory CartItem.empty() {
+    return CartItem(
+      id: '',
+      product: Product.empty(),
+      quantity: 0,
+      userId: '',
+      dateCreated: null,
+    );
+  }
+
   double get totalPrice {
     final double currentPrice = product.salePrice ?? product.price;
 

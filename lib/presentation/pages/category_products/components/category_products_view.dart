@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/repositories.dart';
 import '../../../../business_logic/blocs/blocs.dart';
-import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import './category_products_page_search_bar.dart';
 
@@ -55,13 +53,8 @@ class CategoryProductsView extends StatelessWidget {
                         crossAxisCount: 2,
                         childAspectRatio: 370 / 450,
                       ),
-                      itemBuilder: (ctx, idx) => BlocProvider<AddCartItemCubit>(
-                        create: (ctx) => AddCartItemCubit(
-                          cartRepository: ctx.read<CartRepository>(),
-                        ),
-                        child: GCRProductCard.feed(
-                          product: state.categoryProducts[idx],
-                        ),
+                      itemBuilder: (ctx, idx) => GCRProductCard.feed(
+                        product: state.categoryProducts[idx],
                       ),
                     ),
                   ),

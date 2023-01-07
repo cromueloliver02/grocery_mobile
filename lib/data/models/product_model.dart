@@ -26,6 +26,18 @@ class Product {
 
   bool get isOnSale => salePrice != null;
 
+  factory Product.empty() {
+    return Product(
+      id: '',
+      name: '',
+      imageUrl: '',
+      category: '',
+      price: 0,
+      salePrice: null,
+      measureUnit: MeasureUnit.kg,
+    );
+  }
+
   factory Product.fromDoc(DocumentSnapshot doc) {
     final map = doc.data() as Map<String, dynamic>;
 

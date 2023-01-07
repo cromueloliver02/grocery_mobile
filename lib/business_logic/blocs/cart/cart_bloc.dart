@@ -16,7 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     required this.cartRepository,
   }) : super(CartState.initial()) {
     on<CartStarted>(_onStartCart);
-    // on<CartItemAdded>(_onAddCartItem);
+    on<CartItemAdded>(_onAddCartItem);
     on<CartItemIncremented>(_onIncrementCartItem);
     on<CartItemDecremented>(_onDecrementCartItem);
     on<CartItemRemoved>(_onRemoveCartItem);
@@ -45,57 +45,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  // void _onAddCartItem(CartItemAdded event, Emitter<CartState> emit) async {
-  //   emit(state.copyWith(formStatus: CartFormStatus.loading));
+  void _onAddCartItem(CartItemAdded event, Emitter<CartState> emit) async {
+    final List<CartItem> cartItems = [event.cartItem, ...state.cart.cartItems];
 
-  //   try {
-  //     final Product product = event.product;
-
-  //     final bool isExist =
-  //         state.cart.cartItems.any((d) => d.product.id == product.id);
-
-  //     List<CartItem> cartItems = <CartItem>[];
-
-  //     if (isExist) {
-  //       await Future.delayed(const Duration(seconds: 3)); // INCREASE Cart item
-
-  //       cartItems = state.cart.cartItems
-  //           .map((d) => d.product.id == product.id
-  //               ? d.copyWith(quantity: d.quantity + 1)
-  //               : d)
-  //           .toList();
-
-  //       emit(state.copyWith(
-  //         formStatus: CartFormStatus.success,
-  //         cart: Cart(cartItems: cartItems),
-  //       ));
-  //     } else {
-  //       final CartItem cartItem = CartItem(
-  //         id: '', // id is auto-generated in the backend
-  //         product: product,
-  //         quantity: 1,
-  //         userId: event.userId,
-  //       );
-
-  //       await Future.delayed(const Duration(seconds: 3)); // ADD Cart item
-  //       await cartRepository.addToCart(cartItem);
-
-  //       cartItems = [cartItem, ...state.cart.cartItems];
-
-  //       emit(state.copyWith(
-  //         formStatus: CartFormStatus.success,
-  //         cart: Cart(cartItems: cartItems),
-  //       ));
-  //     }
-  //   } on GCRError catch (err) {
-  //     emit(state.copyWith(
-  //       formStatus: CartFormStatus.failure,
-  //       error: err,
-  //     ));
-
-  //     debugPrint(state.toString());
-  //   }
-  // }
+    emit(state.copyWith(cart: Cart(cartItems: cartItems)));
+  }
 
   void _onIncrementCartItem(
       CartItemIncremented event, Emitter<CartState> emit) async {

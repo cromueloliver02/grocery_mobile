@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
+import '../../../utils/utils.dart';
 import './components/navigation_view.dart';
 
 class NavigationPage extends StatelessWidget {
@@ -16,6 +18,21 @@ class NavigationPage extends StatelessWidget {
   }
 
   const NavigationPage({super.key});
+
+  void _addCartItemListener(BuildContext ctx, AddCartItemState state) {
+    if (state.status == AddCartItemStatus.success) {
+      ctx.read<CartBloc>().add(CartItemAdded(cartItem: state.cartItem));
+
+      FunctionHandler.showToast(
+        'Added to cart',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
+    if (state.status == AddCartItemStatus.failure) {
+      FunctionHandler.showErrorDialog(ctx, state.error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +62,19 @@ class NavigationPage extends StatelessWidget {
         BlocProvider<ViewedRecentlyBloc>(
           create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
         ),
+        BlocProvider<AddCartItemCubit>(
+          create: (ctx) => AddCartItemCubit(
+            cartRepository: ctx.read<CartRepository>(),
+          ),
+        ),
         BlocProvider<NavigationCubit>(
           create: (ctx) => NavigationCubit(),
         ),
       ],
-      child: NavigationView(),
+      child: BlocListener<AddCartItemCubit, AddCartItemState>(
+        listener: _addCartItemListener,
+        child: NavigationView(),
+      ),
     );
   }
 }

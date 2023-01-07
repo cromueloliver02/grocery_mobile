@@ -45,7 +45,7 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
-  Future<void> addToCart(CartItem cartItem) async {
+  Future<CartItem> addToCart(CartItem cartItem) async {
     try {
       return cartService.addToCart(cartItem);
     } catch (err) {

@@ -29,12 +29,11 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
         userId: userId,
       );
 
-      // TODO: delete temporary code for testing
-      await Future.delayed(const Duration(seconds: 3)); // ADD Cart item
-      await cartRepository.addToCart(cartItem);
+      final CartItem newCartItem = await cartRepository.addToCart(cartItem);
 
       emit(state.copyWith(
         status: AddCartItemStatus.success,
+        cartItem: newCartItem,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

@@ -24,6 +24,9 @@ class ViewedRecentlyPage extends StatelessWidget {
             BlocProvider<ViewedRecentlyBloc>.value(
               value: ctx.read<ViewedRecentlyBloc>(),
             ),
+            BlocProvider<AddCartItemCubit>.value(
+              value: ctx.read<AddCartItemCubit>(),
+            ),
             BlocProvider<NavigationCubit>.value(
               value: ctx.read<NavigationCubit>(),
             ),

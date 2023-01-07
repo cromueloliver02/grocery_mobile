@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/repositories.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
@@ -48,15 +47,10 @@ class FeedList extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: 370 / 450,
             ),
-            itemBuilder: (ctx, idx) => BlocProvider<AddCartItemCubit>(
-              create: (ctx) => AddCartItemCubit(
-                cartRepository: ctx.read<CartRepository>(),
-              ),
-              child: GCRProductCard.feed(
-                product: searchProdState.keywords != null
-                    ? searchProdState.searchResults[idx]
-                    : prodListState.productList[idx],
-              ),
+            itemBuilder: (ctx, idx) => GCRProductCard.feed(
+              product: searchProdState.keywords != null
+                  ? searchProdState.searchResults[idx]
+                  : prodListState.productList[idx],
             ),
           );
         },

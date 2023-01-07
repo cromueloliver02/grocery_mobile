@@ -34,12 +34,29 @@ class CartService {
     }
   }
 
-  Future<void> addToCart(CartItem cartItem) async {
+  Future<CartItem> addToCart(CartItem cartItem) async {
     try {
-      await firestore
+      final DocumentReference cartItemRef = await firestore
           .collection(kCartItemsCollectionPath)
-          .doc()
-          .set(cartItem.toMap());
+          .add(cartItem.toMap());
+
+      final DocumentSnapshot cartItemDoc = await cartItemRef.get();
+
+      final String productId =
+          (cartItemDoc.data() as Map<String, dynamic>)['product'];
+
+      final DocumentReference productRef =
+          firestore.collection(kProductsCollectionPath).doc(productId);
+
+      final DocumentSnapshot productDoc = await productRef.get();
+      final Product product = Product.fromDoc(productDoc);
+
+      final CartItem newCartItem = CartItem.fromDoc(
+        cartItemDoc,
+        product: product,
+      );
+
+      return newCartItem;
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

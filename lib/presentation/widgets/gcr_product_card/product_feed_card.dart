@@ -114,8 +114,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                 ],
               ),
             ),
-            const Spacer(),
-            AddToCartButton(product: widget.product),
+            // const Spacer(),
           ],
         ),
       ),
@@ -132,85 +131,5 @@ class _FeedCardState extends State<_ProductFeedCard> {
   void dispose() {
     _quantityController.dispose();
     super.dispose();
-  }
-}
-
-class AddToCartButton extends StatelessWidget {
-  const AddToCartButton({
-    super.key,
-    required this.product,
-  });
-
-  final Product product;
-
-  void _addToCart(BuildContext ctx, Product product) {
-    final String userId = ctx.read<UserBloc>().state.user.id;
-
-    ctx.read<AddCartItemCubit>().addToCart(
-          userId: userId,
-          product: product,
-        );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
-    return Material(
-      color: theme.cardColor,
-      borderRadius: const BorderRadius.only(
-        bottomLeft: Radius.circular(12),
-        bottomRight: Radius.circular(12),
-      ),
-      child: BlocBuilder<CartBloc, CartState>(
-        builder: (ctx, cartState) =>
-            BlocBuilder<AddCartItemCubit, AddCartItemState>(
-          builder: (ctx, cartItemState) {
-            final bool cartItemLoading =
-                cartItemState.status == AddCartItemStatus.loading;
-
-            return InkWell(
-              onTap: cartState.cart.inCart(product.id) || cartItemLoading
-                  ? null
-                  : () => _addToCart(context, product),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-              child: Container(
-                color: cartItemLoading ? Colors.grey[300] : Colors.transparent,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (cartItemLoading)
-                          const SizedBox.square(
-                            dimension: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        const SizedBox(width: 10),
-                        Text(
-                          cartState.cart.inCart(product.id)
-                              ? 'In Cart'
-                              : cartItemLoading
-                                  ? 'Adding to cart...'
-                                  : 'Add to Cart',
-                          style: textTheme.bodyText1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
   }
 }
