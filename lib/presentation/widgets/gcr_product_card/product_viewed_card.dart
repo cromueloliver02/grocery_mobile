@@ -18,7 +18,15 @@ class _ProductViewedCard extends StatelessWidget {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: ProductDetailsPage(product: product),
+        ),
+      ),
+    );
   }
 
   @override

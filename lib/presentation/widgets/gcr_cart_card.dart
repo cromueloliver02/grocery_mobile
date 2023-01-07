@@ -28,8 +28,15 @@ class _GCRCartCardState extends State<GCRCartCard> {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id,
-        arguments: widget.cartItem.product);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: ProductDetailsPage(product: widget.cartItem.product),
+        ),
+      ),
+    );
   }
 
   @override

@@ -10,7 +10,15 @@ class OurProductsSection extends StatelessWidget {
   const OurProductsSection({super.key});
 
   void _goToFeedPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, FeedPage.id);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: const FeedPage(),
+        ),
+      ),
+    );
   }
 
   @override

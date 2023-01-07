@@ -9,7 +9,15 @@ class OnSaleSection extends StatelessWidget {
   const OnSaleSection({super.key});
 
   void _goToOnSalePage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, OnSalePage.id);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: const OnSalePage(),
+        ),
+      ),
+    );
   }
 
   @override

@@ -27,11 +27,27 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToWishlistPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, WishlistPage.id);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: const WishlistPage(),
+        ),
+      ),
+    );
   }
 
   void _goToViewedRecentlyPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ViewedRecentlyPage.id);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: const ViewedRecentlyPage(),
+        ),
+      ),
+    );
   }
 
   void _goToForgetPasswordPage(BuildContext ctx) {

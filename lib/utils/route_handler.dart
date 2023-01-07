@@ -16,20 +16,8 @@ class RouteHandler {
         return ForgotPasswordPage.route(settings);
       case NavigationPage.id:
         return NavigationPage.route(settings);
-      case OnSalePage.id:
-        return OnSalePage.route(settings);
-      case FeedPage.id:
-        return FeedPage.route(settings);
-      case ProductDetailsPage.id:
-        return ProductDetailsPage.route(settings);
-      case WishlistPage.id:
-        return WishlistPage.route(settings);
       case OrdersPage.id:
         return OrdersPage.route(settings);
-      case ViewedRecentlyPage.id:
-        return ViewedRecentlyPage.route(settings);
-      case CategoryProductsPage.id:
-        return CategoryProductsPage.route(settings);
     }
 
     return null;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:intl/intl.dart';
 
+import '../../business_logic/blocs/blocs.dart';
 import '../../data/models/models.dart';
 import '../pages/pages.dart';
 
@@ -18,7 +19,15 @@ class GCROrderCard extends StatelessWidget {
   final DateTime date;
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: ProductDetailsPage(product: product),
+        ),
+      ),
+    );
   }
 
   @override

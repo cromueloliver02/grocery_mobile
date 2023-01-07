@@ -20,7 +20,15 @@ class _FeedCardState extends State<_ProductFeedCard> {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: widget.product);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<CartBloc>.value(
+          value: ctx.read<CartBloc>(),
+          child: ProductDetailsPage(product: widget.product),
+        ),
+      ),
+    );
   }
 
   @override

@@ -5,28 +5,16 @@ import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
-import '../pages.dart';
 import '../../../utils/utils.dart';
 import './components/product_details_view.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  static const id = '${NavigationPage.id}/product-details';
-
-  static Route<void> route(RouteSettings settings) {
-    final Product product = settings.arguments as Product;
-
-    return MaterialPageRoute(
-      settings: settings,
-      builder: (ctx) => ProductDetailsPage(product: product),
-    );
-  }
-
-  final Product product;
-
   const ProductDetailsPage({
     super.key,
     required this.product,
   });
+
+  final Product product;
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
