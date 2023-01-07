@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -16,24 +16,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     required this.userRepository,
   }) : super(UserState.initial()) {
     on<UserStarted>(_onUserStarted);
-    on<UserUpdated>(_onUserUpdated);
     on<UserShipAddressUpdated>(_onShipAddressUpdated);
   }
 
   void _onUserStarted(
     UserStarted event,
     Emitter<UserState> emit,
-  ) {
-    userRepository.fetchUser(userId: event.userId).listen((User user) {
-      add(UserUpdated(user: user));
-    });
-  }
+  ) async {
+    emit(state.copyWith(status: UserStatus.loading));
 
-  void _onUserUpdated(
-    UserUpdated event,
-    Emitter<UserState> emit,
-  ) {
-    emit(state.copyWith(user: event.user));
+    try {
+      final User user = await userRepository.fetchUser(userId: event.userId);
+
+      emit(state.copyWith(
+        status: UserStatus.success,
+        user: user,
+      ));
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        status: UserStatus.failure,
+        error: err,
+      ));
+
+      debugPrint(state.toString());
+    }
   }
 
   void _onShipAddressUpdated(

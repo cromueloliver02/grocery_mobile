@@ -18,17 +18,6 @@ class UserStarted extends UserEvent {
   List<Object> get props => [userId];
 }
 
-class UserUpdated extends UserEvent {
-  final User user;
-
-  const UserUpdated({
-    required this.user,
-  });
-
-  @override
-  List<Object> get props => [user];
-}
-
 class UserShipAddressUpdated extends UserEvent {
   final String shipAddress;
 

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../data/services/services.dart';
 import '../../../data/models/models.dart';
 
+import '../../../utils/utils.dart';
 import './base_user_repository.dart';
 
 class UserRepository extends BaseUserRepository {
@@ -13,12 +14,32 @@ class UserRepository extends BaseUserRepository {
   });
 
   @override
-  Stream<User> fetchUser({required String userId}) {
+  Future<User> fetchUser({required String userId}) async {
     try {
-      final Stream<DocumentSnapshot> userSnapStream =
-          userService.fetchUser(userId: userId);
+      final CollectionReference productsRef =
+          FirebaseFirestore.instance.collection(kProductsCollectionPath);
+      final List<Product> wishlist = [];
 
-      return userSnapStream.map((doc) => User.fromDoc(doc));
+      final DocumentSnapshot userDoc =
+          await userService.fetchUser(userId: userId);
+
+      final List<String> productIds = List<String>.from(
+        (userDoc.data() as Map<String, dynamic>)['wishlist'],
+      );
+
+      for (String productId in productIds) {
+        DocumentReference productRef = productsRef.doc(productId);
+
+        DocumentSnapshot productDoc = await productRef.get();
+
+        final Product product = Product.fromDoc(productDoc);
+
+        wishlist.add(product);
+      }
+
+      final User user = User.fromDoc(userDoc, wishlist: wishlist);
+
+      return user;
     } catch (err) {
       rethrow;
     }

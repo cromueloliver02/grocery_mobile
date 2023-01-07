@@ -28,11 +28,11 @@ class CartRepository extends BaseCartRepository {
 
         DocumentReference productRef = productsRef.doc(productId);
 
-        DocumentSnapshot productSnapshot = await productRef.get();
+        DocumentSnapshot productDoc = await productRef.get();
 
         final CartItem cartItem = CartItem.fromDoc(
           cartItemDoc,
-          product: Product.fromDoc(productSnapshot),
+          product: Product.fromDoc(productDoc),
         );
 
         cartItems.add(cartItem);

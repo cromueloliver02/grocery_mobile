@@ -57,18 +57,19 @@ class AuthService {
 
       final fb_auth.User user = userCredential.user!;
 
-      final Map<String, dynamic> payload = {
-        'name': name,
-        'email': email,
-        'shipAddress': shipAddress,
-        'wishlist': <String>[],
-        'createdAt': Timestamp.now(),
-      };
+      final User newUser = User(
+        id: 'dummy-id', // just a placeholder, will not be posted to firestore
+        name: name,
+        email: email,
+        shipAddress: shipAddress,
+        wishlist: const <Product>[],
+        createdAt: DateTime.now(),
+      );
 
       await firestore
           .collection(kUsersCollectionPath)
           .doc(user.uid)
-          .set(payload);
+          .set(newUser.toMap());
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -110,18 +111,19 @@ class AuthService {
 
       final fb_auth.User user = userCredential.user!;
 
-      final Map<String, dynamic> payload = {
-        'name': user.displayName,
-        'email': user.email,
-        'shipAddress': null,
-        'wishlist': <String>[],
-        'createdAt': Timestamp.now(),
-      };
+      final User newUser = User(
+        id: 'dummy-id', // just a placeholder, will not be posted to firestore
+        name: user.displayName!,
+        email: user.email!,
+        shipAddress: null,
+        wishlist: const <Product>[],
+        createdAt: DateTime.now(),
+      );
 
       await firestore
           .collection(kUsersCollectionPath)
           .doc(user.uid)
-          .set(payload);
+          .set(newUser.toMap());
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
