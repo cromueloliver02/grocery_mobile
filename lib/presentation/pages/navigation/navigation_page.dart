@@ -30,18 +30,14 @@ class NavigationPage extends StatelessWidget {
           create: (ctx) => ProductsOnSaleBloc(),
         ),
         BlocProvider<UserBloc>(
-          create: (ctx) {
-            final String userId = context.read<AuthBloc>().state.user!.uid;
-
-            return UserBloc(
-              userRepository: ctx.read<UserRepository>(),
-            )..add(UserStarted(userId: userId));
-          },
+          create: (ctx) => UserBloc(
+            userRepository: ctx.read<UserRepository>(),
+          )..add(UserStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
         ),
         BlocProvider<CartBloc>(
           create: (ctx) => CartBloc(
             cartRepository: ctx.read<CartRepository>(),
-          )..add(CartStarted(userId: ctx.read<UserBloc>().state.user.id)),
+          )..add(CartStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
         ),
         BlocProvider<WishlistBloc>(
           create: (ctx) => WishlistBloc()..add(WishlistStarted()),
