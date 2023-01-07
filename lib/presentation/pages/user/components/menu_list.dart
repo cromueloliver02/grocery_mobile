@@ -23,25 +23,7 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToOrdersPage(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-          ],
-          child: const OrdersPage(),
-        ),
-      ),
-    );
+    OrdersPage.pushRoute(ctx);
   }
 
   void _goToWishlistPage(BuildContext ctx) {
