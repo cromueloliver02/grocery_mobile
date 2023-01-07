@@ -52,30 +52,25 @@ class BlocHandler {
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
-    BlocProvider<ThemeCubit>(
-      create: (ctx) => ThemeCubit(),
-    ),
-    BlocProvider<NavigationCubit>(
-      create: (ctx) => NavigationCubit(),
-    ),
     BlocProvider<ProductListBloc>(
       create: (ctx) => ProductListBloc(
         productRepository: ctx.read<ProductRepository>(),
-      )..add(ProductListStarted()),
+      ),
     ),
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
     ),
-    BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc(
-        cartRepository: ctx.read<CartRepository>(),
-      )..add(CartStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
-    ),
     BlocProvider<WishlistBloc>(
-      create: (ctx) => WishlistBloc()..add(WishlistStarted()),
+      create: (ctx) => WishlistBloc(),
     ),
     BlocProvider<ViewedRecentlyBloc>(
-      create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
+      create: (ctx) => ViewedRecentlyBloc(),
+    ),
+    BlocProvider<NavigationCubit>(
+      create: (ctx) => NavigationCubit(),
+    ),
+    BlocProvider<ThemeCubit>(
+      create: (ctx) => ThemeCubit(),
     ),
   ];
 }
