@@ -5,6 +5,28 @@ import '../../../utils/utils.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
+  static void pushRoute(BuildContext ctx) {
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+            BlocProvider<ViewedRecentlyBloc>.value(
+              value: ctx.read<ViewedRecentlyBloc>(),
+            ),
+          ],
+          child: const ViewedRecentlyPage(),
+        ),
+      ),
+    );
+  }
+
   const ViewedRecentlyPage({super.key});
 
   void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {

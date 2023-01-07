@@ -31,25 +31,7 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToViewedRecentlyPage(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-          ],
-          child: const ViewedRecentlyPage(),
-        ),
-      ),
-    );
+    ViewedRecentlyPage.pushRoute(ctx);
   }
 
   void _goToForgetPasswordPage(BuildContext ctx) {
