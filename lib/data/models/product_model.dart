@@ -26,7 +26,22 @@ class Product {
 
   bool get isOnSale => salePrice != null;
 
-  factory Product.fromDoc(QueryDocumentSnapshot doc) {
+  factory Product.fromDoc(DocumentSnapshot doc) {
+    final map = doc.data() as Map<String, dynamic>;
+
+    return Product(
+      id: doc.id,
+      name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      category: map['category'] ?? '',
+      price: map['price']?.toDouble() ?? 0.0,
+      salePrice: map['salePrice']?.toDouble(),
+      measureUnit:
+          MeasureUnit.values.firstWhere((d) => d.name == map['measureUnit']),
+    );
+  }
+
+  factory Product.fromQueryDoc(QueryDocumentSnapshot doc) {
     final map = doc.data() as Map<String, dynamic>;
 
     return Product(

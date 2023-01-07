@@ -29,7 +29,7 @@ class _ProductDetailsPageBottomBarState
   void _addToCart(BuildContext ctx, Product product) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<CartItemCubit>().addToCart(
+    ctx.read<AddCartItemCubit>().addToCart(
           userId: userId,
           product: product,
         );
@@ -92,11 +92,11 @@ class _ProductDetailsPageBottomBarState
                 ),
               ],
             ),
-            BlocBuilder<CartItemCubit, CartItemState>(
+            BlocBuilder<AddCartItemCubit, AddCartItemState>(
               builder: (ctx, cartItemState) => BlocBuilder<CartBloc, CartState>(
                 builder: (ctx, cartState) {
                   final bool cartItemLoading =
-                      cartItemState.formStatus == CartItemFormStatus.loading;
+                      cartItemState.status == AddCartItemStatus.loading;
 
                   if (cartState.cart.inCart(widget.product.id)) {
                     return GCRButton.elevated(

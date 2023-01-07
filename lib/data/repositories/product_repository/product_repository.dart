@@ -18,7 +18,7 @@ class ProductRepository extends BaseProductRepository {
           productSnapshots = productService.fetchProducts();
 
       return productSnapshots.map((docs) {
-        return docs.map((doc) => Product.fromDoc(doc)).toList();
+        return docs.map((doc) => Product.fromQueryDoc(doc)).toList();
       });
     } catch (err) {
       rethrow;
@@ -31,7 +31,7 @@ class ProductRepository extends BaseProductRepository {
       final List<QueryDocumentSnapshot<Map<String, dynamic>>> productDocs =
           await productService.searchProducts(keywords);
 
-      return productDocs.map((doc) => Product.fromDoc(doc)).toList();
+      return productDocs.map((doc) => Product.fromQueryDoc(doc)).toList();
     } catch (err) {
       rethrow;
     }

@@ -33,12 +33,12 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  void _cartItemListener(BuildContext ctx, CartItemState state) {
-    if (state.formStatus == CartItemFormStatus.failure) {
+  void _cartItemListener(BuildContext ctx, AddCartItemState state) {
+    if (state.status == AddCartItemStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
 
-    if (state.formStatus == CartItemFormStatus.success) {
+    if (state.status == AddCartItemStatus.success) {
       FunctionHandler.showToast(
         'Added to cart',
         gravity: ToastGravity.BOTTOM,
@@ -47,7 +47,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   }
 
   void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
-    if (state.formStatus == ViewedRecentlyFormStatus.failure) {
+    if (state.status == ViewedRecentlyFormStatus.failure) {
       FunctionHandler.showErrorDialog(ctx, state.error);
     }
   }
@@ -56,8 +56,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CartItemCubit>(
-          create: (ctx) => CartItemCubit(
+        BlocProvider<AddCartItemCubit>(
+          create: (ctx) => AddCartItemCubit(
             cartRepository: ctx.read<CartRepository>(),
           ),
         ),
@@ -68,7 +68,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       ],
       child: MultiBlocListener(
         listeners: [
-          BlocListener<CartItemCubit, CartItemState>(
+          BlocListener<AddCartItemCubit, AddCartItemState>(
             listener: _cartItemListener,
           ),
           BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(

@@ -28,10 +28,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     try {
       await Future.delayed(const Duration(seconds: 3));
+      final List<CartItem> cartItems =
+          await cartRepository.fetchCartItems(event.userId);
 
       emit(state.copyWith(
         status: CartStatus.success,
-        cart: Cart(cartItems: CartItem.cartItems),
+        cart: Cart(cartItems: cartItems),
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

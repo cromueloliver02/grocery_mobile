@@ -29,7 +29,7 @@ enum CartStatus { initial, loading, success, failure }
 
 enum CartFormStatus { initial, loading, success, failure }
 
-enum CartItemFormStatus { initial, loading, success, failure }
+enum AddCartItemStatus { initial, loading, success, failure }
 
 enum WishlistStatus { initial, loading, success, failure }
 

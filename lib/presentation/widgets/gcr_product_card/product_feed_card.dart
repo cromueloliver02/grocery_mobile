@@ -146,7 +146,7 @@ class AddToCartButton extends StatelessWidget {
   void _addToCart(BuildContext ctx, Product product) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<CartItemCubit>().addToCart(
+    ctx.read<AddCartItemCubit>().addToCart(
           userId: userId,
           product: product,
         );
@@ -164,10 +164,11 @@ class AddToCartButton extends StatelessWidget {
         bottomRight: Radius.circular(12),
       ),
       child: BlocBuilder<CartBloc, CartState>(
-        builder: (ctx, cartState) => BlocBuilder<CartItemCubit, CartItemState>(
+        builder: (ctx, cartState) =>
+            BlocBuilder<AddCartItemCubit, AddCartItemState>(
           builder: (ctx, cartItemState) {
             final bool cartItemLoading =
-                cartItemState.formStatus == CartItemFormStatus.loading;
+                cartItemState.status == AddCartItemStatus.loading;
 
             return InkWell(
               onTap: cartState.cart.inCart(product.id) || cartItemLoading

@@ -11,7 +11,7 @@ class _ProductWishlistCard extends StatelessWidget {
   void _addToCart(BuildContext ctx, Product product) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<CartItemCubit>().addToCart(
+    ctx.read<AddCartItemCubit>().addToCart(
           userId: userId,
           product: product,
         );

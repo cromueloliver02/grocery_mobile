@@ -69,7 +69,7 @@ class BlocHandler {
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc(
         cartRepository: ctx.read<CartRepository>(),
-      )..add(CartStarted()),
+      )..add(CartStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
     ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc()..add(WishlistStarted()),

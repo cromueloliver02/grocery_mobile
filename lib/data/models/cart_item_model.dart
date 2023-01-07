@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 import './models.dart';
-import '../../utils/utils.dart';
 
 const _uuid = Uuid();
 
@@ -27,6 +26,11 @@ class CartItem {
     return currentPrice * quantity;
   }
 
+  @override
+  String toString() {
+    return 'CartItem(id: $id, product: $product, quantity: $quantity, userId: $userId, dateCreated: $dateCreated)';
+  }
+
   CartItem copyWith({
     String? id,
     Product? product,
@@ -46,20 +50,20 @@ class CartItem {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    final DocumentReference<Map<String, dynamic>> productRef = FirebaseFirestore
-        .instance
-        .collection(kProductsCollectionPath)
-        .doc(product.id);
+    // final DocumentReference<Map<String, dynamic>> productRef = FirebaseFirestore
+    //     .instance
+    //     .collection(kProductsCollectionPath)
+    //     .doc(product.id);
 
-    result.addAll({'product': productRef});
+    result.addAll({'product': product.id});
     result.addAll({'quantity': quantity});
-    result.addAll({'userId': userId});
+    result.addAll({'user': userId});
     result.addAll({'dateCreated': dateCreated.millisecondsSinceEpoch});
 
     return result;
   }
 
-  factory CartItem.fromMap(
+  factory CartItem.fromDoc(
     DocumentSnapshot doc, {
     required Product product,
   }) {

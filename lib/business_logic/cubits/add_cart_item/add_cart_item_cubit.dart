@@ -6,20 +6,20 @@ import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
-part 'cart_item_state.dart';
+part 'add_cart_item_state.dart';
 
-class CartItemCubit extends Cubit<CartItemState> {
+class AddCartItemCubit extends Cubit<AddCartItemState> {
   final CartRepository cartRepository;
 
-  CartItemCubit({
+  AddCartItemCubit({
     required this.cartRepository,
-  }) : super(CartItemState.initial());
+  }) : super(AddCartItemState.initial());
 
   void addToCart({
     required String userId,
     required Product product,
   }) async {
-    emit(state.copyWith(formStatus: CartItemFormStatus.loading));
+    emit(state.copyWith(status: AddCartItemStatus.loading));
 
     try {
       final CartItem cartItem = CartItem(
@@ -34,11 +34,11 @@ class CartItemCubit extends Cubit<CartItemState> {
       await cartRepository.addToCart(cartItem);
 
       emit(state.copyWith(
-        formStatus: CartItemFormStatus.success,
+        status: AddCartItemStatus.success,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: CartItemFormStatus.failure,
+        status: AddCartItemStatus.failure,
         error: err,
       ));
 
