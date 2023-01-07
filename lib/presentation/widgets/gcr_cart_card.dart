@@ -39,6 +39,9 @@ class _GCRCartCardState extends State<GCRCartCard> {
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),
             ),
+            BlocProvider<ViewedRecentlyBloc>.value(
+              value: ctx.read<ViewedRecentlyBloc>(),
+            ),
           ],
           child: ProductDetailsPage(product: widget.cartItem.product),
         ),

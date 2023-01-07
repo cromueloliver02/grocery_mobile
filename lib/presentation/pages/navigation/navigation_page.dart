@@ -4,7 +4,7 @@ import '../../../business_logic/blocs/blocs.dart';
 import '../../../data/repositories/repositories.dart';
 import './components/navigation_view.dart';
 
-class NavigationPage extends StatefulWidget {
+class NavigationPage extends StatelessWidget {
   static const id = '/navigation';
 
   static Route<void> route(RouteSettings settings) {
@@ -16,11 +16,6 @@ class NavigationPage extends StatefulWidget {
 
   const NavigationPage({super.key});
 
-  @override
-  State<NavigationPage> createState() => _NavigationPageState();
-}
-
-class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -42,15 +37,11 @@ class _NavigationPageState extends State<NavigationPage> {
         BlocProvider<WishlistBloc>(
           create: (ctx) => WishlistBloc()..add(WishlistStarted()),
         ),
+        BlocProvider<ViewedRecentlyBloc>(
+          create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
+        ),
       ],
       child: NavigationView(),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }
 }

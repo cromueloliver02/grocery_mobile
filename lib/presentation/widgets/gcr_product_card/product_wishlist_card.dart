@@ -33,6 +33,9 @@ class _ProductWishlistCard extends StatelessWidget {
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),
             ),
+            BlocProvider<ViewedRecentlyBloc>.value(
+              value: ctx.read<ViewedRecentlyBloc>(),
+            ),
           ],
           child: ProductDetailsPage(product: product),
         ),

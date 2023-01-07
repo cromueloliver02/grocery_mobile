@@ -52,9 +52,6 @@ class BlocHandler {
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
-    BlocProvider<ViewedRecentlyBloc>(
-      create: (ctx) => ViewedRecentlyBloc(),
-    ),
     BlocProvider<NavigationCubit>(
       create: (ctx) => NavigationCubit(),
     ),
