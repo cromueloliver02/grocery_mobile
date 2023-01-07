@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
-import '../../../data/repositories/repositories.dart';
 import './components/navigation_view.dart';
 
 class NavigationPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class NavigationPage extends StatelessWidget {
         BlocProvider<CartBloc>(
           create: (ctx) => CartBloc(
             cartRepository: ctx.read<CartRepository>(),
-            // TODO: why id in user state of userbloc is empty?
+            // TODO: replace AuthBloc with UserBloc soon
           )..add(CartStarted(userId: context.read<AuthBloc>().state.user!.uid)),
         ),
         BlocProvider<WishlistBloc>(

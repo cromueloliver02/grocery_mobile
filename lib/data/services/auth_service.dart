@@ -58,7 +58,6 @@ class AuthService {
       final fb_auth.User user = userCredential.user!;
 
       final Map<String, dynamic> payload = {
-        'id': user.uid,
         'name': name,
         'email': email,
         'shipAddress': shipAddress,
@@ -89,7 +88,13 @@ class AuthService {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      if (googleUser == null) return;
+      if (googleUser == null) {
+        throw FirebaseException(
+          code: 'Exception',
+          message: 'Authenticated aborted.',
+          plugin: 'firebase-auth',
+        );
+      }
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -100,7 +105,23 @@ class AuthService {
         accessToken: googleAuth.accessToken,
       );
 
-      await fireAuth.signInWithCredential(credential);
+      final fb_auth.UserCredential userCredential =
+          await fireAuth.signInWithCredential(credential);
+
+      final fb_auth.User user = userCredential.user!;
+
+      final Map<String, dynamic> payload = {
+        'name': user.displayName,
+        'email': user.email,
+        'shipAddress': null,
+        'wishlist': <String>[],
+        'createdAt': Timestamp.now(),
+      };
+
+      await firestore
+          .collection(kUsersCollectionPath)
+          .doc(user.uid)
+          .set(payload);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

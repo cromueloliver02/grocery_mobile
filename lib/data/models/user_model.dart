@@ -5,7 +5,7 @@ class User extends Equatable {
   final String id;
   final String name;
   final String email;
-  final String shipAddress;
+  final String? shipAddress;
 
   const User({
     required this.id,
@@ -19,12 +19,12 @@ class User extends Equatable {
       id: '',
       name: '',
       email: '',
-      shipAddress: '',
+      shipAddress: null,
     );
   }
 
   @override
-  List<Object> get props => [id, name, email, shipAddress];
+  List<Object?> get props => [id, name, email, shipAddress];
 
   @override
   String toString() {
@@ -35,7 +35,7 @@ class User extends Equatable {
     final map = doc.data() as Map<String, dynamic>;
 
     return User(
-      id: map['id'] ?? '',
+      id: doc.id,
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       shipAddress: map['shipAddress'] ?? '',

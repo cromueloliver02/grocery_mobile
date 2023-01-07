@@ -55,7 +55,7 @@ class MenuList extends StatelessWidget {
             ),
             onTap: () => _showAddressDialog(
               context,
-              initialValue: state.user.shipAddress,
+              initialValue: state.user.shipAddress ?? '',
             ),
           ),
         ),
