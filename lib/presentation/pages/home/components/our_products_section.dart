@@ -21,6 +21,9 @@ class OurProductsSection extends StatelessWidget {
             BlocProvider<CartBloc>.value(
               value: ctx.read<CartBloc>(),
             ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
           ],
           child: const FeedPage(),
         ),

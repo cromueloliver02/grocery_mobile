@@ -23,8 +23,15 @@ class _FeedCardState extends State<_ProductFeedCard> {
     Navigator.push(
       ctx,
       MaterialPageRoute(
-        builder: (context) => BlocProvider<CartBloc>.value(
-          value: ctx.read<CartBloc>(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+          ],
           child: ProductDetailsPage(product: widget.product),
         ),
       ),

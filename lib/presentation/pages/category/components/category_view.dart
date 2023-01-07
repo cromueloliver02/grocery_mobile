@@ -20,6 +20,9 @@ class CategoryView extends StatelessWidget {
             BlocProvider<CartBloc>.value(
               value: ctx.read<CartBloc>(),
             ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
           ],
           child: CategoryProductsPage(category: Category.categories[idx].name),
         ),

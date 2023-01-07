@@ -16,8 +16,6 @@ class RouteHandler {
         return ForgotPasswordPage.route(settings);
       case NavigationPage.id:
         return NavigationPage.route(settings);
-      case OrdersPage.id:
-        return OrdersPage.route(settings);
     }
 
     return null;

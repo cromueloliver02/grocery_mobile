@@ -23,15 +23,37 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToOrdersPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, OrdersPage.id);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+          ],
+          child: const OrdersPage(),
+        ),
+      ),
+    );
   }
 
   void _goToWishlistPage(BuildContext ctx) {
     Navigator.push(
       ctx,
       MaterialPageRoute(
-        builder: (context) => BlocProvider<CartBloc>.value(
-          value: ctx.read<CartBloc>(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+          ],
           child: const WishlistPage(),
         ),
       ),
@@ -42,9 +64,16 @@ class MenuList extends StatelessWidget {
     Navigator.push(
       ctx,
       MaterialPageRoute(
-        builder: (context) => BlocProvider<CartBloc>.value(
-          value: ctx.read<CartBloc>(),
-          child: const ViewedRecentlyPage(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+          ],
+          child: const WishlistPage(),
         ),
       ),
     );

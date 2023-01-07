@@ -39,6 +39,9 @@ class _NavigationPageState extends State<NavigationPage> {
             // TODO: why id in user state of userbloc is empty?
           )..add(CartStarted(userId: context.read<AuthBloc>().state.user!.uid)),
         ),
+        BlocProvider<WishlistBloc>(
+          create: (ctx) => WishlistBloc()..add(WishlistStarted()),
+        ),
       ],
       child: NavigationView(),
     );
@@ -48,7 +51,6 @@ class _NavigationPageState extends State<NavigationPage> {
   void initState() {
     super.initState();
 
-    context.read<WishlistBloc>().add(WishlistStarted());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }
 }
