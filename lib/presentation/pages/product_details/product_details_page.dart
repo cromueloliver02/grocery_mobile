@@ -9,6 +9,28 @@ import '../../../utils/utils.dart';
 import './components/product_details_view.dart';
 
 class ProductDetailsPage extends StatefulWidget {
+  static void pushRoute(BuildContext ctx, {required Product product}) {
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+            BlocProvider<WishlistBloc>.value(
+              value: ctx.read<WishlistBloc>(),
+            ),
+            BlocProvider<ViewedRecentlyBloc>.value(
+              value: ctx.read<ViewedRecentlyBloc>(),
+            ),
+          ],
+          child: ProductDetailsPage(product: product),
+        ),
+      ),
+    );
+  }
+
   const ProductDetailsPage({
     super.key,
     required this.product,
