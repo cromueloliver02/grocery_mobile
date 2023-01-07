@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/models.dart';
-import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
 
@@ -9,28 +8,7 @@ class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
 
   void _goToCategoryProductsPage(BuildContext ctx, {required int idx}) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<ProductListBloc>.value(
-              value: ctx.read<ProductListBloc>(),
-            ),
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-          ],
-          child: CategoryProductsPage(category: Category.categories[idx].name),
-        ),
-      ),
-    );
+    CategoryProductsPage.pushRoute(ctx, idx: idx);
   }
 
   @override
