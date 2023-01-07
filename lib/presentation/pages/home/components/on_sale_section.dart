@@ -9,28 +9,7 @@ class OnSaleSection extends StatelessWidget {
   const OnSaleSection({super.key});
 
   void _goToOnSalePage(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<ProductsOnSaleBloc>.value(
-              value: ctx.read<ProductsOnSaleBloc>(),
-            ),
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-          ],
-          child: const OnSalePage(),
-        ),
-      ),
-    );
+    OnSalePage.pushRoute(ctx);
   }
 
   @override
