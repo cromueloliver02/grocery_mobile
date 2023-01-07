@@ -14,11 +14,11 @@ class OnSalePage extends StatelessWidget {
             BlocProvider<ProductsOnSaleBloc>.value(
               value: ctx.read<ProductsOnSaleBloc>(),
             ),
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
             BlocProvider<UserBloc>.value(
               value: ctx.read<UserBloc>(),
+            ),
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
             ),
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),

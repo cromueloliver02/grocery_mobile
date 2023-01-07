@@ -12,11 +12,11 @@ class ViewedRecentlyPage extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => MultiBlocProvider(
           providers: [
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
             BlocProvider<UserBloc>.value(
               value: ctx.read<UserBloc>(),
+            ),
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
             ),
             BlocProvider<WishlistBloc>.value(
               value: ctx.read<WishlistBloc>(),
