@@ -22,18 +22,6 @@ class MenuList extends StatelessWidget {
     );
   }
 
-  void _goToOrdersPage(BuildContext ctx) {
-    OrdersPage.pushRoute(ctx);
-  }
-
-  void _goToWishlistPage(BuildContext ctx) {
-    WishlistPage.pushRoute(ctx);
-  }
-
-  void _goToViewedRecentlyPage(BuildContext ctx) {
-    ViewedRecentlyPage.pushRoute(ctx);
-  }
-
   void _goToForgetPasswordPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ForgotPasswordPage.id);
   }
@@ -78,7 +66,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.bag,
             color: Colors.grey[600],
           ),
-          onTap: () => _goToOrdersPage(context),
+          onTap: () => OrdersPage.pushRoute(context),
         ),
         GCRMenuListTile(
           title: 'Wishlist',
@@ -87,7 +75,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.heart,
             color: Colors.grey[600],
           ),
-          onTap: () => _goToWishlistPage(context),
+          onTap: () => WishlistPage.pushRoute(context),
         ),
         GCRMenuListTile(
           title: 'Viewed Recently',
@@ -96,7 +84,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.show,
             color: Colors.grey[600],
           ),
-          onTap: () => _goToViewedRecentlyPage(context),
+          onTap: () => ViewedRecentlyPage.pushRoute(context),
         ),
         GCRMenuListTile(
           title: 'Forget password',
