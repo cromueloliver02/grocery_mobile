@@ -23,11 +23,20 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc(
-        cartRepository: ctx.read<CartRepository>(),
-        // TODO: why id in user state of userbloc is empty?
-      )..add(CartStarted(userId: context.read<AuthBloc>().state.user!.uid)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductListBloc>(
+          create: (ctx) => ProductListBloc(
+            productRepository: ctx.read<ProductRepository>(),
+          )..add(ProductListStarted()),
+        ),
+        BlocProvider<CartBloc>(
+          create: (ctx) => CartBloc(
+            cartRepository: ctx.read<CartRepository>(),
+            // TODO: why id in user state of userbloc is empty?
+          )..add(CartStarted(userId: context.read<AuthBloc>().state.user!.uid)),
+        ),
+      ],
       child: NavigationView(),
     );
   }
@@ -36,7 +45,6 @@ class _NavigationPageState extends State<NavigationPage> {
   void initState() {
     super.initState();
 
-    context.read<ProductListBloc>().add(ProductListStarted());
     context.read<WishlistBloc>().add(WishlistStarted());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }

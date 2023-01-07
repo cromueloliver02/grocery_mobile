@@ -13,8 +13,15 @@ class OurProductsSection extends StatelessWidget {
     Navigator.push(
       ctx,
       MaterialPageRoute(
-        builder: (context) => BlocProvider<CartBloc>.value(
-          value: ctx.read<CartBloc>(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<ProductListBloc>.value(
+              value: ctx.read<ProductListBloc>(),
+            ),
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+          ],
           child: const FeedPage(),
         ),
       ),
