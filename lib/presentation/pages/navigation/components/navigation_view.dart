@@ -18,14 +18,17 @@ class NavigationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationCubit, NavigationState>(
-      builder: (ctx, state) => KeyboardDismisser(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: KeyboardDismisser(
         gestures: kDismissKeyboardGestures,
         child: Scaffold(
           bottomNavigationBar: const NavigationPageBottomBar(),
-          body: IndexedStack(
-            index: state.currentIndex,
-            children: _pages,
+          body: BlocBuilder<NavigationCubit, NavigationState>(
+            builder: (ctx, state) => IndexedStack(
+              index: state.currentIndex,
+              children: _pages,
+            ),
           ),
         ),
       ),
