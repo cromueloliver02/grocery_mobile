@@ -12,8 +12,15 @@ class OnSaleSection extends StatelessWidget {
     Navigator.push(
       ctx,
       MaterialPageRoute(
-        builder: (context) => BlocProvider<CartBloc>.value(
-          value: ctx.read<CartBloc>(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<ProductsOnSaleBloc>.value(
+              value: ctx.read<ProductsOnSaleBloc>(),
+            ),
+            BlocProvider<CartBloc>.value(
+              value: ctx.read<CartBloc>(),
+            ),
+          ],
           child: const OnSalePage(),
         ),
       ),

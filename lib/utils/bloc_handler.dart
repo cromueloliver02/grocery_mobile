@@ -52,9 +52,6 @@ class BlocHandler {
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
-    BlocProvider<ProductsOnSaleBloc>(
-      create: (ctx) => ProductsOnSaleBloc(),
-    ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc(),
     ),

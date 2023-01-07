@@ -30,6 +30,9 @@ class _NavigationPageState extends State<NavigationPage> {
             productRepository: ctx.read<ProductRepository>(),
           )..add(ProductListStarted()),
         ),
+        BlocProvider<ProductsOnSaleBloc>(
+          create: (ctx) => ProductsOnSaleBloc(),
+        ),
         BlocProvider<CartBloc>(
           create: (ctx) => CartBloc(
             cartRepository: ctx.read<CartRepository>(),

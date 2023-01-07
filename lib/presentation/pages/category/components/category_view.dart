@@ -19,9 +19,6 @@ class CategoryView extends StatelessWidget {
             ),
             BlocProvider<CartBloc>.value(
               value: ctx.read<CartBloc>(),
-              child: CategoryProductsPage(
-                category: Category.categories[idx].name,
-              ),
             ),
           ],
           child: CategoryProductsPage(category: Category.categories[idx].name),
