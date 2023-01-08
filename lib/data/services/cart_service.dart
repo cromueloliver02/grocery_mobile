@@ -33,15 +33,35 @@ class CartService {
     }
   }
 
-  Future<QuerySnapshot> fetchCartItems(String userId) async {
+  // TODO: move the transformation of data to cart repository soon
+  Future<List<CartItem>> fetchCartItems(String userId) async {
     try {
-      final CollectionReference cartItemsRef =
-          firestore.collection(kCartsCollectionPath);
+      List<CartItem> cartItems = [];
 
-      final QuerySnapshot cartItemsSnapshot =
-          await cartItemsRef.where('user', isEqualTo: userId).get();
+      // the id of cart is the same as the user id
+      final DocumentSnapshot cartDoc =
+          await firestore.collection(kCartsCollectionPath).doc(userId).get();
 
-      return cartItemsSnapshot;
+      final cartItemMaps =
+          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
+
+      for (final cartItemMap in cartItemMaps) {
+        final String productId = cartItemMap['product'];
+
+        final DocumentSnapshot productDoc = await firestore
+            .collection(kProductsCollectionPath)
+            .doc(productId)
+            .get();
+
+        final CartItem cartItem = CartItem.fromMap(
+          cartItemMap,
+          product: Product.fromDoc(productDoc),
+        );
+
+        cartItems.insert(0, cartItem);
+      }
+
+      return cartItems;
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -57,6 +77,7 @@ class CartService {
     }
   }
 
+  // TODO: move the transformation of data to cart repository soon
   Future<CartItem> addToCart({
     required String userId,
     required CartItem cartItem,

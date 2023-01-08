@@ -27,14 +27,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(status: CartStatus.loading));
 
     try {
-      await Future.delayed(const Duration(seconds: 3));
-      // disabled to change backend infrastracture of cart
-      // final List<CartItem> cartItems =
-      //     await cartRepository.fetchCartItems(event.userId);
+      final List<CartItem> cartItems =
+          await cartRepository.fetchCartItems(event.userId);
 
       final Cart cart = Cart(
-        userId: 'dummy-user-id',
-        cartItems: CartItem.dummyCartItems,
+        userId: event.userId,
+        cartItems: cartItems,
       );
 
       emit(state.copyWith(

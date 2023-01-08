@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import './models.dart';
 import '../../utils/utils.dart';
 
@@ -68,21 +66,6 @@ class CartItem {
   }) {
     return CartItem(
       id: map['id'] ?? '',
-      product: product,
-      quantity: map['quantity']?.toInt() ?? 0,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-    );
-  }
-
-  // TODO: might delete soon
-  factory CartItem.fromDoc(
-    DocumentSnapshot doc, {
-    required Product product,
-  }) {
-    final map = doc.data() as Map<String, dynamic>;
-
-    return CartItem(
-      id: doc.id,
       product: product,
       quantity: map['quantity']?.toInt() ?? 0,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),

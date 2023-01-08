@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../services/cart_service.dart';
 import '../../models/models.dart';
-import '../../../utils/utils.dart';
 import './base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
@@ -15,30 +12,7 @@ class CartRepository extends BaseCartRepository {
   @override
   Future<List<CartItem>> fetchCartItems(String userId) async {
     try {
-      final CollectionReference productsRef =
-          FirebaseFirestore.instance.collection(kProductsCollectionPath);
-      final List<CartItem> cartItems = [];
-
-      final QuerySnapshot cartItemsSnapshot =
-          await cartService.fetchCartItems(userId);
-
-      for (DocumentSnapshot cartItemDoc in cartItemsSnapshot.docs) {
-        String productId =
-            (cartItemDoc.data() as Map<String, dynamic>)['product'];
-
-        DocumentReference productRef = productsRef.doc(productId);
-
-        DocumentSnapshot productDoc = await productRef.get();
-
-        final CartItem cartItem = CartItem.fromDoc(
-          cartItemDoc,
-          product: Product.fromDoc(productDoc),
-        );
-
-        cartItems.add(cartItem);
-      }
-
-      return cartItems;
+      return await cartService.fetchCartItems(userId);
     } catch (err) {
       rethrow;
     }

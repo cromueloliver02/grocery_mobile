@@ -29,6 +29,7 @@ enum ProductListStatus { initial, loading, success, failure }
 
 enum CartStatus { initial, loading, success, failure }
 
+// TODO: delete soon
 enum CartFormStatus { initial, loading, success, failure }
 
 enum AddCartItemStatus { initial, loading, success, failure }
