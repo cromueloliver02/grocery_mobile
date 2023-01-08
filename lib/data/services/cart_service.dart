@@ -12,7 +12,10 @@ class CartService {
 
   Future<void> createCart(Cart cart) async {
     try {
-      await firestore.collection(kCartsCollectionPath).add(cart.toMap());
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId)
+          .set(cart.toMap());
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
