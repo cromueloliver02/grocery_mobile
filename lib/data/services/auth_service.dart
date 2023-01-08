@@ -32,6 +32,12 @@ class AuthService {
         email: email,
         password: password,
       );
+
+      // when signing in using email & password, the authentication
+      // process is almost instantaneous so I have to add a slight
+      // delay to give time to listen to SigninStatus changes before
+      // going to loading page
+      return Future.delayed(const Duration(milliseconds: 500));
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -115,7 +121,14 @@ class AuthService {
       final fb_auth.UserCredential userCredential =
           await fireAuth.signInWithCredential(credential);
 
-      if (isAlreadySignedup) return;
+      if (isAlreadySignedup) {
+        // when signing in using google sign in and email
+        // already exist, the authentication process is almost
+        // instantaneous so I have to add a slight delay to
+        // give time to listen to SigninStatus changes before
+        // going to loading page
+        return Future.delayed(const Duration(milliseconds: 500));
+      }
 
       final fb_auth.User user = userCredential.user!;
 

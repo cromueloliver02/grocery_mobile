@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     if (state.status == AuthStatus.authenticated) {
-      Navigator.pushNamed(ctx, NavigationPage.id);
+      Navigator.pushNamed(ctx, LoadingPage.id);
     }
   }
 

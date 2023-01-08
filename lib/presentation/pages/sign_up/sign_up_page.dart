@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
@@ -35,17 +34,8 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (ctx) => SignUpCubit(
-            authRepository: ctx.read<AuthRepository>(),
-          ),
-        ),
-        BlocProvider<SignUpFormBloc>(
-          create: (ctx) => SignUpFormBloc(),
-        ),
-      ],
+    return BlocProvider<SignUpFormBloc>(
+      create: (ctx) => SignUpFormBloc(),
       child: BlocListener<SignUpCubit, SignUpState>(
         listener: _signupListener,
         child: const SignUpView(),
