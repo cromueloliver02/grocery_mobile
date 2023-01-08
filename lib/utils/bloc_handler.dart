@@ -18,6 +18,9 @@ class BlocHandler {
           userService: UserService(
             firestore: FirebaseFirestore.instance,
           ),
+          cartService: CartService(
+            firestore: FirebaseFirestore.instance,
+          ),
         ),
       ),
     ),

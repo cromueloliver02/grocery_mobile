@@ -31,14 +31,11 @@ class UserService {
     }
   }
 
-  Future<void> createUser({
-    required String userId,
-    required User user,
-  }) async {
+  Future<void> createUser(User user) async {
     try {
       await firestore
           .collection(kUsersCollectionPath)
-          .doc(userId)
+          .doc(user.id)
           .set(user.toMap());
     } on FirebaseException catch (err) {
       throw GCRError(

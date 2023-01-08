@@ -10,10 +10,28 @@ class CartService {
     required this.firestore,
   });
 
+  Future<void> createCart(Cart cart) async {
+    try {
+      await firestore.collection(kCartsCollectionPath).add(cart.toMap());
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
   Future<QuerySnapshot> fetchCartItems(String userId) async {
     try {
       final CollectionReference cartItemsRef =
-          firestore.collection(kCartItemsCollectionPath);
+          firestore.collection(kCartsCollectionPath);
 
       final QuerySnapshot cartItemsSnapshot =
           await cartItemsRef.where('user', isEqualTo: userId).get();
@@ -37,7 +55,7 @@ class CartService {
   Future<CartItem> addToCart(CartItem cartItem) async {
     try {
       final DocumentReference cartItemRef = await firestore
-          .collection(kCartItemsCollectionPath)
+          .collection(kCartsCollectionPath)
           .add(cartItem.toMap());
 
       final DocumentSnapshot cartItemDoc = await cartItemRef.get();

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../data/services/user_service.dart';
+import '../../data/services/services.dart';
 import '../../data/models/models.dart';
 
 class AuthService {
@@ -10,12 +10,14 @@ class AuthService {
   final FirebaseFirestore firestore;
   final GoogleSignIn googleSignIn;
   final UserService userService;
+  final CartService cartService;
 
   AuthService({
     required this.fireAuth,
     required this.firestore,
     required this.googleSignIn,
     required this.userService,
+    required this.cartService,
   });
 
   Stream<fb_auth.User?> get user => fireAuth.userChanges();
@@ -60,7 +62,7 @@ class AuthService {
       final fb_auth.User user = userCredential.user!;
 
       final User newUser = User(
-        id: 'dummy-id', // just a placeholder, will not be posted to firestore
+        id: user.uid,
         name: name,
         email: email,
         shipAddress: shipAddress,
@@ -68,7 +70,14 @@ class AuthService {
         createdAt: DateTime.now(),
       );
 
-      await userService.createUser(userId: user.uid, user: newUser);
+      final Cart cart = Cart(
+        userId: user.uid,
+        cartItems: <CartItem>[],
+      );
+
+      await userService.createUser(newUser);
+
+      await cartService.createCart(cart);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -90,8 +99,8 @@ class AuthService {
 
       if (googleUser == null) {
         throw FirebaseException(
-          code: 'Exception',
-          message: 'Authenticated aborted.',
+          code: 'auth-abort',
+          message: 'Authentication aborted.',
           plugin: 'firebase-auth',
         );
       }
@@ -111,7 +120,7 @@ class AuthService {
       final fb_auth.User user = userCredential.user!;
 
       final User newUser = User(
-        id: 'dummy-id', // just a placeholder, will not be posted to firestore
+        id: user.uid,
         name: user.displayName!,
         email: user.email!,
         shipAddress: null,
@@ -119,7 +128,14 @@ class AuthService {
         createdAt: DateTime.now(),
       );
 
-      await userService.createUser(userId: user.uid, user: newUser);
+      final Cart cart = Cart(
+        userId: user.uid,
+        cartItems: <CartItem>[],
+      );
+
+      await userService.createUser(newUser);
+
+      await cartService.createCart(cart);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
