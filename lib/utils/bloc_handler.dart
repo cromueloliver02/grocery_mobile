@@ -51,7 +51,7 @@ class BlocHandler {
     BlocProvider<AuthBloc>(
       create: (ctx) => AuthBloc(
         authRepository: ctx.read<AuthRepository>(),
-      )..add(AuthStarted()),
+      ),
     ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
