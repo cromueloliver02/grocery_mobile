@@ -52,9 +52,24 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onAddCartItem(CartItemAdded event, Emitter<CartState> emit) async {
-    // final List<CartItem> cartItems = [event.cartItem, ...state.cart.cartItems];
+    List<CartItem> cartItems = [];
 
-    // emit(state.copyWith(cart: Cart(cartItems: cartItems)));
+    final bool isExist = state.cart.cartItems
+        .any((d) => d.product.id == event.cartItem.product.id);
+
+    if (isExist) {
+      cartItems = state.cart.cartItems
+          .map((d) => d.product.id == event.cartItem.product.id
+              ? d.copyWith(quantity: d.quantity + 1)
+              : d)
+          .toList();
+    } else {
+      cartItems = [event.cartItem, ...state.cart.cartItems];
+    }
+
+    emit(state.copyWith(
+      cart: state.cart.copyWith(cartItems: cartItems),
+    ));
   }
 
   void _onIncrementCartItem(

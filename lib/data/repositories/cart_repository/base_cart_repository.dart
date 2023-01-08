@@ -3,5 +3,8 @@ import '../../models/models.dart';
 abstract class BaseCartRepository {
   Future<List<CartItem>> fetchCartItems(String userId);
 
-  Future<void> addToCart(CartItem cartItem);
+  Future<CartItem> addToCart({
+    required String userId,
+    required CartItem cartItem,
+  });
 }

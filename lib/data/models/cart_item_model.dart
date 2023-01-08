@@ -56,11 +56,7 @@ class CartItem {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    // final DocumentReference<Map<String, dynamic>> productRef = FirebaseFirestore
-    //     .instance
-    //     .collection(kProductsCollectionPath)
-    //     .doc(product.id);
-
+    result.addAll({'id': id});
     result.addAll({'product': product.id});
     result.addAll({'quantity': quantity});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
@@ -68,6 +64,19 @@ class CartItem {
     return result;
   }
 
+  factory CartItem.fromMap(
+    Map<String, dynamic> map, {
+    required Product product,
+  }) {
+    return CartItem(
+      id: map['id'] ?? '',
+      product: product,
+      quantity: map['quantity']?.toInt() ?? 0,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+    );
+  }
+
+  // TODO: might delete soon
   factory CartItem.fromDoc(
     DocumentSnapshot doc, {
     required Product product,

@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
 part 'add_cart_item_state.dart';
+
+const _uuid = Uuid();
 
 class AddCartItemCubit extends Cubit<AddCartItemState> {
   final CartRepository cartRepository;
@@ -22,19 +25,21 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
     emit(state.copyWith(status: AddCartItemStatus.loading));
 
     try {
-      // disabled to change backend infrastracture of cart
-      // final CartItem cartItem = CartItem(
-      //   id: '', // id is auto-generated in the backend
-      //   product: product,
-      //   quantity: 1,
-      // );
+      final CartItem cartItem = CartItem(
+        id: _uuid.v4(),
+        product: product,
+        quantity: 1,
+      );
 
-      // final CartItem newCartItem = await cartRepository.addToCart(cartItem);
+      final CartItem newCartItem = await cartRepository.addToCart(
+        userId: userId,
+        cartItem: cartItem,
+      );
 
-      // emit(state.copyWith(
-      //   status: AddCartItemStatus.success,
-      //   cartItem: newCartItem,
-      // ));
+      emit(state.copyWith(
+        status: AddCartItemStatus.success,
+        cartItem: newCartItem,
+      ));
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: AddCartItemStatus.failure,

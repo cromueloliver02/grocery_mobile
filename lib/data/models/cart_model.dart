@@ -19,6 +19,18 @@ class Cart {
     return cartItems.any((d) => d.product.id == productId);
   }
 
+  Cart copyWith({
+    String? userId,
+    List<CartItem>? cartItems,
+    DateTime? createdAt,
+  }) {
+    return Cart(
+      userId: userId ?? this.userId,
+      cartItems: cartItems ?? this.cartItems,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
