@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uuid/uuid.dart';
 
 import './models.dart';
-
-const _uuid = Uuid();
+import '../../utils/utils.dart';
 
 class CartItem {
   final String id;
@@ -93,37 +91,37 @@ class CartItem {
 
   static List<CartItem> dummyCartItems = [
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[9],
       quantity: 2,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[0],
       quantity: 1,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[7],
       quantity: 4,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[8],
       quantity: 3,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[4],
       quantity: 1,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[11],
       quantity: 1,
     ),
     CartItem(
-      id: _uuid.v4(),
+      id: uuid.v4(),
       product: Product.productList[6],
       quantity: 2,
     ),

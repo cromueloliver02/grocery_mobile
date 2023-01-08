@@ -1,4 +1,5 @@
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:uuid/uuid.dart';
 
 // FIREBASE DOCUMENT PATHS
 const String kUsersCollectionPath = 'users';
@@ -6,6 +7,8 @@ const String kProductsCollectionPath = 'products';
 const String kCartsCollectionPath = 'carts';
 
 const String googleSigninMethod = 'google.com';
+
+const Uuid uuid = Uuid();
 
 const List<String> kBannerImages = [
   'assets/images/offers/Offer1.jpg',
