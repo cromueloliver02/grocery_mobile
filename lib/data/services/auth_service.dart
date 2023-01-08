@@ -2,18 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../data/services/user_service.dart';
 import '../../data/models/models.dart';
-import '../../utils/utils.dart';
 
 class AuthService {
   final fb_auth.FirebaseAuth fireAuth;
   final FirebaseFirestore firestore;
   final GoogleSignIn googleSignIn;
+  final UserService userService;
 
   AuthService({
     required this.fireAuth,
     required this.firestore,
     required this.googleSignIn,
+    required this.userService,
   });
 
   Stream<fb_auth.User?> get user => fireAuth.userChanges();
@@ -66,10 +68,7 @@ class AuthService {
         createdAt: DateTime.now(),
       );
 
-      await firestore
-          .collection(kUsersCollectionPath)
-          .doc(user.uid)
-          .set(newUser.toMap());
+      await userService.createUser(userId: user.uid, user: newUser);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -120,10 +119,7 @@ class AuthService {
         createdAt: DateTime.now(),
       );
 
-      await firestore
-          .collection(kUsersCollectionPath)
-          .doc(user.uid)
-          .set(newUser.toMap());
+      await userService.createUser(userId: user.uid, user: newUser);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
