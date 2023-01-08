@@ -47,7 +47,7 @@ class OurProductsSection extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               crossAxisCount: 2,
-              childAspectRatio: 400 / 450,
+              childAspectRatio: 400 / 350,
               children: List.generate(
                 state.productList.length < 6 ? state.productList.length : 6,
                 (idx) => GCRProductCard.feed(

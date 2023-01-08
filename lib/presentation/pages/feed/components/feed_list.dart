@@ -45,7 +45,7 @@ class FeedList extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               crossAxisCount: 2,
-              childAspectRatio: 370 / 450,
+              childAspectRatio: 400 / 350,
             ),
             itemBuilder: (ctx, idx) => GCRProductCard.feed(
               product: searchProdState.keywords != null
