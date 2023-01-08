@@ -23,7 +23,7 @@ class Cart {
     final result = <String, dynamic>{};
 
     result.addAll({'userId': userId});
-    result.addAll({'cartItems': cartItems.map((d) => d.id)});
+    result.addAll({'cartItems': cartItems.map((d) => d.id).toList()});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;

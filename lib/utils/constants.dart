@@ -5,6 +5,8 @@ const String kUsersCollectionPath = 'users';
 const String kProductsCollectionPath = 'products';
 const String kCartsCollectionPath = 'carts';
 
+const String googleSigninMethod = 'google.com';
+
 const List<String> kBannerImages = [
   'assets/images/offers/Offer1.jpg',
   'assets/images/offers/Offer2.jpg',

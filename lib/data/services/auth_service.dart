@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../data/services/services.dart';
 import '../../data/models/models.dart';
+import '../../utils/utils.dart';
 
 class AuthService {
   final fb_auth.FirebaseAuth fireAuth;
@@ -97,13 +98,10 @@ class AuthService {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      if (googleUser == null) {
-        throw FirebaseException(
-          code: 'auth-abort',
-          message: 'Authentication aborted.',
-          plugin: 'firebase-auth',
-        );
-      }
+      if (googleUser == null) return;
+
+      final bool isAlreadySignedup =
+          await isEmailAlreadySignedUp(googleUser.email);
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -116,6 +114,8 @@ class AuthService {
 
       final fb_auth.UserCredential userCredential =
           await fireAuth.signInWithCredential(credential);
+
+      if (isAlreadySignedup) return;
 
       final fb_auth.User user = userCredential.user!;
 
@@ -172,5 +172,26 @@ class AuthService {
   void signout() {
     fireAuth.signOut();
     googleSignIn.signOut();
+  }
+
+  Future<bool> isEmailAlreadySignedUp(String email) async {
+    try {
+      final List<String> signinMethods =
+          await fireAuth.fetchSignInMethodsForEmail(email);
+
+      return signinMethods.contains(googleSigninMethod);
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
   }
 }
