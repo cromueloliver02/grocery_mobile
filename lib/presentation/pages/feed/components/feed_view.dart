@@ -27,7 +27,7 @@ class FeedView extends StatelessWidget {
           child: Column(
             children: const [
               FeedPageSearchBar(),
-              Expanded(child: FeedList()),
+              Expanded(child: FeedGrid()),
             ],
           ),
         ),

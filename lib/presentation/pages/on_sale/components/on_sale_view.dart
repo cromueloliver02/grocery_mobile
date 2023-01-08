@@ -29,7 +29,7 @@ class OnSaleView extends StatelessWidget {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             crossAxisCount: 2,
-            childAspectRatio: 370 / 450,
+            childAspectRatio: 400 / 400,
           ),
           itemBuilder: (ctx, idx) => GCRProductCard.sale(
             product: state.productsOnSale[idx],

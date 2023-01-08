@@ -51,7 +51,7 @@ class CategoryProductsView extends StatelessWidget {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         crossAxisCount: 2,
-                        childAspectRatio: 370 / 450,
+                        childAspectRatio: 400 / 380,
                       ),
                       itemBuilder: (ctx, idx) => GCRProductCard.feed(
                         product: state.categoryProducts[idx],
