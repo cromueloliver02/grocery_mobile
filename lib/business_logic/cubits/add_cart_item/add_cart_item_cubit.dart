@@ -22,19 +22,19 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
     emit(state.copyWith(status: AddCartItemStatus.loading));
 
     try {
-      final CartItem cartItem = CartItem(
-        id: '', // id is auto-generated in the backend
-        product: product,
-        quantity: 1,
-        userId: userId,
-      );
+      // disabled to change backend infrastracture of cart
+      // final CartItem cartItem = CartItem(
+      //   id: '', // id is auto-generated in the backend
+      //   product: product,
+      //   quantity: 1,
+      // );
 
-      final CartItem newCartItem = await cartRepository.addToCart(cartItem);
+      // final CartItem newCartItem = await cartRepository.addToCart(cartItem);
 
-      emit(state.copyWith(
-        status: AddCartItemStatus.success,
-        cartItem: newCartItem,
-      ));
+      // emit(state.copyWith(
+      //   status: AddCartItemStatus.success,
+      //   cartItem: newCartItem,
+      // ));
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: AddCartItemStatus.failure,

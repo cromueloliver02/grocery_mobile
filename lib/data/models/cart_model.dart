@@ -1,9 +1,11 @@
 import './models.dart';
 
 class Cart {
+  final String userId;
   final List<CartItem> cartItems;
 
   Cart({
+    required this.userId,
     required this.cartItems,
   });
 
@@ -14,4 +16,9 @@ class Cart {
   bool inCart(String productId) {
     return cartItems.any((d) => d.product.id == productId);
   }
+
+  static Cart dummyCart = Cart(
+    userId: 'unique-user-id',
+    cartItems: CartItem.dummyCartItems,
+  );
 }

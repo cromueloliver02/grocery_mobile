@@ -15,7 +15,7 @@ class CartState extends Equatable {
 
   factory CartState.initial() {
     return CartState(
-      cart: Cart(cartItems: <CartItem>[]),
+      cart: Cart(userId: '', cartItems: <CartItem>[]),
       status: CartStatus.initial,
       formStatus: CartFormStatus.initial,
       error: const GCRError(),

@@ -9,24 +9,21 @@ class CartItem {
   final String id;
   final Product product;
   final int quantity;
-  final String userId;
-  final DateTime dateCreated;
+  final DateTime createdAt;
 
   CartItem({
     required this.id,
     required this.product,
     required this.quantity,
-    required this.userId,
-    DateTime? dateCreated,
-  }) : dateCreated = dateCreated ?? DateTime.now();
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
 
   factory CartItem.empty() {
     return CartItem(
       id: '',
       product: Product.empty(),
       quantity: 0,
-      userId: '',
-      dateCreated: null,
+      createdAt: null,
     );
   }
 
@@ -38,7 +35,7 @@ class CartItem {
 
   @override
   String toString() {
-    return 'CartItem(id: $id, product: $product, quantity: $quantity, userId: $userId, dateCreated: $dateCreated)';
+    return 'CartItem(id: $id, product: $product, quantity: $quantity, createdAt: $createdAt)';
   }
 
   CartItem copyWith({
@@ -46,14 +43,13 @@ class CartItem {
     Product? product,
     int? quantity,
     String? userId,
-    DateTime? dateCreated,
+    DateTime? createdAt,
   }) {
     return CartItem(
       id: id ?? this.id,
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
-      userId: userId ?? this.userId,
-      dateCreated: dateCreated ?? this.dateCreated,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -67,8 +63,7 @@ class CartItem {
 
     result.addAll({'product': product.id});
     result.addAll({'quantity': quantity});
-    result.addAll({'user': userId});
-    result.addAll({'dateCreated': dateCreated.millisecondsSinceEpoch});
+    result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;
   }
@@ -83,53 +78,45 @@ class CartItem {
       id: doc.id,
       product: product,
       quantity: map['quantity']?.toInt() ?? 0,
-      userId: map['userId'] ?? '',
-      dateCreated: DateTime.fromMillisecondsSinceEpoch(map['dateCreated']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
     );
   }
 
-  static List<CartItem> cartItems = [
+  static List<CartItem> dummyCartItems = [
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[9],
       quantity: 2,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[0],
       quantity: 1,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[7],
       quantity: 4,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[8],
       quantity: 3,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[4],
       quantity: 1,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[11],
       quantity: 1,
-      userId: 'cromuel-unique-id',
     ),
     CartItem(
       id: _uuid.v4(),
       product: Product.productList[6],
       quantity: 2,
-      userId: 'cromuel-unique-id',
     ),
   ];
 }
