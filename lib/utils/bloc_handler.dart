@@ -15,6 +15,9 @@ class BlocHandler {
           fireAuth: FirebaseAuth.instance,
           firestore: FirebaseFirestore.instance,
           googleSignIn: GoogleSignIn(),
+          userService: UserService(
+            firestore: FirebaseFirestore.instance,
+          ),
         ),
       ),
     ),
