@@ -91,6 +91,12 @@ class AuthService {
         message: err.message!,
         plugin: err.plugin,
       );
+    } on GCRError catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message,
+        plugin: err.plugin,
+      );
     } catch (err) {
       throw GCRError(
         code: 'Exception',
@@ -153,6 +159,12 @@ class AuthService {
       throw GCRError(
         code: err.code,
         message: err.message!,
+        plugin: err.plugin,
+      );
+    } on GCRError catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message,
         plugin: err.plugin,
       );
     } catch (err) {
