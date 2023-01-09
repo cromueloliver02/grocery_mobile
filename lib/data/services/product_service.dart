@@ -54,6 +54,7 @@ class ProductService {
     }
   }
 
+  // TODO: might change to DocumentSnapshot from QueryDocumentSnapshot
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchProducts(
     String keywords,
   ) async {
