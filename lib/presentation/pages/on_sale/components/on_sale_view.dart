@@ -20,7 +20,7 @@ class OnSaleView extends StatelessWidget {
       ),
       body: BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
         builder: (ctx, state) => GridView.builder(
-          itemCount: state.productsOnSale.length,
+          itemCount: state.onSaleProducts.length,
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 20,
@@ -32,7 +32,7 @@ class OnSaleView extends StatelessWidget {
             childAspectRatio: 400 / 400,
           ),
           itemBuilder: (ctx, idx) => GCRProductCard.sale(
-            product: state.productsOnSale[idx],
+            product: state.onSaleProducts[idx],
           ),
         ),
       ),

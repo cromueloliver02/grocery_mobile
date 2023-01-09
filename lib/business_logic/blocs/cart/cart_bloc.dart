@@ -15,7 +15,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc({
     required this.cartRepository,
   }) : super(CartState.initial()) {
-    on<CartStarted>(_onStartCart);
+    on<CartLoaded>(_onCartLoaded);
     on<CartItemAdded>(_onAddCartItem);
     on<CartItemIncremented>(_onIncrementCartItem);
     on<CartItemDecremented>(_onDecrementCartItem);
@@ -23,30 +23,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartCleared>(_onClearCart);
   }
 
-  void _onStartCart(CartStarted event, Emitter<CartState> emit) async {
-    emit(state.copyWith(status: CartStatus.loading));
-
-    try {
-      final List<CartItem> cartItems =
-          await cartRepository.fetchCartItems(event.userId);
-
-      final Cart cart = Cart(
-        userId: event.userId,
-        cartItems: cartItems,
-      );
-
-      emit(state.copyWith(
-        status: CartStatus.success,
-        cart: cart,
-      ));
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        status: CartStatus.failure,
-        error: err,
-      ));
-
-      debugPrint(state.toString());
-    }
+  void _onCartLoaded(CartLoaded event, Emitter<CartState> emit) async {
+    emit(state.copyWith(cart: event.cart));
   }
 
   void _onAddCartItem(CartItemAdded event, Emitter<CartState> emit) async {

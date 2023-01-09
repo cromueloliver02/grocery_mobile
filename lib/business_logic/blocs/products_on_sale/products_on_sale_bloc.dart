@@ -9,16 +9,13 @@ part 'products_on_sale_state.dart';
 class ProductsOnSaleBloc
     extends Bloc<ProductsOnSaleEvent, ProductsOnSaleState> {
   ProductsOnSaleBloc() : super(ProductsOnSaleState.initial()) {
-    on<ProductsOnSaleStarted>(_onProductOnSaleStart);
+    on<ProductsOnSaleLoaded>(_onProductOnSaleLoaded);
   }
 
-  void _onProductOnSaleStart(
-    ProductsOnSaleStarted event,
+  void _onProductOnSaleLoaded(
+    ProductsOnSaleLoaded event,
     Emitter<ProductsOnSaleState> emit,
   ) {
-    final List<Product> productsOnSale =
-        event.productList.where((d) => d.isOnSale).toList();
-
-    emit(state.copyWith(productsOnSale: productsOnSale));
+    emit(state.copyWith(onSaleProducts: event.onSaleProducts));
   }
 }

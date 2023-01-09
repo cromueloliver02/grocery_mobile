@@ -38,23 +38,10 @@ class NavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ProductListBloc>(
-          create: (ctx) => ProductListBloc(
-            productRepository: ctx.read<ProductRepository>(),
-          )..add(ProductListStarted()),
-        ),
-        BlocProvider<ProductsOnSaleBloc>(
-          create: (ctx) => ProductsOnSaleBloc(),
-        ),
         BlocProvider<UserBloc>(
           create: (ctx) => UserBloc(
             userRepository: ctx.read<UserRepository>(),
           )..add(UserStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
-        ),
-        BlocProvider<CartBloc>(
-          create: (ctx) => CartBloc(
-            cartRepository: ctx.read<CartRepository>(),
-          )..add(CartStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
         ),
         BlocProvider<WishlistBloc>(
           create: (ctx) => WishlistBloc()..add(WishlistStarted()),

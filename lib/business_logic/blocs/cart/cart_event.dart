@@ -7,15 +7,15 @@ abstract class CartEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CartStarted extends CartEvent {
-  final String userId;
+class CartLoaded extends CartEvent {
+  final Cart cart;
 
-  const CartStarted({
-    required this.userId,
+  const CartLoaded({
+    required this.cart,
   });
 
   @override
-  List<Object> get props => [userId];
+  List<Object> get props => [cart];
 }
 
 class CartItemAdded extends CartEvent {

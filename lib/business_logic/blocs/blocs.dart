@@ -1,6 +1,7 @@
 export 'package:flutter_bloc/flutter_bloc.dart';
 
 export './auth/auth_bloc.dart';
+export './app/app_bloc.dart';
 export './sign_in_form/sign_in_form_bloc.dart';
 export './sign_up_form/sign_up_form_bloc.dart';
 export './user/user_bloc.dart';

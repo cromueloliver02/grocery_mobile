@@ -31,14 +31,12 @@ class ProductService {
     }
   }
 
-  Stream<List<QueryDocumentSnapshot<Map<String, dynamic>>>> fetchProducts() {
+  Future<List<DocumentSnapshot>> fetchProducts() async {
     try {
-      return firestore
-          .collection(kProductsCollectionPath)
-          .snapshots()
-          .map((snapshot) {
-        return snapshot.docs;
-      });
+      final QuerySnapshot productQuery =
+          await firestore.collection(kProductsCollectionPath).get();
+
+      return productQuery.docs;
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

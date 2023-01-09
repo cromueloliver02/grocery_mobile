@@ -18,7 +18,7 @@ class OnSaleSection extends StatelessWidget {
 
     return BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
       builder: (ctx, state) {
-        if (state.productsOnSale.isEmpty) {
+        if (state.onSaleProducts.isEmpty) {
           return const GCRMessageCard(message: 'Product on sale is empty');
         }
 
@@ -75,7 +75,7 @@ class _ProductOnSaleList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(
       builder: (ctx, state) {
-        final int productSaleCount = state.productsOnSale.length;
+        final int productSaleCount = state.onSaleProducts.length;
 
         return ListView.separated(
           itemCount: productSaleCount < 5 ? productSaleCount : 5,
@@ -83,7 +83,7 @@ class _ProductOnSaleList extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           separatorBuilder: (ctx, idx) => const SizedBox(width: 10),
           itemBuilder: (ctx, idx) => GCRProductCard.sale(
-            product: state.productsOnSale[idx],
+            product: state.onSaleProducts[idx],
           ),
         );
       },

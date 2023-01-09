@@ -59,6 +59,26 @@ class BlocHandler {
         authRepository: ctx.read<AuthRepository>(),
       ),
     ),
+    BlocProvider<AppBloc>(
+      create: (ctx) => AppBloc(
+        productRepository: ctx.read<ProductRepository>(),
+        cartRepository: ctx.read<CartRepository>(),
+      ),
+    ),
+    BlocProvider<ProductListBloc>(
+      lazy: false,
+      create: (ctx) => ProductListBloc(
+        productRepository: ctx.read<ProductRepository>(),
+      ),
+    ),
+    BlocProvider<ProductsOnSaleBloc>(
+      create: (ctx) => ProductsOnSaleBloc(),
+    ),
+    BlocProvider<CartBloc>(
+      create: (ctx) => CartBloc(
+        cartRepository: ctx.read<CartRepository>(),
+      ),
+    ),
     // TODO: might sink this cubit deeper soon
     BlocProvider<SignInCubit>(
       create: (ctx) => SignInCubit(
