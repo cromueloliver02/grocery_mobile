@@ -10,6 +10,27 @@ class ProductService {
     required this.firestore,
   });
 
+  Future<DocumentSnapshot> getProductById(String productId) async {
+    try {
+      return await firestore
+          .collection(kProductsCollectionPath)
+          .doc(productId)
+          .get();
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
   Stream<List<QueryDocumentSnapshot<Map<String, dynamic>>>> fetchProducts() {
     try {
       return firestore

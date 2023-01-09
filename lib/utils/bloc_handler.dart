@@ -20,6 +20,9 @@ class BlocHandler {
           ),
           cartService: CartService(
             firestore: FirebaseFirestore.instance,
+            productService: ProductService(
+              firestore: FirebaseFirestore.instance,
+            ),
           ),
         ),
       ),
@@ -42,6 +45,9 @@ class BlocHandler {
       create: (ctx) => CartRepository(
         cartService: CartService(
           firestore: FirebaseFirestore.instance,
+          productService: ProductService(
+            firestore: FirebaseFirestore.instance,
+          ),
         ),
       ),
     ),

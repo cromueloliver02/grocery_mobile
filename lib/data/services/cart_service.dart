@@ -1,16 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
+import 'package:grocery_mobile/data/services/product_service.dart';
 
 import '../models/models.dart';
 import '../../utils/utils.dart';
 
 class CartService {
   final FirebaseFirestore firestore;
+  final ProductService productService;
 
   CartService({
     required this.firestore,
+    required this.productService,
   });
+
+  Future<DocumentSnapshot> getCartByUserId(String userId) async {
+    try {
+      return firestore.collection(kCartsCollectionPath).doc(userId).get();
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
 
   Future<void> createCart(Cart cart) async {
     try {
@@ -39,8 +60,7 @@ class CartService {
       List<CartItem> cartItems = [];
 
       // the id of cart is the same as the user id
-      final DocumentSnapshot cartDoc =
-          await firestore.collection(kCartsCollectionPath).doc(userId).get();
+      final DocumentSnapshot cartDoc = await getCartByUserId(userId);
 
       final cartItemMaps =
           List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
@@ -48,10 +68,8 @@ class CartService {
       for (final cartItemMap in cartItemMaps) {
         final String productId = cartItemMap['product'];
 
-        final DocumentSnapshot productDoc = await firestore
-            .collection(kProductsCollectionPath)
-            .doc(productId)
-            .get();
+        final DocumentSnapshot productDoc =
+            await productService.getProductById(productId);
 
         final CartItem cartItem = CartItem.fromMap(
           cartItemMap,
@@ -86,7 +104,9 @@ class CartService {
       // the id of cart is the same as the user id
       final DocumentReference cartRef =
           firestore.collection(kCartsCollectionPath).doc(userId);
-      final DocumentSnapshot cartDoc = await cartRef.get();
+
+      // the id of cart is the same as the user id
+      final DocumentSnapshot cartDoc = await getCartByUserId(userId);
 
       final Map<String, dynamic>? existingCartItemMap =
           List<Map<String, dynamic>>.from(cartDoc.get('cartItems'))
@@ -109,10 +129,8 @@ class CartService {
       // else if cart item already exist, increment quantity instead
       final String productId = existingCartItemMap['product'];
 
-      final DocumentSnapshot productDoc = await firestore
-          .collection(kProductsCollectionPath)
-          .doc(productId)
-          .get();
+      final DocumentSnapshot productDoc =
+          await productService.getProductById(productId);
 
       CartItem existingCartItem = CartItem.fromMap(
         existingCartItemMap,
