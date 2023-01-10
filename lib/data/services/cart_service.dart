@@ -80,7 +80,6 @@ class CartService {
     }
   }
 
-  // TODO: move the transformation of data to cart repository soon
   Future<CartItem> addToCart({
     required String userId,
     required CartItem cartItem,
