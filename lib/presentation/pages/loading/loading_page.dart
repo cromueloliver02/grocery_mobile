@@ -23,21 +23,25 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
+  void _initializeApp(BuildContext ctx, AppState state) {
+    final ProductListBloc productListBloc = ctx.read<ProductListBloc>();
+    final ProductsOnSaleBloc productsOnSaleBloc =
+        ctx.read<ProductsOnSaleBloc>();
+    final CartBloc cartBloc = ctx.read<CartBloc>();
+
+    final List<Product> onSaleProducts =
+        state.productList.where((d) => d.isOnSale).toList();
+
+    productListBloc.add(ProductListLoaded(productList: state.productList));
+    productsOnSaleBloc.add(
+      ProductsOnSaleLoaded(onSaleProducts: onSaleProducts),
+    );
+    cartBloc.add(CartLoaded(cart: state.cart));
+  }
+
   void _appListener(BuildContext ctx, AppState state) {
     if (state.status == AppStatus.success) {
-      final ProductListBloc productListBloc = ctx.read<ProductListBloc>();
-      final ProductsOnSaleBloc productsOnSaleBloc =
-          ctx.read<ProductsOnSaleBloc>();
-      final CartBloc cartBloc = ctx.read<CartBloc>();
-
-      final List<Product> onSaleProducts =
-          state.productList.where((d) => d.isOnSale).toList();
-
-      productListBloc.add(ProductListLoaded(productList: state.productList));
-      productsOnSaleBloc.add(
-        ProductsOnSaleLoaded(onSaleProducts: onSaleProducts),
-      );
-      cartBloc.add(CartLoaded(cart: state.cart));
+      _initializeApp(ctx, state);
 
       Navigator.pushReplacementNamed(ctx, NavigationPage.id);
     }
