@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
-import 'package:grocery_mobile/data/services/product_service.dart';
 
+import './product_service.dart';
 import '../models/models.dart';
 import '../../utils/utils.dart';
 
@@ -17,7 +17,10 @@ class CartService {
 
   Future<DocumentSnapshot> getCartByUserId(String userId) async {
     try {
-      return firestore.collection(kCartsCollectionPath).doc(userId).get();
+      final DocumentSnapshot cartDoc =
+          await firestore.collection(kCartsCollectionPath).doc(userId).get();
+
+      return cartDoc;
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -86,12 +89,8 @@ class CartService {
         message: err.message!,
         plugin: err.plugin,
       );
-    } on GCRError catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message,
-        plugin: err.plugin,
-      );
+    } on GCRError {
+      rethrow;
     } catch (err) {
       throw GCRError(
         code: 'Exception',
@@ -111,7 +110,6 @@ class CartService {
       final DocumentReference cartRef =
           firestore.collection(kCartsCollectionPath).doc(userId);
 
-      // the id of cart is the same as the user id
       final DocumentSnapshot cartDoc = await getCartByUserId(userId);
 
       final Map<String, dynamic>? existingCartItemMap =
@@ -165,12 +163,8 @@ class CartService {
         message: err.message!,
         plugin: err.plugin,
       );
-    } on GCRError catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message,
-        plugin: err.plugin,
-      );
+    } on GCRError {
+      rethrow;
     } catch (err) {
       throw GCRError(
         code: 'Exception',
