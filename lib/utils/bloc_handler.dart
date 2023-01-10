@@ -82,12 +82,6 @@ class BlocHandler {
         cartRepository: ctx.read<CartRepository>(),
       ),
     ),
-    // TODO: might sink this cubit deeper soon
-    BlocProvider<SignUpCubit>(
-      create: (ctx) => SignUpCubit(
-        authRepository: ctx.read<AuthRepository>(),
-      ),
-    ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),
