@@ -10,7 +10,7 @@ class ProductService {
     required this.firestore,
   });
 
-  Future<DocumentSnapshot> getProductById(String productId) async {
+  Future<DocumentSnapshot> getProduct(String productId) async {
     try {
       final DocumentSnapshot productDoc = await firestore
           .collection(kProductsCollectionPath)

@@ -49,6 +49,9 @@ class BlocHandler {
             firestore: FirebaseFirestore.instance,
           ),
         ),
+        productService: ProductService(
+          firestore: FirebaseFirestore.instance,
+        ),
       ),
     ),
   ];

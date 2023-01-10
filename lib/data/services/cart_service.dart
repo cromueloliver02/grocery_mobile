@@ -57,32 +57,12 @@ class CartService {
     }
   }
 
-  // TODO: move the transformation of data to cart repository soon
-  Future<List<CartItem>> fetchCartItems(String userId) async {
+  Future<DocumentSnapshot> getCart(String userId) async {
     try {
-      List<CartItem> cartItems = [];
-
       // the id of cart is the same as the user id
       final DocumentSnapshot cartDoc = await getCartByUserId(userId);
 
-      final cartItemMaps =
-          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
-
-      for (final cartItemMap in cartItemMaps) {
-        final String productId = cartItemMap['product'];
-
-        final DocumentSnapshot productDoc =
-            await productService.getProductById(productId);
-
-        final CartItem cartItem = CartItem.fromMap(
-          cartItemMap,
-          product: Product.fromDoc(productDoc),
-        );
-
-        cartItems.insert(0, cartItem);
-      }
-
-      return cartItems;
+      return cartDoc;
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
@@ -134,7 +114,7 @@ class CartService {
       final String productId = existingCartItemMap['product'];
 
       final DocumentSnapshot productDoc =
-          await productService.getProductById(productId);
+          await productService.getProduct(productId);
 
       CartItem existingCartItem = CartItem.fromMap(
         existingCartItemMap,
