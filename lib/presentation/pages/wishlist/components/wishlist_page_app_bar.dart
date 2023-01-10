@@ -10,7 +10,7 @@ class WishlistPageAppBar extends StatelessWidget {
   void _showClearWishlistDialog(BuildContext ctx) async {
     final WishlistBloc wishlistBloc = ctx.read<WishlistBloc>();
 
-    final bool? response = await FunctionHandler.showWarningDialog(
+    final bool? response = await showWarningDialog(
       ctx,
       title: 'Clear Wishlist',
       message: 'Do you wanna clear your wishlist?',

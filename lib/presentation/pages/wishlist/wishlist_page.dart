@@ -41,7 +41,7 @@ class WishlistPage extends StatelessWidget {
 
   void _wishlistListener(BuildContext ctx, WishlistState state) {
     if (state.status == WishlistStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

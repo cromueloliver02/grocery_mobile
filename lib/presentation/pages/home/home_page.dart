@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../utils/utils.dart';
@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   void _wishlistListener(BuildContext ctx, WishlistState state) {
     if (state.formStatus == WishlistFormStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

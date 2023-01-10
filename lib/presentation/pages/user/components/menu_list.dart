@@ -29,7 +29,7 @@ class MenuList extends StatelessWidget {
   void _showSignOutDialog(BuildContext ctx) async {
     final AuthBloc authBloc = ctx.read<AuthBloc>();
 
-    final bool? response = await FunctionHandler.showWarningDialog(
+    final bool? response = await showWarningDialog(
       ctx,
       title: 'Sign Out',
       message: 'Do you wanna sign out?',

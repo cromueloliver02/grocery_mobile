@@ -41,7 +41,7 @@ class ViewedRecentlyPage extends StatelessWidget {
 
   void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
     if (state.status == ViewedRecentlyStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

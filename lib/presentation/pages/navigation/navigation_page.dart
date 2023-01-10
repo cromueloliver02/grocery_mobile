@@ -23,14 +23,14 @@ class NavigationPage extends StatelessWidget {
     if (state.status == AddCartItemStatus.success) {
       ctx.read<CartBloc>().add(CartItemAdded(cartItem: state.cartItem));
 
-      FunctionHandler.showToast(
+      showToast(
         'Added to cart',
         gravity: ToastGravity.BOTTOM,
       );
     }
 
     if (state.status == AddCartItemStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

@@ -49,7 +49,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 enabled: state.status != ForgetPwdStatus.loading,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
-                validator: FunctionHandler.emailValidator,
+                validator: emailValidator,
                 onChanged: (String? value) => _onChangeEmail(context, value),
               ),
               const SizedBox(height: 20),

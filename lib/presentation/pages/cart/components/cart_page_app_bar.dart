@@ -11,7 +11,7 @@ class CartPageAppBar extends StatelessWidget {
   void _showClearCartDialog(BuildContext ctx) async {
     final CartBloc cartBloc = ctx.read<CartBloc>();
 
-    final bool? response = await FunctionHandler.showWarningDialog(
+    final bool? response = await showWarningDialog(
       ctx,
       title: 'Clear Cart',
       message: 'Do you wanna clear your cart?',

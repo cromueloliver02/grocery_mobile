@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
   void _signupListener(BuildContext ctx, SignUpState state) {
     if (state.status == SignupStatus.failure) {
       if (state.error.code == kEmailAlreadyInUse) {
-        FunctionHandler.showInfoDialog(
+        showInfoDialog(
           ctx,
           title: 'Email Already Exist',
           message: 'Email is already taken, please try a different one.',
@@ -29,7 +29,7 @@ class SignUpPage extends StatelessWidget {
         return;
       }
 
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

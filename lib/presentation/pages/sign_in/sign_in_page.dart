@@ -22,7 +22,7 @@ class SignInPage extends StatelessWidget {
     if (state.status == SigninStatus.failure) {
       if (state.error.code == kUserNotFound ||
           state.error.code == kWrongPassword) {
-        FunctionHandler.showInfoDialog(
+        showInfoDialog(
           ctx,
           title: 'Incorrect Credentials',
           message: 'Wrong email or password',
@@ -30,7 +30,7 @@ class SignInPage extends StatelessWidget {
         return;
       }
 
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

@@ -69,7 +69,7 @@ class _SignInFormState extends State<SignInForm> {
                   enabled: !loading,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  validator: FunctionHandler.emailValidator,
+                  validator: emailValidator,
                   onChanged: (String? value) => _onChangeEmail(context, value),
                 ),
                 const SizedBox(height: 20),
@@ -90,7 +90,7 @@ class _SignInFormState extends State<SignInForm> {
                       color: Colors.white,
                     ),
                   ),
-                  validator: FunctionHandler.passwordValidator,
+                  validator: passwordValidator,
                   onEditingComplete: () => _signIn(context),
                   onChanged: (String? value) =>
                       _onChangePassword(context, value),

@@ -47,7 +47,7 @@ class _LoadingPageState extends State<LoadingPage> {
     }
 
     if (state.status == AppStatus.failure) {
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 

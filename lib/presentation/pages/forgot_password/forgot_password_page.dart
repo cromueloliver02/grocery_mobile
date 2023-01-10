@@ -21,12 +21,12 @@ class ForgotPasswordPage extends StatelessWidget {
   void _forgetPwdListener(BuildContext ctx, ForgetPwdState state) {
     if (state.status == ForgetPwdStatus.success) {
       Navigator.pop(ctx);
-      FunctionHandler.showToast('An email has been sent to you email address');
+      showToast('An email has been sent to you email address');
     }
 
     if (state.status == ForgetPwdStatus.failure) {
       if (state.error.code == kUserNotFound) {
-        FunctionHandler.showInfoDialog(
+        showInfoDialog(
           ctx,
           title: 'Email Not Found',
           message: 'This email is not registered yet, please try to sign up.',
@@ -34,7 +34,7 @@ class ForgotPasswordPage extends StatelessWidget {
         return;
       }
 
-      FunctionHandler.showErrorDialog(ctx, state.error);
+      showErrorDialog(ctx, state.error);
     }
   }
 
