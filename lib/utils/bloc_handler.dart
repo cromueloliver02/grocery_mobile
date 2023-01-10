@@ -83,12 +83,6 @@ class BlocHandler {
       ),
     ),
     // TODO: might sink this cubit deeper soon
-    BlocProvider<SignInCubit>(
-      create: (ctx) => SignInCubit(
-        authRepository: ctx.read<AuthRepository>(),
-      ),
-    ),
-    // TODO: might sink this cubit deeper soon
     BlocProvider<SignUpCubit>(
       create: (ctx) => SignUpCubit(
         authRepository: ctx.read<AuthRepository>(),

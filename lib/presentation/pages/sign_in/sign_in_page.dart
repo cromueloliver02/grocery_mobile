@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
@@ -35,8 +36,17 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignInFormBloc>(
-      create: (ctx) => SignInFormBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SignInCubit>(
+          create: (ctx) => SignInCubit(
+            authRepository: ctx.read<AuthRepository>(),
+          ),
+        ),
+        BlocProvider<SignInFormBloc>(
+          create: (ctx) => SignInFormBloc(),
+        ),
+      ],
       child: BlocListener<SignInCubit, SignInState>(
         listener: _signinListener,
         child: const SignInView(),
