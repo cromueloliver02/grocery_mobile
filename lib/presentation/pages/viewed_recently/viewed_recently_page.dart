@@ -10,6 +10,7 @@ class ViewedRecentlyPage extends StatelessWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required CartBloc cartBloc,
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
@@ -20,9 +21,7 @@ class ViewedRecentlyPage extends StatelessWidget {
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
-          BlocProvider<CartBloc>.value(
-            value: ctx.read<CartBloc>(),
-          ),
+          BlocProvider<CartBloc>.value(value: cartBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),

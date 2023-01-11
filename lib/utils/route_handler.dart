@@ -7,6 +7,7 @@ import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 class RouteHandler {
+  final CartBloc _cartBloc;
   final UserBloc _userBloc;
   final WishlistBloc _wishlistBloc;
   final ViewedRecentlyBloc _viewedRecentlyBloc;
@@ -16,7 +17,8 @@ class RouteHandler {
   RouteHandler({
     required UserRepository userRepository,
     required CartRepository cartRepository,
-  })  : _userBloc = UserBloc(userRepository: userRepository),
+  })  : _cartBloc = CartBloc(cartRepository: cartRepository),
+        _userBloc = UserBloc(userRepository: userRepository),
         _wishlistBloc = WishlistBloc(),
         _viewedRecentlyBloc = ViewedRecentlyBloc(),
         _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
@@ -29,6 +31,7 @@ class RouteHandler {
       case LoadingPage.id:
         return LoadingPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
         );
       case SignInPage.id:
@@ -40,6 +43,7 @@ class RouteHandler {
       case NavigationPage.id:
         return NavigationPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -58,6 +62,7 @@ class RouteHandler {
       case OnSalePage.id:
         return OnSalePage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -67,6 +72,7 @@ class RouteHandler {
       case ProductDetailsPage.id:
         return ProductDetailsPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -85,6 +91,7 @@ class RouteHandler {
       case OrdersPage.id:
         return OrdersPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -94,6 +101,7 @@ class RouteHandler {
       case WishlistPage.id:
         return WishlistPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -103,6 +111,7 @@ class RouteHandler {
       case ViewedRecentlyPage.id:
         return ViewedRecentlyPage.route(
           settings,
+          cartBloc: _cartBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,

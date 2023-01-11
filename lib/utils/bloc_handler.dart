@@ -16,20 +16,16 @@ class BlocHandler {
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
+    // TODO: to sink deeper to navigation page level
     BlocProvider<ProductListBloc>(
       lazy: false,
       create: (ctx) => ProductListBloc(
         productRepository: ctx.read<ProductRepository>(),
       ),
     ),
+    // TODO: to sink deeper to navigation page level
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
-    ),
-    // TODO: to sink deeper to navigation page level
-    BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc(
-        cartRepository: ctx.read<CartRepository>(),
-      ),
     ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),

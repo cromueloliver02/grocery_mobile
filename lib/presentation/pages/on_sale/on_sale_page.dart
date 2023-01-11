@@ -9,6 +9,7 @@ class OnSalePage extends StatelessWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required CartBloc cartBloc,
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
@@ -23,7 +24,7 @@ class OnSalePage extends StatelessWidget {
             value: ctx.read<ProductsOnSaleBloc>(),
           ),
           // TODO: to sink cart bloc deeper to navigation page
-          BlocProvider<CartBloc>.value(value: ctx.read<CartBloc>()),
+          BlocProvider<CartBloc>.value(value: cartBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),

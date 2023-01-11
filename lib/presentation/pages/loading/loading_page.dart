@@ -11,12 +11,16 @@ class LoadingPage extends StatefulWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required CartBloc cartBloc,
     required UserBloc userBloc,
   }) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => BlocProvider<UserBloc>.value(
-        value: userBloc,
+      builder: (ctx) => MultiBlocProvider(
+        providers: [
+          BlocProvider<CartBloc>.value(value: cartBloc),
+          BlocProvider<UserBloc>.value(value: userBloc),
+        ],
         child: const LoadingPage(),
       ),
     );
