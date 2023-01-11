@@ -8,7 +8,11 @@ class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
 
   void _goToCategoryProductsPage(BuildContext ctx, {required int idx}) {
-    CategoryProductsPage.pushRoute(ctx, idx: idx);
+    Navigator.pushNamed(
+      ctx,
+      CategoryProductsPage.id,
+      arguments: Category.categories[idx].name,
+    );
   }
 
   @override
