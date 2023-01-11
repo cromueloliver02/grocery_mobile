@@ -13,10 +13,10 @@ class CategoryProductsBloc
   CategoryProductsBloc({
     required this.productList,
   }) : super(CategoryProductsState.initial()) {
-    on<CategoryProductsSetted>(_onSetCategoryProducts);
+    on<CategoryProductsSetted>(_onCategoryProductsSetted);
   }
 
-  void _onSetCategoryProducts(
+  void _onCategoryProductsSetted(
     CategoryProductsSetted event,
     Emitter<CategoryProductsState> emit,
   ) {

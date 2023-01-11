@@ -16,18 +16,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     required this.cartRepository,
   }) : super(CartState.initial()) {
     on<CartLoaded>(_onCartLoaded);
-    on<CartItemAdded>(_onAddCartItem);
-    on<CartItemIncremented>(_onIncrementCartItem);
-    on<CartItemDecremented>(_onDecrementCartItem);
-    on<CartItemRemoved>(_onRemoveCartItem);
-    on<CartCleared>(_onClearCart);
+    on<CartItemAdded>(_onCartItemAdded);
+    on<CartItemIncremented>(_onCartItemIncremented);
+    on<CartItemDecremented>(_onCartItemDecremented);
+    on<CartItemRemoved>(_onCartItemRemoved);
+    on<CartCleared>(_onCartCleared);
   }
 
   void _onCartLoaded(CartLoaded event, Emitter<CartState> emit) async {
     emit(state.copyWith(cart: event.cart));
   }
 
-  void _onAddCartItem(CartItemAdded event, Emitter<CartState> emit) async {
+  void _onCartItemAdded(CartItemAdded event, Emitter<CartState> emit) async {
     List<CartItem> cartItems = [];
 
     final bool isExist = state.cart.cartItems
@@ -48,7 +48,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     ));
   }
 
-  void _onIncrementCartItem(
+  void _onCartItemIncremented(
       CartItemIncremented event, Emitter<CartState> emit) async {
     emit(state.copyWith(formStatus: CartFormStatus.loading));
 
@@ -75,7 +75,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _onDecrementCartItem(
+  void _onCartItemDecremented(
       CartItemDecremented event, Emitter<CartState> emit) async {
     emit(state.copyWith(formStatus: CartFormStatus.loading));
 
@@ -102,7 +102,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _onRemoveCartItem(CartItemRemoved event, Emitter<CartState> emit) async {
+  void _onCartItemRemoved(
+      CartItemRemoved event, Emitter<CartState> emit) async {
     emit(state.copyWith(formStatus: CartFormStatus.loading));
 
     try {
@@ -126,7 +127,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _onClearCart(CartCleared event, Emitter<CartState> emit) async {
+  void _onCartCleared(CartCleared event, Emitter<CartState> emit) async {
     emit(state.copyWith(formStatus: CartFormStatus.loading));
 
     try {

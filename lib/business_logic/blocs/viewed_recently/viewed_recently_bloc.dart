@@ -11,11 +11,11 @@ part 'viewed_recently_state.dart';
 class ViewedRecentlyBloc
     extends Bloc<ViewedRecentlyEvent, ViewedRecentlyState> {
   ViewedRecentlyBloc() : super(ViewedRecentlyState.initial()) {
-    on<ViewedRecentlyStarted>(_onStartViewedRecently);
-    on<ViewedRecentlyItemAdded>(_onAddItemViewRecently);
+    on<ViewedRecentlyStarted>(_onViewedRecentlyStarted);
+    on<ViewedRecentlyItemAdded>(_onViewedRecentlyItemAdded);
   }
 
-  void _onStartViewedRecently(
+  void _onViewedRecentlyStarted(
     ViewedRecentlyStarted event,
     Emitter<ViewedRecentlyState> emit,
   ) async {
@@ -45,7 +45,7 @@ class ViewedRecentlyBloc
     }
   }
 
-  void _onAddItemViewRecently(
+  void _onViewedRecentlyItemAdded(
     ViewedRecentlyItemAdded event,
     Emitter<ViewedRecentlyState> emit,
   ) async {

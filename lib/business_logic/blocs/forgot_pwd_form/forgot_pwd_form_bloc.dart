@@ -7,18 +7,18 @@ part 'forgot_pwd_form_state.dart';
 
 class ForgotPwdFormBloc extends Bloc<ForgotPwdFormEvent, ForgotPwdFormState> {
   ForgotPwdFormBloc() : super(ForgotPwdFormState.initial()) {
-    on<ForgotPwdFormEmailSaved>(_onSaveEmail);
-    on<ForgotPwdFormAutovalidateEnabled>(_onEnableAutovalidate);
+    on<ForgotPwdFormEmailSaved>(_onForgotPwdFormEmailSaved);
+    on<ForgotPwdFormAutovalidateEnabled>(_onForgotPwdFormAutovalidateEnabled);
   }
 
-  void _onSaveEmail(
+  void _onForgotPwdFormEmailSaved(
     ForgotPwdFormEmailSaved event,
     Emitter<ForgotPwdFormState> emit,
   ) {
     emit(state.copyWith(email: event.email ?? state.email));
   }
 
-  void _onEnableAutovalidate(
+  void _onForgotPwdFormAutovalidateEnabled(
     ForgotPwdFormAutovalidateEnabled event,
     Emitter<ForgotPwdFormState> emit,
   ) {

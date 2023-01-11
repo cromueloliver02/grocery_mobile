@@ -7,50 +7,50 @@ part 'sign_up_form_state.dart';
 
 class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
   SignUpFormBloc() : super(SignUpFormState.initial()) {
-    on<SignUpFormNameChanged>(_onChangeName);
-    on<SignUpFormEmailChanged>(_onChangeEmail);
-    on<SignUpFormPassChanged>(_onChangePassword);
-    on<SignUpFormShipAddressChanged>(_onChangeShipAddress);
-    on<SignUpFormPassToggled>(_onTogglePassword);
-    on<SignUpFormAutovalidateEnabled>(_onEnableAutovalidate);
+    on<SignUpFormNameChanged>(_onSignUpFormNameChanged);
+    on<SignUpFormEmailChanged>(_onSignUpFormEmailChanged);
+    on<SignUpFormPassChanged>(_onSignUpFormPassChanged);
+    on<SignUpFormShipAddressChanged>(_onSignUpFormShipAddressChanged);
+    on<SignUpFormPassToggled>(_onSignUpFormPassToggled);
+    on<SignUpFormAutovalidateEnabled>(_onSignUpFormAutovalidateEnabled);
   }
 
-  void _onChangeName(
+  void _onSignUpFormNameChanged(
     SignUpFormNameChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(name: event.name ?? state.name));
   }
 
-  void _onChangeEmail(
+  void _onSignUpFormEmailChanged(
     SignUpFormEmailChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(email: event.email ?? state.email));
   }
 
-  void _onChangePassword(
+  void _onSignUpFormPassChanged(
     SignUpFormPassChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(password: event.password ?? state.password));
   }
 
-  void _onChangeShipAddress(
+  void _onSignUpFormShipAddressChanged(
     SignUpFormShipAddressChanged event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(shipAddress: event.shipAddress ?? state.shipAddress));
   }
 
-  void _onTogglePassword(
+  void _onSignUpFormPassToggled(
     SignUpFormPassToggled event,
     Emitter<SignUpFormState> emit,
   ) {
     emit(state.copyWith(hidePassword: !state.hidePassword));
   }
 
-  void _onEnableAutovalidate(
+  void _onSignUpFormAutovalidateEnabled(
     SignUpFormAutovalidateEnabled event,
     Emitter<SignUpFormState> emit,
   ) {
