@@ -17,13 +17,6 @@ class BlocHandler {
       ),
     ),
     // TODO: to sink deeper to navigation page level
-    BlocProvider<ProductListBloc>(
-      lazy: false,
-      create: (ctx) => ProductListBloc(
-        productRepository: ctx.read<ProductRepository>(),
-      ),
-    ),
-    // TODO: to sink deeper to navigation page level
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
     ),

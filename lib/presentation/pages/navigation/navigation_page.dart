@@ -11,6 +11,7 @@ class NavigationPage extends StatefulWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required ProductListBloc productListBloc,
     required CartBloc cartBloc,
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
@@ -22,6 +23,7 @@ class NavigationPage extends StatefulWidget {
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
+          BlocProvider<ProductListBloc>.value(value: productListBloc),
           BlocProvider<CartBloc>.value(value: cartBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),

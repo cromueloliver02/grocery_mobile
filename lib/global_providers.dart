@@ -52,8 +52,9 @@ class _GlobalProvidersState extends State<GlobalProviders> {
     _blocHandler = BlocHandler();
 
     _routeHandler = RouteHandler(
-      userRepository: _repositoryHandler.userRepository,
+      productRepository: _repositoryHandler.productRepository,
       cartRepository: _repositoryHandler.cartRepository,
+      userRepository: _repositoryHandler.userRepository,
     );
 
     _themeHandler = ThemeHandler();

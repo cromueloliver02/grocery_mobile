@@ -8,18 +8,20 @@ import '../business_logic/blocs/blocs.dart';
 import '../business_logic/cubits/cubits.dart';
 
 class RepositoryHandler {
-  final UserRepository userRepository;
+  final ProductRepository productRepository;
   final CartRepository cartRepository;
+  final UserRepository userRepository;
 
   RepositoryHandler({
-    required UserService userService,
     required CartService cartService,
+    required UserService userService,
     required ProductService productService,
-  })  : userRepository = UserRepository(userService: userService),
+  })  : productRepository = ProductRepository(productService: productService),
         cartRepository = CartRepository(
           cartService: cartService,
           productService: productService,
-        );
+        ),
+        userRepository = UserRepository(userService: userService);
 
   List<RepositoryProvider> repositoryProviders() {
     return [
