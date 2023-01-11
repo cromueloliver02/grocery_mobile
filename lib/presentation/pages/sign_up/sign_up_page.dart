@@ -12,7 +12,19 @@ class SignUpPage extends StatelessWidget {
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => const SignUpPage(),
+      builder: (ctx) => MultiBlocProvider(
+        providers: [
+          BlocProvider<SignUpCubit>(
+            create: (ctx) => SignUpCubit(
+              authRepository: ctx.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider<SignUpFormBloc>(
+            create: (ctx) => SignUpFormBloc(),
+          ),
+        ],
+        child: const SignUpPage(),
+      ),
     );
   }
 
@@ -35,21 +47,9 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SignUpCubit>(
-          create: (ctx) => SignUpCubit(
-            authRepository: ctx.read<AuthRepository>(),
-          ),
-        ),
-        BlocProvider<SignUpFormBloc>(
-          create: (ctx) => SignUpFormBloc(),
-        ),
-      ],
-      child: BlocListener<SignUpCubit, SignUpState>(
-        listener: _signupListener,
-        child: const SignUpView(),
-      ),
+    return BlocListener<SignUpCubit, SignUpState>(
+      listener: _signupListener,
+      child: const SignUpView(),
     );
   }
 }
