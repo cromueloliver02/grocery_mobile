@@ -6,12 +6,14 @@ import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 class RouteHandler {
-  final UserBloc _userBloc;
   final UserRepository userRepository;
+  final UserBloc _userBloc;
+  final WishlistBloc _wishlistBloc;
 
   RouteHandler({
     required this.userRepository,
-  }) : _userBloc = UserBloc(userRepository: userRepository);
+  })  : _userBloc = UserBloc(userRepository: userRepository),
+        _wishlistBloc = WishlistBloc();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -29,6 +31,7 @@ class RouteHandler {
         return NavigationPage.route(
           settings,
           userBloc: _userBloc,
+          wishlistBloc: _wishlistBloc,
         );
     }
 
@@ -67,5 +70,6 @@ class RouteHandler {
 
   void dispose() {
     _userBloc.close();
+    _wishlistBloc.close();
   }
 }

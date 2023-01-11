@@ -13,11 +13,15 @@ class NavigationPage extends StatefulWidget {
   static Route<void> route(
     RouteSettings settings, {
     required UserBloc userBloc,
+    required WishlistBloc wishlistBloc,
   }) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => BlocProvider<UserBloc>.value(
-        value: userBloc,
+      builder: (ctx) => MultiBlocProvider(
+        providers: [
+          BlocProvider<UserBloc>.value(value: userBloc),
+          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
+        ],
         child: const NavigationPage(),
       ),
     );
@@ -49,9 +53,6 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<WishlistBloc>(
-          create: (ctx) => WishlistBloc()..add(WishlistStarted()),
-        ),
         BlocProvider<ViewedRecentlyBloc>(
           create: (ctx) => ViewedRecentlyBloc()..add(ViewedRecentlyStarted()),
         ),
@@ -78,5 +79,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context
         .read<UserBloc>()
         .add(UserStarted(userId: context.read<AuthBloc>().state.user!.uid));
+    context.read<WishlistBloc>().add(WishlistStarted());
   }
 }
