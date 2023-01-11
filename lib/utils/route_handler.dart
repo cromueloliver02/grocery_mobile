@@ -55,6 +55,15 @@ class RouteHandler {
           addCartItemCubit: _addCartItemCubit,
           navigationCubit: _navigationCubit,
         );
+      case OnSalePage.id:
+        return OnSalePage.route(
+          settings,
+          userBloc: _userBloc,
+          wishlistBloc: _wishlistBloc,
+          viewedRecentlyBloc: _viewedRecentlyBloc,
+          addCartItemCubit: _addCartItemCubit,
+          navigationCubit: _navigationCubit,
+        );
       case CategoryProductsPage.id:
         return CategoryProductsPage.route(
           settings,

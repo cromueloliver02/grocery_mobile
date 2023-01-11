@@ -9,7 +9,7 @@ class OnSaleSection extends StatelessWidget {
   const OnSaleSection({super.key});
 
   void _goToOnSalePage(BuildContext ctx) {
-    OnSalePage.pushRoute(ctx);
+    Navigator.pushNamed(ctx, OnSalePage.id);
   }
 
   @override

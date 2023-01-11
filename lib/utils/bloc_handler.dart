@@ -25,6 +25,7 @@ class BlocHandler {
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
     ),
+    // TODO: to sink deeper to navigation page level
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc(
         cartRepository: ctx.read<CartRepository>(),
