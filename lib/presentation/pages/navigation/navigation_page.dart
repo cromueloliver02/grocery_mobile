@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
@@ -15,6 +14,7 @@ class NavigationPage extends StatefulWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
+    required AddCartItemCubit addCartItemCubit,
   }) {
     return MaterialPageRoute(
       settings: settings,
@@ -23,6 +23,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
+          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
         ],
         child: const NavigationPage(),
       ),
@@ -55,11 +56,6 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AddCartItemCubit>(
-          create: (ctx) => AddCartItemCubit(
-            cartRepository: ctx.read<CartRepository>(),
-          ),
-        ),
         BlocProvider<NavigationCubit>(
           create: (ctx) => NavigationCubit(),
         ),

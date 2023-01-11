@@ -7,12 +7,10 @@ import './utils/utils.dart';
 class GroceryApp extends StatefulWidget {
   const GroceryApp({
     super.key,
-    required this.repositoryHandler,
     required this.blocHandler,
     required this.themeHandler,
   });
 
-  final RepositoryHandler repositoryHandler;
   final BlocHandler blocHandler;
   final ThemeHandler themeHandler;
 
@@ -22,11 +20,12 @@ class GroceryApp extends StatefulWidget {
 
 class _GroceryAppState extends State<GroceryApp> {
   late final RouteHandler _routeHandler;
+  late final RepositoryHandler _repositoryHandler;
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: widget.repositoryHandler.repositoryProviders,
+      providers: _repositoryHandler.repositoryProviders,
       child: MultiBlocProvider(
         providers: widget.blocHandler.blocProviders,
         child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -49,8 +48,15 @@ class _GroceryAppState extends State<GroceryApp> {
   void initState() {
     super.initState();
 
+    _repositoryHandler = RepositoryHandler(
+      userService: userService,
+      cartService: cartService,
+      productService: productService,
+    );
+
     _routeHandler = RouteHandler(
-      userRepository: widget.repositoryHandler.userRepository,
+      userRepository: _repositoryHandler.userRepository,
+      cartRepository: _repositoryHandler.cartRepository,
     );
   }
 

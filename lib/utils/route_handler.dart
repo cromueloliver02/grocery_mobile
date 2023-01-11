@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 
 import '../data/repositories/repositories.dart';
 import '../business_logic/blocs/blocs.dart';
+import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 class RouteHandler {
-  final UserRepository userRepository;
   final UserBloc _userBloc;
   final WishlistBloc _wishlistBloc;
   final ViewedRecentlyBloc _viewedRecentlyBloc;
+  final AddCartItemCubit _addCartItemCubit;
 
   RouteHandler({
-    required this.userRepository,
+    required UserRepository userRepository,
+    required CartRepository cartRepository,
   })  : _userBloc = UserBloc(userRepository: userRepository),
         _wishlistBloc = WishlistBloc(),
-        _viewedRecentlyBloc = ViewedRecentlyBloc();
+        _viewedRecentlyBloc = ViewedRecentlyBloc(),
+        _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository);
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -35,6 +38,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
+          addCartItemCubit: _addCartItemCubit,
         );
     }
 

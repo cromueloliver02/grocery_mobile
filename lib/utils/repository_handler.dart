@@ -8,9 +8,18 @@ import '../business_logic/blocs/blocs.dart';
 import '../business_logic/cubits/cubits.dart';
 
 class RepositoryHandler {
-  final UserRepository userRepository = UserRepository(
-    userService: UserService(firestore: FirebaseFirestore.instance),
-  );
+  final UserRepository userRepository;
+  final CartRepository cartRepository;
+
+  RepositoryHandler({
+    required UserService userService,
+    required CartService cartService,
+    required ProductService productService,
+  })  : userRepository = UserRepository(userService: userService),
+        cartRepository = CartRepository(
+          cartService: cartService,
+          productService: productService,
+        );
 
   final List<RepositoryProvider> repositoryProviders = [
     RepositoryProvider<AuthRepository>(
