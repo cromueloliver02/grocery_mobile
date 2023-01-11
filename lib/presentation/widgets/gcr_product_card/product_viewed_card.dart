@@ -18,7 +18,7 @@ class _ProductViewedCard extends StatelessWidget {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    ProductDetailsPage.pushRoute(ctx, product: product);
+    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
   }
 
   @override

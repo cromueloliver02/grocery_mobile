@@ -28,7 +28,11 @@ class _GCRCartCardState extends State<GCRCartCard> {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    ProductDetailsPage.pushRoute(ctx, product: widget.cartItem.product);
+    Navigator.pushNamed(
+      ctx,
+      ProductDetailsPage.id,
+      arguments: widget.cartItem.product,
+    );
   }
 
   @override

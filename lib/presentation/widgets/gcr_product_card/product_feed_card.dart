@@ -20,7 +20,11 @@ class _FeedCardState extends State<_ProductFeedCard> {
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {
-    ProductDetailsPage.pushRoute(ctx, product: widget.product);
+    Navigator.pushNamed(
+      ctx,
+      ProductDetailsPage.id,
+      arguments: widget.product,
+    );
   }
 
   @override
