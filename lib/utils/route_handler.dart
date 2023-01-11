@@ -9,11 +9,13 @@ class RouteHandler {
   final UserRepository userRepository;
   final UserBloc _userBloc;
   final WishlistBloc _wishlistBloc;
+  final ViewedRecentlyBloc _viewedRecentlyBloc;
 
   RouteHandler({
     required this.userRepository,
   })  : _userBloc = UserBloc(userRepository: userRepository),
-        _wishlistBloc = WishlistBloc();
+        _wishlistBloc = WishlistBloc(),
+        _viewedRecentlyBloc = ViewedRecentlyBloc();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -32,6 +34,7 @@ class RouteHandler {
           settings,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
+          viewedRecentlyBloc: _viewedRecentlyBloc,
         );
     }
 
