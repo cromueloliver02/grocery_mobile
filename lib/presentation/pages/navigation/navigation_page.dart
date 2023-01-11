@@ -66,6 +66,8 @@ class _NavigationPageState extends State<NavigationPage> {
   void initState() {
     super.initState();
 
+    // TODO: move fetch of user info on loading page instead on
+    // navigation page(fetch in background)
     context
         .read<UserBloc>()
         .add(UserStarted(userId: context.read<AuthBloc>().state.user!.uid));
