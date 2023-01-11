@@ -174,6 +174,10 @@ class RouteHandler {
   }
 
   void dispose() {
+    _appBloc.close();
+    _productListBloc.close();
+    _productsOnSaleBloc.close();
+    _cartBloc.close();
     _userBloc.close();
     _wishlistBloc.close();
     _viewedRecentlyBloc.close();
