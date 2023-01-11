@@ -36,16 +36,14 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<ProductListBloc, ProductListState>(
-            builder: (ctx, state) => Column(
-              children: const [
-                SizedBox(height: 10),
-                OnSaleSection(),
-                SizedBox(height: 10),
-                OurProductsSection(),
-                SizedBox(height: 10),
-              ],
-            ),
+          Column(
+            children: const [
+              SizedBox(height: 10),
+              OnSaleSection(),
+              SizedBox(height: 10),
+              OurProductsSection(),
+              SizedBox(height: 10),
+            ],
           ),
         ],
       ),

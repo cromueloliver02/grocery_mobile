@@ -30,6 +30,10 @@ class ProductDetailsPage extends StatefulWidget {
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
+          BlocProvider<QtyControllerCubit>(
+            create: (ctx) => QtyControllerCubit(),
+            child: ProductDetailsView(product: product),
+          ),
         ],
         child: ProductDetailsPage(product: product),
       ),
@@ -56,17 +60,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<QtyControllerCubit>(
-          create: (ctx) => QtyControllerCubit(),
-          child: ProductDetailsView(product: widget.product),
-        ),
-      ],
-      child: BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
-        listener: _viewedRecentlyListener,
-        child: ProductDetailsView(product: widget.product),
-      ),
+    return BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
+      listener: _viewedRecentlyListener,
+      child: ProductDetailsView(product: widget.product),
     );
   }
 
