@@ -9,14 +9,6 @@ class BlocHandler {
         authRepository: ctx.read<AuthRepository>(),
       ),
     ),
-    // TODO: to sink deeper to loading page level
-    BlocProvider<AppBloc>(
-      create: (ctx) => AppBloc(
-        productRepository: ctx.read<ProductRepository>(),
-        cartRepository: ctx.read<CartRepository>(),
-        userRepository: ctx.read<UserRepository>(),
-      ),
-    ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
     ),

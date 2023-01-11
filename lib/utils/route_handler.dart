@@ -7,6 +7,7 @@ import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 class RouteHandler {
+  final AppBloc _appBloc;
   final ProductListBloc _productListBloc;
   final ProductsOnSaleBloc _productsOnSaleBloc;
   final CartBloc _cartBloc;
@@ -20,7 +21,12 @@ class RouteHandler {
     required ProductRepository productRepository,
     required CartRepository cartRepository,
     required UserRepository userRepository,
-  })  : _productListBloc = ProductListBloc(
+  })  : _appBloc = AppBloc(
+          productRepository: productRepository,
+          cartRepository: cartRepository,
+          userRepository: userRepository,
+        ),
+        _productListBloc = ProductListBloc(
           productRepository: productRepository,
         ),
         _productsOnSaleBloc = ProductsOnSaleBloc(),
@@ -38,6 +44,7 @@ class RouteHandler {
       case LoadingPage.id:
         return LoadingPage.route(
           settings,
+          appBloc: _appBloc,
           productListBloc: _productListBloc,
           productsOnSaleBloc: _productsOnSaleBloc,
           cartBloc: _cartBloc,

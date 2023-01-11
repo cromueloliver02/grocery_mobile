@@ -11,6 +11,7 @@ class LoadingPage extends StatefulWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required AppBloc appBloc,
     required ProductListBloc productListBloc,
     required ProductsOnSaleBloc productsOnSaleBloc,
     required CartBloc cartBloc,
@@ -20,6 +21,7 @@ class LoadingPage extends StatefulWidget {
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
+          BlocProvider<AppBloc>.value(value: appBloc),
           BlocProvider<ProductListBloc>.value(value: productListBloc),
           BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
           BlocProvider<CartBloc>.value(value: cartBloc),
@@ -55,6 +57,7 @@ class _LoadingPageState extends State<LoadingPage> {
     userBloc.add(UserLoaded(user: state.user));
   }
 
+  // TODO: find another way to communicate betweeb blocs/cubits
   void _appListener(BuildContext ctx, AppState state) {
     if (state.status == AppStatus.success) {
       _initializeApp(ctx, state);
