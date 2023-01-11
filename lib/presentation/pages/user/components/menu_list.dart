@@ -75,7 +75,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.heart,
             color: Colors.grey[600],
           ),
-          onTap: () => WishlistPage.pushRoute(context),
+          onTap: () => Navigator.pushNamed(context, WishlistPage.id),
         ),
         GCRMenuListTile(
           title: 'Viewed Recently',
