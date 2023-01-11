@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../business_logic/cubits/cubits.dart';
 
-class FeedPageSearchBar extends StatefulWidget {
-  const FeedPageSearchBar({super.key});
+class FeedsPageSearchBar extends StatefulWidget {
+  const FeedsPageSearchBar({super.key});
 
   @override
-  State<FeedPageSearchBar> createState() => _FeedPageSearchBarState();
+  State<FeedsPageSearchBar> createState() => _FeedsPageSearchBarState();
 }
 
-class _FeedPageSearchBarState extends State<FeedPageSearchBar> {
+class _FeedsPageSearchBarState extends State<FeedsPageSearchBar> {
   late final TextEditingController _searchController;
 
   void _clearText(BuildContext ctx) {

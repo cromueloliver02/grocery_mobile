@@ -5,8 +5,8 @@ import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
 
-class FeedGrid extends StatelessWidget {
-  const FeedGrid({super.key});
+class FeedsGrid extends StatelessWidget {
+  const FeedsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {

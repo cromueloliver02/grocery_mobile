@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../../utils/utils.dart';
-import './feed_page_search_bar.dart';
-import './feed_list.dart';
+import './feeds_page_search_bar.dart';
+import './feeds_list.dart';
 
-class FeedView extends StatelessWidget {
-  const FeedView({super.key});
+class FeedsView extends StatelessWidget {
+  const FeedsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class FeedView extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: const [
-              FeedPageSearchBar(),
-              Expanded(child: FeedGrid()),
+              FeedsPageSearchBar(),
+              Expanded(child: FeedsGrid()),
             ],
           ),
         ),
