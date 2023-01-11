@@ -6,6 +6,7 @@ import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
+// generated route access blocs/cubits
 class RouteHandler {
   final AppBloc _appBloc;
   final ProductListBloc _productListBloc;
