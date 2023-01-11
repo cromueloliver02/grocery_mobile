@@ -12,7 +12,19 @@ class ForgotPasswordPage extends StatelessWidget {
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => const ForgotPasswordPage(),
+      builder: (ctx) => MultiBlocProvider(
+        providers: [
+          BlocProvider<ForgetPwdCubit>(
+            create: (ctx) => ForgetPwdCubit(
+              authRepository: ctx.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider<ForgotPwdFormBloc>(
+            create: (ctx) => ForgotPwdFormBloc(),
+          ),
+        ],
+        child: const ForgotPasswordPage(),
+      ),
     );
   }
 
@@ -40,21 +52,9 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ForgetPwdCubit>(
-          create: (ctx) => ForgetPwdCubit(
-            authRepository: ctx.read<AuthRepository>(),
-          ),
-        ),
-        BlocProvider<ForgotPwdFormBloc>(
-          create: (ctx) => ForgotPwdFormBloc(),
-        ),
-      ],
-      child: BlocListener<ForgetPwdCubit, ForgetPwdState>(
-        listener: _forgetPwdListener,
-        child: const ForgotPasswordView(),
-      ),
+    return BlocListener<ForgetPwdCubit, ForgetPwdState>(
+      listener: _forgetPwdListener,
+      child: const ForgotPasswordView(),
     );
   }
 }
