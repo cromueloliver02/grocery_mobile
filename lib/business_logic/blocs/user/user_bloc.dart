@@ -15,31 +15,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({
     required this.userRepository,
   }) : super(UserState.initial()) {
-    on<UserStarted>(_onUserStarted);
+    on<UserLoaded>(_onUserLoaded);
     on<UserShipAddressUpdated>(_onShipAddressUpdated);
   }
 
-  void _onUserStarted(
-    UserStarted event,
+  void _onUserLoaded(
+    UserLoaded event,
     Emitter<UserState> emit,
-  ) async {
-    emit(state.copyWith(status: UserStatus.loading));
-
-    try {
-      final User user = await userRepository.fetchUser(userId: event.userId);
-
-      emit(state.copyWith(
-        status: UserStatus.success,
-        user: user,
-      ));
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        status: UserStatus.failure,
-        error: err,
-      ));
-
-      debugPrint(state.toString());
-    }
+  ) {
+    emit(state.copyWith(user: event.user));
   }
 
   void _onShipAddressUpdated(

@@ -13,6 +13,7 @@ class BlocHandler {
       create: (ctx) => AppBloc(
         productRepository: ctx.read<ProductRepository>(),
         cartRepository: ctx.read<CartRepository>(),
+        userRepository: ctx.read<UserRepository>(),
       ),
     ),
     BlocProvider<ProductListBloc>(

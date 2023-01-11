@@ -27,7 +27,10 @@ class RouteHandler {
       case SplashPage.id:
         return SplashPage.route(settings);
       case LoadingPage.id:
-        return LoadingPage.route(settings);
+        return LoadingPage.route(
+          settings,
+          userBloc: _userBloc,
+        );
       case SignInPage.id:
         return SignInPage.route(settings);
       case SignUpPage.id:

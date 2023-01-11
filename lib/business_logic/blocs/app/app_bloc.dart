@@ -12,10 +12,12 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   final ProductRepository productRepository;
   final CartRepository cartRepository;
+  final UserRepository userRepository;
 
   AppBloc({
     required this.productRepository,
     required this.cartRepository,
+    required this.userRepository,
   }) : super(AppState.initial()) {
     on<AppStarted>(_onAppStarted);
   }
@@ -27,11 +29,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       final List<Product> productList = await productRepository.fetchProducts();
       final List<CartItem> cartItems =
           await cartRepository.fetchCartItems(event.userId);
+      final User user = await userRepository.fetchUser(userId: event.userId);
 
       emit(state.copyWith(
         status: AppStatus.success,
         productList: productList,
         cart: Cart(userId: event.userId, cartItems: cartItems),
+        user: user,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

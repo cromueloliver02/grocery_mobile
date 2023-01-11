@@ -21,44 +21,47 @@ class RepositoryHandler {
           productService: productService,
         );
 
-  final List<RepositoryProvider> repositoryProviders = [
-    RepositoryProvider<AuthRepository>(
-      create: (ctx) => AuthRepository(
-        authService: AuthService(
-          fireAuth: FirebaseAuth.instance,
-          firestore: FirebaseFirestore.instance,
-          googleSignIn: GoogleSignIn(),
-          userService: UserService(
+  List<RepositoryProvider> repositoryProviders() {
+    return [
+      RepositoryProvider<AuthRepository>(
+        create: (ctx) => AuthRepository(
+          authService: AuthService(
+            fireAuth: FirebaseAuth.instance,
+            firestore: FirebaseFirestore.instance,
+            googleSignIn: GoogleSignIn(),
+            userService: UserService(
+              firestore: FirebaseFirestore.instance,
+            ),
+            cartService: CartService(
+              firestore: FirebaseFirestore.instance,
+              productService: ProductService(
+                firestore: FirebaseFirestore.instance,
+              ),
+            ),
+          ),
+        ),
+      ),
+      RepositoryProvider<ProductRepository>(
+        create: (ctx) => ProductRepository(
+          productService: ProductService(
             firestore: FirebaseFirestore.instance,
           ),
+        ),
+      ),
+      RepositoryProvider<CartRepository>(
+        create: (ctx) => CartRepository(
           cartService: CartService(
             firestore: FirebaseFirestore.instance,
             productService: ProductService(
               firestore: FirebaseFirestore.instance,
             ),
           ),
-        ),
-      ),
-    ),
-    RepositoryProvider<ProductRepository>(
-      create: (ctx) => ProductRepository(
-        productService: ProductService(
-          firestore: FirebaseFirestore.instance,
-        ),
-      ),
-    ),
-    RepositoryProvider<CartRepository>(
-      create: (ctx) => CartRepository(
-        cartService: CartService(
-          firestore: FirebaseFirestore.instance,
           productService: ProductService(
             firestore: FirebaseFirestore.instance,
           ),
         ),
-        productService: ProductService(
-          firestore: FirebaseFirestore.instance,
-        ),
       ),
-    ),
-  ];
+      RepositoryProvider<UserRepository>.value(value: userRepository),
+    ];
+  }
 }

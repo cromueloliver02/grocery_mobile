@@ -30,7 +30,7 @@ class _GlobalProvidersState extends State<GlobalProviders> {
         Provider<ThemeHandler>.value(value: _themeHandler),
       ],
       child: MultiRepositoryProvider(
-        providers: _repositoryHandler.repositoryProviders,
+        providers: _repositoryHandler.repositoryProviders(),
         child: MultiBlocProvider(
           providers: _blocHandler.blocProviders,
           child: widget.child,

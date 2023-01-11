@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../business_logic/blocs/blocs.dart';
 import '../../../data/models/models.dart';
+import '../../../business_logic/blocs/blocs.dart';
 import '../pages.dart';
 import '../../../utils/utils.dart';
 import './components/loading_view.dart';
@@ -9,10 +9,16 @@ import './components/loading_view.dart';
 class LoadingPage extends StatefulWidget {
   static const id = '/loading';
 
-  static Route<void> route(RouteSettings settings) {
+  static Route<void> route(
+    RouteSettings settings, {
+    required UserBloc userBloc,
+  }) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => const LoadingPage(),
+      builder: (ctx) => BlocProvider<UserBloc>.value(
+        value: userBloc,
+        child: const LoadingPage(),
+      ),
     );
   }
 
@@ -28,6 +34,7 @@ class _LoadingPageState extends State<LoadingPage> {
     final ProductsOnSaleBloc productsOnSaleBloc =
         ctx.read<ProductsOnSaleBloc>();
     final CartBloc cartBloc = ctx.read<CartBloc>();
+    final UserBloc userBloc = ctx.read<UserBloc>();
 
     final List<Product> onSaleProducts =
         state.productList.where((d) => d.isOnSale).toList();
@@ -37,6 +44,7 @@ class _LoadingPageState extends State<LoadingPage> {
       ProductsOnSaleLoaded(onSaleProducts: onSaleProducts),
     );
     cartBloc.add(CartLoaded(cart: state.cart));
+    userBloc.add(UserLoaded(user: state.user));
   }
 
   void _appListener(BuildContext ctx, AppState state) {
