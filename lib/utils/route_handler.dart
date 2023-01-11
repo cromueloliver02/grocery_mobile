@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../data/repositories/repositories.dart';
+import '../business_logic/blocs/blocs.dart';
 import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 class RouteHandler {
+  final UserBloc _userBloc;
+  final UserRepository userRepository;
+
+  RouteHandler({
+    required this.userRepository,
+  }) : _userBloc = UserBloc(userRepository: userRepository);
+
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case SplashPage.id:
@@ -17,7 +26,10 @@ class RouteHandler {
       case ForgotPasswordPage.id:
         return ForgotPasswordPage.route(settings);
       case NavigationPage.id:
-        return NavigationPage.route(settings);
+        return NavigationPage.route(
+          settings,
+          userBloc: _userBloc,
+        );
     }
 
     return null;
@@ -51,5 +63,9 @@ class RouteHandler {
         ),
       ),
     );
+  }
+
+  void dispose() {
+    _userBloc.close();
   }
 }

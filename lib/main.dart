@@ -24,8 +24,8 @@ void main() async {
   );
 
   runApp(GroceryApp(
+    repositoryHandler: RepositoryHandler(),
     blocHandler: BlocHandler(),
-    routeHandler: RouteHandler(),
     themeHandler: ThemeHandler(),
   ));
 }

@@ -7,18 +7,29 @@ import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/navigation_view.dart';
 
-class NavigationPage extends StatelessWidget {
+class NavigationPage extends StatefulWidget {
   static const id = '/navigation';
 
-  static Route<void> route(RouteSettings settings) {
+  static Route<void> route(
+    RouteSettings settings, {
+    required UserBloc userBloc,
+  }) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => const NavigationPage(),
+      builder: (ctx) => BlocProvider<UserBloc>.value(
+        value: userBloc,
+        child: const NavigationPage(),
+      ),
     );
   }
 
   const NavigationPage({super.key});
 
+  @override
+  State<NavigationPage> createState() => _NavigationPageState();
+}
+
+class _NavigationPageState extends State<NavigationPage> {
   void _addCartItemListener(BuildContext ctx, AddCartItemState state) {
     if (state.status == AddCartItemStatus.success) {
       ctx.read<CartBloc>().add(CartItemAdded(cartItem: state.cartItem));
@@ -38,11 +49,6 @@ class NavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<UserBloc>(
-          create: (ctx) => UserBloc(
-            userRepository: ctx.read<UserRepository>(),
-          )..add(UserStarted(userId: ctx.read<AuthBloc>().state.user!.uid)),
-        ),
         BlocProvider<WishlistBloc>(
           create: (ctx) => WishlistBloc()..add(WishlistStarted()),
         ),
@@ -63,5 +69,14 @@ class NavigationPage extends StatelessWidget {
         child: NavigationView(),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    context
+        .read<UserBloc>()
+        .add(UserStarted(userId: context.read<AuthBloc>().state.user!.uid));
   }
 }
