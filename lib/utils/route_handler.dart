@@ -11,6 +11,7 @@ class RouteHandler {
   final WishlistBloc _wishlistBloc;
   final ViewedRecentlyBloc _viewedRecentlyBloc;
   final AddCartItemCubit _addCartItemCubit;
+  final NavigationCubit _navigationCubit;
 
   RouteHandler({
     required UserRepository userRepository,
@@ -18,7 +19,8 @@ class RouteHandler {
   })  : _userBloc = UserBloc(userRepository: userRepository),
         _wishlistBloc = WishlistBloc(),
         _viewedRecentlyBloc = ViewedRecentlyBloc(),
-        _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository);
+        _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
+        _navigationCubit = NavigationCubit();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -39,6 +41,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           addCartItemCubit: _addCartItemCubit,
+          navigationCubit: _navigationCubit,
         );
     }
 

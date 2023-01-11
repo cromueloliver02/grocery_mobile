@@ -15,6 +15,7 @@ class NavigationPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required AddCartItemCubit addCartItemCubit,
+    required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
       settings: settings,
@@ -24,6 +25,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<NavigationCubit>.value(value: navigationCubit),
         ],
         child: const NavigationPage(),
       ),
@@ -54,16 +56,9 @@ class _NavigationPageState extends State<NavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<NavigationCubit>(
-          create: (ctx) => NavigationCubit(),
-        ),
-      ],
-      child: BlocListener<AddCartItemCubit, AddCartItemState>(
-        listener: _addCartItemListener,
-        child: NavigationView(),
-      ),
+    return BlocListener<AddCartItemCubit, AddCartItemState>(
+      listener: _addCartItemListener,
+      child: NavigationView(),
     );
   }
 
