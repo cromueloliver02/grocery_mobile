@@ -6,33 +6,30 @@ import '../../../utils/utils.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
-  static void pushRoute(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider<UserBloc>.value(
-              value: ctx.read<UserBloc>(),
-            ),
-            BlocProvider<CartBloc>.value(
-              value: ctx.read<CartBloc>(),
-            ),
-            BlocProvider<WishlistBloc>.value(
-              value: ctx.read<WishlistBloc>(),
-            ),
-            BlocProvider<ViewedRecentlyBloc>.value(
-              value: ctx.read<ViewedRecentlyBloc>(),
-            ),
-            BlocProvider<AddCartItemCubit>.value(
-              value: ctx.read<AddCartItemCubit>(),
-            ),
-            BlocProvider<NavigationCubit>.value(
-              value: ctx.read<NavigationCubit>(),
-            ),
-          ],
-          child: const ViewedRecentlyPage(),
-        ),
+  static const id = '/viewed-recently';
+
+  static Route<void> route(
+    RouteSettings settings, {
+    required UserBloc userBloc,
+    required WishlistBloc wishlistBloc,
+    required ViewedRecentlyBloc viewedRecentlyBloc,
+    required AddCartItemCubit addCartItemCubit,
+    required NavigationCubit navigationCubit,
+  }) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (ctx) => MultiBlocProvider(
+        providers: [
+          BlocProvider<CartBloc>.value(
+            value: ctx.read<CartBloc>(),
+          ),
+          BlocProvider<UserBloc>.value(value: userBloc),
+          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
+          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
+          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<NavigationCubit>.value(value: navigationCubit),
+        ],
+        child: const ViewedRecentlyPage(),
       ),
     );
   }

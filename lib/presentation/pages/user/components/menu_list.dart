@@ -84,7 +84,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.show,
             color: Colors.grey[600],
           ),
-          onTap: () => ViewedRecentlyPage.pushRoute(context),
+          onTap: () => Navigator.pushNamed(context, ViewedRecentlyPage.id),
         ),
         GCRMenuListTile(
           title: 'Forget password',
