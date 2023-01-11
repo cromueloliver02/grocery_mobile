@@ -66,7 +66,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.bag,
             color: Colors.grey[600],
           ),
-          onTap: () => OrdersPage.pushRoute(context),
+          onTap: () => Navigator.pushNamed(context, OrdersPage.id),
         ),
         GCRMenuListTile(
           title: 'Wishlist',
