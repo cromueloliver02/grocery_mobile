@@ -12,6 +12,7 @@ class LoadingPage extends StatefulWidget {
   static Route<void> route(
     RouteSettings settings, {
     required ProductListBloc productListBloc,
+    required ProductsOnSaleBloc productsOnSaleBloc,
     required CartBloc cartBloc,
     required UserBloc userBloc,
   }) {
@@ -20,6 +21,7 @@ class LoadingPage extends StatefulWidget {
       builder: (ctx) => MultiBlocProvider(
         providers: [
           BlocProvider<ProductListBloc>.value(value: productListBloc),
+          BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
           BlocProvider<CartBloc>.value(value: cartBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
         ],

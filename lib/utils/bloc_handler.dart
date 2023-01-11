@@ -9,16 +9,13 @@ class BlocHandler {
         authRepository: ctx.read<AuthRepository>(),
       ),
     ),
+    // TODO: to sink deeper to loading page level
     BlocProvider<AppBloc>(
       create: (ctx) => AppBloc(
         productRepository: ctx.read<ProductRepository>(),
         cartRepository: ctx.read<CartRepository>(),
         userRepository: ctx.read<UserRepository>(),
       ),
-    ),
-    // TODO: to sink deeper to navigation page level
-    BlocProvider<ProductsOnSaleBloc>(
-      create: (ctx) => ProductsOnSaleBloc(),
     ),
     BlocProvider<ThemeCubit>(
       create: (ctx) => ThemeCubit(),
