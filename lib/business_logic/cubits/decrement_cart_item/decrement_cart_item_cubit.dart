@@ -41,4 +41,6 @@ class DecrementCartItemCubit extends Cubit<DecrementCartItemState> {
       debugPrint(state.toString());
     }
   }
+
+  void reset() => emit(DecrementCartItemState.initial());
 }

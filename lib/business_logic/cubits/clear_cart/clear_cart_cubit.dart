@@ -33,4 +33,6 @@ class ClearCartCubit extends Cubit<ClearCartState> {
       debugPrint(state.toString());
     }
   }
+
+  void reset() => emit(ClearCartState.initial());
 }

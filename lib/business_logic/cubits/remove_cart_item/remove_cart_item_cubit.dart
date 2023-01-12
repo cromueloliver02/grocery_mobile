@@ -40,4 +40,6 @@ class RemoveCartItemCubit extends Cubit<RemoveCartItemState> {
       debugPrint(state.toString());
     }
   }
+
+  void reset() => emit(RemoveCartItemState.initial());
 }

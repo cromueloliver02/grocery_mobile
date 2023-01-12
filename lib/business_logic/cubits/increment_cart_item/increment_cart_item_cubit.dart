@@ -41,4 +41,6 @@ class IncrementCartItemCubit extends Cubit<IncrementCartItemState> {
       debugPrint(state.toString());
     }
   }
+
+  void reset() => emit(IncrementCartItemState.initial());
 }
