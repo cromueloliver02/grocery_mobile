@@ -31,16 +31,16 @@ class ViewedRecentlyState extends Equatable {
   }
 
   ViewedRecentlyState copyWith({
-    Map<String, Product>? viewedItems,
-    ViewedRecentlyStatus? status,
-    ViewedRecentlyFormStatus? formStatus,
-    GCRError? error,
+    Map<String, Product> Function()? viewedItems,
+    ViewedRecentlyStatus Function()? status,
+    ViewedRecentlyFormStatus Function()? formStatus,
+    GCRError Function()? error,
   }) {
     return ViewedRecentlyState(
-      viewedItems: viewedItems ?? this.viewedItems,
-      status: status ?? this.status,
-      formStatus: formStatus ?? this.formStatus,
-      error: error ?? this.error,
+      viewedItems: viewedItems != null ? viewedItems() : this.viewedItems,
+      status: status != null ? status() : this.status,
+      formStatus: formStatus != null ? formStatus() : this.formStatus,
+      error: error != null ? error() : this.error,
     );
   }
 }

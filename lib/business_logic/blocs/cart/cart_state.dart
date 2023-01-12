@@ -28,14 +28,14 @@ class CartState extends Equatable {
   }
 
   CartState copyWith({
-    Cart? cart,
-    CartFormStatus? formStatus,
-    GCRError? error,
+    Cart Function()? cart,
+    CartFormStatus Function()? formStatus,
+    GCRError Function()? error,
   }) {
     return CartState(
-      cart: cart ?? this.cart,
-      formStatus: formStatus ?? this.formStatus,
-      error: error ?? this.error,
+      cart: cart != null ? cart() : this.cart,
+      formStatus: formStatus != null ? formStatus() : this.formStatus,
+      error: error != null ? error() : this.error,
     );
   }
 }

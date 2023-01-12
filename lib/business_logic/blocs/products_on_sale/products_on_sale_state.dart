@@ -18,10 +18,11 @@ class ProductsOnSaleState extends Equatable {
   String toString() => 'ProductsOnSaleState(onSaleProducts: $onSaleProducts)';
 
   ProductsOnSaleState copyWith({
-    List<Product>? onSaleProducts,
+    List<Product> Function()? onSaleProducts,
   }) {
     return ProductsOnSaleState(
-      onSaleProducts: onSaleProducts ?? this.onSaleProducts,
+      onSaleProducts:
+          onSaleProducts != null ? onSaleProducts() : this.onSaleProducts,
     );
   }
 }

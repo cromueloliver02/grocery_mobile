@@ -23,7 +23,7 @@ class Product {
 
   bool get isOnSale => salePrice != null;
 
-  factory Product.empty() {
+  factory Product.initial() {
     return Product(
       id: '',
       name: '',

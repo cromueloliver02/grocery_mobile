@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -21,7 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String password,
     required String shipAddress,
   }) async {
-    emit(state.copyWith(status: SignupStatus.loading));
+    emit(state.copyWith(status: () => SignupStatus.loading));
 
     try {
       await authRepository.signupWithEmail(
@@ -31,11 +31,11 @@ class SignUpCubit extends Cubit<SignUpState> {
         shipAddress: shipAddress,
       );
 
-      emit(state.copyWith(status: SignupStatus.success));
+      emit(state.copyWith(status: () => SignupStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: SignupStatus.failure,
-        error: err,
+        status: () => SignupStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

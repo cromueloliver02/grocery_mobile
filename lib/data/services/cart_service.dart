@@ -125,8 +125,8 @@ class CartService {
         'cartItems': FieldValue.arrayRemove([existingCartItem.toMap()]),
       });
 
-      final CartItem updatedCartItem =
-          existingCartItem.copyWith(quantity: existingCartItem.quantity + 1);
+      final CartItem updatedCartItem = existingCartItem.copyWith(
+          quantity: () => existingCartItem.quantity + 1);
 
       // replace removed existing cart item but with an increased quantity
       await cartRef.update({

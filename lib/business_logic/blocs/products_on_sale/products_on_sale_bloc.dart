@@ -16,6 +16,6 @@ class ProductsOnSaleBloc
     ProductsOnSaleLoaded event,
     Emitter<ProductsOnSaleState> emit,
   ) {
-    emit(state.copyWith(onSaleProducts: event.onSaleProducts));
+    emit(state.copyWith(onSaleProducts: () => event.onSaleProducts));
   }
 }

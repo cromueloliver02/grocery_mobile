@@ -34,18 +34,18 @@ class AppState extends Equatable {
   }
 
   AppState copyWith({
-    List<Product>? productList,
-    Cart? cart,
-    User? user,
-    AppStatus? status,
-    GCRError? error,
+    List<Product> Function()? productList,
+    Cart Function()? cart,
+    User Function()? user,
+    AppStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return AppState(
-      productList: productList ?? this.productList,
-      cart: cart ?? this.cart,
-      user: user ?? this.user,
-      status: status ?? this.status,
-      error: error ?? this.error,
+      productList: productList != null ? productList() : this.productList,
+      cart: cart != null ? cart() : this.cart,
+      user: user != null ? user() : this.user,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

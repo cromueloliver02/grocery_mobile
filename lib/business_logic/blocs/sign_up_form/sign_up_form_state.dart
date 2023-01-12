@@ -46,20 +46,21 @@ class SignUpFormState extends Equatable {
   }
 
   SignUpFormState copyWith({
-    String? name,
-    String? email,
-    String? password,
-    String? shipAddress,
-    bool? hidePassword,
-    AutovalidateMode? autovalidateMode,
+    String Function()? name,
+    String Function()? email,
+    String Function()? password,
+    String Function()? shipAddress,
+    bool Function()? hidePassword,
+    AutovalidateMode Function()? autovalidateMode,
   }) {
     return SignUpFormState(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      shipAddress: shipAddress ?? this.shipAddress,
-      hidePassword: hidePassword ?? this.hidePassword,
-      autovalidateMode: autovalidateMode ?? this.autovalidateMode,
+      name: name != null ? name() : this.name,
+      email: email != null ? email() : this.email,
+      password: password != null ? password() : this.password,
+      shipAddress: shipAddress != null ? shipAddress() : this.shipAddress,
+      hidePassword: hidePassword != null ? hidePassword() : this.hidePassword,
+      autovalidateMode:
+          autovalidateMode != null ? autovalidateMode() : this.autovalidateMode,
     );
   }
 }

@@ -7,7 +7,7 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(ThemeState.initial());
 
   void toggleTheme() {
-    emit(state.copyWith(isDark: !state.isDark));
+    emit(state.copyWith(isDark: () => !state.isDark));
   }
 
   @override

@@ -24,12 +24,13 @@ class ForgotPwdFormState extends Equatable {
       'ForgotPwdFormState(email: $email, autovalidateMode: $autovalidateMode)';
 
   ForgotPwdFormState copyWith({
-    String? email,
-    AutovalidateMode? autovalidateMode,
+    String Function()? email,
+    AutovalidateMode Function()? autovalidateMode,
   }) {
     return ForgotPwdFormState(
-      email: email ?? this.email,
-      autovalidateMode: autovalidateMode ?? this.autovalidateMode,
+      email: email != null ? email() : this.email,
+      autovalidateMode:
+          autovalidateMode != null ? autovalidateMode() : this.autovalidateMode,
     );
   }
 }

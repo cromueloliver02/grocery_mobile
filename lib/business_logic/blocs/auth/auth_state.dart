@@ -23,12 +23,12 @@ class AuthState extends Equatable {
   String toString() => 'AuthState(user: $user, status: $status)';
 
   AuthState copyWith({
-    fb_auth.User? user,
-    AuthStatus? status,
+    fb_auth.User? Function()? user,
+    AuthStatus Function()? status,
   }) {
     return AuthState(
-      user: user ?? this.user,
-      status: status ?? this.status,
+      user: user != null ? user() : this.user,
+      status: status != null ? status() : this.status,
     );
   }
 }

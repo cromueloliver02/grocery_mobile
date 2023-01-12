@@ -23,12 +23,12 @@ class SignInState extends Equatable {
   String toString() => 'SignInState(status: $status, error: $error)';
 
   SignInState copyWith({
-    SigninStatus? status,
-    GCRError? error,
+    SigninStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return SignInState(
-      status: status ?? this.status,
-      error: error ?? this.error,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

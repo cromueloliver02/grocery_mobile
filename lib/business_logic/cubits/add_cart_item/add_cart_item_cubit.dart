@@ -19,7 +19,7 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
     required String userId,
     required Product product,
   }) async {
-    emit(state.copyWith(status: AddCartItemStatus.loading));
+    emit(state.copyWith(status: () => AddCartItemStatus.loading));
 
     try {
       final CartItem cartItem = CartItem(
@@ -34,13 +34,13 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
       );
 
       emit(state.copyWith(
-        status: AddCartItemStatus.success,
-        cartItem: newCartItem,
+        status: () => AddCartItemStatus.success,
+        cartItem: () => newCartItem,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: AddCartItemStatus.failure,
-        error: err,
+        status: () => AddCartItemStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

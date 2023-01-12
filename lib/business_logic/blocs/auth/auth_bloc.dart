@@ -28,15 +28,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onAuthUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
     if (event.user == null) {
       emit(state.copyWith(
-        user: null,
-        status: AuthStatus.unauthenticated,
+        user: () => null,
+        status: () => AuthStatus.unauthenticated,
       ));
     }
 
     if (event.user != null) {
       emit(state.copyWith(
-        user: event.user,
-        status: AuthStatus.authenticated,
+        user: () => event.user,
+        status: () => AuthStatus.authenticated,
       ));
     }
   }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,13 +15,13 @@ class ForgotPwdFormBloc extends Bloc<ForgotPwdFormEvent, ForgotPwdFormState> {
     ForgotPwdFormEmailSaved event,
     Emitter<ForgotPwdFormState> emit,
   ) {
-    emit(state.copyWith(email: event.email ?? state.email));
+    emit(state.copyWith(email: () => event.email ?? state.email));
   }
 
   void _onForgotPwdFormAutovalidateEnabled(
     ForgotPwdFormAutovalidateEnabled event,
     Emitter<ForgotPwdFormState> emit,
   ) {
-    emit(state.copyWith(autovalidateMode: AutovalidateMode.always));
+    emit(state.copyWith(autovalidateMode: () => AutovalidateMode.always));
   }
 }

@@ -18,10 +18,10 @@ class ThemeState extends Equatable {
   String toString() => 'ThemeState(isDark: $isDark)';
 
   ThemeState copyWith({
-    bool? isDark,
+    bool Function()? isDark,
   }) {
     return ThemeState(
-      isDark: isDark ?? this.isDark,
+      isDark: isDark != null ? isDark() : this.isDark,
     );
   }
 

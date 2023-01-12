@@ -17,7 +17,7 @@ class CartItem {
   factory CartItem.empty() {
     return CartItem(
       id: '',
-      product: Product.empty(),
+      product: Product.initial(),
       quantity: 0,
       createdAt: null,
     );
@@ -35,17 +35,17 @@ class CartItem {
   }
 
   CartItem copyWith({
-    String? id,
-    Product? product,
-    int? quantity,
-    String? userId,
-    DateTime? createdAt,
+    String Function()? id,
+    Product Function()? product,
+    int Function()? quantity,
+    String Function()? userId,
+    DateTime Function()? createdAt,
   }) {
     return CartItem(
-      id: id ?? this.id,
-      product: product ?? this.product,
-      quantity: quantity ?? this.quantity,
-      createdAt: createdAt ?? this.createdAt,
+      id: id != null ? id() : this.id,
+      product: product != null ? product() : this.product,
+      quantity: quantity != null ? quantity() : this.quantity,
+      createdAt: createdAt != null ? createdAt() : this.createdAt,
     );
   }
 

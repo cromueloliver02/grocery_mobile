@@ -20,10 +20,10 @@ class ProductListState extends Equatable {
   String toString() => 'ProductListState(productList: $productList)';
 
   ProductListState copyWith({
-    List<Product>? productList,
+    List<Product> Function()? productList,
   }) {
     return ProductListState(
-      productList: productList ?? this.productList,
+      productList: productList != null ? productList() : this.productList,
     );
   }
 }

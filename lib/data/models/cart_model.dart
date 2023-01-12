@@ -20,14 +20,14 @@ class Cart {
   }
 
   Cart copyWith({
-    String? userId,
-    List<CartItem>? cartItems,
-    DateTime? createdAt,
+    String Function()? userId,
+    List<CartItem> Function()? cartItems,
+    DateTime Function()? createdAt,
   }) {
     return Cart(
-      userId: userId ?? this.userId,
-      cartItems: cartItems ?? this.cartItems,
-      createdAt: createdAt ?? this.createdAt,
+      userId: userId != null ? userId() : this.userId,
+      cartItems: cartItems != null ? cartItems() : this.cartItems,
+      createdAt: createdAt != null ? createdAt() : this.createdAt,
     );
   }
 

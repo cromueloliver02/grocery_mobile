@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -16,20 +16,20 @@ class SearchProductCubit extends Cubit<SearchProductState> {
   }) : super(SearchProductState.initial());
 
   void searchProducts(String keywords) async {
-    emit(state.copyWith(status: SearchProductStatus.loading));
+    emit(state.copyWith(status: () => SearchProductStatus.loading));
 
     try {
       final List<Product> searchResults =
           await productRepository.searchProducts(keywords);
 
       emit(state.copyWith(
-        searchResults: searchResults,
-        status: SearchProductStatus.success,
+        searchResults: () => searchResults,
+        status: () => SearchProductStatus.success,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: SearchProductStatus.failure,
-        error: err,
+        status: () => SearchProductStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -43,16 +43,16 @@ class SearchProductCubit extends Cubit<SearchProductState> {
   void resetSearchResults() {
     emit(state.copyWith(
       keywords: () => '',
-      searchResults: [],
-      status: SearchProductStatus.initial,
+      searchResults: () => [],
+      status: () => SearchProductStatus.initial,
     ));
   }
 
   void clearSearchResults() {
     emit(state.copyWith(
       keywords: () => null,
-      searchResults: [],
-      status: SearchProductStatus.initial,
+      searchResults: () => [],
+      status: () => SearchProductStatus.initial,
     ));
   }
 

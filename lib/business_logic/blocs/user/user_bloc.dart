@@ -23,14 +23,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserLoaded event,
     Emitter<UserState> emit,
   ) {
-    emit(state.copyWith(user: event.user));
+    emit(state.copyWith(user: () => event.user));
   }
 
   void _onShipAddressUpdated(
     UserShipAddressUpdated event,
     Emitter<UserState> emit,
   ) async {
-    emit(state.copyWith(formStatus: UserFormStatus.loading));
+    emit(state.copyWith(formStatus: () => UserFormStatus.loading));
 
     try {
       await userRepository.updateShipAddress(
@@ -38,11 +38,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         shipAddress: event.shipAddress,
       );
 
-      emit(state.copyWith(formStatus: UserFormStatus.success));
+      emit(state.copyWith(formStatus: () => UserFormStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: UserFormStatus.failure,
-        error: err,
+        formStatus: () => UserFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

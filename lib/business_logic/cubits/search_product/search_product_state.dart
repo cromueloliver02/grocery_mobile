@@ -32,15 +32,16 @@ class SearchProductState extends Equatable {
 
   SearchProductState copyWith({
     String? Function()? keywords,
-    List<Product>? searchResults,
-    SearchProductStatus? status,
-    GCRError? error,
+    List<Product> Function()? searchResults,
+    SearchProductStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return SearchProductState(
       keywords: keywords != null ? keywords() : this.keywords,
-      searchResults: searchResults ?? this.searchResults,
-      status: status ?? this.status,
-      error: error ?? this.error,
+      searchResults:
+          searchResults != null ? searchResults() : this.searchResults,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

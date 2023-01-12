@@ -23,6 +23,6 @@ class CategoryProductsBloc
     final List<Product> categoryProducts =
         productList.where((d) => d.category == event.category).toList();
 
-    emit(state.copyWith(categoryProducts: categoryProducts));
+    emit(state.copyWith(categoryProducts: () => categoryProducts));
   }
 }

@@ -31,16 +31,17 @@ class SignInFormState extends Equatable {
   }
 
   SignInFormState copyWith({
-    String? email,
-    String? password,
-    bool? hidePassword,
-    AutovalidateMode? autovalidateMode,
+    String Function()? email,
+    String Function()? password,
+    bool Function()? hidePassword,
+    AutovalidateMode Function()? autovalidateMode,
   }) {
     return SignInFormState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      hidePassword: hidePassword ?? this.hidePassword,
-      autovalidateMode: autovalidateMode ?? this.autovalidateMode,
+      email: email != null ? email() : this.email,
+      password: password != null ? password() : this.password,
+      hidePassword: hidePassword != null ? hidePassword() : this.hidePassword,
+      autovalidateMode:
+          autovalidateMode != null ? autovalidateMode() : this.autovalidateMode,
     );
   }
 }

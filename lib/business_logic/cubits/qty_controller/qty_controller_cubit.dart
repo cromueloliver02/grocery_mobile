@@ -7,6 +7,6 @@ class QtyControllerCubit extends Cubit<QtyControllerState> {
   QtyControllerCubit() : super(QtyControllerState.initial());
 
   void changeQty(int quantity) {
-    emit(state.copyWith(quantity: quantity));
+    emit(state.copyWith(quantity: () => quantity));
   }
 }

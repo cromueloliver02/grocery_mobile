@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -24,7 +24,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onCartLoaded(CartLoaded event, Emitter<CartState> emit) async {
-    emit(state.copyWith(cart: event.cart));
+    emit(state.copyWith(cart: () => event.cart));
   }
 
   void _onCartItemAdded(CartItemAdded event, Emitter<CartState> emit) async {
@@ -36,7 +36,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (isExist) {
       cartItems = state.cart.cartItems
           .map((d) => d.product.id == event.cartItem.product.id
-              ? d.copyWith(quantity: d.quantity + 1)
+              ? d.copyWith(quantity: () => d.quantity + 1)
               : d)
           .toList();
     } else {
@@ -44,31 +44,31 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
 
     emit(state.copyWith(
-      cart: state.cart.copyWith(cartItems: cartItems),
+      cart: () => state.cart.copyWith(cartItems: () => cartItems),
     ));
   }
 
   void _onCartItemIncremented(
       CartItemIncremented event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: CartFormStatus.loading));
+    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
 
     try {
       // disabled to change backend infrastracture of cart
       // final List<CartItem> cartItems = state.cart.cartItems
       //     .map((d) =>
-      //         d.id == event.id ? d.copyWith(quantity: d.quantity + 1) : d)
+      //         d.id == event.id ? d.copyWith(quantity: () => d.quantity + 1) : d)
       //     .toList();
 
       // emit(state.copyWith(
-      //   formStatus: CartFormStatus.success,
-      //   cart: Cart(cartItems: cartItems),
+      //   formStatus: () => CartFormStatus.success,
+      //   cart: Cart(cartItems: () => cartItems),
       // ));
 
       await Future.delayed(const Duration(seconds: 3)); // INCREMENT Cart item
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: CartFormStatus.failure,
-        error: err,
+        formStatus: () => CartFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -77,25 +77,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _onCartItemDecremented(
       CartItemDecremented event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: CartFormStatus.loading));
+    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
 
     try {
       // disabled to change backend infrastracture of cart
       // final List<CartItem> cartItems = state.cart.cartItems
       //     .map((d) =>
-      //         d.id == event.id ? d.copyWith(quantity: d.quantity - 1) : d)
+      //         d.id == event.id ? d.copyWith(quantity: () => d.quantity - 1) : d)
       //     .toList();
 
       // emit(state.copyWith(
-      //   formStatus: CartFormStatus.success,
-      //   cart: Cart(cartItems: cartItems),
+      //   formStatus: () => CartFormStatus.success,
+      //   cart: () => Cart(cartItems: cartItems),
       // ));
 
       // await Future.delayed(const Duration(seconds: 3)); // DECREMENT Cart item
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: CartFormStatus.failure,
-        error: err,
+        formStatus: () => CartFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -104,7 +104,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _onCartItemRemoved(
       CartItemRemoved event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: CartFormStatus.loading));
+    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
 
     try {
       // disabled to change backend infrastracture of cart
@@ -112,15 +112,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       //     state.cart.cartItems.where((d) => d.id != event.id).toList();
 
       // emit(state.copyWith(
-      //   formStatus: CartFormStatus.success,
-      //   cart: Cart(cartItems: cartItems),
+      //   formStatus: () => CartFormStatus.success,
+      //   cart: () => Cart(cartItems: cartItems),
       // ));
 
       // await Future.delayed(const Duration(seconds: 3)); // DELETE Cart item
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: CartFormStatus.failure,
-        error: err,
+        formStatus: () => CartFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -128,20 +128,20 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onCartCleared(CartCleared event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: CartFormStatus.loading));
+    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
 
     try {
       // disabled to change backend infrastracture of cart
       // emit(state.copyWith(
-      //   formStatus: CartFormStatus.success,
-      //   cart: Cart(cartItems: []),
+      //   formStatus: () => CartFormStatus.success,
+      //   cart: () => Cart(cartItems: []),
       // ));
 
       // await Future.delayed(const Duration(seconds: 3)); // CLEAR Cart
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: CartFormStatus.failure,
-        error: err,
+        formStatus: () => CartFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

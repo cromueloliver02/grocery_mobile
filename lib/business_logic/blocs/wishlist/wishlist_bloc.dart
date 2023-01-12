@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,7 +19,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     WishlistStarted event,
     Emitter<WishlistState> emit,
   ) async {
-    emit(state.copyWith(status: WishlistStatus.loading));
+    emit(state.copyWith(status: () => WishlistStatus.loading));
 
     try {
       // FETCH wishlist products
@@ -32,13 +32,13 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       ];
 
       emit(state.copyWith(
-        wishlist: Wishlist(wishlistItems: wishlistItems),
-        status: WishlistStatus.success,
+        wishlist: () => Wishlist(wishlistItems: wishlistItems),
+        status: () => WishlistStatus.success,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: WishlistStatus.failure,
-        error: err,
+        status: () => WishlistStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -49,7 +49,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     WishlistAddedOrRemoved event,
     Emitter<WishlistState> emit,
   ) async {
-    emit(state.copyWith(formStatus: WishlistFormStatus.loading));
+    emit(state.copyWith(formStatus: () => WishlistFormStatus.loading));
 
     try {
       final Product product = event.product;
@@ -63,8 +63,8 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             .toList();
 
         emit(state.copyWith(
-          wishlist: Wishlist(wishlistItems: wishlistItems),
-          formStatus: WishlistFormStatus.success,
+          wishlist: () => Wishlist(wishlistItems: wishlistItems),
+          formStatus: () => WishlistFormStatus.success,
         ));
 
         // DELETE wishlist item
@@ -76,8 +76,8 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         ];
 
         emit(state.copyWith(
-          wishlist: Wishlist(wishlistItems: wishlistItems),
-          formStatus: WishlistFormStatus.success,
+          wishlist: () => Wishlist(wishlistItems: wishlistItems),
+          formStatus: () => WishlistFormStatus.success,
         ));
 
         // POST wishlist item
@@ -85,8 +85,8 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       }
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: WishlistFormStatus.failure,
-        error: err,
+        formStatus: () => WishlistFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -97,19 +97,19 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     WishlistCleared event,
     Emitter<WishlistState> emit,
   ) async {
-    emit(state.copyWith(formStatus: WishlistFormStatus.loading));
+    emit(state.copyWith(formStatus: () => WishlistFormStatus.loading));
 
     try {
       emit(state.copyWith(
-        formStatus: WishlistFormStatus.success,
-        wishlist: Wishlist(wishlistItems: []),
+        formStatus: () => WishlistFormStatus.success,
+        wishlist: () => Wishlist(wishlistItems: []),
       ));
 
       await Future.delayed(const Duration(seconds: 3)); // CLEAR wishlist
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: WishlistFormStatus.failure,
-        error: err,
+        formStatus: () => WishlistFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

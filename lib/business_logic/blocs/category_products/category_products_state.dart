@@ -19,10 +19,11 @@ class CategoryProductsState extends Equatable {
       'CategoryProductsState(categoryProducts: $categoryProducts)';
 
   CategoryProductsState copyWith({
-    List<Product>? categoryProducts,
+    List<Product> Function()? categoryProducts,
   }) {
     return CategoryProductsState(
-      categoryProducts: categoryProducts ?? this.categoryProducts,
+      categoryProducts:
+          categoryProducts != null ? categoryProducts() : this.categoryProducts,
     );
   }
 }

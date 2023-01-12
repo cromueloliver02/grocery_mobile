@@ -23,12 +23,12 @@ class SignUpState extends Equatable {
   String toString() => 'SignUpState(status: $status, error: $error)';
 
   SignUpState copyWith({
-    SignupStatus? status,
-    GCRError? error,
+    SignupStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return SignUpState(
-      status: status ?? this.status,
-      error: error ?? this.error,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

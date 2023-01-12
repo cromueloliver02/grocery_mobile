@@ -31,16 +31,16 @@ class WishlistState extends Equatable {
   }
 
   WishlistState copyWith({
-    Wishlist? wishlist,
-    WishlistStatus? status,
-    WishlistFormStatus? formStatus,
-    GCRError? error,
+    Wishlist Function()? wishlist,
+    WishlistStatus Function()? status,
+    WishlistFormStatus Function()? formStatus,
+    GCRError Function()? error,
   }) {
     return WishlistState(
-      wishlist: wishlist ?? this.wishlist,
-      status: status ?? this.status,
-      formStatus: formStatus ?? this.formStatus,
-      error: error ?? this.error,
+      wishlist: wishlist != null ? wishlist() : this.wishlist,
+      status: status != null ? status() : this.status,
+      formStatus: formStatus != null ? formStatus() : this.formStatus,
+      error: error != null ? error() : this.error,
     );
   }
 }

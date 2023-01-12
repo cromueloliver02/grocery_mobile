@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,41 +19,42 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
     SignUpFormNameChanged event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(name: event.name ?? state.name));
+    emit(state.copyWith(name: () => event.name ?? state.name));
   }
 
   void _onSignUpFormEmailChanged(
     SignUpFormEmailChanged event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(email: event.email ?? state.email));
+    emit(state.copyWith(email: () => event.email ?? state.email));
   }
 
   void _onSignUpFormPassChanged(
     SignUpFormPassChanged event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(password: event.password ?? state.password));
+    emit(state.copyWith(password: () => event.password ?? state.password));
   }
 
   void _onSignUpFormShipAddressChanged(
     SignUpFormShipAddressChanged event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(shipAddress: event.shipAddress ?? state.shipAddress));
+    emit(state.copyWith(
+        shipAddress: () => event.shipAddress ?? state.shipAddress));
   }
 
   void _onSignUpFormPassToggled(
     SignUpFormPassToggled event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(hidePassword: !state.hidePassword));
+    emit(state.copyWith(hidePassword: () => !state.hidePassword));
   }
 
   void _onSignUpFormAutovalidateEnabled(
     SignUpFormAutovalidateEnabled event,
     Emitter<SignUpFormState> emit,
   ) {
-    emit(state.copyWith(autovalidateMode: AutovalidateMode.always));
+    emit(state.copyWith(autovalidateMode: () => AutovalidateMode.always));
   }
 }

@@ -23,12 +23,12 @@ class ForgetPwdState extends Equatable {
   String toString() => 'ForgetPwdState(status: $status, error: $error)';
 
   ForgetPwdState copyWith({
-    ForgetPwdStatus? status,
-    GCRError? error,
+    ForgetPwdStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return ForgetPwdState(
-      status: status ?? this.status,
-      error: error ?? this.error,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

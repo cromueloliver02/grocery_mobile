@@ -25,16 +25,16 @@ class Category extends Equatable {
   }
 
   Category copyWith({
-    String? id,
-    String? name,
-    String? imageUrl,
-    Color? color,
+    String Function()? id,
+    String Function()? name,
+    String Function()? imageUrl,
+    Color Function()? color,
   }) {
     return Category(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
-      color: color ?? this.color,
+      id: id != null ? id() : this.id,
+      name: name != null ? name() : this.name,
+      imageUrl: imageUrl != null ? imageUrl() : this.imageUrl,
+      color: color != null ? color() : this.color,
     );
   }
 

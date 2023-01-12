@@ -18,10 +18,10 @@ class NavigationState extends Equatable {
   String toString() => 'NavigationState(currentIndex: $currentIndex)';
 
   NavigationState copyWith({
-    int? currentIndex,
+    int Function()? currentIndex,
   }) {
     return NavigationState(
-      currentIndex: currentIndex ?? this.currentIndex,
+      currentIndex: currentIndex != null ? currentIndex() : this.currentIndex,
     );
   }
 }

@@ -29,14 +29,14 @@ class UserState extends Equatable {
   }
 
   UserState copyWith({
-    User? user,
-    UserFormStatus? formStatus,
-    GCRError? error,
+    User Function()? user,
+    UserFormStatus Function()? formStatus,
+    GCRError Function()? error,
   }) {
     return UserState(
-      user: user ?? this.user,
-      formStatus: formStatus ?? this.formStatus,
-      error: error ?? this.error,
+      user: user != null ? user() : this.user,
+      formStatus: formStatus != null ? formStatus() : this.formStatus,
+      error: error != null ? error() : this.error,
     );
   }
 }

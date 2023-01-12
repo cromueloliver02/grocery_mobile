@@ -18,10 +18,10 @@ class QtyControllerState extends Equatable {
   String toString() => 'QtyControllerState(quantity: $quantity)';
 
   QtyControllerState copyWith({
-    int? quantity,
+    int Function()? quantity,
   }) {
     return QtyControllerState(
-      quantity: quantity ?? this.quantity,
+      quantity: quantity != null ? quantity() : this.quantity,
     );
   }
 }

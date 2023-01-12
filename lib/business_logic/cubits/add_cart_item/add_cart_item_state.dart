@@ -27,14 +27,14 @@ class AddCartItemState extends Equatable {
       'AddCartItemState(cartItem: $cartItem, status: $status, error: $error)';
 
   AddCartItemState copyWith({
-    CartItem? cartItem,
-    AddCartItemStatus? status,
-    GCRError? error,
+    CartItem Function()? cartItem,
+    AddCartItemStatus Function()? status,
+    GCRError Function()? error,
   }) {
     return AddCartItemState(
-      cartItem: cartItem ?? this.cartItem,
-      status: status ?? this.status,
-      error: error ?? this.error,
+      cartItem: cartItem != null ? cartItem() : this.cartItem,
+      status: status != null ? status() : this.status,
+      error: error != null ? error() : this.error,
     );
   }
 }

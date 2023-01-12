@@ -20,6 +20,6 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     ProductListLoaded event,
     Emitter<ProductListState> emit,
   ) {
-    emit(state.copyWith(productList: event.productList));
+    emit(state.copyWith(productList: () => event.productList));
   }
 }

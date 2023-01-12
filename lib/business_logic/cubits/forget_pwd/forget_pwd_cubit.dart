@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -16,16 +16,16 @@ class ForgetPwdCubit extends Cubit<ForgetPwdState> {
   }) : super(ForgetPwdState.initial());
 
   void forgetPassword({required String email}) async {
-    emit(state.copyWith(status: ForgetPwdStatus.loading));
+    emit(state.copyWith(status: () => ForgetPwdStatus.loading));
 
     try {
       await authRepository.forgetPassword(email: email);
 
-      emit(state.copyWith(status: ForgetPwdStatus.success));
+      emit(state.copyWith(status: () => ForgetPwdStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: ForgetPwdStatus.failure,
-        error: err,
+        status: () => ForgetPwdStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

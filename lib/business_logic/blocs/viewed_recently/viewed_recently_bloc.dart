@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,7 +19,7 @@ class ViewedRecentlyBloc
     ViewedRecentlyStarted event,
     Emitter<ViewedRecentlyState> emit,
   ) async {
-    emit(state.copyWith(status: ViewedRecentlyStatus.loading));
+    emit(state.copyWith(status: () => ViewedRecentlyStatus.loading));
 
     try {
       // FETCH viewed recently items
@@ -32,13 +32,13 @@ class ViewedRecentlyBloc
       };
 
       emit(state.copyWith(
-        status: ViewedRecentlyStatus.success,
-        viewedItems: viewedItems,
+        status: () => ViewedRecentlyStatus.success,
+        viewedItems: () => viewedItems,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: ViewedRecentlyStatus.failure,
-        error: err,
+        status: () => ViewedRecentlyStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -49,7 +49,7 @@ class ViewedRecentlyBloc
     ViewedRecentlyItemAdded event,
     Emitter<ViewedRecentlyState> emit,
   ) async {
-    emit(state.copyWith(formStatus: ViewedRecentlyFormStatus.loading));
+    emit(state.copyWith(formStatus: () => ViewedRecentlyFormStatus.loading));
 
     try {
       // POST viewed recently item
@@ -59,13 +59,13 @@ class ViewedRecentlyBloc
         ..putIfAbsent(event.product.id, () => event.product);
 
       emit(state.copyWith(
-        viewedItems: viewedItems,
-        formStatus: ViewedRecentlyFormStatus.success,
+        viewedItems: () => viewedItems,
+        formStatus: () => ViewedRecentlyFormStatus.success,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        formStatus: ViewedRecentlyFormStatus.failure,
-        error: err,
+        formStatus: () => ViewedRecentlyFormStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());

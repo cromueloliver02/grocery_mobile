@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,7 +19,7 @@ class SignInCubit extends Cubit<SignInState> {
     required String email,
     required String password,
   }) async {
-    emit(state.copyWith(status: SigninStatus.loading));
+    emit(state.copyWith(status: () => SigninStatus.loading));
 
     try {
       await authRepository.signinWithEmail(
@@ -27,11 +27,11 @@ class SignInCubit extends Cubit<SignInState> {
         password: password,
       );
 
-      emit(state.copyWith(status: SigninStatus.success));
+      emit(state.copyWith(status: () => SigninStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: SigninStatus.failure,
-        error: err,
+        status: () => SigninStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
@@ -39,16 +39,16 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   void signinWithGoogle() async {
-    emit(state.copyWith(status: SigninStatus.loading));
+    emit(state.copyWith(status: () => SigninStatus.loading));
 
     try {
       await authRepository.signinWithGoogle();
 
-      emit(state.copyWith(status: SigninStatus.success));
+      emit(state.copyWith(status: () => SigninStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: SigninStatus.failure,
-        error: err,
+        status: () => SigninStatus.failure,
+        error: () => err,
       ));
 
       debugPrint(state.toString());
