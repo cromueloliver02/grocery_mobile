@@ -17,6 +17,7 @@ class RouteHandler {
   final ViewedRecentlyBloc _viewedRecentlyBloc;
   final AddCartItemCubit _addCartItemCubit;
   final IncrementCartItemCubit _incrementCartItemCubit;
+  final DecrementCartItemCubit _decrementCartItemCubit;
   final NavigationCubit _navigationCubit;
 
   RouteHandler({
@@ -38,6 +39,9 @@ class RouteHandler {
         _viewedRecentlyBloc = ViewedRecentlyBloc(),
         _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
         _incrementCartItemCubit = IncrementCartItemCubit(
+          cartRepository: cartRepository,
+        ),
+        _decrementCartItemCubit = DecrementCartItemCubit(
           cartRepository: cartRepository,
         ),
         _navigationCubit = NavigationCubit();
@@ -72,6 +76,7 @@ class RouteHandler {
           viewedRecentlyBloc: _viewedRecentlyBloc,
           addCartItemCubit: _addCartItemCubit,
           incrementCartItemCubit: _incrementCartItemCubit,
+          decrementCartItemCubit: _decrementCartItemCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:

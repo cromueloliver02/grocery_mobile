@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../services/services.dart';
 import '../../models/models.dart';
+import '../../../utils/utils.dart';
 import './base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
@@ -59,14 +60,16 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
-  Future<void> incrementCartItem({
+  Future<void> changeCartItemQty({
     required String userId,
     required String cartItemId,
+    required CartItemQtyAction action,
   }) async {
     try {
-      return await cartService.incrementCartItem(
+      return await cartService.changeCartItemQty(
         userId: userId,
         cartItemId: cartItemId,
+        action: action,
       );
     } catch (err) {
       rethrow;

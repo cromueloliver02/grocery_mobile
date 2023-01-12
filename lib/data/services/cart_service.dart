@@ -154,9 +154,10 @@ class CartService {
     }
   }
 
-  Future<void> incrementCartItem({
+  Future<void> changeCartItemQty({
     required String userId,
     required String cartItemId,
+    required CartItemQtyAction action,
   }) async {
     try {
       // the id of cart is the same as the user id
@@ -175,7 +176,11 @@ class CartService {
         'cartItems': FieldValue.arrayRemove([cartItemMap]),
       });
 
-      cartItemMap['quantity'] = cartItemMap['quantity'] + 1;
+      if (action == CartItemQtyAction.increment) {
+        cartItemMap['quantity'] = cartItemMap['quantity'] + 1;
+      } else {
+        cartItemMap['quantity'] = cartItemMap['quantity'] - 1;
+      }
 
       await cartRef.update({
         'cartItems': FieldValue.arrayUnion([cartItemMap])

@@ -6,25 +6,25 @@ import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
-part 'increment_cart_item_state.dart';
+part 'decrement_cart_item_state.dart';
 
-class IncrementCartItemCubit extends Cubit<IncrementCartItemState> {
+class DecrementCartItemCubit extends Cubit<DecrementCartItemState> {
   final CartRepository cartRepository;
 
-  IncrementCartItemCubit({
+  DecrementCartItemCubit({
     required this.cartRepository,
-  }) : super(IncrementCartItemState.initial());
+  }) : super(DecrementCartItemState.initial());
 
-  void incrementCartItem({
+  void decrementCartItem({
     required String userId,
     required String cartItemId,
   }) async {
-    emit(state.copyWith(status: () => IncrementCartItemStatus.loading));
+    emit(state.copyWith(status: () => DecrementCartItemStatus.loading));
 
     try {
       emit(state.copyWith(
         cartItemId: () => cartItemId,
-        status: () => IncrementCartItemStatus.success,
+        status: () => DecrementCartItemStatus.success,
       ));
 
       await cartRepository.changeCartItemQty(
@@ -34,7 +34,7 @@ class IncrementCartItemCubit extends Cubit<IncrementCartItemState> {
       );
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: () => IncrementCartItemStatus.failure,
+        status: () => DecrementCartItemStatus.failure,
         error: () => err,
       ));
 

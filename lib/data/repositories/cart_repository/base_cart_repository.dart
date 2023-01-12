@@ -1,3 +1,5 @@
+import 'package:grocery_mobile/utils/enums.dart';
+
 import '../../models/models.dart';
 
 abstract class BaseCartRepository {
@@ -8,8 +10,9 @@ abstract class BaseCartRepository {
     required CartItem cartItem,
   });
 
-  Future<void> incrementCartItem({
+  Future<void> changeCartItemQty({
     required String userId,
     required String cartItemId,
+    required CartItemQtyAction action,
   });
 }

@@ -12,6 +12,8 @@ enum ButtonType { elevated, text }
 
 enum GCRPlatform { iOs, android }
 
+enum CartItemQtyAction { increment, decrement }
+
 enum AuthStatus { unknown, unauthenticated, authenticated }
 
 // ASYNC
@@ -31,6 +33,8 @@ enum CartFormStatus { initial, loading, success, failure }
 enum AddCartItemStatus { initial, loading, success, failure }
 
 enum IncrementCartItemStatus { initial, loading, success, failure }
+
+enum DecrementCartItemStatus { initial, loading, success, failure }
 
 enum WishlistStatus { initial, loading, success, failure }
 
