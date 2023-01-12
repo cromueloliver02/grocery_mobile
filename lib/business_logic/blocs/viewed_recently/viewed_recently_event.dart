@@ -19,3 +19,5 @@ class ViewedRecentlyItemAdded extends ViewedRecentlyEvent {
   @override
   List<Object> get props => [product];
 }
+
+class ViewedRecentlyResetRequested extends ViewedRecentlyEvent {}

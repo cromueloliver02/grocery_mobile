@@ -13,6 +13,7 @@ class ViewedRecentlyBloc
   ViewedRecentlyBloc() : super(ViewedRecentlyState.initial()) {
     on<ViewedRecentlyStarted>(_onViewedRecentlyStarted);
     on<ViewedRecentlyItemAdded>(_onViewedRecentlyItemAdded);
+    on<ViewedRecentlyResetRequested>(_onViewedRecentlyResetRequested);
   }
 
   void _onViewedRecentlyStarted(
@@ -70,5 +71,12 @@ class ViewedRecentlyBloc
 
       debugPrint(state.toString());
     }
+  }
+
+  void _onViewedRecentlyResetRequested(
+    ViewedRecentlyResetRequested event,
+    Emitter<ViewedRecentlyState> emit,
+  ) {
+    emit(ViewedRecentlyState.initial());
   }
 }

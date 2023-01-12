@@ -13,6 +13,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     on<WishlistStarted>(_onWishlistStarted);
     on<WishlistAddedOrRemoved>(_onWishlistAddedOrRemoved);
     on<WishlistCleared>(_onWishlistCleared);
+    on<WishlistResetRequested>(_onWishlistResetRequested);
   }
 
   void _onWishlistStarted(
@@ -114,5 +115,12 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
       debugPrint(state.toString());
     }
+  }
+
+  void _onWishlistResetRequested(
+    WishlistResetRequested event,
+    Emitter<WishlistState> emit,
+  ) {
+    emit(WishlistState.initial());
   }
 }

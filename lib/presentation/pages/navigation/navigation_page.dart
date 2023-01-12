@@ -75,4 +75,14 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistStarted());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }
+
+  @override
+  void deactivate() {
+    // reset navigation-page-level states
+    context.read<WishlistBloc>().add(WishlistResetRequested());
+    context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
+    context.read<AddCartItemCubit>().reset();
+    context.read<NavigationCubit>().reset();
+    super.deactivate();
+  }
 }

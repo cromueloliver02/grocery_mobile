@@ -21,3 +21,5 @@ class WishlistAddedOrRemoved extends WishlistEvent {
 }
 
 class WishlistCleared extends WishlistEvent {}
+
+class WishlistResetRequested extends WishlistEvent {}
