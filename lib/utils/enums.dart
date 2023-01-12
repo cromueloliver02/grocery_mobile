@@ -27,12 +27,11 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 
 enum UserFormStatus { initial, loading, success, failure }
 
-// TODO: delete soon
-enum CartFormStatus { initial, loading, success, failure }
-
 enum AddCartItemStatus { initial, loading, success, failure }
 
 enum RemoveCartItemStatus { initial, loading, success, failure }
+
+enum ClearCartStatus { initial, loading, success, failure }
 
 enum IncrementCartItemStatus { initial, loading, success, failure }
 

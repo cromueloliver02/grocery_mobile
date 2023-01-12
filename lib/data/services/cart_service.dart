@@ -213,4 +213,26 @@ class CartService {
       );
     }
   }
+
+  Future<void> clearCart(String userId) async {
+    try {
+      // the id of cart is the same as the user id
+      final DocumentReference cartRef =
+          firestore.collection(kCartsCollectionPath).doc(userId);
+
+      await cartRef.update({'cartItems': []});
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
 }

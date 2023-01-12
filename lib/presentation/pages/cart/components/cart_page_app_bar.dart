@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
 
@@ -9,7 +10,8 @@ class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});
 
   void _showClearCartDialog(BuildContext ctx) async {
-    final CartBloc cartBloc = ctx.read<CartBloc>();
+    final AuthBloc authBloc = ctx.read<AuthBloc>();
+    final ClearCartCubit clearCartCubit = ctx.read<ClearCartCubit>();
 
     final bool? response = await showWarningDialog(
       ctx,
@@ -18,7 +20,9 @@ class CartPageAppBar extends StatelessWidget {
     );
 
     if (response != null && response) {
-      cartBloc.add(CartCleared());
+      final String userId = authBloc.state.user!.uid;
+
+      clearCartCubit.clearCart(userId);
     }
   }
 

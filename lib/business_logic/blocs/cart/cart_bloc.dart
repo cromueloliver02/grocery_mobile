@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
-import '../../../utils/utils.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -92,24 +90,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onCartCleared(CartCleared event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
-
-    try {
-      // disabled to change backend infrastracture of cart
-      // emit(state.copyWith(
-      //   formStatus: () => CartFormStatus.success,
-      //   cart: () => Cart(cartItems: []),
-      // ));
-
-      // await Future.delayed(const Duration(seconds: 3)); // CLEAR Cart
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        formStatus: () => CartFormStatus.failure,
-        error: () => err,
-      ));
-
-      debugPrint(state.toString());
-    }
+    emit(state.copyWith(
+      cart: () => state.cart.copyWith(cartItems: () => <CartItem>[]),
+    ));
   }
 
   void _onCartResetRequested(

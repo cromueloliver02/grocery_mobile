@@ -20,4 +20,6 @@ abstract class BaseCartRepository {
     required String cartItemId,
     required CartItemQtyAction action,
   });
+
+  Future<void> clearCart(String userId);
 }

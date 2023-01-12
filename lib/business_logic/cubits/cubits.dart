@@ -7,6 +7,7 @@ export './add_cart_item/add_cart_item_cubit.dart';
 export './remove_cart_item/remove_cart_item_cubit.dart';
 export './increment_cart_item/increment_cart_item_cubit.dart';
 export './decrement_cart_item/decrement_cart_item_cubit.dart';
+export './clear_cart/clear_cart_cubit.dart';
 export './search_product/search_product_cubit.dart';
 export './navigation/navigation_cubit.dart';
 export './theme/theme_cubit.dart';

@@ -19,6 +19,7 @@ class RouteHandler {
   final RemoveCartItemCubit _removeCartItemCubit;
   final IncrementCartItemCubit _incrementCartItemCubit;
   final DecrementCartItemCubit _decrementCartItemCubit;
+  final ClearCartCubit _clearCartCubit;
   final NavigationCubit _navigationCubit;
 
   RouteHandler({
@@ -48,6 +49,7 @@ class RouteHandler {
         _decrementCartItemCubit = DecrementCartItemCubit(
           cartRepository: cartRepository,
         ),
+        _clearCartCubit = ClearCartCubit(cartRepository: cartRepository),
         _navigationCubit = NavigationCubit();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -82,6 +84,7 @@ class RouteHandler {
           removeCartItemCubit: _removeCartItemCubit,
           incrementCartItemCubit: _incrementCartItemCubit,
           decrementCartItemCubit: _decrementCartItemCubit,
+          clearCartCubit: _clearCartCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:

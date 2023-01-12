@@ -21,6 +21,7 @@ class NavigationPage extends StatefulWidget {
     required RemoveCartItemCubit removeCartItemCubit,
     required IncrementCartItemCubit incrementCartItemCubit,
     required DecrementCartItemCubit decrementCartItemCubit,
+    required ClearCartCubit clearCartCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -41,6 +42,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<DecrementCartItemCubit>.value(
             value: decrementCartItemCubit,
           ),
+          BlocProvider<ClearCartCubit>.value(value: clearCartCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
         ],
         child: const NavigationPage(),
@@ -115,6 +117,19 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
+  void _clearCartListener(
+    BuildContext ctx,
+    ClearCartState state,
+  ) {
+    if (state.status == ClearCartStatus.success) {
+      ctx.read<CartBloc>().add(CartCleared());
+    }
+
+    if (state.status == ClearCartStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -130,6 +145,9 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         BlocListener<DecrementCartItemCubit, DecrementCartItemState>(
           listener: _decrementCartItemListener,
+        ),
+        BlocListener<ClearCartCubit, ClearCartState>(
+          listener: _clearCartListener,
         ),
       ],
       child: NavigationView(),
