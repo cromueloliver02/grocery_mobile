@@ -62,7 +62,7 @@ class _LoadingPageState extends State<LoadingPage> {
     if (state.status == AppStatus.success) {
       _initializeApp(ctx, state);
 
-      Navigator.pushReplacementNamed(ctx, NavigationPage.id);
+      Navigator.pushNamed(ctx, NavigationPage.id);
     }
 
     if (state.status == AppStatus.failure) {
@@ -85,5 +85,15 @@ class _LoadingPageState extends State<LoadingPage> {
     final String userId = context.read<AuthBloc>().state.user!.uid;
 
     context.read<AppBloc>().add(AppStarted(userId: userId));
+  }
+
+  @override
+  void deactivate() {
+    // reset loading-page-level states
+    context.read<ProductListBloc>().add(ProductListResetRequested());
+    context.read<ProductsOnSaleBloc>().add(ProductsOnSaleResetRequested());
+    context.read<CartBloc>().add(CartResetRequested());
+    context.read<UserBloc>().add(UserResetRequested());
+    super.deactivate();
   }
 }

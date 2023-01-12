@@ -17,6 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }) : super(UserState.initial()) {
     on<UserLoaded>(_onUserLoaded);
     on<UserShipAddressUpdated>(_onShipAddressUpdated);
+    on<UserResetRequested>(_onUserResetRequested);
   }
 
   void _onUserLoaded(
@@ -47,5 +48,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       debugPrint(state.toString());
     }
+  }
+
+  void _onUserResetRequested(
+    UserResetRequested event,
+    Emitter<UserState> emit,
+  ) {
+    emit(UserState.initial());
   }
 }

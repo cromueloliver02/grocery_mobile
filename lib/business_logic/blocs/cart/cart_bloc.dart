@@ -21,6 +21,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartItemDecremented>(_onCartItemDecremented);
     on<CartItemRemoved>(_onCartItemRemoved);
     on<CartCleared>(_onCartCleared);
+    on<CartResetRequested>(_onCartResetRequested);
   }
 
   void _onCartLoaded(CartLoaded event, Emitter<CartState> emit) async {
@@ -146,5 +147,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
       debugPrint(state.toString());
     }
+  }
+
+  void _onCartResetRequested(
+    CartResetRequested event,
+    Emitter<CartState> emit,
+  ) {
+    emit(CartState.initial());
   }
 }

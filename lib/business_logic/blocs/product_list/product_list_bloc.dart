@@ -14,6 +14,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     required this.productRepository,
   }) : super(ProductListState.initial()) {
     on<ProductListLoaded>(_onProductListLoaded);
+    on<ProductListResetRequested>(_onProductListResetRequested);
   }
 
   void _onProductListLoaded(
@@ -21,5 +22,12 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     Emitter<ProductListState> emit,
   ) {
     emit(state.copyWith(productList: () => event.productList));
+  }
+
+  void _onProductListResetRequested(
+    ProductListResetRequested event,
+    Emitter<ProductListState> emit,
+  ) {
+    emit(ProductListState.initial());
   }
 }

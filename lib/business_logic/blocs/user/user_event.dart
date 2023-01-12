@@ -28,3 +28,5 @@ class UserShipAddressUpdated extends UserEvent {
   @override
   List<Object> get props => [shipAddress];
 }
+
+class UserResetRequested extends UserEvent {}

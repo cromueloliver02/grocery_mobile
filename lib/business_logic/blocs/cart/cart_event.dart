@@ -63,3 +63,5 @@ class CartItemRemoved extends CartEvent {
 }
 
 class CartCleared extends CartEvent {}
+
+class CartResetRequested extends CartEvent {}

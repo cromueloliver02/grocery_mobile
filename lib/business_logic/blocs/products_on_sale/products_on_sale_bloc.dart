@@ -10,6 +10,7 @@ class ProductsOnSaleBloc
     extends Bloc<ProductsOnSaleEvent, ProductsOnSaleState> {
   ProductsOnSaleBloc() : super(ProductsOnSaleState.initial()) {
     on<ProductsOnSaleLoaded>(_onProductOnSaleLoaded);
+    on<ProductsOnSaleResetRequested>(_onProductsOnSaleResetRequested);
   }
 
   void _onProductOnSaleLoaded(
@@ -17,5 +18,12 @@ class ProductsOnSaleBloc
     Emitter<ProductsOnSaleState> emit,
   ) {
     emit(state.copyWith(onSaleProducts: () => event.onSaleProducts));
+  }
+
+  void _onProductsOnSaleResetRequested(
+    ProductsOnSaleResetRequested event,
+    Emitter<ProductsOnSaleState> emit,
+  ) {
+    emit(ProductsOnSaleState.initial());
   }
 }

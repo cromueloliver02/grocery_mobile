@@ -17,3 +17,5 @@ class ProductListLoaded extends ProductListEvent {
   @override
   List<Object> get props => [productList];
 }
+
+class ProductListResetRequested extends ProductListEvent {}

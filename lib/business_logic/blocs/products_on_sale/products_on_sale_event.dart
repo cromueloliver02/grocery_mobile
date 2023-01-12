@@ -17,3 +17,5 @@ class ProductsOnSaleLoaded extends ProductsOnSaleEvent {
   @override
   List<Object> get props => [onSaleProducts];
 }
+
+class ProductsOnSaleResetRequested extends ProductsOnSaleEvent {}
