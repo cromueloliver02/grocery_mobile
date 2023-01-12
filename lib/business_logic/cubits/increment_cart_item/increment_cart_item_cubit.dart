@@ -30,7 +30,7 @@ class IncrementCartItemCubit extends Cubit<IncrementCartItemState> {
       await cartRepository.changeCartItemQty(
         userId: userId,
         cartItemId: cartItemId,
-        action: CartItemQtyAction.decrement,
+        action: CartItemQtyAction.increment,
       );
     } on GCRError catch (err) {
       emit(state.copyWith(

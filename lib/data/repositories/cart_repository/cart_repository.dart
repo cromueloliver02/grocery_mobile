@@ -41,6 +41,10 @@ class CartRepository extends BaseCartRepository {
         }
       }
 
+      cartItems.sort((CartItem a, CartItem b) {
+        return b.createdAt.compareTo(a.createdAt);
+      });
+
       return cartItems;
     } catch (err) {
       rethrow;
