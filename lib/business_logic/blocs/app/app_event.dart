@@ -17,3 +17,5 @@ class AppStarted extends AppEvent {
   @override
   List<Object> get props => [userId];
 }
+
+class AppResetRequested extends AppEvent {}

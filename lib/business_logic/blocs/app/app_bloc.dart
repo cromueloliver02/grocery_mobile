@@ -20,6 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required this.userRepository,
   }) : super(AppState.initial()) {
     on<AppStarted>(_onAppStarted);
+    on<AppResetRequested>(_onAppResetRequested);
   }
 
   void _onAppStarted(AppStarted event, Emitter<AppState> emit) async {
@@ -45,5 +46,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
       debugPrint(state.toString());
     }
+  }
+
+  void _onAppResetRequested(
+    AppResetRequested event,
+    Emitter<AppState> emit,
+  ) {
+    emit(AppState.initial());
   }
 }

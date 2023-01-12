@@ -18,7 +18,7 @@ class AppState extends Equatable {
   factory AppState.initial() {
     return AppState(
       productList: const <Product>[],
-      cart: Cart(userId: '', cartItems: <CartItem>[]),
+      cart: Cart.initial(),
       user: User.initial(),
       status: AppStatus.initial,
       error: const GCRError(),

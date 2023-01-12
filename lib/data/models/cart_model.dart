@@ -11,6 +11,13 @@ class Cart {
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
+  factory Cart.initial() {
+    return Cart(
+      userId: '',
+      cartItems: <CartItem>[],
+    );
+  }
+
   double get grandTotalPrice {
     return cartItems.fold(0, (prev, d) => prev + d.totalPrice);
   }

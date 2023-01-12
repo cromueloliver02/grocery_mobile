@@ -90,6 +90,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void deactivate() {
     // reset loading-page-level states
+    context.read<AppBloc>().add(AppResetRequested());
     context.read<ProductListBloc>().add(ProductListResetRequested());
     context.read<ProductsOnSaleBloc>().add(ProductsOnSaleResetRequested());
     context.read<CartBloc>().add(CartResetRequested());
