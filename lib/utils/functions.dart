@@ -27,6 +27,7 @@ void showErrorDialog(BuildContext ctx, GCRError err) {
   if (Platform.isIOS) {
     showCupertinoDialog(
       context: ctx,
+      barrierDismissible: false,
       builder: (ctx) => GCRErrorDialog.iOS(error: err),
     );
   }
@@ -34,6 +35,7 @@ void showErrorDialog(BuildContext ctx, GCRError err) {
   if (Platform.isAndroid) {
     showDialog(
       context: ctx,
+      barrierDismissible: false,
       builder: (ctx) => GCRErrorDialog.android(error: err),
     );
   }
