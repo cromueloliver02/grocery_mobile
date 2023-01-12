@@ -57,7 +57,6 @@ class _LoadingPageState extends State<LoadingPage> {
     userBloc.add(UserLoaded(user: state.user));
   }
 
-  // TODO: find another way to communicate between blocs/cubits
   void _appListener(BuildContext ctx, AppState state) {
     if (state.status == AppStatus.success) {
       _initializeApp(ctx, state);
