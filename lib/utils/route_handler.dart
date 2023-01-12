@@ -16,6 +16,7 @@ class RouteHandler {
   final WishlistBloc _wishlistBloc;
   final ViewedRecentlyBloc _viewedRecentlyBloc;
   final AddCartItemCubit _addCartItemCubit;
+  final RemoveCartItemCubit _removeCartItemCubit;
   final IncrementCartItemCubit _incrementCartItemCubit;
   final DecrementCartItemCubit _decrementCartItemCubit;
   final NavigationCubit _navigationCubit;
@@ -38,6 +39,9 @@ class RouteHandler {
         _wishlistBloc = WishlistBloc(),
         _viewedRecentlyBloc = ViewedRecentlyBloc(),
         _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
+        _removeCartItemCubit = RemoveCartItemCubit(
+          cartRepository: cartRepository,
+        ),
         _incrementCartItemCubit = IncrementCartItemCubit(
           cartRepository: cartRepository,
         ),
@@ -75,6 +79,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           addCartItemCubit: _addCartItemCubit,
+          removeCartItemCubit: _removeCartItemCubit,
           incrementCartItemCubit: _incrementCartItemCubit,
           decrementCartItemCubit: _decrementCartItemCubit,
           navigationCubit: _navigationCubit,

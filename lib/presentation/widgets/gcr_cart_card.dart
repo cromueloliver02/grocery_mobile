@@ -5,8 +5,10 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../data/models/models.dart';
 import '../../business_logic/blocs/blocs.dart';
+import '../../business_logic/cubits/cubits.dart';
 import './widgets.dart';
 import '../pages/pages.dart';
+import '../../utils/utils.dart';
 
 class GCRCartCard extends StatefulWidget {
   const GCRCartCard({
@@ -23,8 +25,23 @@ class GCRCartCard extends StatefulWidget {
 class _GCRCartCardState extends State<GCRCartCard> {
   late final TextEditingController _qtyController;
 
-  void _removeCartItem(BuildContext ctx) {
-    ctx.read<CartBloc>().add(CartItemRemoved(cartItemId: widget.cartItem.id));
+  void _removeCartItem(BuildContext ctx) async {
+    final RemoveCartItemCubit removeCartItemCubit =
+        ctx.read<RemoveCartItemCubit>();
+    final String userId = ctx.read<AuthBloc>().state.user!.uid;
+
+    final bool? response = await showWarningDialog(
+      ctx,
+      title: 'Delete Cart Item',
+      message: 'Are you sure you want to delete this item?',
+    );
+
+    if (response != null && response) {
+      removeCartItemCubit.removeFromCart(
+        userId: userId,
+        cartItemId: widget.cartItem.id,
+      );
+    }
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {

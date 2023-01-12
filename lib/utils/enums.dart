@@ -32,6 +32,8 @@ enum CartFormStatus { initial, loading, success, failure }
 
 enum AddCartItemStatus { initial, loading, success, failure }
 
+enum RemoveCartItemStatus { initial, loading, success, failure }
+
 enum IncrementCartItemStatus { initial, loading, success, failure }
 
 enum DecrementCartItemStatus { initial, loading, success, failure }

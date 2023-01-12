@@ -64,6 +64,21 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
+  Future<void> removeFromCart({
+    required String userId,
+    required String cartItemId,
+  }) async {
+    try {
+      return await cartService.removeFromCart(
+        userId: userId,
+        cartItemId: cartItemId,
+      );
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> changeCartItemQty({
     required String userId,
     required String cartItemId,

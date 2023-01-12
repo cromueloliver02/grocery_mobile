@@ -18,6 +18,7 @@ class NavigationPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required AddCartItemCubit addCartItemCubit,
+    required RemoveCartItemCubit removeCartItemCubit,
     required IncrementCartItemCubit incrementCartItemCubit,
     required DecrementCartItemCubit decrementCartItemCubit,
     required NavigationCubit navigationCubit,
@@ -33,6 +34,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<RemoveCartItemCubit>.value(value: removeCartItemCubit),
           BlocProvider<IncrementCartItemCubit>.value(
             value: incrementCartItemCubit,
           ),
@@ -64,6 +66,21 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     if (state.status == AddCartItemStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
+  void _removeCartItemListener(BuildContext ctx, RemoveCartItemState state) {
+    if (state.status == RemoveCartItemStatus.success) {
+      ctx.read<CartBloc>().add(CartItemRemoved(cartItemId: state.cartItemId));
+
+      showToast(
+        'Removed from cart',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
+    if (state.status == RemoveCartItemStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -104,6 +121,9 @@ class _NavigationPageState extends State<NavigationPage> {
       listeners: [
         BlocListener<AddCartItemCubit, AddCartItemState>(
           listener: _addCartItemListener,
+        ),
+        BlocListener<RemoveCartItemCubit, RemoveCartItemState>(
+          listener: _removeCartItemListener,
         ),
         BlocListener<IncrementCartItemCubit, IncrementCartItemState>(
           listener: _incrementCartItemListener,
