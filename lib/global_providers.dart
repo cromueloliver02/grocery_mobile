@@ -43,11 +43,7 @@ class _GlobalProvidersState extends State<GlobalProviders> {
   void initState() {
     super.initState();
 
-    _repositoryHandler = RepositoryHandler(
-      userService: userService,
-      cartService: cartService,
-      productService: productService,
-    );
+    _repositoryHandler = RepositoryHandler();
 
     _blocHandler = BlocHandler();
 
