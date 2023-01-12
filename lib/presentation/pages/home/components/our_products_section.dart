@@ -8,7 +8,7 @@ class OurProductsSection extends StatelessWidget {
   const OurProductsSection({super.key});
 
   void _goToFeedPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, FeedsPage.id);
+    Navigator.pushNamed(ctx, ProductFeedsPage.id);
   }
 
   @override

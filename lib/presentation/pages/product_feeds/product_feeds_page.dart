@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
-import './components/feeds_view.dart';
+import './components/product_feeds_view.dart';
 
-class FeedsPage extends StatelessWidget {
-  static const id = '/feeds';
+class ProductFeedsPage extends StatelessWidget {
+  static const id = '/product-feeds';
 
   static Route<void> route(
     RouteSettings settings, {
+    required ProductListBloc productListBloc,
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
@@ -20,6 +21,7 @@ class FeedsPage extends StatelessWidget {
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
+          BlocProvider<ProductListBloc>.value(value: productListBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
@@ -29,14 +31,14 @@ class FeedsPage extends StatelessWidget {
             create: (ctx) => SearchProductCubit(
               productRepository: ctx.read<ProductRepository>(),
             ),
-          )
+          ),
         ],
-        child: const FeedsPage(),
+        child: const ProductFeedsPage(),
       ),
     );
   }
 
-  const FeedsPage({super.key});
+  const ProductFeedsPage({super.key});
 
   @override
   Widget build(BuildContext context) => const FeedsView();

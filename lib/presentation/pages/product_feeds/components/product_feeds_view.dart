@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../../utils/utils.dart';
-import './feeds_page_search_bar.dart';
-import './feeds_list.dart';
+import './product_feeds_page_search_bar.dart';
+import './product_feeds_list.dart';
 
 class FeedsView extends StatelessWidget {
   const FeedsView({super.key});

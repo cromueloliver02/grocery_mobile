@@ -7,11 +7,11 @@ import '../../../pages/pages.dart';
 class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
 
-  void _goToCategoryProductsPage(BuildContext ctx, {required int idx}) {
+  void _goToCategoryProductsPage(BuildContext ctx, {required String category}) {
     Navigator.pushNamed(
       ctx,
       CategoryProductsPage.id,
-      arguments: Category.categories[idx].name,
+      arguments: category,
     );
   }
 
@@ -31,7 +31,10 @@ class CategoryView extends StatelessWidget {
           name: Category.categories[idx].name,
           imageUrl: Category.categories[idx].imageUrl,
           color: Category.categories[idx].color,
-          onTap: () => _goToCategoryProductsPage(context, idx: idx),
+          onTap: () => _goToCategoryProductsPage(
+            context,
+            category: Category.categories[idx].name,
+          ),
         ),
       ),
     );

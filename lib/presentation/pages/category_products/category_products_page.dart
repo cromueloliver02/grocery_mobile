@@ -9,6 +9,7 @@ class CategoryProductsPage extends StatefulWidget {
 
   static Route<void> route(
     RouteSettings settings, {
+    required ProductListBloc productListBloc,
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
@@ -21,6 +22,7 @@ class CategoryProductsPage extends StatefulWidget {
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
+          BlocProvider<ProductListBloc>.value(value: productListBloc),
           BlocProvider<CategoryProductsBloc>(
             create: (ctx) => CategoryProductsBloc(
               productList: ctx.read<ProductListBloc>().state.productList,

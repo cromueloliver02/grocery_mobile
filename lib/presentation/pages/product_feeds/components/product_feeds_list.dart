@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
 
@@ -36,10 +37,12 @@ class FeedsGrid extends StatelessWidget {
             return const GCRMessageCard(message: 'No results found');
           }
 
+          final List<Product> productFeeds = searchProdState.keywords != null
+              ? searchProdState.searchResults
+              : prodListState.productList;
+
           return GridView.builder(
-            itemCount: searchProdState.keywords != null
-                ? searchProdState.searchResults.length
-                : prodListState.productList.length,
+            itemCount: productFeeds.length,
             padding: const EdgeInsets.symmetric(vertical: 20),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 10,
@@ -48,9 +51,8 @@ class FeedsGrid extends StatelessWidget {
               childAspectRatio: 400 / 350,
             ),
             itemBuilder: (ctx, idx) => GCRProductCard.feed(
-              product: searchProdState.keywords != null
-                  ? searchProdState.searchResults[idx]
-                  : prodListState.productList[idx],
+              key: ValueKey<String>(productFeeds[idx].id),
+              product: productFeeds[idx],
             ),
           );
         },

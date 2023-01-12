@@ -69,9 +69,10 @@ class RouteHandler {
           addCartItemCubit: _addCartItemCubit,
           navigationCubit: _navigationCubit,
         );
-      case FeedsPage.id:
-        return FeedsPage.route(
+      case ProductFeedsPage.id:
+        return ProductFeedsPage.route(
           settings,
+          productListBloc: _productListBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
@@ -102,6 +103,7 @@ class RouteHandler {
       case CategoryProductsPage.id:
         return CategoryProductsPage.route(
           settings,
+          productListBloc: _productListBloc,
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,

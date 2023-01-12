@@ -30,12 +30,14 @@ class CartRepository extends BaseCartRepository {
         final DocumentSnapshot productDoc =
             await productService.getProduct(productId);
 
-        final CartItem cartItem = CartItem.fromMap(
-          cartItemMap,
-          product: Product.fromDoc(productDoc),
-        );
+        if (productDoc.exists) {
+          final CartItem cartItem = CartItem.fromMap(
+            cartItemMap,
+            product: Product.fromDoc(productDoc),
+          );
 
-        cartItems.insert(0, cartItem);
+          cartItems.insert(0, cartItem);
+        }
       }
 
       return cartItems;

@@ -9,7 +9,7 @@ export './category/category_page.dart';
 export './cart/cart_page.dart';
 export './user/user_page.dart';
 export './on_sale/on_sale_page.dart';
-export './feeds/feeds_page.dart';
+export './product_feeds/product_feeds_page.dart';
 export './product_details/product_details_page.dart';
 export './wishlist/wishlist_page.dart';
 export './orders/orders_page.dart';
