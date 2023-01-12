@@ -15,28 +15,6 @@ class CartService {
     required this.productService,
   });
 
-  // TODO: remove code repetition with getCart()
-  Future<DocumentSnapshot> getCartByUserId(String userId) async {
-    try {
-      final DocumentSnapshot cartDoc =
-          await firestore.collection(kCartsCollectionPath).doc(userId).get();
-
-      return cartDoc;
-    } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
-    } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
-    }
-  }
-
   Future<void> createCart(Cart cart) async {
     try {
       await firestore
@@ -61,7 +39,8 @@ class CartService {
   Future<DocumentSnapshot> getCart(String userId) async {
     try {
       // the id of cart is the same as the user id
-      final DocumentSnapshot cartDoc = await getCartByUserId(userId);
+      final DocumentSnapshot cartDoc =
+          await firestore.collection(kCartsCollectionPath).doc(userId).get();
 
       return cartDoc;
     } on FirebaseException catch (err) {
@@ -90,7 +69,7 @@ class CartService {
       final DocumentReference cartRef =
           firestore.collection(kCartsCollectionPath).doc(userId);
 
-      final DocumentSnapshot cartDoc = await getCartByUserId(userId);
+      final DocumentSnapshot cartDoc = await getCart(userId);
 
       final Map<String, dynamic>? existingCartItemMap =
           List<Map<String, dynamic>>.from(cartDoc.get('cartItems'))
