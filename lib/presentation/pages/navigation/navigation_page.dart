@@ -18,6 +18,7 @@ class NavigationPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required AddCartItemCubit addCartItemCubit,
+    required IncrementCartItemCubit incrementCartItemCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -31,6 +32,9 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<IncrementCartItemCubit>.value(
+            value: incrementCartItemCubit,
+          ),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
         ],
         child: const NavigationPage(),
@@ -60,10 +64,32 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
+  void _incrementCartItemListener(
+    BuildContext ctx,
+    IncrementCartItemState state,
+  ) {
+    if (state.status == IncrementCartItemStatus.success) {
+      ctx
+          .read<CartBloc>()
+          .add(CartItemIncremented(cartItemId: state.cartItemId));
+    }
+
+    if (state.status == IncrementCartItemStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddCartItemCubit, AddCartItemState>(
-      listener: _addCartItemListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AddCartItemCubit, AddCartItemState>(
+          listener: _addCartItemListener,
+        ),
+        BlocListener<IncrementCartItemCubit, IncrementCartItemState>(
+          listener: _incrementCartItemListener,
+        ),
+      ],
       child: NavigationView(),
     );
   }

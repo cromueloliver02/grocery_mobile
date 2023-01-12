@@ -7,4 +7,9 @@ abstract class BaseCartRepository {
     required String userId,
     required CartItem cartItem,
   });
+
+  Future<void> incrementCartItem({
+    required String userId,
+    required String cartItemId,
+  });
 }

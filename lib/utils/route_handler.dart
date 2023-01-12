@@ -16,6 +16,7 @@ class RouteHandler {
   final WishlistBloc _wishlistBloc;
   final ViewedRecentlyBloc _viewedRecentlyBloc;
   final AddCartItemCubit _addCartItemCubit;
+  final IncrementCartItemCubit _incrementCartItemCubit;
   final NavigationCubit _navigationCubit;
 
   RouteHandler({
@@ -36,6 +37,9 @@ class RouteHandler {
         _wishlistBloc = WishlistBloc(),
         _viewedRecentlyBloc = ViewedRecentlyBloc(),
         _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
+        _incrementCartItemCubit = IncrementCartItemCubit(
+          cartRepository: cartRepository,
+        ),
         _navigationCubit = NavigationCubit();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -67,6 +71,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           addCartItemCubit: _addCartItemCubit,
+          incrementCartItemCubit: _incrementCartItemCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:

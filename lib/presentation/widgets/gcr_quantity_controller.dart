@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../business_logic/blocs/blocs.dart';
+import '../../business_logic/cubits/cubits.dart';
 
 class GCRQuantityController extends StatelessWidget {
   const GCRQuantityController({
@@ -16,13 +17,18 @@ class GCRQuantityController extends StatelessWidget {
   final int quantity;
 
   void _incrementQuantity(BuildContext ctx) {
-    ctx.read<CartBloc>().add(CartItemIncremented(id: cartItemId));
+    final String userId = ctx.read<AuthBloc>().state.user!.uid;
+
+    ctx.read<IncrementCartItemCubit>().incrementCartItem(
+          userId: userId,
+          cartItemId: cartItemId,
+        );
   }
 
   void _decrementQuantity(BuildContext ctx) {
     if (quantity <= 1) return;
 
-    ctx.read<CartBloc>().add(CartItemDecremented(id: cartItemId));
+    ctx.read<CartBloc>().add(CartItemDecremented(cartItemId: cartItemId));
   }
 
   void _onChanged(String value) {

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 
-import './product_service.dart';
+import './services.dart';
 import '../models/models.dart';
 import '../../utils/utils.dart';
 
@@ -15,6 +15,7 @@ class CartService {
     required this.productService,
   });
 
+  // TODO: remove code repetition with getCart()
   Future<DocumentSnapshot> getCartByUserId(String userId) async {
     try {
       final DocumentSnapshot cartDoc =
@@ -144,6 +145,47 @@ class CartService {
       );
     } on GCRError {
       rethrow;
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
+  Future<void> incrementCartItem({
+    required String userId,
+    required String cartItemId,
+  }) async {
+    try {
+      // the id of cart is the same as the user id
+      final DocumentReference cartRef =
+          firestore.collection(kCartsCollectionPath).doc(userId);
+
+      final DocumentSnapshot cartDoc = await cartRef.get();
+
+      final cartItemMaps =
+          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
+
+      Map<String, dynamic> cartItemMap =
+          cartItemMaps.firstWhere((d) => d['id'] == cartItemId);
+
+      await cartRef.update({
+        'cartItems': FieldValue.arrayRemove([cartItemMap]),
+      });
+
+      cartItemMap['quantity'] = cartItemMap['quantity'] + 1;
+
+      await cartRef.update({
+        'cartItems': FieldValue.arrayUnion([cartItemMap])
+      });
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
     } catch (err) {
       throw GCRError(
         code: 'Exception',

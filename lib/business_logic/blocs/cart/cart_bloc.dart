@@ -50,30 +50,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onCartItemIncremented(
-      CartItemIncremented event, Emitter<CartState> emit) async {
-    emit(state.copyWith(formStatus: () => CartFormStatus.loading));
+    CartItemIncremented event,
+    Emitter<CartState> emit,
+  ) async {
+    final List<CartItem> cartItems = state.cart.cartItems
+        .map((d) => d.id == event.cartItemId
+            ? d.copyWith(quantity: () => d.quantity + 1)
+            : d)
+        .toList();
 
-    try {
-      // disabled to change backend infrastracture of cart
-      // final List<CartItem> cartItems = state.cart.cartItems
-      //     .map((d) =>
-      //         d.id == event.id ? d.copyWith(quantity: () => d.quantity + 1) : d)
-      //     .toList();
-
-      // emit(state.copyWith(
-      //   formStatus: () => CartFormStatus.success,
-      //   cart: Cart(cartItems: () => cartItems),
-      // ));
-
-      await Future.delayed(const Duration(seconds: 3)); // INCREMENT Cart item
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        formStatus: () => CartFormStatus.failure,
-        error: () => err,
-      ));
-
-      debugPrint(state.toString());
-    }
+    emit(state.copyWith(
+      cart: () => state.cart.copyWith(cartItems: () => cartItems),
+    ));
   }
 
   void _onCartItemDecremented(

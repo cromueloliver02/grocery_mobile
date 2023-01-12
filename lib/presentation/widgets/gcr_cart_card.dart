@@ -24,7 +24,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
   late final TextEditingController _qtyController;
 
   void _removeCartItem(BuildContext ctx) {
-    ctx.read<CartBloc>().add(CartItemRemoved(id: widget.cartItem.id));
+    ctx.read<CartBloc>().add(CartItemRemoved(cartItemId: widget.cartItem.id));
   }
 
   void _goToProductDetailsPage(BuildContext ctx) {

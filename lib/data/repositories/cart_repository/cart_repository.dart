@@ -57,4 +57,19 @@ class CartRepository extends BaseCartRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> incrementCartItem({
+    required String userId,
+    required String cartItemId,
+  }) async {
+    try {
+      return await cartService.incrementCartItem(
+        userId: userId,
+        cartItemId: cartItemId,
+      );
+    } catch (err) {
+      rethrow;
+    }
+  }
 }

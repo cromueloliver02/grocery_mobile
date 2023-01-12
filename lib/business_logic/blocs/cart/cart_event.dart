@@ -30,36 +30,36 @@ class CartItemAdded extends CartEvent {
 }
 
 class CartItemIncremented extends CartEvent {
-  final String id;
+  final String cartItemId;
 
   const CartItemIncremented({
-    required this.id,
+    required this.cartItemId,
   });
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [cartItemId];
 }
 
 class CartItemDecremented extends CartEvent {
-  final String id;
+  final String cartItemId;
 
   const CartItemDecremented({
-    required this.id,
+    required this.cartItemId,
   });
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [cartItemId];
 }
 
 class CartItemRemoved extends CartEvent {
-  final String id;
+  final String cartItemId;
 
   const CartItemRemoved({
-    required this.id,
+    required this.cartItemId,
   });
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [cartItemId];
 }
 
 class CartCleared extends CartEvent {}
