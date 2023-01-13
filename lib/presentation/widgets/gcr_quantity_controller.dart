@@ -17,7 +17,7 @@ class GCRQuantityController extends StatelessWidget {
   final int quantity;
 
   void _incrementQuantity(BuildContext ctx) {
-    final String userId = ctx.read<AuthBloc>().state.user!.uid;
+    final String userId = ctx.read<UserBloc>().state.user.id;
 
     ctx.read<IncrementCartItemCubit>().incrementCartItem(
           userId: userId,
@@ -28,7 +28,7 @@ class GCRQuantityController extends StatelessWidget {
   void _decrementQuantity(BuildContext ctx) {
     if (quantity <= 1) return;
 
-    final String userId = ctx.read<AuthBloc>().state.user!.uid;
+    final String userId = ctx.read<UserBloc>().state.user.id;
 
     ctx.read<DecrementCartItemCubit>().decrementCartItem(
           userId: userId,
