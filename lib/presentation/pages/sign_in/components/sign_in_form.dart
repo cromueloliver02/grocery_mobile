@@ -17,32 +17,7 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _signIn(BuildContext ctx) {
-    final SignInFormCubit signInFormCubit = ctx.read<SignInFormCubit>();
-
-    signInFormCubit.enabledSignInFormAutovalidate();
-
-    final FormState? form = _formKey.currentState;
-
-    if (form == null || !form.validate()) return;
-
-    final SignInFormState signInFormState = signInFormCubit.state;
-
-    ctx.read<SignInCubit>().signinWithEmail(
-          email: signInFormState.email,
-          password: signInFormState.password,
-        );
-  }
-
-  void _onChangeEmail(BuildContext ctx, String? email) {
-    ctx.read<SignInFormCubit>().changeSignInFormEmail(email);
-  }
-
-  void _onChangePassword(BuildContext ctx, String? password) {
-    ctx.read<SignInFormCubit>().changeSignInFormPass(password);
-  }
-
-  void _togglePassword(BuildContext ctx) {
-    ctx.read<SignInFormCubit>().toggleSignInFormPass();
+    ctx.read<SignInFormCubit>().signIn(ctx, formKey: _formKey);
   }
 
   void _goToForgetPasswordPage(BuildContext ctx) {
@@ -69,7 +44,7 @@ class _SignInFormState extends State<SignInForm> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: emailValidator,
-                  onChanged: (String? value) => _onChangeEmail(context, value),
+                  onChanged: ctx.read<SignInFormCubit>().changeEmail,
                 ),
                 const SizedBox(height: 20),
                 GCRTextFormField(
@@ -80,7 +55,9 @@ class _SignInFormState extends State<SignInForm> {
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
                   suffixIcon: GestureDetector(
-                    onTap: loading ? null : () => _togglePassword(context),
+                    onTap: loading
+                        ? null
+                        : ctx.read<SignInFormCubit>().togglePassword,
                     child: Icon(
                       signInFormState.hidePassword
                           ? Icons.visibility_off
@@ -91,8 +68,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   validator: passwordValidator,
                   onEditingComplete: () => _signIn(context),
-                  onChanged: (String? value) =>
-                      _onChangePassword(context, value),
+                  onChanged: ctx.read<SignInFormCubit>().changePassword,
                 ),
                 const SizedBox(height: 20),
                 Align(
