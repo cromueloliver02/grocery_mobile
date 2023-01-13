@@ -17,10 +17,6 @@ class _SignInFormState extends State<SignUpForm> {
   late final FocusNode _shippingNode;
   final _formKey = GlobalKey<FormState>();
 
-  void _signUp(BuildContext ctx) {
-    ctx.read<SignUpFormCubit>().signUp(ctx, formKey: _formKey);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpFormCubit, SignUpFormState>(
@@ -78,7 +74,9 @@ class _SignInFormState extends State<SignUpForm> {
                   enabled: !loading,
                   textInputAction: TextInputAction.done,
                   validator: shipAddressValidator,
-                  onEditingComplete: () => _signUp(context),
+                  onEditingComplete: () => ctx
+                      .read<SignUpFormCubit>()
+                      .signUp(ctx, formKey: _formKey),
                   onChanged: ctx.read<SignUpFormCubit>().changeShipAddress,
                 ),
                 const SizedBox(height: 15),
@@ -88,7 +86,9 @@ class _SignInFormState extends State<SignUpForm> {
                     labelText: 'Sign Up',
                     loading: loading,
                     backgroundColor: Colors.white38,
-                    onPressed: () => _signUp(context),
+                    onPressed: () => ctx
+                        .read<SignUpFormCubit>()
+                        .signUp(ctx, formKey: _formKey),
                   ),
                 ),
               ],

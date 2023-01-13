@@ -16,10 +16,6 @@ class _SignInFormState extends State<SignInForm> {
   late final FocusNode _passwordNode;
   final _formKey = GlobalKey<FormState>();
 
-  void _signIn(BuildContext ctx) {
-    ctx.read<SignInFormCubit>().signIn(ctx, formKey: _formKey);
-  }
-
   void _goToForgetPasswordPage(BuildContext ctx) {
     Navigator.pushNamed(ctx, ForgotPasswordPage.id);
   }
@@ -67,7 +63,9 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                   ),
                   validator: passwordValidator,
-                  onEditingComplete: () => _signIn(context),
+                  onEditingComplete: () => ctx
+                      .read<SignInFormCubit>()
+                      .signIn(ctx, formKey: _formKey),
                   onChanged: ctx.read<SignInFormCubit>().changePassword,
                 ),
                 const SizedBox(height: 20),
@@ -94,7 +92,9 @@ class _SignInFormState extends State<SignInForm> {
                     labelText: 'Sign In',
                     loading: loading,
                     backgroundColor: Colors.white38,
-                    onPressed: () => _signIn(context),
+                    onPressed: () => ctx
+                        .read<SignInFormCubit>()
+                        .signIn(ctx, formKey: _formKey),
                   ),
                 ),
               ],

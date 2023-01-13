@@ -14,27 +14,6 @@ class ForgotPasswordForm extends StatefulWidget {
 class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
 
-  void _forgetPassword(BuildContext ctx) {
-    FocusScope.of(context).unfocus();
-
-    final ForgotPwdFormCubit forgotPwdFormCubit =
-        ctx.read<ForgotPwdFormCubit>();
-
-    forgotPwdFormCubit.enabledForgotPwdFormAutovalidate();
-
-    final FormState? form = _formKey.currentState;
-
-    if (form == null || !form.validate()) return;
-
-    final ForgotPwdFormState forgotPwdFormState = forgotPwdFormCubit.state;
-
-    ctx.read<ForgetPwdCubit>().forgetPassword(email: forgotPwdFormState.email);
-  }
-
-  void _onChangeEmail(BuildContext ctx, String? email) {
-    ctx.read<ForgotPwdFormCubit>().changeforgotPwdFormEmail(email);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ForgotPwdFormCubit, ForgotPwdFormState>(
@@ -50,7 +29,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
                 validator: emailValidator,
-                onChanged: (String? value) => _onChangeEmail(context, value),
+                onChanged: ctx.read<ForgotPwdFormCubit>().changeEmail,
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -59,7 +38,9 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   labelText: 'Submit',
                   loading: state.status == ForgetPwdStatus.loading,
                   backgroundColor: Colors.white38,
-                  onPressed: () => _forgetPassword(context),
+                  onPressed: () => ctx
+                      .read<ForgotPwdFormCubit>()
+                      .forgetPassword(ctx, formKey: _formKey),
                 ),
               ),
             ],
