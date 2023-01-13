@@ -1,4 +1,4 @@
-part of 'forgot_pwd_form_bloc.dart';
+part of 'forgot_pwd_form_cubit.dart';
 
 class ForgotPwdFormState extends Equatable {
   final String email;

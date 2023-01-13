@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/repositories/repositories.dart';
-import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/forgot_password_view.dart';
@@ -19,8 +18,8 @@ class ForgotPasswordPage extends StatelessWidget {
               authRepository: ctx.read<AuthRepository>(),
             ),
           ),
-          BlocProvider<ForgotPwdFormBloc>(
-            create: (ctx) => ForgotPwdFormBloc(),
+          BlocProvider<ForgotPwdFormCubit>(
+            create: (ctx) => ForgotPwdFormCubit(),
           ),
         ],
         child: const ForgotPasswordPage(),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
@@ -18,26 +17,27 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   void _forgetPassword(BuildContext ctx) {
     FocusScope.of(context).unfocus();
 
-    final ForgotPwdFormBloc forgotPwdFormBloc = ctx.read<ForgotPwdFormBloc>();
+    final ForgotPwdFormCubit forgotPwdFormCubit =
+        ctx.read<ForgotPwdFormCubit>();
 
-    forgotPwdFormBloc.add(ForgotPwdFormAutovalidateEnabled());
+    forgotPwdFormCubit.enabledForgotPwdFormAutovalidate();
 
     final FormState? form = _formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
-    final ForgotPwdFormState forgotPwdFormState = forgotPwdFormBloc.state;
+    final ForgotPwdFormState forgotPwdFormState = forgotPwdFormCubit.state;
 
     ctx.read<ForgetPwdCubit>().forgetPassword(email: forgotPwdFormState.email);
   }
 
   void _onChangeEmail(BuildContext ctx, String? email) {
-    ctx.read<ForgotPwdFormBloc>().add(ForgotPwdFormEmailSaved(email: email));
+    ctx.read<ForgotPwdFormCubit>().changeforgotPwdFormEmail(email);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ForgotPwdFormBloc, ForgotPwdFormState>(
+    return BlocBuilder<ForgotPwdFormCubit, ForgotPwdFormState>(
       builder: (ctx, state) => Form(
         key: _formKey,
         autovalidateMode: state.autovalidateMode,
