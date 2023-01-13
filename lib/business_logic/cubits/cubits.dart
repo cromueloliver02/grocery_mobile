@@ -3,6 +3,7 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export './sign_in/sign_in_cubit.dart';
 export './sign_in_form/sign_in_form_cubit.dart';
 export './sign_up/sign_up_cubit.dart';
+export './sign_up_form/sign_up_form_cubit.dart';
 export './forget_pwd/forget_pwd_cubit.dart';
 export './forgot_pwd_form/forgot_pwd_form_cubit.dart';
 export './add_cart_item/add_cart_item_cubit.dart';

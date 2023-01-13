@@ -1,4 +1,4 @@
-part of 'sign_up_form_bloc.dart';
+part of 'sign_up_form_cubit.dart';
 
 class SignUpFormState extends Equatable {
   final String name;

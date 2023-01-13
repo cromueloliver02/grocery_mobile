@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
@@ -19,49 +18,12 @@ class _SignInFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _signUp(BuildContext ctx) {
-    final SignUpFormBloc signUpFormBloc = ctx.read<SignUpFormBloc>();
-
-    signUpFormBloc.add(SignUpFormAutovalidateEnabled());
-
-    final FormState? form = _formKey.currentState;
-
-    if (form == null || !form.validate()) return;
-
-    final SignUpFormState signupFormState = signUpFormBloc.state;
-
-    ctx.read<SignUpCubit>().signupWithEmail(
-          name: signupFormState.name,
-          email: signupFormState.email,
-          password: signupFormState.password,
-          shipAddress: signupFormState.shipAddress,
-        );
-  }
-
-  void _onChangeName(BuildContext ctx, String? name) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormNameChanged(name: name));
-  }
-
-  void _onChangeEmail(BuildContext ctx, String? email) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormEmailChanged(email: email));
-  }
-
-  void _onChangePassword(BuildContext ctx, String? password) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormPassChanged(password: password));
-  }
-
-  void _onChangeShipAddress(BuildContext ctx, String? shipAddress) {
-    ctx
-        .read<SignUpFormBloc>()
-        .add(SignUpFormShipAddressChanged(shipAddress: shipAddress));
-  }
-
-  void _togglePasswordHandler(BuildContext ctx) {
-    ctx.read<SignUpFormBloc>().add(SignUpFormPassToggled());
+    ctx.read<SignUpFormCubit>().signUp(ctx, formKey: _formKey);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpFormBloc, SignUpFormState>(
+    return BlocBuilder<SignUpFormCubit, SignUpFormState>(
       builder: (ctx, signupFormState) => Form(
         key: _formKey,
         autovalidateMode: signupFormState.autovalidateMode,
@@ -76,7 +38,7 @@ class _SignInFormState extends State<SignUpForm> {
                   enabled: !loading,
                   textInputAction: TextInputAction.next,
                   validator: nameValidator,
-                  onChanged: (String? value) => _onChangeName(context, value),
+                  onChanged: ctx.read<SignUpFormCubit>().changeName,
                 ),
                 const SizedBox(height: 20),
                 GCRTextFormField(
@@ -86,7 +48,7 @@ class _SignInFormState extends State<SignUpForm> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: emailValidator,
-                  onChanged: (String? value) => _onChangeEmail(context, value),
+                  onChanged: ctx.read<SignUpFormCubit>().changeEmail,
                 ),
                 const SizedBox(height: 20),
                 GCRTextFormField(
@@ -97,7 +59,7 @@ class _SignInFormState extends State<SignUpForm> {
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
                   suffixIcon: GestureDetector(
-                    onTap: () => _togglePasswordHandler(context),
+                    onTap: ctx.read<SignUpFormCubit>().togglePasswordVisibility,
                     child: Icon(
                       signupFormState.hidePassword
                           ? Icons.visibility_off
@@ -107,8 +69,7 @@ class _SignInFormState extends State<SignUpForm> {
                     ),
                   ),
                   validator: passwordValidator,
-                  onChanged: (String? value) =>
-                      _onChangePassword(context, value),
+                  onChanged: ctx.read<SignUpFormCubit>().changePassword,
                 ),
                 const SizedBox(height: 20),
                 GCRTextFormField(
@@ -118,8 +79,7 @@ class _SignInFormState extends State<SignUpForm> {
                   textInputAction: TextInputAction.done,
                   validator: shipAddressValidator,
                   onEditingComplete: () => _signUp(context),
-                  onChanged: (String? value) =>
-                      _onChangeShipAddress(context, value),
+                  onChanged: ctx.read<SignUpFormCubit>().changeShipAddress,
                 ),
                 const SizedBox(height: 15),
                 SizedBox(
