@@ -1,4 +1,4 @@
-part of 'sign_in_form_bloc.dart';
+part of 'sign_in_form_cubit.dart';
 
 class SignInFormState extends Equatable {
   final String email;

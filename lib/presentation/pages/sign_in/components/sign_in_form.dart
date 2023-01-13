@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
@@ -18,15 +17,15 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _signIn(BuildContext ctx) {
-    final SignInFormBloc signInFormBloc = ctx.read<SignInFormBloc>();
+    final SignInFormCubit signInFormCubit = ctx.read<SignInFormCubit>();
 
-    signInFormBloc.add(SignInFormAutovalidateEnabled());
+    signInFormCubit.enabledSignInFormAutovalidate();
 
     final FormState? form = _formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
-    final SignInFormState signInFormState = signInFormBloc.state;
+    final SignInFormState signInFormState = signInFormCubit.state;
 
     ctx.read<SignInCubit>().signinWithEmail(
           email: signInFormState.email,
@@ -35,15 +34,15 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   void _onChangeEmail(BuildContext ctx, String? email) {
-    ctx.read<SignInFormBloc>().add(SignInFormEmailSaved(email: email));
+    ctx.read<SignInFormCubit>().changeSignInFormEmail(email);
   }
 
   void _onChangePassword(BuildContext ctx, String? password) {
-    ctx.read<SignInFormBloc>().add(SignInFormPassSaved(password: password));
+    ctx.read<SignInFormCubit>().changeSignInFormPass(password);
   }
 
   void _togglePassword(BuildContext ctx) {
-    ctx.read<SignInFormBloc>().add(SignInFormPassToggled());
+    ctx.read<SignInFormCubit>().toggleSignInFormPass();
   }
 
   void _goToForgetPasswordPage(BuildContext ctx) {
@@ -54,7 +53,7 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return BlocBuilder<SignInFormBloc, SignInFormState>(
+    return BlocBuilder<SignInFormCubit, SignInFormState>(
       builder: (ctx, signInFormState) => Form(
         key: _formKey,
         autovalidateMode: signInFormState.autovalidateMode,
