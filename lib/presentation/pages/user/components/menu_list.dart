@@ -18,7 +18,10 @@ class MenuList extends StatelessWidget {
     showDialog<bool>(
       context: ctx,
       barrierDismissible: false,
-      builder: (ctx) => AddressDialog(initialValue: initialValue),
+      builder: (context) => BlocProvider<UserBloc>.value(
+        value: ctx.read<UserBloc>(),
+        child: AddressDialog(initialValue: initialValue),
+      ),
     );
   }
 

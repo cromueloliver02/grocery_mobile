@@ -83,6 +83,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     final String userId = context.read<AuthBloc>().state.user!.uid;
 
+    // start initialiazing app/fetch initial data
     context.read<AppBloc>().add(AppStarted(userId: userId));
   }
 

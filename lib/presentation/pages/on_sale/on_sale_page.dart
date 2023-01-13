@@ -23,11 +23,7 @@ class OnSalePage extends StatelessWidget {
         providers: [
           BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
           BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
-          BlocProvider<NavigationCubit>.value(value: navigationCubit),
         ],
         child: const OnSalePage(),
       ),

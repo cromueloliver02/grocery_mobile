@@ -22,11 +22,7 @@ class ProductFeedsPage extends StatelessWidget {
       builder: (ctx) => MultiBlocProvider(
         providers: [
           BlocProvider<ProductListBloc>.value(value: productListBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
-          BlocProvider<NavigationCubit>.value(value: navigationCubit),
           BlocProvider<SearchProductCubit>(
             create: (ctx) => SearchProductCubit(
               productRepository: ctx.read<ProductRepository>(),
