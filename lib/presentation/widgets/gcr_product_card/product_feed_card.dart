@@ -19,14 +19,6 @@ class _FeedCardState extends State<_ProductFeedCard> {
     ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
 
-  void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(
-      ctx,
-      ProductDetailsPage.id,
-      arguments: widget.product,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -37,7 +29,11 @@ class _FeedCardState extends State<_ProductFeedCard> {
       color: theme.cardColor,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () => _goToProductDetailsPage(context),
+        onTap: () => Navigator.pushNamed(
+          context,
+          ProductDetailsPage.id,
+          arguments: widget.product,
+        ),
         borderRadius: BorderRadius.circular(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

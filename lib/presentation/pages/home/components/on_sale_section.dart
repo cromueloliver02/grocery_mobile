@@ -8,10 +8,6 @@ import '../../pages.dart';
 class OnSaleSection extends StatelessWidget {
   const OnSaleSection({super.key});
 
-  void _goToOnSalePage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, OnSalePage.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -26,7 +22,7 @@ class OnSaleSection extends StatelessWidget {
           children: [
             GCRButton.text(
               labelText: 'View All',
-              onPressed: () => _goToOnSalePage(context),
+              onPressed: () => Navigator.pushNamed(ctx, OnSalePage.id),
             ),
             const SizedBox(height: 5),
             SizedBox(

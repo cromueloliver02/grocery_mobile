@@ -21,10 +21,6 @@ class _ProductWishlistCard extends StatelessWidget {
     ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
 
-  void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -35,7 +31,11 @@ class _ProductWishlistCard extends StatelessWidget {
       color: theme.cardColor,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () => _goToProductDetailsPage(context),
+        onTap: () => Navigator.pushNamed(
+          context,
+          ProductDetailsPage.id,
+          arguments: product,
+        ),
         borderRadius: BorderRadius.circular(12),
         child: DecoratedBox(
           decoration: BoxDecoration(

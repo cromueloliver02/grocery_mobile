@@ -16,10 +16,6 @@ class _SignInFormState extends State<SignInForm> {
   late final FocusNode _passwordNode;
   final _formKey = GlobalKey<FormState>();
 
-  void _goToForgetPasswordPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ForgetPasswordPage.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -72,8 +68,9 @@ class _SignInFormState extends State<SignInForm> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed:
-                        loading ? null : () => _goToForgetPasswordPage(context),
+                    onPressed: loading
+                        ? null
+                        : () => Navigator.pushNamed(ctx, ForgetPasswordPage.id),
                     child: Text(
                       'Forgot Password?',
                       style: textTheme.bodyText1!.copyWith(

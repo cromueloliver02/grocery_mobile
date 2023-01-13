@@ -7,10 +7,6 @@ import '../../pages.dart';
 class OurProductsSection extends StatelessWidget {
   const OurProductsSection({super.key});
 
-  void _goToFeedPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductFeedsPage.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -34,7 +30,10 @@ class OurProductsSection extends StatelessWidget {
                   ),
                   GCRButton.text(
                     labelText: 'Browse All',
-                    onPressed: () => _goToFeedPage(context),
+                    onPressed: () => Navigator.pushNamed(
+                      ctx,
+                      ProductFeedsPage.id,
+                    ),
                   ),
                 ],
               ),

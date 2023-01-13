@@ -9,10 +9,6 @@ import '../../../../utils/utils.dart';
 class SignInFooter extends StatelessWidget {
   const SignInFooter({super.key});
 
-  void _goToSignupPage(BuildContext ctx) {
-    Navigator.pushReplacementNamed(ctx, SignUpPage.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -72,7 +68,12 @@ class SignInFooter extends StatelessWidget {
                       fontSize: textTheme.bodyText1!.fontSize! + 2,
                     ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = loading ? null : () => _goToSignupPage(context),
+                      ..onTap = loading
+                          ? null
+                          : () => Navigator.pushReplacementNamed(
+                                ctx,
+                                SignUpPage.id,
+                              ),
                   ),
                 ],
               ),

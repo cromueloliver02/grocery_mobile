@@ -17,10 +17,6 @@ class _ProductViewedCard extends StatelessWidget {
         );
   }
 
-  void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -28,7 +24,11 @@ class _ProductViewedCard extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () => _goToProductDetailsPage(context),
+      onTap: () => Navigator.pushNamed(
+        context,
+        ProductDetailsPage.id,
+        arguments: product,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(

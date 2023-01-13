@@ -17,10 +17,6 @@ class GCROrderCard extends StatelessWidget {
   final int quantity;
   final DateTime date;
 
-  void _goToProductDetailsPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ProductDetailsPage.id, arguments: product);
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -28,7 +24,11 @@ class GCROrderCard extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () => _goToProductDetailsPage(context),
+      onTap: () => Navigator.pushNamed(
+        context,
+        ProductDetailsPage.id,
+        arguments: product,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(

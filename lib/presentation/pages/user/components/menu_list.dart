@@ -25,10 +25,6 @@ class MenuList extends StatelessWidget {
     );
   }
 
-  void _goToForgetPasswordPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ForgetPasswordPage.id);
-  }
-
   void _showSignOutDialog(BuildContext ctx) async {
     final AuthBloc authBloc = ctx.read<AuthBloc>();
 
@@ -96,7 +92,7 @@ class MenuList extends StatelessWidget {
             IconlyLight.unlock,
             color: Colors.grey[600],
           ),
-          onTap: () => _goToForgetPasswordPage(context),
+          onTap: () => Navigator.pushNamed(context, ForgetPasswordPage.id),
         ),
         BlocBuilder<ThemeCubit, ThemeState>(
           builder: (ctx, state) => GCRMenuListTile(
