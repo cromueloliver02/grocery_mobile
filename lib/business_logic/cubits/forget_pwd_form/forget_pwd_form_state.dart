@@ -1,16 +1,16 @@
-part of 'forgot_pwd_form_cubit.dart';
+part of 'forget_pwd_form_cubit.dart';
 
-class ForgotPwdFormState extends Equatable {
+class ForgetPwdFormState extends Equatable {
   final String email;
   final AutovalidateMode autovalidateMode;
 
-  const ForgotPwdFormState({
+  const ForgetPwdFormState({
     required this.email,
     required this.autovalidateMode,
   });
 
-  factory ForgotPwdFormState.initial() {
-    return const ForgotPwdFormState(
+  factory ForgetPwdFormState.initial() {
+    return const ForgetPwdFormState(
       email: '',
       autovalidateMode: AutovalidateMode.disabled,
     );
@@ -21,13 +21,13 @@ class ForgotPwdFormState extends Equatable {
 
   @override
   String toString() =>
-      'ForgotPwdFormState(email: $email, autovalidateMode: $autovalidateMode)';
+      'ForgetPwdFormState(email: $email, autovalidateMode: $autovalidateMode)';
 
-  ForgotPwdFormState copyWith({
+  ForgetPwdFormState copyWith({
     String Function()? email,
     AutovalidateMode Function()? autovalidateMode,
   }) {
-    return ForgotPwdFormState(
+    return ForgetPwdFormState(
       email: email != null ? email() : this.email,
       autovalidateMode:
           autovalidateMode != null ? autovalidateMode() : this.autovalidateMode,

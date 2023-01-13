@@ -69,8 +69,8 @@ class RouteHandler {
         return SignInPage.route(settings);
       case SignUpPage.id:
         return SignUpPage.route(settings);
-      case ForgotPasswordPage.id:
-        return ForgotPasswordPage.route(settings);
+      case ForgetPasswordPage.id:
+        return ForgetPasswordPage.route(settings);
       case NavigationPage.id:
         return NavigationPage.route(
           settings,

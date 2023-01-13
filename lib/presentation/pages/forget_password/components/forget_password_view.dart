@@ -4,10 +4,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
-import './forgot_password_form.dart';
+import 'forget_password_form.dart';
 
-class ForgotPasswordView extends StatelessWidget {
-  const ForgotPasswordView({super.key});
+class ForgetPasswordView extends StatelessWidget {
+  const ForgetPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,13 @@ class ForgotPasswordView extends StatelessWidget {
                       children: [
                         const SizedBox(height: 150),
                         Text(
-                          'Forgot Password',
+                          'Forget Password',
                           style: textTheme.headline1!.copyWith(
                             color: Colors.white,
                           ),
                         ),
                         const SizedBox(height: 15),
-                        const ForgotPasswordForm(),
+                        const ForgetPasswordForm(),
                       ],
                     ),
                   ),

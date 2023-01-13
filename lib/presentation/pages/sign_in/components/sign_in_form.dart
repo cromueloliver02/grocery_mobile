@@ -17,7 +17,7 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _goToForgetPasswordPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ForgotPasswordPage.id);
+    Navigator.pushNamed(ctx, ForgetPasswordPage.id);
   }
 
   @override

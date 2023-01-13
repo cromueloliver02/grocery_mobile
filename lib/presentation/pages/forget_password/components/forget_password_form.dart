@@ -4,19 +4,19 @@ import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
 
-class ForgotPasswordForm extends StatefulWidget {
-  const ForgotPasswordForm({super.key});
+class ForgetPasswordForm extends StatefulWidget {
+  const ForgetPasswordForm({super.key});
 
   @override
-  State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
+  State<ForgetPasswordForm> createState() => _ForgetPasswordFormState();
 }
 
-class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
+class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ForgotPwdFormCubit, ForgotPwdFormState>(
+    return BlocBuilder<ForgetPwdFormCubit, ForgetPwdFormState>(
       builder: (ctx, state) => Form(
         key: _formKey,
         autovalidateMode: state.autovalidateMode,
@@ -29,7 +29,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
                 validator: emailValidator,
-                onChanged: ctx.read<ForgotPwdFormCubit>().changeEmail,
+                onChanged: ctx.read<ForgetPwdFormCubit>().changeEmail,
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -39,7 +39,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   loading: state.status == ForgetPwdStatus.loading,
                   backgroundColor: Colors.white38,
                   onPressed: () => ctx
-                      .read<ForgotPwdFormCubit>()
+                      .read<ForgetPwdFormCubit>()
                       .forgetPassword(ctx, formKey: _formKey),
                 ),
               ),

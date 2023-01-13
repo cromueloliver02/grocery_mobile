@@ -26,7 +26,7 @@ class MenuList extends StatelessWidget {
   }
 
   void _goToForgetPasswordPage(BuildContext ctx) {
-    Navigator.pushNamed(ctx, ForgotPasswordPage.id);
+    Navigator.pushNamed(ctx, ForgetPasswordPage.id);
   }
 
   void _showSignOutDialog(BuildContext ctx) async {

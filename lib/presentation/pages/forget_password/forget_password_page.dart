@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
-import './components/forgot_password_view.dart';
+import 'components/forget_password_view.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
-  static const id = '/forgot-password';
+class ForgetPasswordPage extends StatelessWidget {
+  static const id = '/forget-password';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
@@ -18,16 +18,16 @@ class ForgotPasswordPage extends StatelessWidget {
               authRepository: ctx.read<AuthRepository>(),
             ),
           ),
-          BlocProvider<ForgotPwdFormCubit>(
-            create: (ctx) => ForgotPwdFormCubit(),
+          BlocProvider<ForgetPwdFormCubit>(
+            create: (ctx) => ForgetPwdFormCubit(),
           ),
         ],
-        child: const ForgotPasswordPage(),
+        child: const ForgetPasswordPage(),
       ),
     );
   }
 
-  const ForgotPasswordPage({super.key});
+  const ForgetPasswordPage({super.key});
 
   void _forgetPwdListener(BuildContext ctx, ForgetPwdState state) {
     if (state.status == ForgetPwdStatus.success) {
@@ -53,7 +53,7 @@ class ForgotPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ForgetPwdCubit, ForgetPwdState>(
       listener: _forgetPwdListener,
-      child: const ForgotPasswordView(),
+      child: const ForgetPasswordView(),
     );
   }
 }

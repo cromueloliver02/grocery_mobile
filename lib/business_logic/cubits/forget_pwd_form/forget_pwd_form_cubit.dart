@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 
 import '../cubits.dart';
 
-part 'forgot_pwd_form_state.dart';
+part 'forget_pwd_form_state.dart';
 
-class ForgotPwdFormCubit extends Cubit<ForgotPwdFormState> {
-  ForgotPwdFormCubit() : super(ForgotPwdFormState.initial());
+class ForgetPwdFormCubit extends Cubit<ForgetPwdFormState> {
+  ForgetPwdFormCubit() : super(ForgetPwdFormState.initial());
 
   void forgetPassword(
     BuildContext ctx, {
@@ -14,18 +14,18 @@ class ForgotPwdFormCubit extends Cubit<ForgotPwdFormState> {
   }) {
     FocusScope.of(ctx).unfocus();
 
-    final ForgotPwdFormCubit forgotPwdFormCubit =
-        ctx.read<ForgotPwdFormCubit>();
+    final ForgetPwdFormCubit forgetPwdFormCubit =
+        ctx.read<ForgetPwdFormCubit>();
 
-    forgotPwdFormCubit.enableAutovalidate();
+    forgetPwdFormCubit.enableAutovalidate();
 
     final FormState? form = formKey.currentState;
 
     if (form == null || !form.validate()) return;
 
-    final ForgotPwdFormState forgotPwdFormState = forgotPwdFormCubit.state;
+    final ForgetPwdFormState forgetPwdFormState = forgetPwdFormCubit.state;
 
-    ctx.read<ForgetPwdCubit>().forgetPassword(email: forgotPwdFormState.email);
+    ctx.read<ForgetPwdCubit>().forgetPassword(email: forgetPwdFormState.email);
   }
 
   void changeEmail(String? email) {
