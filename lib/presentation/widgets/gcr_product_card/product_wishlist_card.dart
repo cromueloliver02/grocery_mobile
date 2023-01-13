@@ -8,15 +8,6 @@ class _ProductWishlistCard extends StatelessWidget {
 
   final Product product;
 
-  void _addToCart(BuildContext ctx, Product product) {
-    final String userId = ctx.read<UserBloc>().state.user.id;
-
-    ctx.read<AddCartItemCubit>().addToCart(
-          userId: userId,
-          product: product,
-        );
-  }
-
   void _addOrRemoveWishlist(BuildContext ctx, Product product) {
     ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
   }
@@ -63,7 +54,7 @@ class _ProductWishlistCard extends StatelessWidget {
                             builder: (ctx, state) => GestureDetector(
                               onTap: state.cart.inCart(product.id)
                                   ? null
-                                  : () => _addToCart(context, product),
+                                  : () => addToCart(context, product),
                               child: Icon(
                                 state.cart.inCart(product.id)
                                     ? IconlyBold.bag2

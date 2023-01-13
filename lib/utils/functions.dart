@@ -6,7 +6,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:validators/validators.dart';
 
 import '../data/models/models.dart';
+import '../business_logic/blocs/blocs.dart';
+import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
+
+void addToCart(BuildContext ctx, Product product) {
+  final String userId = ctx.read<UserBloc>().state.user.id;
+
+  ctx.read<AddCartItemCubit>().addToCart(
+        userId: userId,
+        product: product,
+      );
+}
 
 Future<bool?> showWarningDialog(
   BuildContext ctx, {
