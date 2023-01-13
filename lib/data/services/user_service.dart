@@ -60,7 +60,7 @@ class UserService {
       await firestore
           .collection(kUsersCollectionPath)
           .doc(userId)
-          .update({'shipAddress': shipAddress});
+          .update({kShipAddress: shipAddress});
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

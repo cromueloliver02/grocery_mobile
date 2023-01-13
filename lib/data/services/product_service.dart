@@ -60,8 +60,8 @@ class ProductService {
     try {
       final QuerySnapshot productSnap = await firestore
           .collection(kProductsCollectionPath)
-          .where('name', isGreaterThanOrEqualTo: keywords)
-          .where('name', isLessThanOrEqualTo: '$keywords\uf8ff')
+          .where(kName, isGreaterThanOrEqualTo: keywords)
+          .where(kName, isLessThanOrEqualTo: '$keywords\uf8ff')
           .get(); // not case-insensitive yet - I'll look for another solution
 
       return productSnap.docs;

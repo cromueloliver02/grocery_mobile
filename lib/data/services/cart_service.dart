@@ -72,13 +72,13 @@ class CartService {
       final DocumentSnapshot cartDoc = await getCart(userId);
 
       final Map<String, dynamic>? existingCartItemMap =
-          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'))
-              .firstWhereOrNull((d) => d['product'] == cartItem.product.id);
+          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems))
+              .firstWhereOrNull((d) => d[kProduct] == cartItem.product.id);
 
       // cart item does not exist in the cart, add cart item into the cart
       if (existingCartItemMap == null) {
         await cartRef.update({
-          'cartItems': FieldValue.arrayUnion([cartItem.toMap()]),
+          kCartItems: FieldValue.arrayUnion([cartItem.toMap()]),
         });
 
         return cartItem;
@@ -90,7 +90,7 @@ class CartService {
       // reference: https://firebase.google.com/support/releases#firestore-index-name-sort
 
       // else if cart item already exist, increment quantity instead
-      final String productId = existingCartItemMap['product'];
+      final String productId = existingCartItemMap[kProduct];
 
       final DocumentSnapshot productDoc =
           await productService.getProduct(productId);
@@ -102,7 +102,7 @@ class CartService {
 
       // remove existing cart item
       await cartRef.update({
-        'cartItems': FieldValue.arrayRemove([existingCartItem.toMap()]),
+        kCartItems: FieldValue.arrayRemove([existingCartItem.toMap()]),
       });
 
       final CartItem updatedCartItem = existingCartItem.copyWith(
@@ -110,7 +110,7 @@ class CartService {
 
       // replace removed existing cart item but with an increased quantity
       await cartRef.update({
-        'cartItems': FieldValue.arrayUnion([
+        kCartItems: FieldValue.arrayUnion([
           updatedCartItem.toMap(),
         ])
       });
@@ -145,11 +145,11 @@ class CartService {
       final DocumentSnapshot cartDoc = await getCart(userId);
 
       final Map<String, dynamic> cartItemMap =
-          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'))
-              .firstWhere((d) => d['id'] == cartItemId);
+          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems))
+              .firstWhere((d) => d[kId] == cartItemId);
 
       await cartRef.update({
-        'cartItems': FieldValue.arrayRemove([cartItemMap]),
+        kCartItems: FieldValue.arrayRemove([cartItemMap]),
       });
     } on FirebaseException catch (err) {
       throw GCRError(
@@ -181,23 +181,23 @@ class CartService {
       final DocumentSnapshot cartDoc = await cartRef.get();
 
       final cartItemMaps =
-          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
+          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems));
 
       Map<String, dynamic> cartItemMap =
-          cartItemMaps.firstWhere((d) => d['id'] == cartItemId);
+          cartItemMaps.firstWhere((d) => d[kId] == cartItemId);
 
       await cartRef.update({
-        'cartItems': FieldValue.arrayRemove([cartItemMap]),
+        kCartItems: FieldValue.arrayRemove([cartItemMap]),
       });
 
       if (action == CartItemQtyAction.increment) {
-        cartItemMap['quantity'] = cartItemMap['quantity'] + 1;
+        cartItemMap[kQuantity] = cartItemMap[kQuantity] + 1;
       } else {
-        cartItemMap['quantity'] = cartItemMap['quantity'] - 1;
+        cartItemMap[kQuantity] = cartItemMap[kQuantity] - 1;
       }
 
       await cartRef.update({
-        'cartItems': FieldValue.arrayUnion([cartItemMap])
+        kCartItems: FieldValue.arrayUnion([cartItemMap])
       });
     } on FirebaseException catch (err) {
       throw GCRError(
@@ -220,7 +220,7 @@ class CartService {
       final DocumentReference cartRef =
           firestore.collection(kCartsCollectionPath).doc(userId);
 
-      await cartRef.update({'cartItems': []});
+      await cartRef.update({kCartItems: []});
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,
