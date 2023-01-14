@@ -214,6 +214,48 @@ class CartService {
     }
   }
 
+  Future<void> updateCartItemQty({
+    required String userId,
+    required String cartItemId,
+    required int newQuantity,
+  }) async {
+    try {
+      // the id of cart is the same as the user id
+      final DocumentReference cartRef =
+          firestore.collection(kCartsCollectionPath).doc(userId);
+
+      final DocumentSnapshot cartDoc = await cartRef.get();
+
+      final cartItemMaps =
+          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems));
+
+      Map<String, dynamic> cartItemMap =
+          cartItemMaps.firstWhere((d) => d[kId] == cartItemId);
+
+      await cartRef.update({
+        kCartItems: FieldValue.arrayRemove([cartItemMap]),
+      });
+
+      cartItemMap[kQuantity] = newQuantity;
+
+      await cartRef.update({
+        kCartItems: FieldValue.arrayUnion([cartItemMap])
+      });
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
   Future<void> clearCart(String userId) async {
     try {
       // the id of cart is the same as the user id

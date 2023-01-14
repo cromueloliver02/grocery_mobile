@@ -19,6 +19,7 @@ class RouteHandler {
   final RemoveCartItemCubit _removeCartItemCubit;
   final IncrementCartItemCubit _incrementCartItemCubit;
   final DecrementCartItemCubit _decrementCartItemCubit;
+  final UpdateCartItemQtyCubit _updateCartItemQtyCubit;
   final ClearCartCubit _clearCartCubit;
   final NavigationCubit _navigationCubit;
 
@@ -47,6 +48,9 @@ class RouteHandler {
           cartRepository: cartRepository,
         ),
         _decrementCartItemCubit = DecrementCartItemCubit(
+          cartRepository: cartRepository,
+        ),
+        _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
           cartRepository: cartRepository,
         ),
         _clearCartCubit = ClearCartCubit(cartRepository: cartRepository),
@@ -84,6 +88,7 @@ class RouteHandler {
           removeCartItemCubit: _removeCartItemCubit,
           incrementCartItemCubit: _incrementCartItemCubit,
           decrementCartItemCubit: _decrementCartItemCubit,
+          updateCartItemQtyCubit: _updateCartItemQtyCubit,
           clearCartCubit: _clearCartCubit,
           navigationCubit: _navigationCubit,
         );

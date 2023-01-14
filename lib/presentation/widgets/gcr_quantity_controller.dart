@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../business_logic/blocs/blocs.dart';
 import '../../business_logic/cubits/cubits.dart';
 
-class GCRQuantityController extends StatelessWidget {
+class GCRQuantityController extends StatefulWidget {
   const GCRQuantityController({
     super.key,
     required this.qtyController,
@@ -16,28 +16,35 @@ class GCRQuantityController extends StatelessWidget {
   final String cartItemId;
   final int quantity;
 
+  @override
+  State<GCRQuantityController> createState() => _GCRQuantityControllerState();
+}
+
+class _GCRQuantityControllerState extends State<GCRQuantityController> {
+  late final FocusNode _qtyNode;
+
   void _incrementQuantity(BuildContext ctx) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
     ctx.read<IncrementCartItemCubit>().incrementCartItem(
           userId: userId,
-          cartItemId: cartItemId,
+          cartItemId: widget.cartItemId,
         );
   }
 
   void _decrementQuantity(BuildContext ctx) {
-    if (quantity <= 1) return;
+    if (widget.quantity <= 1) return;
 
     final String userId = ctx.read<UserBloc>().state.user.id;
 
     ctx.read<DecrementCartItemCubit>().decrementCartItem(
           userId: userId,
-          cartItemId: cartItemId,
+          cartItemId: widget.cartItemId,
         );
   }
 
   void _onChanged(String value) {
-    if (value.trim().isEmpty) qtyController.text = '1';
+    if (value.trim().isEmpty) widget.qtyController.text = '1';
   }
 
   @override
@@ -67,10 +74,10 @@ class GCRQuantityController extends StatelessWidget {
         SizedBox(
           width: 30,
           child: TextField(
-            controller: qtyController,
+            controller: widget.qtyController,
+            focusNode: _qtyNode,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
-            onChanged: _onChanged,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             ],
@@ -80,6 +87,7 @@ class GCRQuantityController extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.black),
               ),
             ),
+            onChanged: _onChanged,
           ),
         ),
         const SizedBox(width: 10),
@@ -100,5 +108,25 @@ class GCRQuantityController extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _qtyNode = FocusNode();
+
+    _qtyNode.addListener(() {
+      if (!_qtyNode.hasFocus &&
+          widget.quantity != int.parse(widget.qtyController.text)) {
+        final String userId = context.read<UserBloc>().state.user.id;
+
+        context.read<UpdateCartItemQtyCubit>().updateCartItemQty(
+              userId: userId,
+              cartItemId: widget.cartItemId,
+              newQuantity: int.parse(widget.qtyController.text),
+            );
+      }
+    });
   }
 }

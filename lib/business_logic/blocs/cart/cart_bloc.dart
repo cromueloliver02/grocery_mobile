@@ -18,6 +18,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartItemIncremented>(_onCartItemIncremented);
     on<CartItemDecremented>(_onCartItemDecremented);
     on<CartItemRemoved>(_onCartItemRemoved);
+    on<CartItemQtyUpdated>(_onCartItemQtyUpdated);
     on<CartCleared>(_onCartCleared);
     on<CartResetRequested>(_onCartResetRequested);
   }
@@ -69,6 +70,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final List<CartItem> cartItems = state.cart.cartItems
         .map((d) => d.id == event.cartItemId
             ? d.copyWith(quantity: () => d.quantity - 1)
+            : d)
+        .toList();
+
+    emit(state.copyWith(
+      cart: () => state.cart.copyWith(cartItems: () => cartItems),
+    ));
+  }
+
+  void _onCartItemQtyUpdated(
+    CartItemQtyUpdated event,
+    Emitter<CartState> emit,
+  ) async {
+    final List<CartItem> cartItems = state.cart.cartItems
+        .map((d) => d.id == event.cartItemId
+            ? d.copyWith(quantity: () => event.newQuantity)
             : d)
         .toList();
 

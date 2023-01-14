@@ -37,6 +37,8 @@ enum IncrementCartItemStatus { initial, loading, success, failure }
 
 enum DecrementCartItemStatus { initial, loading, success, failure }
 
+enum UpdateCartItemQtyStatus { initial, loading, success, failure }
+
 enum WishlistStatus { initial, loading, success, failure }
 
 enum WishlistFormStatus { initial, loading, success, failure }

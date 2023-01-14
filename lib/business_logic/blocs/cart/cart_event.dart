@@ -51,6 +51,19 @@ class CartItemDecremented extends CartEvent {
   List<Object> get props => [cartItemId];
 }
 
+class CartItemQtyUpdated extends CartEvent {
+  final String cartItemId;
+  final int newQuantity;
+
+  const CartItemQtyUpdated({
+    required this.cartItemId,
+    required this.newQuantity,
+  });
+
+  @override
+  List<Object> get props => [cartItemId, newQuantity];
+}
+
 class CartItemRemoved extends CartEvent {
   final String cartItemId;
 

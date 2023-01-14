@@ -21,6 +21,7 @@ class NavigationPage extends StatefulWidget {
     required RemoveCartItemCubit removeCartItemCubit,
     required IncrementCartItemCubit incrementCartItemCubit,
     required DecrementCartItemCubit decrementCartItemCubit,
+    required UpdateCartItemQtyCubit updateCartItemQtyCubit,
     required ClearCartCubit clearCartCubit,
     required NavigationCubit navigationCubit,
   }) {
@@ -41,6 +42,9 @@ class NavigationPage extends StatefulWidget {
           ),
           BlocProvider<DecrementCartItemCubit>.value(
             value: decrementCartItemCubit,
+          ),
+          BlocProvider<UpdateCartItemQtyCubit>.value(
+            value: updateCartItemQtyCubit,
           ),
           BlocProvider<ClearCartCubit>.value(value: clearCartCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
@@ -117,6 +121,22 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
+  void _updateCartItemQtyCubitListener(
+    BuildContext ctx,
+    UpdateCartItemQtyState state,
+  ) {
+    if (state.status == UpdateCartItemQtyStatus.success) {
+      ctx.read<CartBloc>().add(CartItemQtyUpdated(
+            cartItemId: state.cartItemId,
+            newQuantity: state.newQuantity,
+          ));
+    }
+
+    if (state.status == UpdateCartItemQtyStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   void _clearCartListener(
     BuildContext ctx,
     ClearCartState state,
@@ -145,6 +165,9 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         BlocListener<DecrementCartItemCubit, DecrementCartItemState>(
           listener: _decrementCartItemListener,
+        ),
+        BlocListener<UpdateCartItemQtyCubit, UpdateCartItemQtyState>(
+          listener: _updateCartItemQtyCubitListener,
         ),
         BlocListener<ClearCartCubit, ClearCartState>(
           listener: _clearCartListener,
