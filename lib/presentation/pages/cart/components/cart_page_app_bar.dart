@@ -10,7 +10,7 @@ class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});
 
   void _showClearCartDialog(BuildContext ctx) async {
-    final AuthBloc authBloc = ctx.read<AuthBloc>();
+    final UserBloc userBloc = ctx.read<UserBloc>();
     final ClearCartCubit clearCartCubit = ctx.read<ClearCartCubit>();
 
     final bool? response = await showWarningDialog(
@@ -20,7 +20,7 @@ class CartPageAppBar extends StatelessWidget {
     );
 
     if (response != null && response) {
-      final String userId = authBloc.state.user!.uid;
+      final String userId = userBloc.state.user.id;
 
       clearCartCubit.clearCart(userId);
     }
