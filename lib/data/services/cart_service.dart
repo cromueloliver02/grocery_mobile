@@ -15,27 +15,6 @@ class CartService {
     required this.productService,
   });
 
-  Future<void> createCart(Cart cart) async {
-    try {
-      await firestore
-          .collection(kCartsCollectionPath)
-          .doc(cart.userId)
-          .set(cart.toMap());
-    } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
-    } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
-    }
-  }
-
   Future<DocumentSnapshot> getCart(String userId) async {
     try {
       // the id of cart is the same as the user id
@@ -51,6 +30,27 @@ class CartService {
       );
     } on GCRError {
       rethrow;
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
+  Future<void> createCart(Cart cart) async {
+    try {
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId)
+          .set(cart.toMap());
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
     } catch (err) {
       throw GCRError(
         code: 'Exception',

@@ -27,16 +27,21 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(state.copyWith(status: () => AppStatus.loading));
 
     try {
-      final List<Product> productList = await productRepository.fetchProducts();
-      final List<CartItem> cartItems =
-          await cartRepository.fetchCartItems(event.userId);
-      final User user = await userRepository.fetchUser(userId: event.userId);
+      final List<dynamic> responses = await Future.wait<dynamic>([
+        productRepository.fetchProducts(),
+        userRepository.fetchUser(userId: event.userId),
+        cartRepository.fetchCartItems(event.userId),
+      ]);
+
+      final List<Product> productList = responses[0];
+      final User user = responses[1];
+      final List<CartItem> cartItems = responses[2];
 
       emit(state.copyWith(
         status: () => AppStatus.success,
         productList: () => productList,
-        cart: () => Cart(userId: event.userId, cartItems: cartItems),
         user: () => user,
+        cart: () => Cart(userId: event.userId, cartItems: cartItems),
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

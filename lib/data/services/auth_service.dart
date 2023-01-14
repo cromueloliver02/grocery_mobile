@@ -82,9 +82,10 @@ class AuthService {
         cartItems: <CartItem>[],
       );
 
-      await userService.createUser(newUser);
-
-      await cartService.createCart(cart);
+      await Future.any([
+        userService.createUser(newUser),
+        cartService.createCart(cart),
+      ]);
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

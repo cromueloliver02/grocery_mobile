@@ -2,15 +2,15 @@ part of 'app_bloc.dart';
 
 class AppState extends Equatable {
   final List<Product> productList;
-  final Cart cart;
   final User user;
+  final Cart cart;
   final AppStatus status;
   final GCRError error;
 
   const AppState({
     required this.productList,
-    required this.cart,
     required this.user,
+    required this.cart,
     required this.status,
     required this.error,
   });
@@ -18,32 +18,32 @@ class AppState extends Equatable {
   factory AppState.initial() {
     return AppState(
       productList: const <Product>[],
-      cart: Cart.initial(),
       user: User.initial(),
+      cart: Cart.initial(),
       status: AppStatus.initial,
       error: const GCRError(),
     );
   }
 
   @override
-  List<Object> get props => [productList, cart, status, error];
+  List<Object> get props => [productList, user, cart, status, error];
 
   @override
   String toString() {
-    return 'AppState(productList: $productList, cart: $cart, status: $status, error: $error)';
+    return 'AppState(productList: $productList, user: $user, cart: $cart, status: $status, error: $error)';
   }
 
   AppState copyWith({
     List<Product> Function()? productList,
-    Cart Function()? cart,
     User Function()? user,
+    Cart Function()? cart,
     AppStatus Function()? status,
     GCRError Function()? error,
   }) {
     return AppState(
       productList: productList != null ? productList() : this.productList,
-      cart: cart != null ? cart() : this.cart,
       user: user != null ? user() : this.user,
+      cart: cart != null ? cart() : this.cart,
       status: status != null ? status() : this.status,
       error: error != null ? error() : this.error,
     );
