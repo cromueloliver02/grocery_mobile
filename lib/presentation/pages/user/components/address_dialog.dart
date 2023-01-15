@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 
 class AddressDialog extends StatefulWidget {
@@ -19,11 +20,14 @@ class _AddressDialogState extends State<AddressDialog> {
   late final TextEditingController _addressController;
 
   void _updateShipAddress(BuildContext ctx) {
-    Navigator.pop(ctx);
+    final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx
-        .read<UserBloc>()
-        .add(UserShipAddressUpdated(shipAddress: _addressController.text));
+    ctx.read<UpdateShipAddressCubit>().updateShipAddress(
+          userId: userId,
+          newShipAddress: _addressController.text,
+        );
+
+    Navigator.pop(ctx);
   }
 
   @override

@@ -6,6 +6,7 @@ export './sign_up/sign_up_cubit.dart';
 export './sign_up_form/sign_up_form_cubit.dart';
 export './forget_pwd/forget_pwd_cubit.dart';
 export './forget_pwd_form/forget_pwd_form_cubit.dart';
+export './update_ship_address/update_ship_address_cubit.dart';
 export './add_cart_item/add_cart_item_cubit.dart';
 export './remove_cart_item/remove_cart_item_cubit.dart';
 export './increment_cart_item/increment_cart_item_cubit.dart';

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 import './components/navigation_view.dart';
 
@@ -48,6 +49,11 @@ class NavigationPage extends StatefulWidget {
           ),
           BlocProvider<ClearCartCubit>.value(value: clearCartCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
+          BlocProvider<UpdateShipAddressCubit>(
+            create: (ctx) => UpdateShipAddressCubit(
+              userRepository: ctx.read<UserRepository>(),
+            ),
+          ),
         ],
         child: const NavigationPage(),
       ),
