@@ -16,6 +16,8 @@ enum CartItemQtyAction { increment, decrement }
 
 enum AuthStatus { unknown, unauthenticated, authenticated }
 
+enum CartActionType { initial, addToCart, incrementQty, decrementQty }
+
 // ASYNC
 enum AppStatus { initial, loading, success, failure }
 

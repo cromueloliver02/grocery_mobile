@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
@@ -10,8 +9,8 @@ import '../../blocs/blocs.dart';
 part 'cart_action_state.dart';
 
 class CartActionCubit extends Cubit<CartActionState> {
-  final CartRepository cartRepository;
   final CartBloc cartBloc;
+  final CartRepository cartRepository;
 
   CartActionCubit({
     required this.cartRepository,
@@ -38,12 +37,10 @@ class CartActionCubit extends Cubit<CartActionState> {
 
       cartBloc.add(CartItemAdded(cartItem: newCartItem));
 
-      showToast(
-        'Added to cart',
-        gravity: ToastGravity.BOTTOM,
-      );
-
-      emit(state.copyWith(status: () => CartActionStatus.success));
+      emit(state.copyWith(
+        actionType: () => CartActionType.addToCart,
+        status: () => CartActionStatus.success,
+      ));
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,
@@ -63,7 +60,10 @@ class CartActionCubit extends Cubit<CartActionState> {
     try {
       cartBloc.add(CartItemIncremented(cartItemId: cartItemId));
 
-      emit(state.copyWith(status: () => CartActionStatus.success));
+      emit(state.copyWith(
+        actionType: () => CartActionType.incrementQty,
+        status: () => CartActionStatus.success,
+      ));
 
       await cartRepository.changeCartItemQty(
         userId: userId,
@@ -89,7 +89,10 @@ class CartActionCubit extends Cubit<CartActionState> {
     try {
       cartBloc.add(CartItemDecremented(cartItemId: cartItemId));
 
-      emit(state.copyWith(status: () => CartActionStatus.success));
+      emit(state.copyWith(
+        actionType: () => CartActionType.decrementQty,
+        status: () => CartActionStatus.success,
+      ));
 
       await cartRepository.changeCartItemQty(
         userId: userId,

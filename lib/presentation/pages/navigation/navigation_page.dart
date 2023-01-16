@@ -60,6 +60,14 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
   void _cartActionListener(BuildContext ctx, CartActionState state) {
+    if (state.status == CartActionStatus.success &&
+        state.actionType == CartActionType.addToCart) {
+      showToast(
+        'Added to cart',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
     if (state.status == CartActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
