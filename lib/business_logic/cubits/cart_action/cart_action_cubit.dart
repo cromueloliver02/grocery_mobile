@@ -136,4 +136,26 @@ class CartActionCubit extends Cubit<CartActionState> {
       debugPrint(state.toString());
     }
   }
+
+  void clearCart(String userId) async {
+    emit(state.copyWith(status: () => CartActionStatus.loading));
+
+    try {
+      cartBloc.add(CartCleared());
+
+      emit(state.copyWith(
+        actionType: () => CartActionType.clearCart,
+        status: () => CartActionStatus.success,
+      ));
+
+      await cartRepository.clearCart(userId);
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        status: () => CartActionStatus.failure,
+        error: () => err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
 }

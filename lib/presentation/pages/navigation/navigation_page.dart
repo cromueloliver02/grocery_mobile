@@ -20,7 +20,6 @@ class NavigationPage extends StatefulWidget {
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
     required UpdateCartItemQtyCubit updateCartItemQtyCubit,
-    required ClearCartCubit clearCartCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -37,7 +36,6 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<UpdateCartItemQtyCubit>.value(
             value: updateCartItemQtyCubit,
           ),
-          BlocProvider<ClearCartCubit>.value(value: clearCartCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
           BlocProvider<UpdateShipAddressCubit>(
             create: (ctx) => UpdateShipAddressCubit(
@@ -74,6 +72,14 @@ class _NavigationPageState extends State<NavigationPage> {
       );
     }
 
+    if (state.status == CartActionStatus.success &&
+        state.actionType == CartActionType.clearCart) {
+      showToast(
+        'Cart cleared',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
     if (state.status == CartActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
@@ -95,19 +101,6 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
-  void _clearCartListener(
-    BuildContext ctx,
-    ClearCartState state,
-  ) {
-    if (state.status == ClearCartStatus.success) {
-      ctx.read<CartBloc>().add(CartCleared());
-    }
-
-    if (state.status == ClearCartStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -117,9 +110,6 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         BlocListener<UpdateCartItemQtyCubit, UpdateCartItemQtyState>(
           listener: _updateCartItemQtyCubitListener,
-        ),
-        BlocListener<ClearCartCubit, ClearCartState>(
-          listener: _clearCartListener,
         ),
       ],
       child: NavigationView(),
@@ -140,7 +130,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     // context.read<CartActionCubit>().reset();
-    context.read<ClearCartCubit>().reset();
     context.read<NavigationCubit>().reset();
 
     super.deactivate();

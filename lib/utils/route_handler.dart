@@ -17,7 +17,6 @@ class RouteHandler {
   late ViewedRecentlyBloc _viewedRecentlyBloc;
   late CartActionCubit _cartActionCubit;
   late UpdateCartItemQtyCubit _updateCartItemQtyCubit;
-  late ClearCartCubit _clearCartCubit;
   late NavigationCubit _navigationCubit;
 
   RouteHandler({
@@ -45,7 +44,6 @@ class RouteHandler {
     _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
       cartRepository: cartRepository,
     );
-    _clearCartCubit = ClearCartCubit(cartRepository: cartRepository);
     _navigationCubit = NavigationCubit();
   }
 
@@ -79,7 +77,6 @@ class RouteHandler {
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
           updateCartItemQtyCubit: _updateCartItemQtyCubit,
-          clearCartCubit: _clearCartCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:

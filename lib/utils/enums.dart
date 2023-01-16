@@ -22,6 +22,7 @@ enum CartActionType {
   removeFromCart,
   incrementQty,
   decrementQty,
+  clearCart,
 }
 
 // ASYNC
@@ -36,8 +37,6 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 enum UpdateShipAddressStatus { initial, loading, success, failure }
 
 enum CartActionStatus { initial, loading, success, failure }
-
-enum ClearCartStatus { initial, loading, success, failure }
 
 enum UpdateCartItemQtyStatus { initial, loading, success, failure }
 
