@@ -16,7 +16,6 @@ class RouteHandler {
   late WishlistBloc _wishlistBloc;
   late ViewedRecentlyBloc _viewedRecentlyBloc;
   late CartActionCubit _cartActionCubit;
-  late UpdateCartItemQtyCubit _updateCartItemQtyCubit;
   late NavigationCubit _navigationCubit;
 
   RouteHandler({
@@ -39,9 +38,6 @@ class RouteHandler {
     _viewedRecentlyBloc = ViewedRecentlyBloc();
     _cartActionCubit = CartActionCubit(
       cartBloc: _cartBloc,
-      cartRepository: cartRepository,
-    );
-    _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
       cartRepository: cartRepository,
     );
     _navigationCubit = NavigationCubit();
@@ -76,7 +72,6 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
-          updateCartItemQtyCubit: _updateCartItemQtyCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:

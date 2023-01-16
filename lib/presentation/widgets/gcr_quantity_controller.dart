@@ -121,7 +121,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
           widget.quantity != int.parse(widget.qtyController.text)) {
         final String userId = context.read<UserBloc>().state.user.id;
 
-        context.read<UpdateCartItemQtyCubit>().updateCartItemQty(
+        context.read<CartActionCubit>().updateCartItemQty(
               userId: userId,
               cartItemId: widget.cartItemId,
               newQuantity: int.parse(widget.qtyController.text),

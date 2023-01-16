@@ -22,6 +22,7 @@ enum CartActionType {
   removeFromCart,
   incrementQty,
   decrementQty,
+  updateQty,
   clearCart,
 }
 
@@ -37,8 +38,6 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 enum UpdateShipAddressStatus { initial, loading, success, failure }
 
 enum CartActionStatus { initial, loading, success, failure }
-
-enum UpdateCartItemQtyStatus { initial, loading, success, failure }
 
 enum WishlistStatus { initial, loading, success, failure }
 
