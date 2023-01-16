@@ -2,18 +2,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final UserRepository userRepository;
-
-  UserBloc({
-    required this.userRepository,
-  }) : super(UserState.initial()) {
+  UserBloc() : super(UserState.initial()) {
     on<UserLoaded>(_onUserLoaded);
+    on<UserAddressUpdated>(_onUserAddressUpdated);
     on<UserResetRequested>(_onUserResetRequested);
   }
 
@@ -22,6 +18,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) {
     emit(state.copyWith(user: () => event.user));
+  }
+
+  void _onUserAddressUpdated(
+    UserAddressUpdated event,
+    Emitter<UserState> emit,
+  ) {
+    emit(state.copyWith(
+      user: () => state.user.copyWith(shipAddress: () => event.shipAddress),
+    ));
   }
 
   void _onUserResetRequested(

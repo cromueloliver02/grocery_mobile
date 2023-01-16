@@ -33,7 +33,7 @@ class RouteHandler {
     );
     _productsOnSaleBloc = ProductsOnSaleBloc();
     _cartBloc = CartBloc();
-    _userBloc = UserBloc(userRepository: userRepository);
+    _userBloc = UserBloc();
     _wishlistBloc = WishlistBloc();
     _viewedRecentlyBloc = ViewedRecentlyBloc();
     _cartActionCubit = CartActionCubit(

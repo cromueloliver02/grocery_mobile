@@ -48,6 +48,24 @@ class User extends Equatable {
     return 'User(id: $id, name: $name, email: $email, shipAddress: $shipAddress, wishlist: $wishlist, createdAt: $createdAt)';
   }
 
+  User copyWith({
+    String Function()? id,
+    String Function()? name,
+    String Function()? email,
+    String? Function()? shipAddress,
+    List<Product> Function()? wishlist,
+    DateTime Function()? createdAt,
+  }) {
+    return User(
+      id: id != null ? id() : this.id,
+      name: name != null ? name() : this.name,
+      email: email != null ? email() : this.email,
+      shipAddress: shipAddress != null ? shipAddress() : this.shipAddress,
+      wishlist: wishlist != null ? wishlist() : this.wishlist,
+      createdAt: createdAt != null ? createdAt() : this.createdAt,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
