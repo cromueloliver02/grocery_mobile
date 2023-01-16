@@ -16,7 +16,13 @@ enum CartItemQtyAction { increment, decrement }
 
 enum AuthStatus { unknown, unauthenticated, authenticated }
 
-enum CartActionType { initial, addToCart, incrementQty, decrementQty }
+enum CartActionType {
+  initial,
+  addToCart,
+  removeFromCart,
+  incrementQty,
+  decrementQty,
+}
 
 // ASYNC
 enum AppStatus { initial, loading, success, failure }
@@ -30,8 +36,6 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 enum UpdateShipAddressStatus { initial, loading, success, failure }
 
 enum CartActionStatus { initial, loading, success, failure }
-
-enum RemoveCartItemStatus { initial, loading, success, failure }
 
 enum ClearCartStatus { initial, loading, success, failure }
 

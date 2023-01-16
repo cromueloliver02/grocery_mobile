@@ -16,7 +16,6 @@ class RouteHandler {
   late WishlistBloc _wishlistBloc;
   late ViewedRecentlyBloc _viewedRecentlyBloc;
   late CartActionCubit _cartActionCubit;
-  late RemoveCartItemCubit _removeCartItemCubit;
   late UpdateCartItemQtyCubit _updateCartItemQtyCubit;
   late ClearCartCubit _clearCartCubit;
   late NavigationCubit _navigationCubit;
@@ -43,10 +42,6 @@ class RouteHandler {
       cartBloc: _cartBloc,
       cartRepository: cartRepository,
     );
-    _removeCartItemCubit = RemoveCartItemCubit(
-      cartRepository: cartRepository,
-    );
-
     _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
       cartRepository: cartRepository,
     );
@@ -83,7 +78,6 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
-          removeCartItemCubit: _removeCartItemCubit,
           updateCartItemQtyCubit: _updateCartItemQtyCubit,
           clearCartCubit: _clearCartCubit,
           navigationCubit: _navigationCubit,

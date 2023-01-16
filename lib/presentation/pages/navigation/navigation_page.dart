@@ -19,7 +19,6 @@ class NavigationPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
-    required RemoveCartItemCubit removeCartItemCubit,
     required UpdateCartItemQtyCubit updateCartItemQtyCubit,
     required ClearCartCubit clearCartCubit,
     required NavigationCubit navigationCubit,
@@ -35,7 +34,6 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<CartActionCubit>.value(value: cartActionCubit),
-          BlocProvider<RemoveCartItemCubit>.value(value: removeCartItemCubit),
           BlocProvider<UpdateCartItemQtyCubit>.value(
             value: updateCartItemQtyCubit,
           ),
@@ -68,22 +66,15 @@ class _NavigationPageState extends State<NavigationPage> {
       );
     }
 
-    if (state.status == CartActionStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
-
-  void _removeCartItemListener(BuildContext ctx, RemoveCartItemState state) {
-    if (state.status == RemoveCartItemStatus.success) {
-      ctx.read<CartBloc>().add(CartItemRemoved(cartItemId: state.cartItemId));
-
+    if (state.status == CartActionStatus.success &&
+        state.actionType == CartActionType.removeFromCart) {
       showToast(
         'Removed from cart',
         gravity: ToastGravity.BOTTOM,
       );
     }
 
-    if (state.status == RemoveCartItemStatus.failure) {
+    if (state.status == CartActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -124,9 +115,6 @@ class _NavigationPageState extends State<NavigationPage> {
         BlocListener<CartActionCubit, CartActionState>(
           listener: _cartActionListener,
         ),
-        BlocListener<RemoveCartItemCubit, RemoveCartItemState>(
-          listener: _removeCartItemListener,
-        ),
         BlocListener<UpdateCartItemQtyCubit, UpdateCartItemQtyState>(
           listener: _updateCartItemQtyCubitListener,
         ),
@@ -152,7 +140,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     // context.read<CartActionCubit>().reset();
-    context.read<RemoveCartItemCubit>().reset();
     context.read<ClearCartCubit>().reset();
     context.read<NavigationCubit>().reset();
 

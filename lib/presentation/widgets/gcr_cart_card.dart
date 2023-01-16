@@ -26,8 +26,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
   late final TextEditingController _qtyController;
 
   void _removeCartItem(BuildContext ctx) async {
-    final RemoveCartItemCubit removeCartItemCubit =
-        ctx.read<RemoveCartItemCubit>();
+    final CartActionCubit removeCartItemCubit = ctx.read<CartActionCubit>();
     final String userId = ctx.read<UserBloc>().state.user.id;
 
     final bool? response = await showWarningDialog(

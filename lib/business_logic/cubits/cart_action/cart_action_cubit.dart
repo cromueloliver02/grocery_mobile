@@ -51,6 +51,34 @@ class CartActionCubit extends Cubit<CartActionState> {
     }
   }
 
+  void removeFromCart({
+    required String userId,
+    required String cartItemId,
+  }) async {
+    emit(state.copyWith(status: () => CartActionStatus.loading));
+
+    try {
+      cartBloc.add(CartItemRemoved(cartItemId: cartItemId));
+
+      emit(state.copyWith(
+        actionType: () => CartActionType.removeFromCart,
+        status: () => CartActionStatus.success,
+      ));
+
+      await cartRepository.removeFromCart(
+        userId: userId,
+        cartItemId: cartItemId,
+      );
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        status: () => CartActionStatus.failure,
+        error: () => err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
+
   void incrementCartItem({
     required String userId,
     required String cartItemId,

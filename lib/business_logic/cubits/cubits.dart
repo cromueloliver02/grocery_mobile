@@ -8,7 +8,6 @@ export './forget_pwd/forget_pwd_cubit.dart';
 export './forget_pwd_form/forget_pwd_form_cubit.dart';
 export './update_ship_address/update_ship_address_cubit.dart';
 export './cart_action/cart_action_cubit.dart';
-export './remove_cart_item/remove_cart_item_cubit.dart';
 export './update_cart_item_qty/update_cart_item_qty_cubit.dart';
 export './clear_cart/clear_cart_cubit.dart';
 export './search_product/search_product_cubit.dart';
