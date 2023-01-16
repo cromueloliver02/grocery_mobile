@@ -2,17 +2,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final CartRepository cartRepository;
+  // final CartRepository cartRepository;
 
-  CartBloc({
-    required this.cartRepository,
-  }) : super(CartState.initial()) {
+  CartBloc() : super(CartState.initial()) {
     on<CartLoaded>(_onCartLoaded);
     on<CartItemAdded>(_onCartItemAdded);
     on<CartItemIncremented>(_onCartItemIncremented);
