@@ -35,7 +35,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
           BlocProvider<UpdateShipAddressCubit>(
             create: (ctx) => UpdateShipAddressCubit(
-              userBloc: ctx.read<UserBloc>(),
+              userBloc: userBloc,
               userRepository: ctx.read<UserRepository>(),
             ),
           ),
