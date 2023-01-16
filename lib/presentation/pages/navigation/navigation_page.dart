@@ -18,7 +18,7 @@ class NavigationPage extends StatefulWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
-    required AddCartItemCubit addCartItemCubit,
+    required CartActionCubit cartActionCubit,
     required RemoveCartItemCubit removeCartItemCubit,
     required IncrementCartItemCubit incrementCartItemCubit,
     required DecrementCartItemCubit decrementCartItemCubit,
@@ -36,7 +36,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
           BlocProvider<RemoveCartItemCubit>.value(value: removeCartItemCubit),
           BlocProvider<IncrementCartItemCubit>.value(
             value: incrementCartItemCubit,
@@ -67,17 +67,15 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  void _addCartItemListener(BuildContext ctx, AddCartItemState state) {
-    if (state.status == AddCartItemStatus.success) {
-      ctx.read<CartBloc>().add(CartItemAdded(cartItem: state.cartItem));
-
+  void _addCartItemListener(BuildContext ctx, CartActionState state) {
+    if (state.status == CartActionStatus.success) {
       showToast(
         'Added to cart',
         gravity: ToastGravity.BOTTOM,
       );
     }
 
-    if (state.status == AddCartItemStatus.failure) {
+    if (state.status == CartActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -160,7 +158,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<AddCartItemCubit, AddCartItemState>(
+        BlocListener<CartActionCubit, CartActionState>(
           listener: _addCartItemListener,
         ),
         BlocListener<RemoveCartItemCubit, RemoveCartItemState>(
@@ -196,7 +194,7 @@ class _NavigationPageState extends State<NavigationPage> {
     // reset navigation-page-level states
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
-    context.read<AddCartItemCubit>().reset();
+    // context.read<CartActionCubit>().reset();
     context.read<RemoveCartItemCubit>().reset();
     context.read<IncrementCartItemCubit>().reset();
     context.read<DecrementCartItemCubit>().reset();

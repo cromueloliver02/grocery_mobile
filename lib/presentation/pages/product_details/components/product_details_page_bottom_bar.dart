@@ -72,10 +72,10 @@ class _ProductDetailsPageBottomBarState
                 ),
               ],
             ),
-            BlocBuilder<AddCartItemCubit, AddCartItemState>(
+            BlocBuilder<CartActionCubit, CartActionState>(
               builder: (ctx, state) => GCRButton.elevated(
                 labelText: 'Add To Cart',
-                loading: state.status == AddCartItemStatus.loading,
+                loading: state.status == CartActionStatus.loading,
                 onPressed: () => addToCart(context, widget.product),
               ),
             ),

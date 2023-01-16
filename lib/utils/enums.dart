@@ -27,7 +27,7 @@ enum ForgetPwdStatus { initial, loading, success, failure }
 
 enum UpdateShipAddressStatus { initial, loading, success, failure }
 
-enum AddCartItemStatus { initial, loading, success, failure }
+enum CartActionStatus { initial, loading, success, failure }
 
 enum RemoveCartItemStatus { initial, loading, success, failure }
 

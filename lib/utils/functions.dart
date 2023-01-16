@@ -13,7 +13,7 @@ import '../presentation/widgets/widgets.dart';
 void addToCart(BuildContext ctx, Product product) {
   final String userId = ctx.read<UserBloc>().state.user.id;
 
-  ctx.read<AddCartItemCubit>().addToCart(
+  ctx.read<CartActionCubit>().addToCart(
         userId: userId,
         product: product,
       );

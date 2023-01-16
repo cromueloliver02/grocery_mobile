@@ -14,7 +14,6 @@ class ProductFeedsPage extends StatelessWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
-    required AddCartItemCubit addCartItemCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(

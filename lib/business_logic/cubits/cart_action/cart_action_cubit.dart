@@ -1,25 +1,27 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
+import '../../blocs/blocs.dart';
 
-part 'add_cart_item_state.dart';
+part 'cart_action_state.dart';
 
-class AddCartItemCubit extends Cubit<AddCartItemState> {
+class CartActionCubit extends Cubit<CartActionState> {
   final CartRepository cartRepository;
+  final CartBloc cartBloc;
 
-  AddCartItemCubit({
+  CartActionCubit({
     required this.cartRepository,
-  }) : super(AddCartItemState.initial());
+    required this.cartBloc,
+  }) : super(CartActionState.initial());
 
   void addToCart({
     required String userId,
     required Product product,
   }) async {
-    emit(state.copyWith(status: () => AddCartItemStatus.loading));
+    emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
       final CartItem cartItem = CartItem(
@@ -33,19 +35,16 @@ class AddCartItemCubit extends Cubit<AddCartItemState> {
         cartItem: cartItem,
       );
 
-      emit(state.copyWith(
-        status: () => AddCartItemStatus.success,
-        cartItem: () => newCartItem,
-      ));
+      cartBloc.add(CartItemAdded(cartItem: newCartItem));
+
+      emit(state.copyWith(status: () => CartActionStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: () => AddCartItemStatus.failure,
+        status: () => CartActionStatus.failure,
         error: () => err,
       ));
 
       debugPrint(state.toString());
     }
   }
-
-  void reset() => emit(AddCartItemState.initial());
 }

@@ -8,53 +8,58 @@ import '../presentation/pages/pages.dart';
 
 // generated route access blocs/cubits
 class RouteHandler {
-  final AppBloc _appBloc;
-  final ProductListBloc _productListBloc;
-  final ProductsOnSaleBloc _productsOnSaleBloc;
-  final CartBloc _cartBloc;
-  final UserBloc _userBloc;
-  final WishlistBloc _wishlistBloc;
-  final ViewedRecentlyBloc _viewedRecentlyBloc;
-  final AddCartItemCubit _addCartItemCubit;
-  final RemoveCartItemCubit _removeCartItemCubit;
-  final IncrementCartItemCubit _incrementCartItemCubit;
-  final DecrementCartItemCubit _decrementCartItemCubit;
-  final UpdateCartItemQtyCubit _updateCartItemQtyCubit;
-  final ClearCartCubit _clearCartCubit;
-  final NavigationCubit _navigationCubit;
+  late AppBloc _appBloc;
+  late ProductListBloc _productListBloc;
+  late ProductsOnSaleBloc _productsOnSaleBloc;
+  late CartBloc _cartBloc;
+  late UserBloc _userBloc;
+  late WishlistBloc _wishlistBloc;
+  late ViewedRecentlyBloc _viewedRecentlyBloc;
+  late CartActionCubit _cartActionCubit;
+  late RemoveCartItemCubit _removeCartItemCubit;
+  late IncrementCartItemCubit _incrementCartItemCubit;
+  late DecrementCartItemCubit _decrementCartItemCubit;
+  late UpdateCartItemQtyCubit _updateCartItemQtyCubit;
+  late ClearCartCubit _clearCartCubit;
+  late NavigationCubit _navigationCubit;
 
   RouteHandler({
     required ProductRepository productRepository,
     required CartRepository cartRepository,
     required UserRepository userRepository,
-  })  : _appBloc = AppBloc(
-          productRepository: productRepository,
-          cartRepository: cartRepository,
-          userRepository: userRepository,
-        ),
-        _productListBloc = ProductListBloc(
-          productRepository: productRepository,
-        ),
-        _productsOnSaleBloc = ProductsOnSaleBloc(),
-        _cartBloc = CartBloc(cartRepository: cartRepository),
-        _userBloc = UserBloc(userRepository: userRepository),
-        _wishlistBloc = WishlistBloc(),
-        _viewedRecentlyBloc = ViewedRecentlyBloc(),
-        _addCartItemCubit = AddCartItemCubit(cartRepository: cartRepository),
-        _removeCartItemCubit = RemoveCartItemCubit(
-          cartRepository: cartRepository,
-        ),
-        _incrementCartItemCubit = IncrementCartItemCubit(
-          cartRepository: cartRepository,
-        ),
-        _decrementCartItemCubit = DecrementCartItemCubit(
-          cartRepository: cartRepository,
-        ),
-        _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
-          cartRepository: cartRepository,
-        ),
-        _clearCartCubit = ClearCartCubit(cartRepository: cartRepository),
-        _navigationCubit = NavigationCubit();
+  }) {
+    _appBloc = AppBloc(
+      productRepository: productRepository,
+      cartRepository: cartRepository,
+      userRepository: userRepository,
+    );
+    _productListBloc = ProductListBloc(
+      productRepository: productRepository,
+    );
+    _productsOnSaleBloc = ProductsOnSaleBloc();
+    _cartBloc = CartBloc(cartRepository: cartRepository);
+    _userBloc = UserBloc(userRepository: userRepository);
+    _wishlistBloc = WishlistBloc();
+    _viewedRecentlyBloc = ViewedRecentlyBloc();
+    _cartActionCubit = CartActionCubit(
+      cartBloc: _cartBloc,
+      cartRepository: cartRepository,
+    );
+    _removeCartItemCubit = RemoveCartItemCubit(
+      cartRepository: cartRepository,
+    );
+    _incrementCartItemCubit = IncrementCartItemCubit(
+      cartRepository: cartRepository,
+    );
+    _decrementCartItemCubit = DecrementCartItemCubit(
+      cartRepository: cartRepository,
+    );
+    _updateCartItemQtyCubit = UpdateCartItemQtyCubit(
+      cartRepository: cartRepository,
+    );
+    _clearCartCubit = ClearCartCubit(cartRepository: cartRepository);
+    _navigationCubit = NavigationCubit();
+  }
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -84,7 +89,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
+          cartActionCubit: _cartActionCubit,
           removeCartItemCubit: _removeCartItemCubit,
           incrementCartItemCubit: _incrementCartItemCubit,
           decrementCartItemCubit: _decrementCartItemCubit,
@@ -99,7 +104,6 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
           navigationCubit: _navigationCubit,
         );
       case OnSalePage.id:
@@ -110,7 +114,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
+          cartActionCubit: _cartActionCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductDetailsPage.id:
@@ -120,7 +124,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
+          cartActionCubit: _cartActionCubit,
           navigationCubit: _navigationCubit,
         );
       case CategoryProductsPage.id:
@@ -130,19 +134,10 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
           navigationCubit: _navigationCubit,
         );
       case OrdersPage.id:
-        return OrdersPage.route(
-          settings,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return OrdersPage.route(settings);
       case WishlistPage.id:
         return WishlistPage.route(
           settings,
@@ -150,7 +145,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
+          cartActionCubit: _cartActionCubit,
           navigationCubit: _navigationCubit,
         );
       case ViewedRecentlyPage.id:
@@ -160,7 +155,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
-          addCartItemCubit: _addCartItemCubit,
+          cartActionCubit: _cartActionCubit,
           navigationCubit: _navigationCubit,
         );
     }
@@ -206,7 +201,7 @@ class RouteHandler {
     _userBloc.close();
     _wishlistBloc.close();
     _viewedRecentlyBloc.close();
-    _addCartItemCubit.close();
+    _cartActionCubit.close();
     _navigationCubit.close();
   }
 }

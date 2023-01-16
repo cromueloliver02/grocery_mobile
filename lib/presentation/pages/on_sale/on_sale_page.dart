@@ -14,7 +14,7 @@ class OnSalePage extends StatelessWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
-    required AddCartItemCubit addCartItemCubit,
+    required CartActionCubit cartActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(

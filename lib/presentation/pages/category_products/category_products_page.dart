@@ -13,7 +13,6 @@ class CategoryProductsPage extends StatefulWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
-    required AddCartItemCubit addCartItemCubit,
     required NavigationCubit navigationCubit,
   }) {
     final String category = settings.arguments as String;

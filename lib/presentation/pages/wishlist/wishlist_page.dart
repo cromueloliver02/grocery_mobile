@@ -14,7 +14,7 @@ class WishlistPage extends StatelessWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
-    required AddCartItemCubit addCartItemCubit,
+    required CartActionCubit cartActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -24,7 +24,7 @@ class WishlistPage extends StatelessWidget {
           BlocProvider<CartBloc>.value(value: cartBloc),
           BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<AddCartItemCubit>.value(value: addCartItemCubit),
+          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
         ],
         child: const WishlistPage(),
       ),
