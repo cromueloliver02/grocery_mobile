@@ -26,7 +26,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
   void _incrementQuantity(BuildContext ctx) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<IncrementCartItemCubit>().incrementCartItem(
+    ctx.read<CartActionCubit>().incrementCartItem(
           userId: userId,
           cartItemId: widget.cartItemId,
         );

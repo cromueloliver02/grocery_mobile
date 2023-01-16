@@ -20,7 +20,6 @@ class NavigationPage extends StatefulWidget {
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
     required RemoveCartItemCubit removeCartItemCubit,
-    required IncrementCartItemCubit incrementCartItemCubit,
     required DecrementCartItemCubit decrementCartItemCubit,
     required UpdateCartItemQtyCubit updateCartItemQtyCubit,
     required ClearCartCubit clearCartCubit,
@@ -38,9 +37,6 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<CartActionCubit>.value(value: cartActionCubit),
           BlocProvider<RemoveCartItemCubit>.value(value: removeCartItemCubit),
-          BlocProvider<IncrementCartItemCubit>.value(
-            value: incrementCartItemCubit,
-          ),
           BlocProvider<DecrementCartItemCubit>.value(
             value: decrementCartItemCubit,
           ),
@@ -67,14 +63,7 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  void _addCartItemListener(BuildContext ctx, CartActionState state) {
-    if (state.status == CartActionStatus.success) {
-      showToast(
-        'Added to cart',
-        gravity: ToastGravity.BOTTOM,
-      );
-    }
-
+  void _cartActionListener(BuildContext ctx, CartActionState state) {
     if (state.status == CartActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
@@ -91,21 +80,6 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     if (state.status == RemoveCartItemStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
-
-  void _incrementCartItemListener(
-    BuildContext ctx,
-    IncrementCartItemState state,
-  ) {
-    if (state.status == IncrementCartItemStatus.success) {
-      ctx
-          .read<CartBloc>()
-          .add(CartItemIncremented(cartItemId: state.cartItemId));
-    }
-
-    if (state.status == IncrementCartItemStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -159,13 +133,10 @@ class _NavigationPageState extends State<NavigationPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<CartActionCubit, CartActionState>(
-          listener: _addCartItemListener,
+          listener: _cartActionListener,
         ),
         BlocListener<RemoveCartItemCubit, RemoveCartItemState>(
           listener: _removeCartItemListener,
-        ),
-        BlocListener<IncrementCartItemCubit, IncrementCartItemState>(
-          listener: _incrementCartItemListener,
         ),
         BlocListener<DecrementCartItemCubit, DecrementCartItemState>(
           listener: _decrementCartItemListener,
@@ -196,7 +167,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     // context.read<CartActionCubit>().reset();
     context.read<RemoveCartItemCubit>().reset();
-    context.read<IncrementCartItemCubit>().reset();
     context.read<DecrementCartItemCubit>().reset();
     context.read<ClearCartCubit>().reset();
     context.read<NavigationCubit>().reset();
