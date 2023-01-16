@@ -37,7 +37,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
 
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<DecrementCartItemCubit>().decrementCartItem(
+    ctx.read<CartActionCubit>().decrementCartItem(
           userId: userId,
           cartItemId: widget.cartItemId,
         );

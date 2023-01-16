@@ -20,7 +20,6 @@ class NavigationPage extends StatefulWidget {
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
     required RemoveCartItemCubit removeCartItemCubit,
-    required DecrementCartItemCubit decrementCartItemCubit,
     required UpdateCartItemQtyCubit updateCartItemQtyCubit,
     required ClearCartCubit clearCartCubit,
     required NavigationCubit navigationCubit,
@@ -37,9 +36,6 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<CartActionCubit>.value(value: cartActionCubit),
           BlocProvider<RemoveCartItemCubit>.value(value: removeCartItemCubit),
-          BlocProvider<DecrementCartItemCubit>.value(
-            value: decrementCartItemCubit,
-          ),
           BlocProvider<UpdateCartItemQtyCubit>.value(
             value: updateCartItemQtyCubit,
           ),
@@ -84,21 +80,6 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
-  void _decrementCartItemListener(
-    BuildContext ctx,
-    DecrementCartItemState state,
-  ) {
-    if (state.status == DecrementCartItemStatus.success) {
-      ctx
-          .read<CartBloc>()
-          .add(CartItemDecremented(cartItemId: state.cartItemId));
-    }
-
-    if (state.status == DecrementCartItemStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
-
   void _updateCartItemQtyCubitListener(
     BuildContext ctx,
     UpdateCartItemQtyState state,
@@ -138,9 +119,6 @@ class _NavigationPageState extends State<NavigationPage> {
         BlocListener<RemoveCartItemCubit, RemoveCartItemState>(
           listener: _removeCartItemListener,
         ),
-        BlocListener<DecrementCartItemCubit, DecrementCartItemState>(
-          listener: _decrementCartItemListener,
-        ),
         BlocListener<UpdateCartItemQtyCubit, UpdateCartItemQtyState>(
           listener: _updateCartItemQtyCubitListener,
         ),
@@ -167,7 +145,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     // context.read<CartActionCubit>().reset();
     context.read<RemoveCartItemCubit>().reset();
-    context.read<DecrementCartItemCubit>().reset();
     context.read<ClearCartCubit>().reset();
     context.read<NavigationCubit>().reset();
 
