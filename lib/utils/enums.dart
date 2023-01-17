@@ -3,7 +3,6 @@ enum MeasureUnit { kg, piece }
 enum ProductCardType {
   sale,
   feed,
-  cart,
   wishlist,
   viewed,
 }
@@ -12,9 +11,9 @@ enum ButtonType { elevated, text }
 
 enum GCRPlatform { iOs, android }
 
-enum CartItemQtyAction { increment, decrement }
-
 enum AuthStatus { unknown, unauthenticated, authenticated }
+
+enum CartItemQtyAction { increment, decrement }
 
 enum CartActionType {
   initial,

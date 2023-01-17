@@ -2,17 +2,17 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:uuid/uuid.dart';
 
 // FIREBASE FIRESTORE DOCUMENT PATHS
-const String kId = 'id';
 const String kUsersCollectionPath = 'users';
 const String kProductsCollectionPath = 'products';
 const String kCartsCollectionPath = 'carts';
-const String kName = 'name';
-const String kShipAddress = 'shipAddress';
 
 // FIREBASE FIRESTORE DOCUMENT PROPERTIES
+const String kId = 'id';
+const String kName = 'name';
 const String kCartItems = 'cartItems';
 const String kProduct = 'product';
 const String kQuantity = 'quantity';
+const String kShipAddress = 'shipAddress';
 
 const String googleSigninMethod = 'google.com';
 
