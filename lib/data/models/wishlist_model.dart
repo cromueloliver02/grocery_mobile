@@ -10,4 +10,13 @@ class Wishlist {
   bool inWishlist(String productId) {
     return wishlistItems.any((d) => d.id == productId);
   }
+
+  Wishlist copyWith({
+    List<Product> Function()? wishlistItems,
+  }) {
+    return Wishlist(
+      wishlistItems:
+          wishlistItems != null ? wishlistItems() : this.wishlistItems,
+    );
+  }
 }

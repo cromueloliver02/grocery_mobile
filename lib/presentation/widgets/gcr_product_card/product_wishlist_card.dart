@@ -8,10 +8,6 @@ class _ProductWishlistCard extends StatelessWidget {
 
   final Product product;
 
-  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
-    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -67,7 +63,7 @@ class _ProductWishlistCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 15),
                           GestureDetector(
-                            onTap: () => _addOrRemoveWishlist(context, product),
+                            onTap: () => toggleWishlist(context, product),
                             child: const Icon(
                               IconlyBold.heart,
                               color: Colors.red,

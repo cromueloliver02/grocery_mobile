@@ -10,6 +10,7 @@ const String kCartsCollectionPath = 'carts';
 const String kId = 'id';
 const String kName = 'name';
 const String kCartItems = 'cartItems';
+const String kWishlist = 'wishlist';
 const String kProduct = 'product';
 const String kQuantity = 'quantity';
 const String kShipAddress = 'shipAddress';

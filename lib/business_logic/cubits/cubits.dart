@@ -12,3 +12,4 @@ export './search_product/search_product_cubit.dart';
 export './navigation/navigation_cubit.dart';
 export './theme/theme_cubit.dart';
 export './qty_controller/qty_controller_cubit.dart';
+export './wishlist_action/wishlist_action_cubit.dart';

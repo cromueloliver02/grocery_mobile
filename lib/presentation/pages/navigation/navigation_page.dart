@@ -19,6 +19,7 @@ class NavigationPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
+    required WishlistActionCubit wishlistActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -32,6 +33,7 @@ class NavigationPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<CartActionCubit>.value(value: cartActionCubit),
+          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
           BlocProvider<NavigationCubit>.value(value: navigationCubit),
           BlocProvider<UpdateShipAddressCubit>(
             create: (ctx) => UpdateShipAddressCubit(

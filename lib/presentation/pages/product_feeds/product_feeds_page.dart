@@ -14,6 +14,7 @@ class ProductFeedsPage extends StatelessWidget {
     required UserBloc userBloc,
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
+    required WishlistActionCubit wishlistActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -21,7 +22,9 @@ class ProductFeedsPage extends StatelessWidget {
       builder: (ctx) => MultiBlocProvider(
         providers: [
           BlocProvider<ProductListBloc>.value(value: productListBloc),
+          BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
+          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
           BlocProvider<SearchProductCubit>(
             create: (ctx) => SearchProductCubit(
               productRepository: ctx.read<ProductRepository>(),

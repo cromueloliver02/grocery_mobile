@@ -7,6 +7,7 @@ class RepositoryHandler {
   final ProductRepository productRepository;
   final CartRepository cartRepository;
   final UserRepository userRepository;
+  final WishlistRepository wishlistRepository;
 
   RepositoryHandler()
       : productRepository = ProductRepository(
@@ -18,6 +19,9 @@ class RepositoryHandler {
         ),
         userRepository = UserRepository(
           userService: userService,
+        ),
+        wishlistRepository = WishlistRepository(
+          wishlistService: wishlistService,
         );
 
   List<RepositoryProvider> repositoryProviders() {
@@ -28,6 +32,7 @@ class RepositoryHandler {
       RepositoryProvider<ProductRepository>.value(value: productRepository),
       RepositoryProvider<CartRepository>.value(value: cartRepository),
       RepositoryProvider<UserRepository>.value(value: userRepository),
+      RepositoryProvider<WishlistRepository>.value(value: wishlistRepository),
     ];
   }
 }

@@ -19,6 +19,15 @@ void addToCart(BuildContext ctx, Product product) {
       );
 }
 
+void toggleWishlist(BuildContext ctx, Product product) {
+  final String userId = ctx.read<UserBloc>().state.user.id;
+
+  ctx.read<WishlistActionCubit>().toggleWishlist(
+        userId: userId,
+        product: product,
+      );
+}
+
 Future<bool?> showWarningDialog(
   BuildContext ctx, {
   required String title,

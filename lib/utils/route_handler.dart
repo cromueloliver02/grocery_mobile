@@ -16,12 +16,14 @@ class RouteHandler {
   late WishlistBloc _wishlistBloc;
   late ViewedRecentlyBloc _viewedRecentlyBloc;
   late CartActionCubit _cartActionCubit;
+  late WishlistActionCubit _wishlistActionCubit;
   late NavigationCubit _navigationCubit;
 
   RouteHandler({
     required ProductRepository productRepository,
     required CartRepository cartRepository,
     required UserRepository userRepository,
+    required WishlistRepository wishlistRepository,
   }) {
     _appBloc = AppBloc(
       productRepository: productRepository,
@@ -39,6 +41,10 @@ class RouteHandler {
     _cartActionCubit = CartActionCubit(
       cartBloc: _cartBloc,
       cartRepository: cartRepository,
+    );
+    _wishlistActionCubit = WishlistActionCubit(
+      wishlistBloc: _wishlistBloc,
+      wishlistRepository: wishlistRepository,
     );
     _navigationCubit = NavigationCubit();
   }
@@ -72,6 +78,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
+          wishlistActionCubit: _wishlistActionCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductFeedsPage.id:
@@ -81,6 +88,7 @@ class RouteHandler {
           userBloc: _userBloc,
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
+          wishlistActionCubit: _wishlistActionCubit,
           navigationCubit: _navigationCubit,
         );
       case OnSalePage.id:
@@ -92,6 +100,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
+          wishlistActionCubit: _wishlistActionCubit,
           navigationCubit: _navigationCubit,
         );
       case ProductDetailsPage.id:
@@ -102,6 +111,7 @@ class RouteHandler {
           wishlistBloc: _wishlistBloc,
           viewedRecentlyBloc: _viewedRecentlyBloc,
           cartActionCubit: _cartActionCubit,
+          wishlistActionCubit: _wishlistActionCubit,
           navigationCubit: _navigationCubit,
         );
       case CategoryProductsPage.id:

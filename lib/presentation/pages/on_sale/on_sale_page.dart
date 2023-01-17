@@ -15,6 +15,7 @@ class OnSalePage extends StatelessWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
+    required WishlistActionCubit wishlistActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     return MaterialPageRoute(
@@ -23,7 +24,9 @@ class OnSalePage extends StatelessWidget {
         providers: [
           BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
           BlocProvider<CartBloc>.value(value: cartBloc),
+          BlocProvider<UserBloc>.value(value: userBloc),
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
+          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
         ],
         child: const OnSalePage(),
       ),

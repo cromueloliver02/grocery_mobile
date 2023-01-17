@@ -16,6 +16,7 @@ class ProductDetailsPage extends StatefulWidget {
     required WishlistBloc wishlistBloc,
     required ViewedRecentlyBloc viewedRecentlyBloc,
     required CartActionCubit cartActionCubit,
+    required WishlistActionCubit wishlistActionCubit,
     required NavigationCubit navigationCubit,
   }) {
     final Product product = settings.arguments as Product;
@@ -28,6 +29,7 @@ class ProductDetailsPage extends StatefulWidget {
           BlocProvider<WishlistBloc>.value(value: wishlistBloc),
           BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
           BlocProvider<CartActionCubit>.value(value: cartActionCubit),
+          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
           BlocProvider<QtyControllerCubit>(
             create: (ctx) => QtyControllerCubit(),
             child: ProductDetailsView(product: product),

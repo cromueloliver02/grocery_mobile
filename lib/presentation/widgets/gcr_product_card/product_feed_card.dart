@@ -15,10 +15,6 @@ class _ProductFeedCard extends StatefulWidget {
 class _FeedCardState extends State<_ProductFeedCard> {
   late final TextEditingController _quantityController;
 
-  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
-    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -63,8 +59,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                       ),
                       BlocBuilder<WishlistBloc, WishlistState>(
                         builder: (ctx, state) => GestureDetector(
-                          onTap: () =>
-                              _addOrRemoveWishlist(context, widget.product),
+                          onTap: () => toggleWishlist(context, widget.product),
                           child: Icon(
                             state.wishlist.inWishlist(widget.product.id)
                                 ? IconlyBold.heart

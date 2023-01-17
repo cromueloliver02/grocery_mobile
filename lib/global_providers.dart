@@ -51,6 +51,7 @@ class _GlobalProvidersState extends State<GlobalProviders> {
       productRepository: _repositoryHandler.productRepository,
       cartRepository: _repositoryHandler.cartRepository,
       userRepository: _repositoryHandler.userRepository,
+      wishlistRepository: _repositoryHandler.wishlistRepository,
     );
 
     _themeHandler = ThemeHandler();

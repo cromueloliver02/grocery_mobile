@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../utils/utils.dart';
 
 class ProductInfoSection extends StatelessWidget {
   const ProductInfoSection({
@@ -11,10 +12,6 @@ class ProductInfoSection extends StatelessWidget {
   });
 
   final Product product;
-
-  void _addOrRemoveWishlist(BuildContext ctx, Product product) {
-    ctx.read<WishlistBloc>().add(WishlistAddedOrRemoved(product: product));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class ProductInfoSection extends StatelessWidget {
             ),
             BlocBuilder<WishlistBloc, WishlistState>(
               builder: (ctx, state) => IconButton(
-                onPressed: () => _addOrRemoveWishlist(context, product),
+                onPressed: () => toggleWishlist(context, product),
                 iconSize: 30,
                 color: Colors.red,
                 icon: state.wishlist.inWishlist(product.id)

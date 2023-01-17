@@ -11,7 +11,7 @@ part 'wishlist_state.dart';
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistState.initial()) {
     on<WishlistStarted>(_onWishlistStarted);
-    on<WishlistAddedOrRemoved>(_onWishlistAddedOrRemoved);
+    on<WishlistItemAdded>(_onWishlistItemAdded);
     on<WishlistCleared>(_onWishlistCleared);
     on<WishlistResetRequested>(_onWishlistResetRequested);
   }
@@ -46,52 +46,20 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     }
   }
 
-  void _onWishlistAddedOrRemoved(
-    WishlistAddedOrRemoved event,
+  void _onWishlistItemAdded(
+    WishlistItemAdded event,
     Emitter<WishlistState> emit,
   ) async {
-    emit(state.copyWith(formStatus: () => WishlistFormStatus.loading));
+    final List<Product> wishlistItems = [
+      event.product,
+      ...state.wishlist.wishlistItems,
+    ];
 
-    try {
-      final Product product = event.product;
-
-      final bool isExist =
-          state.wishlist.wishlistItems.any((d) => d.id == product.id);
-
-      if (isExist) {
-        final List<Product> wishlistItems = state.wishlist.wishlistItems
-            .where((d) => d.id != product.id)
-            .toList();
-
-        emit(state.copyWith(
-          wishlist: () => Wishlist(wishlistItems: wishlistItems),
-          formStatus: () => WishlistFormStatus.success,
-        ));
-
-        // DELETE wishlist item
-        await Future.delayed(const Duration(seconds: 3));
-      } else {
-        final List<Product> wishlistItems = [
-          event.product,
-          ...state.wishlist.wishlistItems,
-        ];
-
-        emit(state.copyWith(
-          wishlist: () => Wishlist(wishlistItems: wishlistItems),
-          formStatus: () => WishlistFormStatus.success,
-        ));
-
-        // POST wishlist item
-        await Future.delayed(const Duration(seconds: 3));
-      }
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        formStatus: () => WishlistFormStatus.failure,
-        error: () => err,
-      ));
-
-      debugPrint(state.toString());
-    }
+    emit(state.copyWith(
+      wishlist: () => state.wishlist.copyWith(
+        wishlistItems: () => wishlistItems,
+      ),
+    ));
   }
 
   void _onWishlistCleared(
