@@ -1,33 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {
   static const id = '/wishlist';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required CartActionCubit cartActionCubit,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
-          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
-        ],
-        child: const WishlistPage(),
-      ),
+      builder: (ctx) => const WishlistPage(),
     );
   }
 

@@ -10,34 +10,14 @@ import './components/navigation_view.dart';
 class NavigationPage extends StatefulWidget {
   static const id = '/navigation';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required ProductListBloc productListBloc,
-    required ProductsOnSaleBloc productsOnSaleBloc,
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required CartActionCubit cartActionCubit,
-    required WishlistActionCubit wishlistActionCubit,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
       builder: (ctx) => MultiBlocProvider(
         providers: [
-          BlocProvider<ProductListBloc>.value(value: productListBloc),
-          BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
-          BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
-          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
-          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
-          BlocProvider<NavigationCubit>.value(value: navigationCubit),
           BlocProvider<UpdateShipAddressCubit>(
             create: (ctx) => UpdateShipAddressCubit(
-              userBloc: userBloc,
+              userBloc: ctx.read<UserBloc>(),
               userRepository: ctx.read<UserRepository>(),
             ),
           ),

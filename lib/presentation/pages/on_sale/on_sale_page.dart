@@ -1,35 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../business_logic/blocs/blocs.dart';
-import '../../../business_logic/cubits/cubits.dart';
 import './components/on_sale_view.dart';
 
 class OnSalePage extends StatelessWidget {
   static const id = '/on-sale';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required ProductsOnSaleBloc productsOnSaleBloc,
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required CartActionCubit cartActionCubit,
-    required WishlistActionCubit wishlistActionCubit,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
-          BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
-          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
-        ],
-        child: const OnSalePage(),
-      ),
+      builder: (ctx) => const OnSalePage(),
     );
   }
 

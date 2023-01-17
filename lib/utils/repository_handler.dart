@@ -4,35 +4,24 @@ import '../business_logic/cubits/cubits.dart';
 import '../utils/utils.dart';
 
 class RepositoryHandler {
-  final ProductRepository productRepository;
-  final CartRepository cartRepository;
-  final UserRepository userRepository;
-  final WishlistRepository wishlistRepository;
-
-  RepositoryHandler()
-      : productRepository = ProductRepository(
-          productService: productService,
-        ),
-        cartRepository = CartRepository(
-          cartService: cartService,
-          productService: productService,
-        ),
-        userRepository = UserRepository(
-          userService: userService,
-        ),
-        wishlistRepository = WishlistRepository(
-          wishlistService: wishlistService,
-        );
-
-  List<RepositoryProvider> repositoryProviders() {
-    return [
-      RepositoryProvider<AuthRepository>(
-        create: (ctx) => AuthRepository(authService: authService),
+  final List<RepositoryProvider> repositoryProviders = [
+    RepositoryProvider<AuthRepository>(
+      create: (ctx) => AuthRepository(authService: authService),
+    ),
+    RepositoryProvider<ProductRepository>(
+      create: (ctx) => ProductRepository(productService: productService),
+    ),
+    RepositoryProvider<CartRepository>(
+      create: (ctx) => CartRepository(
+        cartService: cartService,
+        productService: productService,
       ),
-      RepositoryProvider<ProductRepository>.value(value: productRepository),
-      RepositoryProvider<CartRepository>.value(value: cartRepository),
-      RepositoryProvider<UserRepository>.value(value: userRepository),
-      RepositoryProvider<WishlistRepository>.value(value: wishlistRepository),
-    ];
-  }
+    ),
+    RepositoryProvider<UserRepository>(
+      create: (ctx) => UserRepository(userService: userService),
+    ),
+    RepositoryProvider<WishlistRepository>(
+      create: (ctx) => WishlistRepository(wishlistService: wishlistService),
+    ),
+  ];
 }

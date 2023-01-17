@@ -1,67 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../data/repositories/repositories.dart';
-import '../business_logic/blocs/blocs.dart';
-import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
 import '../presentation/pages/pages.dart';
 
 // generated route access blocs/cubits
 class RouteHandler {
-  late AppBloc _appBloc;
-  late ProductListBloc _productListBloc;
-  late ProductsOnSaleBloc _productsOnSaleBloc;
-  late CartBloc _cartBloc;
-  late UserBloc _userBloc;
-  late WishlistBloc _wishlistBloc;
-  late ViewedRecentlyBloc _viewedRecentlyBloc;
-  late CartActionCubit _cartActionCubit;
-  late WishlistActionCubit _wishlistActionCubit;
-  late NavigationCubit _navigationCubit;
-
-  RouteHandler({
-    required ProductRepository productRepository,
-    required CartRepository cartRepository,
-    required UserRepository userRepository,
-    required WishlistRepository wishlistRepository,
-  }) {
-    _appBloc = AppBloc(
-      productRepository: productRepository,
-      cartRepository: cartRepository,
-      userRepository: userRepository,
-    );
-    _productListBloc = ProductListBloc(
-      productRepository: productRepository,
-    );
-    _productsOnSaleBloc = ProductsOnSaleBloc();
-    _cartBloc = CartBloc();
-    _userBloc = UserBloc();
-    _wishlistBloc = WishlistBloc();
-    _viewedRecentlyBloc = ViewedRecentlyBloc();
-    _cartActionCubit = CartActionCubit(
-      cartBloc: _cartBloc,
-      cartRepository: cartRepository,
-    );
-    _wishlistActionCubit = WishlistActionCubit(
-      wishlistBloc: _wishlistBloc,
-      wishlistRepository: wishlistRepository,
-    );
-    _navigationCubit = NavigationCubit();
-  }
-
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case SplashPage.id:
         return SplashPage.route(settings);
       case LoadingPage.id:
-        return LoadingPage.route(
-          settings,
-          appBloc: _appBloc,
-          productListBloc: _productListBloc,
-          productsOnSaleBloc: _productsOnSaleBloc,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-        );
+        return LoadingPage.route(settings);
       case SignInPage.id:
         return SignInPage.route(settings);
       case SignUpPage.id:
@@ -69,82 +18,21 @@ class RouteHandler {
       case ForgetPasswordPage.id:
         return ForgetPasswordPage.route(settings);
       case NavigationPage.id:
-        return NavigationPage.route(
-          settings,
-          productListBloc: _productListBloc,
-          productsOnSaleBloc: _productsOnSaleBloc,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          cartActionCubit: _cartActionCubit,
-          wishlistActionCubit: _wishlistActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return NavigationPage.route(settings);
       case ProductFeedsPage.id:
-        return ProductFeedsPage.route(
-          settings,
-          productListBloc: _productListBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          wishlistActionCubit: _wishlistActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return ProductFeedsPage.route(settings);
       case OnSalePage.id:
-        return OnSalePage.route(
-          settings,
-          productsOnSaleBloc: _productsOnSaleBloc,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          cartActionCubit: _cartActionCubit,
-          wishlistActionCubit: _wishlistActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return OnSalePage.route(settings);
       case ProductDetailsPage.id:
-        return ProductDetailsPage.route(
-          settings,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          cartActionCubit: _cartActionCubit,
-          wishlistActionCubit: _wishlistActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return ProductDetailsPage.route(settings);
       case CategoryProductsPage.id:
-        return CategoryProductsPage.route(
-          settings,
-          productListBloc: _productListBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          navigationCubit: _navigationCubit,
-        );
+        return CategoryProductsPage.route(settings);
       case OrdersPage.id:
         return OrdersPage.route(settings);
       case WishlistPage.id:
-        return WishlistPage.route(
-          settings,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          cartActionCubit: _cartActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return WishlistPage.route(settings);
       case ViewedRecentlyPage.id:
-        return ViewedRecentlyPage.route(
-          settings,
-          cartBloc: _cartBloc,
-          userBloc: _userBloc,
-          wishlistBloc: _wishlistBloc,
-          viewedRecentlyBloc: _viewedRecentlyBloc,
-          cartActionCubit: _cartActionCubit,
-          navigationCubit: _navigationCubit,
-        );
+        return ViewedRecentlyPage.route(settings);
     }
 
     return null;
@@ -178,17 +66,5 @@ class RouteHandler {
         ),
       ),
     );
-  }
-
-  void dispose() {
-    _appBloc.close();
-    _productListBloc.close();
-    _productsOnSaleBloc.close();
-    _cartBloc.close();
-    _userBloc.close();
-    _wishlistBloc.close();
-    _viewedRecentlyBloc.close();
-    _cartActionCubit.close();
-    _navigationCubit.close();
   }
 }

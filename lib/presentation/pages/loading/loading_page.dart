@@ -9,26 +9,10 @@ import './components/loading_view.dart';
 class LoadingPage extends StatefulWidget {
   static const id = '/loading';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required AppBloc appBloc,
-    required ProductListBloc productListBloc,
-    required ProductsOnSaleBloc productsOnSaleBloc,
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<AppBloc>.value(value: appBloc),
-          BlocProvider<ProductListBloc>.value(value: productListBloc),
-          BlocProvider<ProductsOnSaleBloc>.value(value: productsOnSaleBloc),
-          BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
-        ],
-        child: const LoadingPage(),
-      ),
+      builder: (ctx) => const LoadingPage(),
     );
   }
 

@@ -9,32 +9,13 @@ import './components/product_details_view.dart';
 class ProductDetailsPage extends StatefulWidget {
   static const id = '/product-details';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required CartActionCubit cartActionCubit,
-    required WishlistActionCubit wishlistActionCubit,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     final Product product = settings.arguments as Product;
 
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<UserBloc>.value(value: userBloc),
-          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
-          BlocProvider<WishlistActionCubit>.value(value: wishlistActionCubit),
-          BlocProvider<QtyControllerCubit>(
-            create: (ctx) => QtyControllerCubit(),
-            child: ProductDetailsView(product: product),
-          ),
-        ],
+      builder: (ctx) => BlocProvider<QtyControllerCubit>(
+        create: (ctx) => QtyControllerCubit(),
         child: ProductDetailsPage(product: product),
       ),
     );

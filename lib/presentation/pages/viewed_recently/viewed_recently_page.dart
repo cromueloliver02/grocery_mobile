@@ -1,33 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
   static const id = '/viewed-recently';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required CartBloc cartBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required CartActionCubit cartActionCubit,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<CartBloc>.value(value: cartBloc),
-          BlocProvider<UserBloc>.value(value: userBloc),
-          BlocProvider<ViewedRecentlyBloc>.value(value: viewedRecentlyBloc),
-          BlocProvider<CartActionCubit>.value(value: cartActionCubit),
-        ],
-        child: const ViewedRecentlyPage(),
-      ),
+      builder: (ctx) => const ViewedRecentlyPage(),
     );
   }
 

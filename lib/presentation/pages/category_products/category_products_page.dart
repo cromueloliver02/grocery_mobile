@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import '../../../business_logic/cubits/cubits.dart';
 import './components/category_products_view.dart';
 
 class CategoryProductsPage extends StatefulWidget {
   static const id = '/category-products';
 
-  static Route<void> route(
-    RouteSettings settings, {
-    required ProductListBloc productListBloc,
-    required UserBloc userBloc,
-    required WishlistBloc wishlistBloc,
-    required ViewedRecentlyBloc viewedRecentlyBloc,
-    required NavigationCubit navigationCubit,
-  }) {
+  static Route<void> route(RouteSettings settings) {
     final String category = settings.arguments as String;
 
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<ProductListBloc>.value(value: productListBloc),
-          BlocProvider<CategoryProductsBloc>(
-            create: (ctx) => CategoryProductsBloc(
-              productList: ctx.read<ProductListBloc>().state.productList,
-            ),
-          ),
-          BlocProvider<WishlistBloc>.value(value: wishlistBloc),
-        ],
+      builder: (ctx) => BlocProvider<CategoryProductsBloc>(
+        create: (ctx) => CategoryProductsBloc(
+          productList: ctx.read<ProductListBloc>().state.productList,
+        ),
         child: CategoryProductsPage(category: category),
       ),
     );
