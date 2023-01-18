@@ -34,7 +34,7 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
-    if (state.status == ViewedRecentlyFormStatus.failure) {
+    if (state.formStatus == ViewedRecentlyFormStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
