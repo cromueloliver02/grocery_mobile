@@ -119,7 +119,9 @@ class _NavigationPageState extends State<NavigationPage> {
   void initState() {
     super.initState();
 
-    context.read<WishlistBloc>().add(WishlistStarted());
+    final String userId = context.read<UserBloc>().state.user.id;
+
+    context.read<WishlistBloc>().add(WishlistStarted(userId: userId));
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }
 

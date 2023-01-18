@@ -1,5 +1,7 @@
-import '../../../data/services/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../data/services/services.dart';
+import '../../models/models.dart';
 import './base_wishlist_repository.dart';
 
 class WishlistRepository extends BaseWishlistRepository {
@@ -8,6 +10,21 @@ class WishlistRepository extends BaseWishlistRepository {
   WishlistRepository({
     required this.wishlistService,
   });
+
+  @override
+  Future<List<Product>> fetchWishlistItems(String userId) async {
+    try {
+      final List<DocumentSnapshot> productDocs =
+          await wishlistService.fetchWishlistItems(userId);
+
+      final List<Product> wishlistItems =
+          productDocs.map((doc) => Product.fromDoc(doc)).toList();
+
+      return wishlistItems;
+    } catch (err) {
+      rethrow;
+    }
+  }
 
   @override
   Future<void> addToWishlist({

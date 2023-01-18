@@ -3,13 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
 part 'wishlist_event.dart';
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
-  WishlistBloc() : super(WishlistState.initial()) {
+  final WishlistRepository wishlistRepository;
+
+  WishlistBloc({
+    required this.wishlistRepository,
+  }) : super(WishlistState.initial()) {
     on<WishlistStarted>(_onWishlistStarted);
     on<WishlistItemAdded>(_onWishlistItemAdded);
     on<WishlistCleared>(_onWishlistCleared);
@@ -23,18 +28,15 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(status: () => WishlistStatus.loading));
 
     try {
-      // FETCH wishlist products
-      await Future.delayed(const Duration(seconds: 3));
-
-      final List<Product> wishlistItems = [
-        Product.productList[5],
-        Product.productList[7],
-        Product.productList[2],
-      ];
+      // FETCH wishlist items
+      final List<Product> wishlistItems =
+          await wishlistRepository.fetchWishlistItems(event.userId);
 
       emit(state.copyWith(
-        wishlist: () => Wishlist(wishlistItems: wishlistItems),
         status: () => WishlistStatus.success,
+        wishlist: () => state.wishlist.copyWith(
+          wishlistItems: () => wishlistItems,
+        ),
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

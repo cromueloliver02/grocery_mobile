@@ -36,7 +36,9 @@ class BlocHandler {
       create: (ctx) => UserBloc(),
     ),
     BlocProvider<WishlistBloc>(
-      create: (ctx) => WishlistBloc(),
+      create: (ctx) => WishlistBloc(
+        wishlistRepository: ctx.read<WishlistRepository>(),
+      ),
     ),
     BlocProvider<ViewedRecentlyBloc>(
       create: (ctx) => ViewedRecentlyBloc(),
