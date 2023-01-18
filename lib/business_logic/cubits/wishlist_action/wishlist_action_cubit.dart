@@ -86,4 +86,6 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
       debugPrint(state.toString());
     }
   }
+
+  void reset() => emit(WishlistActionState.initial());
 }

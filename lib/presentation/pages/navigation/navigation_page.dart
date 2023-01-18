@@ -139,8 +139,7 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     context.read<CartActionCubit>().reset();
-    // TODO: create reset method for wishlist action cubit
-    // context.read<WishlistActionCubit>().reset();
+    context.read<WishlistActionCubit>().reset();
     context.read<NavigationCubit>().reset();
 
     super.deactivate();
