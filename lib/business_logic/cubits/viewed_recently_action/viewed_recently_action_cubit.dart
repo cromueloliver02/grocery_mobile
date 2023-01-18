@@ -35,4 +35,6 @@ class ViewedRecentlyActionCubit extends Cubit<ViewedRecentlyActionState> {
       logError(state, err);
     }
   }
+
+  void reset() => emit(ViewedRecentlyActionState.initial());
 }
