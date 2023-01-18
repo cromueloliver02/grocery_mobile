@@ -6,24 +6,24 @@ import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
-part 'app_event.dart';
-part 'app_state.dart';
+part 'loading_event.dart';
+part 'loading_state.dart';
 
-class AppBloc extends Bloc<AppEvent, AppState> {
+class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
   final ProductRepository productRepository;
   final CartRepository cartRepository;
   final UserRepository userRepository;
 
-  AppBloc({
+  LoadingBloc({
     required this.productRepository,
     required this.cartRepository,
     required this.userRepository,
-  }) : super(AppState.initial()) {
-    on<AppStarted>(_onAppStarted);
-    on<AppResetRequested>(_onAppResetRequested);
+  }) : super(LoadingState.initial()) {
+    on<LoadingStarted>(_onAppStarted);
+    on<LoadingResetRequested>(_onAppResetRequested);
   }
 
-  void _onAppStarted(AppStarted event, Emitter<AppState> emit) async {
+  void _onAppStarted(LoadingStarted event, Emitter<LoadingState> emit) async {
     emit(state.copyWith(status: () => AppStatus.loading));
 
     try {
@@ -54,9 +54,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   void _onAppResetRequested(
-    AppResetRequested event,
-    Emitter<AppState> emit,
+    LoadingResetRequested event,
+    Emitter<LoadingState> emit,
   ) {
-    emit(AppState.initial());
+    emit(LoadingState.initial());
   }
 }

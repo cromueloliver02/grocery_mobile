@@ -2,7 +2,6 @@ import '../data/repositories/repositories.dart';
 import '../business_logic/blocs/blocs.dart';
 import '../business_logic/cubits/cubits.dart';
 
-// global access blocs/cubits
 class BlocHandler {
   final List<BlocProvider> blocProviders = [
     // GLOBAL ACCESS BLOCS/CUBITS
@@ -15,8 +14,8 @@ class BlocHandler {
       create: (ctx) => ThemeCubit(),
     ),
     // GENERATED ROUTE ACCESS BLOCS/CUBITS
-    BlocProvider<AppBloc>(
-      create: (ctx) => AppBloc(
+    BlocProvider<LoadingBloc>(
+      create: (ctx) => LoadingBloc(
         productRepository: ctx.read<ProductRepository>(),
         cartRepository: ctx.read<CartRepository>(),
         userRepository: ctx.read<UserRepository>(),

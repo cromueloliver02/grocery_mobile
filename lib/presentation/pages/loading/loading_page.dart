@@ -23,7 +23,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  void _initializeApp(BuildContext ctx, AppState state) {
+  void _initializeApp(BuildContext ctx, LoadingState state) {
     final ProductListBloc productListBloc = ctx.read<ProductListBloc>();
     final ProductsOnSaleBloc productsOnSaleBloc =
         ctx.read<ProductsOnSaleBloc>();
@@ -41,7 +41,7 @@ class _LoadingPageState extends State<LoadingPage> {
     userBloc.add(UserLoaded(user: state.user));
   }
 
-  void _appListener(BuildContext ctx, AppState state) {
+  void _appListener(BuildContext ctx, LoadingState state) {
     if (state.status == AppStatus.success) {
       _initializeApp(ctx, state);
 
@@ -55,7 +55,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppBloc, AppState>(
+    return BlocListener<LoadingBloc, LoadingState>(
       listener: _appListener,
       child: const LoadingView(),
     );
@@ -68,13 +68,13 @@ class _LoadingPageState extends State<LoadingPage> {
     final String userId = context.read<AuthBloc>().state.user!.uid;
 
     // start initialiazing app/fetch initial data
-    context.read<AppBloc>().add(AppStarted(userId: userId));
+    context.read<LoadingBloc>().add(LoadingStarted(userId: userId));
   }
 
   @override
   void deactivate() {
     // reset loading-page-level states
-    context.read<AppBloc>().add(AppResetRequested());
+    context.read<LoadingBloc>().add(LoadingResetRequested());
     context.read<ProductListBloc>().add(ProductListResetRequested());
     context.read<ProductsOnSaleBloc>().add(ProductsOnSaleResetRequested());
     context.read<CartBloc>().add(CartResetRequested());
