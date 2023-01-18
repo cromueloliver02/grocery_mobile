@@ -23,4 +23,19 @@ class WishlistRepository extends BaseWishlistRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> removeFromWishlist({
+    required String userId,
+    required String productId,
+  }) async {
+    try {
+      return await wishlistService.removeFromWishlist(
+        userId: userId,
+        productId: productId,
+      );
+    } catch (err) {
+      rethrow;
+    }
+  }
 }

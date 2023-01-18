@@ -35,4 +35,30 @@ class WishlistService {
       );
     }
   }
+
+  Future<void> removeFromWishlist({
+    required String userId,
+    required String productId,
+  }) async {
+    try {
+      final DocumentReference userRef =
+          firestore.collection(kUsersCollectionPath).doc(userId);
+
+      await userRef.update({
+        kWishlist: FieldValue.arrayRemove([productId]),
+      });
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
 }

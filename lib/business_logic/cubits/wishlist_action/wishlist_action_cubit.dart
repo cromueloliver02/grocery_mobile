@@ -29,11 +29,15 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
 
       if (isExist) {
         emit(state.copyWith(
+          actionType: () => WishlistActionType.remove,
           status: () => WishlistActionStatus.success,
         ));
 
         // DELETE wishlist item
-        await Future.delayed(const Duration(seconds: 3));
+        await wishlistRepository.removeFromWishlist(
+          userId: userId,
+          productId: product.id,
+        );
       } else {
         wishlistBloc.add(WishlistItemAdded(product: product));
 
@@ -43,7 +47,6 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
         ));
 
         // POST wishlist item
-        // await Future.delayed(const Duration(seconds: 3));
         await wishlistRepository.addToWishlist(
           userId: userId,
           productId: product.id,
