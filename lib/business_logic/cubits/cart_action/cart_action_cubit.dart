@@ -191,11 +191,5 @@ class CartActionCubit extends Cubit<CartActionState> {
     }
   }
 
-  void reset() {
-    emit(state.copyWith(
-      actionType: () => CartActionType.initial,
-      status: () => CartActionStatus.initial,
-      error: () => const GCRError(),
-    ));
-  }
+  void reset() => emit(CartActionState.initial());
 }
