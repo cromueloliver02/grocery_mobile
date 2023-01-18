@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
@@ -60,7 +59,7 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 
@@ -83,7 +82,7 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 

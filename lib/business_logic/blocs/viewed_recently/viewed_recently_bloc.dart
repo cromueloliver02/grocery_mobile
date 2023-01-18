@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -42,7 +41,7 @@ class ViewedRecentlyBloc
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 
@@ -69,7 +68,7 @@ class ViewedRecentlyBloc
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 

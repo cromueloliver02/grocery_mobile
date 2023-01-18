@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -45,7 +44,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 

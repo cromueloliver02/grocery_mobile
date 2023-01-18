@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:logger/logger.dart';
 import 'package:validators/validators.dart';
 
 import '../data/models/models.dart';
@@ -26,6 +27,12 @@ void toggleWishlist(BuildContext ctx, Product product) {
         userId: userId,
         product: product,
       );
+}
+
+void logError(Object state, GCRError error) {
+  final Logger logger = Logger();
+
+  logger.w('ERROR: $state', error);
 }
 
 Future<bool?> showWarningDialog(

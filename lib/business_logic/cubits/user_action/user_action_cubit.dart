@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
@@ -38,7 +37,7 @@ class UserActionCubit extends Cubit<UserActionState> {
         error: () => err,
       ));
 
-      debugPrint(state.toString());
+      logError(state, err);
     }
   }
 }
