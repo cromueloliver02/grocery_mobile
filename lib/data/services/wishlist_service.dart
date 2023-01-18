@@ -36,6 +36,12 @@ class WishlistService {
         message: err.message!,
         plugin: err.plugin,
       );
+    } on GCRError catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message,
+        plugin: err.plugin,
+      );
     } catch (err) {
       throw GCRError(
         code: 'Exception',
@@ -82,6 +88,27 @@ class WishlistService {
       await userRef.update({
         kWishlist: FieldValue.arrayRemove([productId]),
       });
+    } on FirebaseException catch (err) {
+      throw GCRError(
+        code: err.code,
+        message: err.message!,
+        plugin: err.plugin,
+      );
+    } catch (err) {
+      throw GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
+  Future<void> clearWishlist(String userId) async {
+    try {
+      final DocumentReference userRef =
+          firestore.collection(kUsersCollectionPath).doc(userId);
+
+      await userRef.update({kWishlist: []});
     } on FirebaseException catch (err) {
       throw GCRError(
         code: err.code,

@@ -55,4 +55,13 @@ class WishlistRepository extends BaseWishlistRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> clearWishlist(String userId) async {
+    try {
+      return await wishlistService.clearWishlist(userId);
+    } catch (err) {
+      rethrow;
+    }
+  }
 }

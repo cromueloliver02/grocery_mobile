@@ -12,4 +12,6 @@ abstract class BaseWishlistRepository {
     required String userId,
     required String productId,
   });
+
+  Future<void> clearWishlist(String userId);
 }

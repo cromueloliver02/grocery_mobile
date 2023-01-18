@@ -83,24 +83,10 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   void _onWishlistCleared(
     WishlistCleared event,
     Emitter<WishlistState> emit,
-  ) async {
-    emit(state.copyWith(formStatus: () => WishlistFormStatus.loading));
-
-    try {
-      emit(state.copyWith(
-        formStatus: () => WishlistFormStatus.success,
-        wishlist: () => Wishlist(wishlistItems: []),
-      ));
-
-      await Future.delayed(const Duration(seconds: 3)); // CLEAR wishlist
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        formStatus: () => WishlistFormStatus.failure,
-        error: () => err,
-      ));
-
-      debugPrint(state.toString());
-    }
+  ) {
+    emit(state.copyWith(
+      wishlist: () => Wishlist(wishlistItems: []),
+    ));
   }
 
   void _onWishlistResetRequested(

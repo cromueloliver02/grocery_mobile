@@ -63,4 +63,27 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
       debugPrint(state.toString());
     }
   }
+
+  void clearWishlist(String userId) async {
+    emit(state.copyWith(status: () => WishlistActionStatus.loading));
+
+    try {
+      wishlistBloc.add(WishlistCleared());
+
+      emit(state.copyWith(
+        status: () => WishlistActionStatus.success,
+        actionType: () => WishlistActionType.clear,
+      ));
+
+      // CLEAR wishlist items
+      await wishlistRepository.clearWishlist(userId);
+    } on GCRError catch (err) {
+      emit(state.copyWith(
+        status: () => WishlistActionStatus.failure,
+        error: () => err,
+      ));
+
+      debugPrint(state.toString());
+    }
+  }
 }

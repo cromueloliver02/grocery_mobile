@@ -25,7 +25,7 @@ enum CartActionType {
   clearCart,
 }
 
-enum WishlistActionType { initial, add, remove }
+enum WishlistActionType { initial, add, remove, clear }
 
 // ASYNC
 enum LoadingStatus { initial, loading, success, failure }
@@ -41,9 +41,6 @@ enum UpdateShipAddressStatus { initial, loading, success, failure }
 enum CartActionStatus { initial, loading, success, failure }
 
 enum WishlistStatus { initial, loading, success, failure }
-
-// TODO: to be deleted
-enum WishlistFormStatus { initial, loading, success, failure }
 
 enum WishlistActionStatus { initial, loading, success, failure }
 

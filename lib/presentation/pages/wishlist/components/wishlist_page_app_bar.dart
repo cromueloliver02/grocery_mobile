@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
+import '../../../../business_logic/cubits/cubits.dart';
 import '../../../../utils/utils.dart';
 
 class WishlistPageAppBar extends StatelessWidget {
   const WishlistPageAppBar({super.key});
 
   void _showClearWishlistDialog(BuildContext ctx) async {
-    final WishlistBloc wishlistBloc = ctx.read<WishlistBloc>();
+    final UserBloc userBloc = ctx.read<UserBloc>();
+    final WishlistActionCubit wishlistActionCubit =
+        ctx.read<WishlistActionCubit>();
 
     final bool? response = await showWarningDialog(
       ctx,
@@ -17,7 +20,9 @@ class WishlistPageAppBar extends StatelessWidget {
     );
 
     if (response != null && response) {
-      wishlistBloc.add(WishlistCleared());
+      final String userId = userBloc.state.user.id;
+
+      wishlistActionCubit.clearWishlist(userId);
     }
   }
 

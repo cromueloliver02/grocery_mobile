@@ -89,6 +89,14 @@ class _NavigationPageState extends State<NavigationPage> {
       );
     }
 
+    if (state.status == WishlistActionStatus.success &&
+        state.actionType == WishlistActionType.clear) {
+      showToast(
+        'Wishlist cleared successfully',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
     if (state.status == WishlistActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
