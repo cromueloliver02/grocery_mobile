@@ -73,8 +73,21 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   void _wishlistActionListener(BuildContext ctx, WishlistActionState state) {
-    // TODO: apply toast message when successfully added to wishlist
-    // TODO: apply toast message when successfully removed from wishlist
+    if (state.status == WishlistActionStatus.success &&
+        state.actionType == WishlistActionType.add) {
+      showToast(
+        'Wishlist successfully added',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
+    if (state.status == WishlistActionStatus.success &&
+        state.actionType == WishlistActionType.remove) {
+      showToast(
+        'Wishlist successfully removed',
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
 
     if (state.status == WishlistActionStatus.failure) {
       showErrorDialog(ctx, state.error);
