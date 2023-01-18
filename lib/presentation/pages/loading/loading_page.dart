@@ -41,7 +41,7 @@ class _LoadingPageState extends State<LoadingPage> {
     userBloc.add(UserLoaded(user: state.user));
   }
 
-  void _appListener(BuildContext ctx, LoadingState state) {
+  void _loadingListener(BuildContext ctx, LoadingState state) {
     if (state.status == LoadingStatus.success) {
       _initializeApp(ctx, state);
 
@@ -56,7 +56,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoadingBloc, LoadingState>(
-      listener: _appListener,
+      listener: _loadingListener,
       child: const LoadingView(),
     );
   }
