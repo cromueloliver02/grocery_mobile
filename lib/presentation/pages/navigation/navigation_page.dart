@@ -30,6 +30,18 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
+  void _wishlistListener(BuildContext ctx, WishlistState state) {
+    if (state.status == WishlistStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
+  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
+    if (state.status == ViewedRecentlyStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   void _cartActionListener(BuildContext ctx, CartActionState state) {
     if (state.status == CartActionStatus.success &&
         state.actionType == CartActionType.addToCart) {
@@ -60,14 +72,11 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
-  void _wishlistListener(BuildContext ctx, WishlistState state) {
-    if (state.status == WishlistStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
+  void _wishlistActionListener(BuildContext ctx, WishlistActionState state) {
+    // TODO: apply toast message when successfully added to wishlist
+    // TODO: apply toast message when successfully removed from wishlist
 
-  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
-    if (state.status == ViewedRecentlyStatus.failure) {
+    if (state.status == WishlistActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -76,14 +85,17 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<CartActionCubit, CartActionState>(
-          listener: _cartActionListener,
-        ),
         BlocListener<WishlistBloc, WishlistState>(
           listener: _wishlistListener,
         ),
         BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
           listener: _viewedRecentlyListener,
+        ),
+        BlocListener<CartActionCubit, CartActionState>(
+          listener: _cartActionListener,
+        ),
+        BlocListener<WishlistActionCubit, WishlistActionState>(
+          listener: _wishlistActionListener,
         ),
       ],
       child: NavigationView(),
@@ -104,6 +116,8 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     context.read<CartActionCubit>().reset();
+    // TODO: create reset method for wishlist action cubit
+    // context.read<WishlistActionCubit>().reset();
     context.read<NavigationCubit>().reset();
 
     super.deactivate();
