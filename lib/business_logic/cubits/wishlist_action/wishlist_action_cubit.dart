@@ -28,6 +28,8 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
           .any((d) => d.id == product.id);
 
       if (isExist) {
+        wishlistBloc.add(WishlistItemRemoved(productId: product.id));
+
         emit(state.copyWith(
           actionType: () => WishlistActionType.remove,
           status: () => WishlistActionStatus.success,

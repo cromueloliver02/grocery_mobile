@@ -17,6 +17,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   }) : super(WishlistState.initial()) {
     on<WishlistStarted>(_onWishlistStarted);
     on<WishlistItemAdded>(_onWishlistItemAdded);
+    on<WishlistItemRemoved>(_onWishlistItemRemoved);
     on<WishlistCleared>(_onWishlistCleared);
     on<WishlistResetRequested>(_onWishlistResetRequested);
   }
@@ -56,6 +57,21 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       event.product,
       ...state.wishlist.wishlistItems,
     ];
+
+    emit(state.copyWith(
+      wishlist: () => state.wishlist.copyWith(
+        wishlistItems: () => wishlistItems,
+      ),
+    ));
+  }
+
+  void _onWishlistItemRemoved(
+    WishlistItemRemoved event,
+    Emitter<WishlistState> emit,
+  ) async {
+    final List<Product> wishlistItems = state.wishlist.wishlistItems
+        .where((d) => d.id != event.productId)
+        .toList();
 
     emit(state.copyWith(
       wishlist: () => state.wishlist.copyWith(
