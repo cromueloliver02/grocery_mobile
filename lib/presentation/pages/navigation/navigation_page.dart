@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
-import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 import './components/navigation_view.dart';
 
@@ -13,15 +13,11 @@ class NavigationPage extends StatefulWidget {
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => MultiBlocProvider(
-        providers: [
-          BlocProvider<UpdateShipAddressCubit>(
-            create: (ctx) => UpdateShipAddressCubit(
-              userBloc: ctx.read<UserBloc>(),
-              userRepository: ctx.read<UserRepository>(),
-            ),
-          ),
-        ],
+      builder: (ctx) => BlocProvider<UpdateShipAddressCubit>(
+        create: (ctx) => UpdateShipAddressCubit(
+          userBloc: ctx.read<UserBloc>(),
+          userRepository: ctx.read<UserRepository>(),
+        ),
         child: const NavigationPage(),
       ),
     );
@@ -64,10 +60,23 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
+  void _wishlistListener(BuildContext ctx, WishlistState state) {
+    if (state.formStatus == WishlistFormStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CartActionCubit, CartActionState>(
-      listener: _cartActionListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CartActionCubit, CartActionState>(
+          listener: _cartActionListener,
+        ),
+        BlocListener<WishlistBloc, WishlistState>(
+          listener: _wishlistListener,
+        ),
+      ],
       child: NavigationView(),
     );
   }
