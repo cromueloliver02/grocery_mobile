@@ -6,22 +6,22 @@ import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../utils/utils.dart';
 
-part 'update_ship_address_state.dart';
+part 'user_action_state.dart';
 
-class UpdateShipAddressCubit extends Cubit<UpdateShipAddressState> {
+class UserActionCubit extends Cubit<UserActionState> {
   final UserBloc userBloc;
   final UserRepository userRepository;
 
-  UpdateShipAddressCubit({
+  UserActionCubit({
     required this.userBloc,
     required this.userRepository,
-  }) : super(UpdateShipAddressState.initial());
+  }) : super(UserActionState.initial());
 
   void updateShipAddress({
     required String userId,
     required String newShipAddress,
   }) async {
-    emit(state.copyWith(status: () => UpdateShipAddressStatus.loading));
+    emit(state.copyWith(status: () => UserActionStatus.loading));
 
     userBloc.add(UserAddressUpdated(shipAddress: newShipAddress));
 
@@ -31,10 +31,10 @@ class UpdateShipAddressCubit extends Cubit<UpdateShipAddressState> {
         shipAddress: newShipAddress,
       );
 
-      emit(state.copyWith(status: () => UpdateShipAddressStatus.success));
+      emit(state.copyWith(status: () => UserActionStatus.success));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: () => UpdateShipAddressStatus.failure,
+        status: () => UserActionStatus.failure,
         error: () => err,
       ));
 

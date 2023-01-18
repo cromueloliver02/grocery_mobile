@@ -22,7 +22,7 @@ class _AddressDialogState extends State<AddressDialog> {
   void _updateShipAddress(BuildContext ctx) {
     final String userId = ctx.read<UserBloc>().state.user.id;
 
-    ctx.read<UpdateShipAddressCubit>().updateShipAddress(
+    ctx.read<UserActionCubit>().updateShipAddress(
           userId: userId,
           newShipAddress: _addressController.text,
         );

@@ -36,7 +36,7 @@ enum SignupStatus { initial, loading, success, failure }
 
 enum ForgetPwdStatus { initial, loading, success, failure }
 
-enum UpdateShipAddressStatus { initial, loading, success, failure }
+enum UserActionStatus { initial, loading, success, failure }
 
 enum CartActionStatus { initial, loading, success, failure }
 

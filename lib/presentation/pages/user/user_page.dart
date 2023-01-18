@@ -8,26 +8,26 @@ import './components/user_view.dart';
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
-  void _updateShipAddressListener(
+  void _userActionListener(
     BuildContext ctx,
-    UpdateShipAddressState state,
+    UserActionState state,
   ) {
-    if (state.status == UpdateShipAddressStatus.success) {
+    if (state.status == UserActionStatus.success) {
       showToast(
         'Successfully updated',
         gravity: ToastGravity.BOTTOM,
       );
     }
 
-    if (state.status == UpdateShipAddressStatus.failure) {
+    if (state.status == UserActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UpdateShipAddressCubit, UpdateShipAddressState>(
-      listener: _updateShipAddressListener,
+    return BlocListener<UserActionCubit, UserActionState>(
+      listener: _userActionListener,
       child: const UserView(),
     );
   }

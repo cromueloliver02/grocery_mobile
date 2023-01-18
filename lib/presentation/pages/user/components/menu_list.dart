@@ -21,8 +21,8 @@ class MenuList extends StatelessWidget {
       builder: (context) => MultiBlocProvider(
         providers: [
           BlocProvider<UserBloc>.value(value: ctx.read<UserBloc>()),
-          BlocProvider<UpdateShipAddressCubit>.value(
-            value: ctx.read<UpdateShipAddressCubit>(),
+          BlocProvider<UserActionCubit>.value(
+            value: ctx.read<UserActionCubit>(),
           ),
         ],
         child: AddressDialog(initialValue: initialValue),

@@ -13,8 +13,8 @@ class NavigationPage extends StatefulWidget {
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => BlocProvider<UpdateShipAddressCubit>(
-        create: (ctx) => UpdateShipAddressCubit(
+      builder: (ctx) => BlocProvider<UserActionCubit>(
+        create: (ctx) => UserActionCubit(
           userBloc: ctx.read<UserBloc>(),
           userRepository: ctx.read<UserRepository>(),
         ),
