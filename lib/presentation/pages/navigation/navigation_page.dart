@@ -61,7 +61,13 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   void _wishlistListener(BuildContext ctx, WishlistState state) {
-    if (state.formStatus == WishlistFormStatus.failure) {
+    if (state.status == WishlistStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
+  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
+    if (state.status == ViewedRecentlyStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
@@ -75,6 +81,9 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         BlocListener<WishlistBloc, WishlistState>(
           listener: _wishlistListener,
+        ),
+        BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
+          listener: _viewedRecentlyListener,
         ),
       ],
       child: NavigationView(),
