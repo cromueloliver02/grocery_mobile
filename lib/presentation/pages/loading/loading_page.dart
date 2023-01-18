@@ -42,13 +42,13 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void _appListener(BuildContext ctx, LoadingState state) {
-    if (state.status == AppStatus.success) {
+    if (state.status == LoadingStatus.success) {
       _initializeApp(ctx, state);
 
       Navigator.pushNamed(ctx, NavigationPage.id);
     }
 
-    if (state.status == AppStatus.failure) {
+    if (state.status == LoadingStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }

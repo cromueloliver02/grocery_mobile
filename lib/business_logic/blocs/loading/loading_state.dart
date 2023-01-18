@@ -4,7 +4,7 @@ class LoadingState extends Equatable {
   final List<Product> productList;
   final User user;
   final Cart cart;
-  final AppStatus status;
+  final LoadingStatus status;
   final GCRError error;
 
   const LoadingState({
@@ -20,7 +20,7 @@ class LoadingState extends Equatable {
       productList: const <Product>[],
       user: User.initial(),
       cart: Cart.initial(),
-      status: AppStatus.initial,
+      status: LoadingStatus.initial,
       error: const GCRError(),
     );
   }
@@ -37,7 +37,7 @@ class LoadingState extends Equatable {
     List<Product> Function()? productList,
     User Function()? user,
     Cart Function()? cart,
-    AppStatus Function()? status,
+    LoadingStatus Function()? status,
     GCRError Function()? error,
   }) {
     return LoadingState(

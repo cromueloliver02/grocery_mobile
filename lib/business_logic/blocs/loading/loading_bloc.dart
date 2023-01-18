@@ -24,7 +24,7 @@ class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
   }
 
   void _onAppStarted(LoadingStarted event, Emitter<LoadingState> emit) async {
-    emit(state.copyWith(status: () => AppStatus.loading));
+    emit(state.copyWith(status: () => LoadingStatus.loading));
 
     try {
       final List<dynamic> responses = await Future.wait<dynamic>([
@@ -38,14 +38,14 @@ class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
       final List<CartItem> cartItems = responses[2];
 
       emit(state.copyWith(
-        status: () => AppStatus.success,
+        status: () => LoadingStatus.success,
         productList: () => productList,
         user: () => user,
         cart: () => Cart(userId: event.userId, cartItems: cartItems),
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(
-        status: () => AppStatus.failure,
+        status: () => LoadingStatus.failure,
         error: () => err,
       ));
 

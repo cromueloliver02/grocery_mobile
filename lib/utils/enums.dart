@@ -28,7 +28,7 @@ enum CartActionType {
 enum WishlistActionType { initial, add, remove }
 
 // ASYNC
-enum AppStatus { initial, loading, success, failure }
+enum LoadingStatus { initial, loading, success, failure }
 
 enum SigninStatus { initial, loading, success, failure }
 
