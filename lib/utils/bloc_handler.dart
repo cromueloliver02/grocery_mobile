@@ -55,6 +55,11 @@ class BlocHandler {
         wishlistRepository: ctx.read<WishlistRepository>(),
       ),
     ),
+    BlocProvider<ViewedRecentlyActionCubit>(
+      create: (ctx) => ViewedRecentlyActionCubit(
+        viewedRecentlyBloc: ctx.read<ViewedRecentlyBloc>(),
+      ),
+    ),
     BlocProvider<NavigationCubit>(
       create: (ctx) => NavigationCubit(),
     ),

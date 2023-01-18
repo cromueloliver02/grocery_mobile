@@ -48,28 +48,11 @@ class ViewedRecentlyBloc
   void _onViewedRecentlyItemAdded(
     ViewedRecentlyItemAdded event,
     Emitter<ViewedRecentlyState> emit,
-  ) async {
-    emit(state.copyWith(formStatus: () => ViewedRecentlyFormStatus.loading));
+  ) {
+    final Map<String, Product> viewedItems = state.viewedItems
+      ..putIfAbsent(event.product.id, () => event.product);
 
-    try {
-      // POST viewed recently item
-      await Future.delayed(const Duration(seconds: 3));
-
-      final Map<String, Product> viewedItems = state.viewedItems
-        ..putIfAbsent(event.product.id, () => event.product);
-
-      emit(state.copyWith(
-        viewedItems: () => viewedItems,
-        formStatus: () => ViewedRecentlyFormStatus.success,
-      ));
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        formStatus: () => ViewedRecentlyFormStatus.failure,
-        error: () => err,
-      ));
-
-      logError(state, err);
-    }
+    emit(state.copyWith(viewedItems: () => viewedItems));
   }
 
   void _onViewedRecentlyResetRequested(

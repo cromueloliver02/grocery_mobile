@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/models.dart';
-import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/product_details_view.dart';
@@ -33,16 +32,19 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
-    if (state.formStatus == ViewedRecentlyFormStatus.failure) {
+  void _viewedRecentlyActionListener(
+    BuildContext ctx,
+    ViewedRecentlyActionState state,
+  ) {
+    if (state.status == ViewedRecentlyActionStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
-      listener: _viewedRecentlyListener,
+    return BlocListener<ViewedRecentlyActionCubit, ViewedRecentlyActionState>(
+      listener: _viewedRecentlyActionListener,
       child: ProductDetailsView(product: widget.product),
     );
   }
@@ -51,8 +53,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   void initState() {
     super.initState();
 
-    context
-        .read<ViewedRecentlyBloc>()
-        .add(ViewedRecentlyItemAdded(product: widget.product));
+    context.read<ViewedRecentlyActionCubit>().addItem(widget.product);
   }
 }
