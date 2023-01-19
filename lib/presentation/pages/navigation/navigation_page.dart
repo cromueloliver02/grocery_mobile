@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
@@ -45,26 +44,17 @@ class _NavigationPageState extends State<NavigationPage> {
   void _cartActionListener(BuildContext ctx, CartActionState state) {
     if (state.status == CartActionStatus.success &&
         state.actionType == CartActionType.addToCart) {
-      showToast(
-        'Added to cart',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Added to cart');
     }
 
     if (state.status == CartActionStatus.success &&
         state.actionType == CartActionType.removeFromCart) {
-      showToast(
-        'Removed from cart',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Removed from cart');
     }
 
     if (state.status == CartActionStatus.success &&
         state.actionType == CartActionType.clearCart) {
-      showToast(
-        'Cart cleared',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Cart cleared');
     }
 
     if (state.status == CartActionStatus.failure) {
@@ -75,26 +65,17 @@ class _NavigationPageState extends State<NavigationPage> {
   void _wishlistActionListener(BuildContext ctx, WishlistActionState state) {
     if (state.status == WishlistActionStatus.success &&
         state.actionType == WishlistActionType.add) {
-      showToast(
-        'Wishlist successfully added',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Wishlist successfully added');
     }
 
     if (state.status == WishlistActionStatus.success &&
         state.actionType == WishlistActionType.remove) {
-      showToast(
-        'Wishlist successfully removed',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Wishlist successfully removed');
     }
 
     if (state.status == WishlistActionStatus.success &&
         state.actionType == WishlistActionType.clear) {
-      showToast(
-        'Wishlist cleared successfully',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Wishlist cleared successfully');
     }
 
     if (state.status == WishlistActionStatus.failure) {

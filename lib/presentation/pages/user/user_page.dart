@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
@@ -13,10 +12,7 @@ class UserPage extends StatelessWidget {
     UserActionState state,
   ) {
     if (state.status == UserActionStatus.success) {
-      showToast(
-        'Successfully updated',
-        gravity: ToastGravity.BOTTOM,
-      );
+      showToast('Successfully updated');
     }
 
     if (state.status == UserActionStatus.failure) {

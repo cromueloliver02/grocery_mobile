@@ -86,7 +86,7 @@ void showInfoDialog(
 
 void showToast(
   String message, {
-  ToastGravity gravity = ToastGravity.CENTER,
+  ToastGravity gravity = ToastGravity.BOTTOM,
 }) =>
     Fluttertoast.showToast(
       msg: message,
