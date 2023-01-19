@@ -11,7 +11,13 @@ class AuthRepository extends BaseAuthRepository {
   });
 
   @override
-  Stream<User?> get user => authService.user;
+  Stream<User?> get user {
+    try {
+      return authService.user;
+    } catch (err) {
+      rethrow;
+    }
+  }
 
   @override
   Future<void> signinWithEmail({

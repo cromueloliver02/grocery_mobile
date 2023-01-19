@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 
+import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
@@ -15,29 +16,50 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.authRepository,
   }) : super(AuthState.initial()) {
     on<AuthStarted>(_onAuthStarted);
-    on<AuthUserChanged>(_onAuthUserChanged);
     on<AuthSignoutRequested>(_onAuthSignoutRequested);
   }
 
-  void _onAuthStarted(AuthStarted event, Emitter<AuthState> emit) {
-    authRepository.user.listen((fb_auth.User? user) {
-      add(AuthUserChanged(user: user));
-    });
-  }
+  void _onAuthStarted(AuthStarted event, Emitter<AuthState> emit) async {
+    try {
+      await emit.forEach<fb_auth.User?>(
+        authRepository.user,
+        onData: (fb_auth.User? user) {
+          if (user == null) {
+            return state.copyWith(
+              user: () => null,
+              status: () => AuthStatus.unauthenticated,
+            );
+          }
 
-  void _onAuthUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
-    if (event.user == null) {
-      emit(state.copyWith(
-        user: () => null,
-        status: () => AuthStatus.unauthenticated,
-      ));
-    }
+          return state.copyWith(
+            user: () => user,
+            status: () => AuthStatus.authenticated,
+          );
+        },
+        onError: (err, stacktrace) {
+          logError(
+            state,
+            GCRError(
+              code: 'Exception',
+              message: err.toString(),
+              plugin: 'flutter_error/server_error',
+              stackTrace: stacktrace,
+            ),
+          );
 
-    if (event.user != null) {
+          return state.copyWith(
+            status: () => AuthStatus.failure,
+            error: () => GCRError.exception(err),
+          );
+        },
+      );
+    } on GCRError catch (err) {
       emit(state.copyWith(
-        user: () => event.user,
-        status: () => AuthStatus.authenticated,
+        status: () => AuthStatus.failure,
+        error: () => err,
       ));
+
+      logError(state, err);
     }
   }
 

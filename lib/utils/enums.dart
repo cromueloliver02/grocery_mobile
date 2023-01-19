@@ -11,7 +11,7 @@ enum ButtonType { elevated, text }
 
 enum GCRPlatform { iOs, android }
 
-enum AuthStatus { unknown, unauthenticated, authenticated }
+enum AuthStatus { unknown, unauthenticated, authenticated, failure }
 
 enum CartItemQtyAction { increment, decrement }
 

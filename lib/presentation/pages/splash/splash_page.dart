@@ -34,6 +34,10 @@ class _SplashPageState extends State<SplashPage> {
     if (state.status == AuthStatus.authenticated) {
       Navigator.pushNamed(ctx, LoadingPage.id);
     }
+
+    if (state.status == AuthStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
   }
 
   @override
