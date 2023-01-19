@@ -3,38 +3,30 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:intl/intl.dart';
 
 import '../../data/models/models.dart';
-import '../pages/pages.dart';
 
 class GCROrderCard extends StatelessWidget {
   const GCROrderCard({
     super.key,
-    required this.product,
-    required this.quantity,
-    required this.date,
+    required this.orderItem,
   });
 
-  final Product product;
-  final int quantity;
-  final DateTime date;
+  final OrderItem orderItem;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
+    final CartItem cartItem = orderItem.cartItems[0];
 
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        ProductDetailsPage.id,
-        arguments: product,
-      ),
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+              imageUrl: cartItem.product.imageUrl,
               width: screenSize.width * 0.25,
               height: screenSize.width * 0.25,
               boxFit: BoxFit.cover,
@@ -45,7 +37,7 @@ class GCROrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product Name x$quantity',
+                    '${cartItem.product.name} x${cartItem.quantity}',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.headline4!.copyWith(
@@ -54,7 +46,7 @@ class GCROrderCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Paid: \$${product.price.toStringAsFixed(2)}',
+                    'Paid: \$${orderItem.grandTotalPrice.toStringAsFixed(2)}',
                     style: textTheme.headline5!.copyWith(
                       color: Colors.grey[600],
                       fontWeight: FontWeight.w400,
@@ -64,11 +56,25 @@ class GCROrderCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
-              DateFormat('MM/d/yyyy').format(date),
-              style: textTheme.headline5!.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '${orderItem.cartItems.length} ${orderItem.cartItems.length == 1 ? 'item' : 'items'}',
+                  style: textTheme.headline5!.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  DateFormat('MM/d/yyyy').format(orderItem.createdAt),
+                  style: textTheme.headline5!.copyWith(
+                    color: Colors.grey[500],
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -29,6 +29,12 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
+  void _orderListener(BuildContext ctx, OrderState state) {
+    if (state.status == OrderStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   void _wishlistListener(BuildContext ctx, WishlistState state) {
     if (state.status == WishlistStatus.failure) {
       showErrorDialog(ctx, state.error);
@@ -87,6 +93,9 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
+        BlocListener<OrderBloc, OrderState>(
+          listener: _orderListener,
+        ),
         BlocListener<WishlistBloc, WishlistState>(
           listener: _wishlistListener,
         ),
@@ -110,6 +119,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
     final String userId = context.read<UserBloc>().state.user.id;
 
+    context.read<OrderBloc>().add(OrderStarted(userId: userId));
     context.read<WishlistBloc>().add(WishlistStarted(userId: userId));
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
   }
@@ -117,6 +127,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   void deactivate() {
     // reset navigation-page-level states
+    context.read<OrderBloc>().add(OrderResetRequested());
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     context.read<CartActionCubit>().reset();

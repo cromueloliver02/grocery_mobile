@@ -40,6 +40,8 @@ enum UserActionStatus { initial, loading, success, failure }
 
 enum CartActionStatus { initial, loading, success, failure }
 
+enum OrderStatus { initial, loading, success, failure }
+
 enum WishlistStatus { initial, loading, success, failure }
 
 enum WishlistActionStatus { initial, loading, success, failure }
