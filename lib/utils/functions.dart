@@ -32,7 +32,7 @@ void toggleWishlist(BuildContext ctx, Product product) {
 void logError(Object state, GCRError error) {
   final Logger logger = Logger();
 
-  logger.w('ERROR: $state', error);
+  logger.w('ERROR: $state', error, error.stackTrace);
 }
 
 Future<bool?> showWarningDialog(

@@ -19,17 +19,9 @@ class ProductService {
 
       return productDoc;
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -40,17 +32,9 @@ class ProductService {
 
       return productSnap.docs;
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -66,17 +50,9 @@ class ProductService {
 
       return productSnap.docs;
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 }

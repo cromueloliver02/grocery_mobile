@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,7 +23,15 @@ class AuthService {
     required this.cartService,
   });
 
-  Stream<fb_auth.User?> get user => fireAuth.userChanges();
+  Stream<fb_auth.User?> get user {
+    try {
+      return fireAuth.userChanges();
+    } on FirebaseException catch (err) {
+      throw GCRError.firebaseException(err);
+    } catch (err) {
+      throw GCRError.exception(err);
+    }
+  }
 
   Future<void> signinWithEmail({
     required String email,
@@ -39,17 +49,9 @@ class AuthService {
       // going to loading page
       return Future.delayed(const Duration(milliseconds: 500));
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -86,20 +88,12 @@ class AuthService {
         userService.createUser(newUser),
         cartService.createCart(cart),
       ]);
-    } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
     } on GCRError {
       rethrow;
+    } on FirebaseException catch (err) {
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -154,19 +148,9 @@ class AuthService {
         cartService.createCart(cart),
       ]);
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
-    } on GCRError {
-      rethrow;
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -174,17 +158,9 @@ class AuthService {
     try {
       await fireAuth.sendPasswordResetEmail(email: email);
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -200,17 +176,9 @@ class AuthService {
 
       return signinMethods.contains(googleSigninMethod);
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 }

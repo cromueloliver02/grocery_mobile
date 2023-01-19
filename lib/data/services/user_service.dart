@@ -17,17 +17,9 @@ class UserService {
 
       return userDoc;
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -38,17 +30,9 @@ class UserService {
           .doc(user.id)
           .set(user.toMap());
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -62,17 +46,9 @@ class UserService {
           .doc(userId)
           .update({kShipAddress: shipAddress});
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 }

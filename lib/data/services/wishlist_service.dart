@@ -30,24 +30,12 @@ class WishlistService {
       }
 
       return productDocs;
+    } on GCRError {
+      rethrow;
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
-    } on GCRError catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -63,17 +51,9 @@ class WishlistService {
         kWishlist: FieldValue.arrayUnion([productId]),
       });
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -89,17 +69,9 @@ class WishlistService {
         kWishlist: FieldValue.arrayRemove([productId]),
       });
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 
@@ -110,17 +82,9 @@ class WishlistService {
 
       await userRef.update({kWishlist: []});
     } on FirebaseException catch (err) {
-      throw GCRError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
+      throw GCRError.firebaseException(err);
     } catch (err) {
-      throw GCRError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw GCRError.exception(err);
     }
   }
 }
