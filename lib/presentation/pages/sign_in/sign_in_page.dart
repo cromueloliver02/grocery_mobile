@@ -31,17 +31,6 @@ class SignInPage extends StatelessWidget {
 
   void _signinListener(BuildContext ctx, SignInState state) {
     if (state.status == SigninStatus.failure) {
-      // TODO: move to auth service
-      if (state.error.code == kUserNotFound ||
-          state.error.code == kWrongPassword) {
-        showInfoDialog(
-          ctx,
-          title: 'Incorrect Credentials',
-          message: 'Wrong email or password',
-        );
-        return;
-      }
-
       showErrorDialog(ctx, state.error);
     }
   }

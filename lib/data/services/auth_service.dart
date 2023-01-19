@@ -49,6 +49,14 @@ class AuthService {
       // going to loading page
       return Future.delayed(const Duration(milliseconds: 500));
     } on FirebaseException catch (err) {
+      if (err.code == kUserNotFound || err.code == kWrongPassword) {
+        throw const GCRError(
+          code: 'Incorrect credentials',
+          message: 'Wrong email or password',
+          plugin: 'firebase_auth',
+        );
+      }
+
       throw GCRError.firebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
