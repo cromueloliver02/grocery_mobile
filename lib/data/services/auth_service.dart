@@ -99,6 +99,14 @@ class AuthService {
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
+      if (err.code == kEmailAlreadyInUse) {
+        throw const GCRError(
+          code: 'Email Already Exist',
+          message: 'Email is already taken, please try a different one.',
+          plugin: 'firebase-auth',
+        );
+      }
+
       throw GCRError.firebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
