@@ -56,6 +56,7 @@ class BlocHandler {
       create: (ctx) => OrderActionCubit(
         orderBloc: ctx.read<OrderBloc>(),
         cartActionCubit: ctx.read<CartActionCubit>(),
+        orderRepository: ctx.read<OrderRepository>(),
       ),
     ),
     BlocProvider<WishlistActionCubit>(

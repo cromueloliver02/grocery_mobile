@@ -17,6 +17,10 @@ final CartService cartService = CartService(
   productService: productService,
 );
 
+final OrderService orderService = OrderService(
+  firestore: FirebaseFirestore.instance,
+);
+
 final WishlistService wishlistService = WishlistService(
   firestore: FirebaseFirestore.instance,
   productService: productService,

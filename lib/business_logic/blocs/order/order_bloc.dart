@@ -21,7 +21,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       // fetch order
       await Future.delayed(const Duration(seconds: 3));
 
-      final Order order = Order(orderItems: OrderItem.orderItems);
+      final Order order = Order(orderItems: OrderItem.dummyOrderItems);
 
       emit(state.copyWith(
         status: () => OrderStatus.success,

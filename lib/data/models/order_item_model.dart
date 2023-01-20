@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import './models.dart';
@@ -41,7 +42,31 @@ class OrderItem extends Equatable {
     );
   }
 
-  static final List<OrderItem> orderItems = [
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'userId': userId});
+    result.addAll({'cartItems': cartItems.map((x) => x.toMap()).toList()});
+    result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
+
+    return result;
+  }
+
+  factory OrderItem.fromDoc(
+    DocumentSnapshot doc, {
+    required List<CartItem> cartItems,
+  }) {
+    final map = doc.data() as Map<String, dynamic>;
+
+    return OrderItem(
+      id: doc.id,
+      userId: map['userId'] ?? '',
+      cartItems: cartItems,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+    );
+  }
+
+  static final List<OrderItem> dummyOrderItems = [
     OrderItem(
       id: uuid.v4(),
       userId: 'user-id',

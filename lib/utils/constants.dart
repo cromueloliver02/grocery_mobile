@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 const String kUsersCollectionPath = 'users';
 const String kProductsCollectionPath = 'products';
 const String kCartsCollectionPath = 'carts';
+const String kOrdersCollectionPath = 'orders';
 
 // FIREBASE FIRESTORE DOCUMENT PROPERTIES
 const String kId = 'id';
