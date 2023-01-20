@@ -36,7 +36,9 @@ class BlocHandler {
       create: (ctx) => CartBloc(),
     ),
     BlocProvider<OrderBloc>(
-      create: (ctx) => OrderBloc(),
+      create: (ctx) => OrderBloc(
+        orderRepository: ctx.read<OrderRepository>(),
+      ),
     ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc(

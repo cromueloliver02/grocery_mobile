@@ -1,14 +1,19 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
 part 'order_event.dart';
 part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  OrderBloc() : super(OrderState.initial()) {
+  final OrderRepository orderRepository;
+
+  OrderBloc({
+    required this.orderRepository,
+  }) : super(OrderState.initial()) {
     on<OrderStarted>(_onOrderStarted);
     on<OrderPlaceRequested>(_onOrderPlaceRequested);
     on<OrderResetRequested>(_onOrderResetRequested);
@@ -18,10 +23,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(state.copyWith(status: () => OrderStatus.loading));
 
     try {
-      // fetch order
-      await Future.delayed(const Duration(seconds: 3));
+      // fetch order items
+      final List<OrderItem> orderItems =
+          await orderRepository.fetchOrders(event.userId);
 
-      final Order order = Order(orderItems: OrderItem.dummyOrderItems);
+      final Order order = Order(orderItems: orderItems);
 
       emit(state.copyWith(
         status: () => OrderStatus.success,

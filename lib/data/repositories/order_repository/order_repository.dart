@@ -14,6 +14,58 @@ class OrderRepository extends BaseOrderRepository {
   });
 
   @override
+  Future<List<OrderItem>> fetchOrders(String userId) async {
+    try {
+      final QuerySnapshot orderQuery = await orderService.fetchOrders(userId);
+      final List<DocumentSnapshot> orderItemDocs = orderQuery.docs;
+
+      final List<OrderItem> orderItems = [];
+
+      for (final orderItemDoc in orderItemDocs) {
+        final List<CartItem> cartItems = [];
+
+        final cartItemMaps =
+            List<Map<String, dynamic>>.from(orderItemDoc.get('cartItems'));
+
+        for (final cartItemMap in cartItemMaps) {
+          final String productId = cartItemMap['product'];
+
+          final DocumentSnapshot productDoc =
+              await productService.getProduct(productId);
+
+          if (!productDoc.exists) {
+            throw GCRError.exception('Product does not exist');
+          }
+
+          final Product product = Product.fromDoc(productDoc);
+
+          final CartItem cartItem = CartItem.fromMap(
+            cartItemMap,
+            product: product,
+          );
+
+          cartItems.insert(0, cartItem);
+        }
+
+        final OrderItem orderItem = OrderItem.fromDoc(
+          orderItemDoc,
+          cartItems: cartItems,
+        );
+
+        orderItems.insert(0, orderItem);
+      }
+
+      orderItems.sort((OrderItem a, OrderItem b) {
+        return b.createdAt.compareTo(a.createdAt);
+      });
+
+      return orderItems;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<OrderItem> placeOrder(OrderItem orderItem) async {
     try {
       final DocumentSnapshot orderItemDoc =
