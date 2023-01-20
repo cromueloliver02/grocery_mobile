@@ -46,6 +46,12 @@ class BlocHandler {
     BlocProvider<ViewedRecentlyBloc>(
       create: (ctx) => ViewedRecentlyBloc(),
     ),
+    BlocProvider<UserActionCubit>(
+      create: (ctx) => UserActionCubit(
+        userBloc: ctx.read<UserBloc>(),
+        userRepository: ctx.read<UserRepository>(),
+      ),
+    ),
     BlocProvider<CartActionCubit>(
       create: (ctx) => CartActionCubit(
         cartBloc: ctx.read<CartBloc>(),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
@@ -12,13 +11,7 @@ class NavigationPage extends StatefulWidget {
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
-      builder: (ctx) => BlocProvider<UserActionCubit>(
-        create: (ctx) => UserActionCubit(
-          userBloc: ctx.read<UserBloc>(),
-          userRepository: ctx.read<UserRepository>(),
-        ),
-        child: const NavigationPage(),
-      ),
+      builder: (ctx) => const NavigationPage(),
     );
   }
 
@@ -144,6 +137,7 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<OrderBloc>().add(OrderResetRequested());
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
+    context.read<UserActionCubit>().reset();
     context.read<CartActionCubit>().reset();
     context.read<OrderActionCubit>().reset();
     context.read<WishlistActionCubit>().reset();

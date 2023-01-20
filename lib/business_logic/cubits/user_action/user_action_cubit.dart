@@ -40,4 +40,6 @@ class UserActionCubit extends Cubit<UserActionState> {
       logError(state, err);
     }
   }
+
+  void reset() => emit(UserActionState.initial());
 }
