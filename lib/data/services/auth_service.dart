@@ -119,9 +119,6 @@ class AuthService {
 
       if (googleUser == null) return;
 
-      final bool isAlreadySignedup =
-          await isEmailAlreadySignedUp(googleUser.email);
-
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
@@ -134,7 +131,7 @@ class AuthService {
       final fb_auth.UserCredential userCredential =
           await fireAuth.signInWithCredential(credential);
 
-      if (isAlreadySignedup) {
+      if (!userCredential.additionalUserInfo!.isNewUser) {
         // when signing in using google sign in and email
         // already exist, the authentication process is almost
         // instantaneous so I have to add a slight delay to
@@ -183,18 +180,5 @@ class AuthService {
   void signout() {
     fireAuth.signOut();
     googleSignIn.signOut();
-  }
-
-  Future<bool> isEmailAlreadySignedUp(String email) async {
-    try {
-      final List<String> signinMethods =
-          await fireAuth.fetchSignInMethodsForEmail(email);
-
-      return signinMethods.contains(googleSigninMethod);
-    } on FirebaseException catch (err) {
-      throw GCRError.firebaseException(err);
-    } catch (err) {
-      throw GCRError.exception(err);
-    }
   }
 }
