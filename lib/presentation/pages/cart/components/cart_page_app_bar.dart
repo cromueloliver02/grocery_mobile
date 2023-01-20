@@ -30,8 +30,21 @@ class CartPageAppBar extends StatelessWidget {
     }
   }
 
-  void _placeOrder(BuildContext ctx) {
-    final String userId = ctx.read<UserBloc>().state.user.id;
+  void _placeOrder(BuildContext ctx) async {
+    final UserBloc userBloc = ctx.read<UserBloc>();
+
+    if (userBloc.state.user.shipAddress == null ||
+        userBloc.state.user.shipAddress!.isEmpty) {
+      showInfoDialog(
+        ctx,
+        title: 'Provide Shipping Address',
+        message:
+            'Please provide your shipping address first before placing order',
+      );
+      return;
+    }
+
+    final String userId = userBloc.state.user.id;
     final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
     final OrderItem orderItem = OrderItem(
