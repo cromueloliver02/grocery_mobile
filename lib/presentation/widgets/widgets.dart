@@ -3,6 +3,7 @@ export './gcr_category_card.dart';
 export './gcr_menu_list_title.dart';
 export './gcr_product_card/gcr_product_card.dart';
 export './gcr_order_card.dart';
+export './gcr_order_details_card.dart';
 export './gcr_cart_card.dart';
 export './gcr_message_card.dart';
 export './gcr_empty_message_card.dart';

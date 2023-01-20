@@ -3,6 +3,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:intl/intl.dart';
 
 import '../../data/models/models.dart';
+import '../../presentation/pages/pages.dart';
 
 class GCROrderCard extends StatelessWidget {
   const GCROrderCard({
@@ -20,7 +21,7 @@ class GCROrderCard extends StatelessWidget {
     final CartItem cartItem = orderItem.cartItems[0];
 
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, OrderDetailsPage.id),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
