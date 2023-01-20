@@ -29,11 +29,11 @@ class BlocHandler {
     BlocProvider<ProductsOnSaleBloc>(
       create: (ctx) => ProductsOnSaleBloc(),
     ),
-    BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc(),
-    ),
     BlocProvider<UserBloc>(
       create: (ctx) => UserBloc(),
+    ),
+    BlocProvider<CartBloc>(
+      create: (ctx) => CartBloc(),
     ),
     BlocProvider<OrderBloc>(
       create: (ctx) => OrderBloc(),
@@ -50,6 +50,12 @@ class BlocHandler {
       create: (ctx) => CartActionCubit(
         cartBloc: ctx.read<CartBloc>(),
         cartRepository: ctx.read<CartRepository>(),
+      ),
+    ),
+    BlocProvider<OrderActionCubit>(
+      create: (ctx) => OrderActionCubit(
+        orderBloc: ctx.read<OrderBloc>(),
+        cartActionCubit: ctx.read<CartActionCubit>(),
       ),
     ),
     BlocProvider<WishlistActionCubit>(

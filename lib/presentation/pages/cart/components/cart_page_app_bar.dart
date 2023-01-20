@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
@@ -22,8 +23,27 @@ class CartPageAppBar extends StatelessWidget {
     if (response != null && response) {
       final String userId = userBloc.state.user.id;
 
-      clearCartCubit.clearCart(userId);
+      clearCartCubit.clearCart(
+        userId: userId,
+        actionType: CartActionType.clearCart,
+      );
     }
+  }
+
+  void _placeOrder(BuildContext ctx) {
+    final String userId = ctx.read<UserBloc>().state.user.id;
+    final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
+
+    final OrderItem orderItem = OrderItem(
+      id: '', // id is auto-generated in the backend
+      userId: userId,
+      cartItems: cartItems,
+    );
+
+    ctx.read<OrderActionCubit>().placeOrder(
+          userId: userId,
+          orderItem: orderItem,
+        );
   }
 
   @override
@@ -52,9 +72,13 @@ class CartPageAppBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GCRButton.elevated(
-                  labelText: 'Order Now',
-                  onPressed: () {},
+                BlocBuilder<CartBloc, CartState>(
+                  builder: (ctx, state) => GCRButton.elevated(
+                    labelText: 'Place Order',
+                    onPressed: state.cart.cartItems.isEmpty
+                        ? null
+                        : () => _placeOrder(context),
+                  ),
                 ),
                 Text(
                   'Total: \$${state.cart.grandTotalPrice.toStringAsFixed(2)}',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
+import '../../../../utils/utils.dart';
 import './cart_page_app_bar.dart';
 import './cart_item_list.dart';
 
@@ -15,29 +16,35 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            const CartPageAppBar(),
-            Expanded(
-              child: BlocBuilder<CartBloc, CartState>(
-                builder: (ctx, state) {
-                  if (state.cart.cartItems.isEmpty) {
-                    return GCREmptyMessageCard(
-                      image: 'assets/images/cart.png',
-                      message: 'Your cart is empty.',
-                      buttonText: 'Shop Now',
-                      onRedirect: () => _goToHomePage(context),
-                    );
-                  }
+    return BlocBuilder<OrderActionCubit, OrderActionState>(
+      builder: (ctx, state) => GCRLoadingOverlay(
+        loading: state.status == OrderActionStatus.loading,
+        loadingText: 'Placing order please wait',
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                const CartPageAppBar(),
+                Expanded(
+                  child: BlocBuilder<CartBloc, CartState>(
+                    builder: (ctx, state) {
+                      if (state.cart.cartItems.isEmpty) {
+                        return GCREmptyMessageCard(
+                          image: 'assets/images/cart.png',
+                          message: 'Your cart is empty.',
+                          buttonText: 'Shop Now',
+                          onRedirect: () => _goToHomePage(context),
+                        );
+                      }
 
-                  return CartItemList(cartItems: state.cart.cartItems);
-                },
-              ),
+                      return CartItemList(cartItems: state.cart.cartItems);
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

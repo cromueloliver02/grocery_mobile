@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
-import '../../../utils/utils.dart';
 import '../../blocs/blocs.dart';
+import '../../../utils/utils.dart';
 
 part 'cart_action_state.dart';
 
@@ -169,14 +169,17 @@ class CartActionCubit extends Cubit<CartActionState> {
     }
   }
 
-  void clearCart(String userId) async {
+  void clearCart({
+    required String userId,
+    required CartActionType actionType,
+  }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
       cartBloc.add(CartCleared());
 
       emit(state.copyWith(
-        actionType: () => CartActionType.clearCart,
+        actionType: () => actionType,
         status: () => CartActionStatus.success,
       ));
 

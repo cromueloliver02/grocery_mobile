@@ -23,7 +23,10 @@ enum CartActionType {
   decrementQty,
   updateQty,
   clearCart,
+  placeOrder,
 }
+
+enum OrderActionType { initial, placeOrder }
 
 enum WishlistActionType { initial, add, remove, clear }
 
@@ -41,6 +44,8 @@ enum UserActionStatus { initial, loading, success, failure }
 enum CartActionStatus { initial, loading, success, failure }
 
 enum OrderStatus { initial, loading, success, failure }
+
+enum OrderActionStatus { initial, loading, success, failure }
 
 enum WishlistStatus { initial, loading, success, failure }
 

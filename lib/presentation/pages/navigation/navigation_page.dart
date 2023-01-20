@@ -68,6 +68,17 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
+  void _orderActionListener(BuildContext ctx, OrderActionState state) {
+    if (state.status == OrderActionStatus.success &&
+        state.actionType == OrderActionType.placeOrder) {
+      showToast('Order placed successfully');
+    }
+
+    if (state.status == OrderActionStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
   void _wishlistActionListener(BuildContext ctx, WishlistActionState state) {
     if (state.status == WishlistActionStatus.success &&
         state.actionType == WishlistActionType.add) {
@@ -105,6 +116,9 @@ class _NavigationPageState extends State<NavigationPage> {
         BlocListener<CartActionCubit, CartActionState>(
           listener: _cartActionListener,
         ),
+        BlocListener<OrderActionCubit, OrderActionState>(
+          listener: _orderActionListener,
+        ),
         BlocListener<WishlistActionCubit, WishlistActionState>(
           listener: _wishlistActionListener,
         ),
@@ -131,6 +145,7 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<WishlistBloc>().add(WishlistResetRequested());
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyResetRequested());
     context.read<CartActionCubit>().reset();
+    context.read<OrderActionCubit>().reset();
     context.read<WishlistActionCubit>().reset();
     context.read<ViewedRecentlyActionCubit>().reset();
     context.read<NavigationCubit>().reset();
