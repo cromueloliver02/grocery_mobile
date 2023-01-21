@@ -81,14 +81,14 @@ class _ProductWishlistCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      if (product.salePrice == null)
+                      if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      if (product.salePrice != null) ...[
+                      if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(

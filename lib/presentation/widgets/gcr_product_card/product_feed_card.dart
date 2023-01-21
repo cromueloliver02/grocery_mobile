@@ -77,14 +77,14 @@ class _FeedCardState extends State<_ProductFeedCard> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (widget.product.salePrice == null)
+                          if (!widget.product.isOnSale)
                             Text(
                               '\$${widget.product.price.toStringAsFixed(2)}',
                               style: textTheme.headline4!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
-                          if (widget.product.salePrice != null) ...[
+                          if (widget.product.isOnSale) ...[
                             Text(
                               '\$${widget.product.salePrice!.toStringAsFixed(2)}',
                               style: textTheme.headline4!.copyWith(

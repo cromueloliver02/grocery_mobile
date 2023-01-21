@@ -88,14 +88,14 @@ class _ProductSaleCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (product.salePrice == null)
+                      if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline4!.copyWith(
                             color: Colors.green,
                           ),
                         ),
-                      if (product.salePrice != null) ...[
+                      if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline4!.copyWith(

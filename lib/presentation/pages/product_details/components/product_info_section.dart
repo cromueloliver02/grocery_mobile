@@ -41,7 +41,7 @@ class ProductInfoSection extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            if (product.salePrice == null)
+            if (!product.isOnSale)
               RichText(
                 text: TextSpan(
                   text: '\$${product.price} ',
@@ -56,7 +56,7 @@ class ProductInfoSection extends StatelessWidget {
                   ],
                 ),
               ),
-            if (product.salePrice != null) ...[
+            if (product.isOnSale) ...[
               RichText(
                 text: TextSpan(
                   text: '\$${product.salePrice} ',

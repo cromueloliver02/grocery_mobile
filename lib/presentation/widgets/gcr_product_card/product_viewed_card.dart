@@ -46,7 +46,7 @@ class _ProductViewedCard extends StatelessWidget {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      if (product.salePrice == null)
+                      if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(
@@ -54,7 +54,7 @@ class _ProductViewedCard extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                      if (product.salePrice != null) ...[
+                      if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
                           style: textTheme.headline3!.copyWith(
