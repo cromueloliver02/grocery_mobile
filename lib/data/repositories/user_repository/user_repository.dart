@@ -3,21 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../data/services/services.dart';
 import '../../../data/models/models.dart';
 
-import '../../../utils/utils.dart';
 import './base_user_repository.dart';
 
 class UserRepository extends BaseUserRepository {
   final UserService userService;
+  final ProductService productService;
 
   UserRepository({
     required this.userService,
+    required this.productService,
   });
 
   @override
   Future<User> fetchUser({required String userId}) async {
     try {
-      final CollectionReference productsRef =
-          FirebaseFirestore.instance.collection(kProductsCollectionPath);
       final List<Product> wishlist = [];
 
       final DocumentSnapshot userDoc = await userService.getUser(userId);
@@ -27,9 +26,8 @@ class UserRepository extends BaseUserRepository {
       );
 
       for (String productId in productIds) {
-        DocumentReference productRef = productsRef.doc(productId);
-
-        DocumentSnapshot productDoc = await productRef.get();
+        final DocumentSnapshot productDoc =
+            await productService.getProduct(productId);
 
         final Product product = Product.fromDoc(productDoc);
 

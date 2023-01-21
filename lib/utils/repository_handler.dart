@@ -12,19 +12,22 @@ class RepositoryHandler {
       create: (ctx) => ProductRepository(productService: productService),
     ),
     RepositoryProvider<UserRepository>(
-      create: (ctx) => UserRepository(userService: userService),
+      create: (ctx) => UserRepository(
+        userService: userService,
+        productService: productService,
+      ),
     ),
     RepositoryProvider<CartRepository>(
       create: (ctx) => CartRepository(
-        cartService: cartService,
         productService: productService,
+        cartService: cartService,
       ),
     ),
     RepositoryProvider<OrderRepository>(
       create: (ctx) => OrderRepository(
-        orderService: orderService,
-        productService: productService,
         userService: userService,
+        productService: productService,
+        orderService: orderService,
       ),
     ),
     RepositoryProvider<WishlistRepository>(

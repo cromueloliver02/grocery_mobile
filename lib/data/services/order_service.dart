@@ -33,6 +33,10 @@ class OrderService {
 
       final DocumentSnapshot orderItemDoc = await orderItemRef.get();
 
+      if (!orderItemDoc.exists) {
+        throw GCRError.exception('Order item does not exist');
+      }
+
       return orderItemDoc;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);

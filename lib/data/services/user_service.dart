@@ -15,6 +15,10 @@ class UserService {
       final DocumentSnapshot userDoc =
           await firestore.collection(kUsersCollectionPath).doc(userId).get();
 
+      if (!userDoc.exists) {
+        throw GCRError.exception('User does not exist');
+      }
+
       return userDoc;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);

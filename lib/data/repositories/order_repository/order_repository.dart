@@ -6,14 +6,14 @@ import '../../models/models.dart';
 import './base_order_repository.dart';
 
 class OrderRepository extends BaseOrderRepository {
-  final OrderService orderService;
-  final ProductService productService;
   final UserService userService;
+  final ProductService productService;
+  final OrderService orderService;
 
   OrderRepository({
-    required this.orderService,
-    required this.productService,
     required this.userService,
+    required this.productService,
+    required this.orderService,
   });
 
   @override
@@ -35,10 +35,6 @@ class OrderRepository extends BaseOrderRepository {
 
           final DocumentSnapshot productDoc =
               await productService.getProduct(productId);
-
-          if (!productDoc.exists) {
-            throw GCRError.exception('Product does not exist');
-          }
 
           final Product product = Product.fromDoc(productDoc);
 
@@ -93,10 +89,6 @@ class OrderRepository extends BaseOrderRepository {
 
         final DocumentSnapshot productDoc =
             await productService.getProduct(productId);
-
-        if (!productDoc.exists) {
-          throw GCRError.exception('Product does not exist');
-        }
 
         final Product product = Product.fromDoc(productDoc);
 

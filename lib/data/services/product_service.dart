@@ -17,6 +17,10 @@ class ProductService {
           .doc(productId)
           .get();
 
+      if (!productDoc.exists) {
+        throw GCRError.exception('Product does not exist');
+      }
+
       return productDoc;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);

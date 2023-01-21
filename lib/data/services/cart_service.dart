@@ -21,6 +21,10 @@ class CartService {
       final DocumentSnapshot cartDoc =
           await firestore.collection(kCartsCollectionPath).doc(userId).get();
 
+      if (!cartDoc.exists) {
+        throw GCRError.exception('Cart does not exist');
+      }
+
       return cartDoc;
     } on GCRError {
       rethrow;
@@ -143,8 +147,7 @@ class CartService {
       // the id of cart is the same as the user id
       final DocumentReference cartRef =
           firestore.collection(kCartsCollectionPath).doc(userId);
-
-      final DocumentSnapshot cartDoc = await cartRef.get();
+      final DocumentSnapshot cartDoc = await getCart(userId);
 
       final cartItemMaps =
           List<Map<String, dynamic>>.from(cartDoc.get(kCartItems));

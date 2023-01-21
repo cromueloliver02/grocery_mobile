@@ -7,16 +7,17 @@ import '../../utils/utils.dart';
 class WishlistService {
   final FirebaseFirestore firestore;
   final ProductService productService;
+  final UserService userService;
 
   WishlistService({
     required this.firestore,
     required this.productService,
+    required this.userService,
   });
 
   Future<List<DocumentSnapshot>> fetchWishlistItems(String userId) async {
     try {
-      final DocumentSnapshot userDoc =
-          await firestore.collection(kUsersCollectionPath).doc(userId).get();
+      final DocumentSnapshot userDoc = await userService.getUser(userId);
 
       final List<String> productIds = List<String>.from(userDoc.get(kWishlist));
 

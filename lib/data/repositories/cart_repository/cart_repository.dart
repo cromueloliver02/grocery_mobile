@@ -6,12 +6,12 @@ import '../../../utils/utils.dart';
 import './base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
-  final CartService cartService;
   final ProductService productService;
+  final CartService cartService;
 
   CartRepository({
-    required this.cartService,
     required this.productService,
+    required this.cartService,
   });
 
   @override
