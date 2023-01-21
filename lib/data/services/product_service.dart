@@ -29,12 +29,12 @@ class ProductService {
     }
   }
 
-  Future<List<DocumentSnapshot>> fetchProducts() async {
+  Future<QuerySnapshot> fetchProducts() async {
     try {
       final QuerySnapshot productQuery =
           await firestore.collection(kProductsCollectionPath).get();
 
-      return productQuery.docs;
+      return productQuery;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -42,7 +42,7 @@ class ProductService {
     }
   }
 
-  Future<List<DocumentSnapshot>> searchProducts(String keywords) async {
+  Future<QuerySnapshot> searchProducts(String keywords) async {
     try {
       final QuerySnapshot productQuery = await firestore
           .collection(kProductsCollectionPath)
@@ -50,7 +50,7 @@ class ProductService {
           .where(kName, isLessThanOrEqualTo: '$keywords\uf8ff')
           .get(); // not case-insensitive yet - I'll look for another solution
 
-      return productQuery.docs;
+      return productQuery;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

@@ -14,10 +14,12 @@ class ProductRepository extends BaseProductRepository {
   @override
   Future<List<Product>> fetchProducts() async {
     try {
-      final List<DocumentSnapshot> productDocs =
-          await productService.fetchProducts();
+      final QuerySnapshot productQuery = await productService.fetchProducts();
+      final List<DocumentSnapshot> productDocs = productQuery.docs;
+      final List<Product> products =
+          productDocs.map((doc) => Product.fromDoc(doc)).toList();
 
-      return productDocs.map((doc) => Product.fromDoc(doc)).toList();
+      return products;
     } catch (err) {
       rethrow;
     }
@@ -26,10 +28,13 @@ class ProductRepository extends BaseProductRepository {
   @override
   Future<List<Product>> searchProducts(String keywords) async {
     try {
-      final List<DocumentSnapshot> productDocs =
+      final QuerySnapshot productQuery =
           await productService.searchProducts(keywords);
+      final List<DocumentSnapshot> productDocs = productQuery.docs;
+      final List<Product> products =
+          productDocs.map((doc) => Product.fromDoc(doc)).toList();
 
-      return productDocs.map((doc) => Product.fromDoc(doc)).toList();
+      return products;
     } catch (err) {
       rethrow;
     }
