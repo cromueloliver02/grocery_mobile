@@ -8,11 +8,13 @@ class ShippingInfoSection extends StatelessWidget {
     required this.customerName,
     required this.customerAddress,
     required this.orderedAt,
+    required this.totalPaid,
   });
 
   final String customerName;
   final String customerAddress;
   final DateTime orderedAt;
+  final double totalPaid;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,13 @@ class ShippingInfoSection extends StatelessWidget {
               ),
               Text(
                 'Ordered Date: ${DateFormat('MMMM dd, yyyy').format(orderedAt)}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: textTheme.bodyText1,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Total Paid: \$${totalPaid.toStringAsFixed(2)}',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: textTheme.bodyText1,

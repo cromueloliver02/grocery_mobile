@@ -32,6 +32,7 @@ class OrderDetailsView extends StatelessWidget {
                 customerName: orderItem.user.name,
                 customerAddress: orderItem.user.shipAddress!,
                 orderedAt: orderItem.createdAt,
+                totalPaid: orderItem.grandTotalPrice,
               ),
               const SizedBox(height: 25),
               OrderedItemsList(cartItems: orderItem.cartItems),
