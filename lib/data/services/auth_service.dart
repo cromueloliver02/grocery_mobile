@@ -28,7 +28,8 @@ class AuthService {
     try {
       return fireAuth.userChanges();
     } on FirebaseException catch (err) {
-      throw GCRError.firebaseException(err);
+      handleFirebaseException(err);
+      return Stream.error(err);
     } catch (err) {
       throw GCRError.exception(err);
     }
@@ -50,23 +51,7 @@ class AuthService {
       // going to loading page
       return Future.delayed(const Duration(milliseconds: 500));
     } on FirebaseException catch (err) {
-      if (err.code == kUserNotFound || err.code == kWrongPassword) {
-        throw const GCRError(
-          code: 'Incorrect credentials',
-          message: 'Wrong email or password',
-          plugin: 'firebase_auth',
-        );
-      }
-
-      if (err.code == kNetworkRequestFailed) {
-        throw GCRError(
-          code: err.code,
-          message: 'Please connect to the internet',
-          plugin: 'flutter_error',
-        );
-      }
-
-      throw GCRError.firebaseException(err);
+      handleFirebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
     }
@@ -108,23 +93,7 @@ class AuthService {
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
-      if (err.code == kEmailAlreadyInUse) {
-        throw const GCRError(
-          code: 'Email Already Exist',
-          message: 'Email is already taken, please try a different one.',
-          plugin: 'firebase-auth',
-        );
-      }
-
-      if (err.code == kNetworkRequestFailed) {
-        throw GCRError(
-          code: err.code,
-          message: 'Please connect to the internet',
-          plugin: 'flutter_error',
-        );
-      }
-
-      throw GCRError.firebaseException(err);
+      handleFirebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
     }
@@ -178,17 +147,9 @@ class AuthService {
         cartService.createCart(cart),
       ]);
     } on PlatformException catch (err) {
-      if (err.code == kNetworkError) {
-        throw GCRError(
-          code: err.code,
-          message: 'Please connect to the internet',
-          plugin: 'flutter_error',
-        );
-      }
-
-      throw GCRError.exception(err);
+      handlePlatformException(err);
     } on FirebaseException catch (err) {
-      throw GCRError.firebaseException(err);
+      handleFirebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
     }
@@ -198,15 +159,7 @@ class AuthService {
     try {
       await fireAuth.sendPasswordResetEmail(email: email);
     } on FirebaseException catch (err) {
-      if (err.code == kNetworkRequestFailed) {
-        throw GCRError(
-          code: err.code,
-          message: 'Please connect to the internet',
-          plugin: 'flutter_error',
-        );
-      }
-
-      throw GCRError.firebaseException(err);
+      handleFirebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
     }
