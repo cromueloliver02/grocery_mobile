@@ -92,7 +92,7 @@ class AuthService {
         cartItems: <CartItem>[],
       );
 
-      await Future.any([
+      await Future.wait([
         userService.createUser(newUser),
         cartService.createCart(cart),
       ]);
@@ -156,7 +156,7 @@ class AuthService {
         cartItems: <CartItem>[],
       );
 
-      await Future.any([
+      await Future.wait([
         userService.createUser(newUser),
         cartService.createCart(cart),
       ]);
