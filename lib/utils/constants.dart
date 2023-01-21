@@ -42,10 +42,11 @@ const List<GestureType> kDismissKeyboardGestures = [
   GestureType.onPanUpdateDownDirection,
 ];
 
-// ERROR CODES
+// PLATFORM EXCEPTION CODE
 const String kNetworkError = 'network_error';
 
-// FIREBASE ERROR CODES
+// FIREBASE EXCEPTION CODE
 const String kEmailAlreadyInUse = 'email-already-in-use';
 const String kWrongPassword = 'wrong-password';
 const String kUserNotFound = 'user-not-found';
+const String kNetworkRequestFailed = 'network-request-failed';
