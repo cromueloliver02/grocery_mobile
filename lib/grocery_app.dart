@@ -6,12 +6,12 @@ import './utils/utils.dart';
 
 class GroceryApp extends StatelessWidget {
   const GroceryApp({
-    Key? key,
+    super.key,
     required this.repositoryHandler,
     required this.blocHandler,
     required this.routeHandler,
     required this.themeHandler,
-  }) : super(key: key);
+  });
 
   final RepositoryHandler repositoryHandler;
   final BlocHandler blocHandler;

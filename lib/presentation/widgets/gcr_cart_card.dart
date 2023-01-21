@@ -12,9 +12,9 @@ import '../../utils/utils.dart';
 
 class GCRCartCard extends StatefulWidget {
   const GCRCartCard({
-    Key? key,
+    super.key,
     required this.cartItem,
-  }) : super(key: key);
+  });
 
   final CartItem cartItem;
 
