@@ -28,7 +28,11 @@ class OrderDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ShippingInfoSection(),
+              ShippingInfoSection(
+                customerName: orderItem.user.name,
+                customerAddress: orderItem.user.shipAddress!,
+                orderedAt: orderItem.createdAt,
+              ),
               const SizedBox(height: 25),
               OrderedItemsList(cartItems: orderItem.cartItems),
             ],

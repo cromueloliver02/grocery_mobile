@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class ShippingInfoSection extends StatelessWidget {
-  const ShippingInfoSection({super.key});
+  const ShippingInfoSection({
+    super.key,
+    required this.customerName,
+    required this.customerAddress,
+    required this.orderedAt,
+  });
+
+  final String customerName;
+  final String customerAddress;
+  final DateTime orderedAt;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +42,19 @@ class ShippingInfoSection extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 'Address: Arabiat Echague, Isabela 3309',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: textTheme.bodyText1,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Ordered Time: ${DateFormat('h:mm a').format(orderedAt)}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: textTheme.bodyText1,
+              ),
+              Text(
+                'Ordered Date: ${DateFormat('MMMM dd, yyyy').format(orderedAt)}',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: textTheme.bodyText1,
