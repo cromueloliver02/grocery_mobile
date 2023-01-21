@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/navigation_view.dart';
 
 class NavigationPage extends StatefulWidget {
-  static const id = '/navigation';
+  static const String id = '/navigation';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

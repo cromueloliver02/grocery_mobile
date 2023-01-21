@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/splash_view.dart';
 
 class SplashPage extends StatefulWidget {
-  static const id = '/splash';
+  static const String id = '/splash';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

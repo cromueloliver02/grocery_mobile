@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/sign_in_view.dart';
 
 class SignInPage extends StatelessWidget {
-  static const id = '/sign-in';
+  static const String id = '/sign-in';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

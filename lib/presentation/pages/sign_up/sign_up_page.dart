@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/sign_up_view.dart';
 
 class SignUpPage extends StatelessWidget {
-  static const id = '/sign-up';
+  static const String id = '/sign-up';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import 'components/forget_password_view.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
-  static const id = '/forget-password';
+  static const String id = '/forget-password';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

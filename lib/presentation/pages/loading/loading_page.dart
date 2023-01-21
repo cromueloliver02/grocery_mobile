@@ -7,7 +7,7 @@ import '../../../utils/utils.dart';
 import './components/loading_view.dart';
 
 class LoadingPage extends StatefulWidget {
-  static const id = '/loading';
+  static const String id = '/loading';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

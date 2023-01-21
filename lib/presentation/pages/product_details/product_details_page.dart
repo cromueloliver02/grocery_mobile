@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/product_details_view.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  static const id = '/product-details';
+  static const String id = '/product-details';
 
   static Route<void> route(RouteSettings settings) {
     final Product product = settings.arguments as Product;

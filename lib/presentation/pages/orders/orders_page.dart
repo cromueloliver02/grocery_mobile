@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './components/orders_view.dart';
 
 class OrdersPage extends StatelessWidget {
-  static const id = '/orders';
+  static const String id = '/orders';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

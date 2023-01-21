@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {
-  static const id = '/wishlist';
+  static const String id = '/wishlist';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

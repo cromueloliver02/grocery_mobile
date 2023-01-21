@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
-  static const id = '/viewed-recently';
+  static const String id = '/viewed-recently';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

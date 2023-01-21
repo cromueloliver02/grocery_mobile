@@ -6,7 +6,7 @@ import '../../../utils/utils.dart';
 import './components/product_feeds_view.dart';
 
 class ProductFeedsPage extends StatelessWidget {
-  static const id = '/product-feeds';
+  static const String id = '/product-feeds';
 
   static Route<void> route(RouteSettings settings) {
     return MaterialPageRoute(

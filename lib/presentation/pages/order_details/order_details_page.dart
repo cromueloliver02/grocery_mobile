@@ -4,7 +4,7 @@ import '../../../data/models/models.dart';
 import './components/order_details_view.dart';
 
 class OrderDetailsPage extends StatelessWidget {
-  static const id = '/order-details';
+  static const String id = '/order-details';
 
   static Route<void> route(RouteSettings settings) {
     final OrderItem orderItem = settings.arguments as OrderItem;

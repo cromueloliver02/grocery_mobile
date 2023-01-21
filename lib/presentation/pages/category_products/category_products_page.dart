@@ -4,7 +4,7 @@ import '../../../business_logic/blocs/blocs.dart';
 import './components/category_products_view.dart';
 
 class CategoryProductsPage extends StatefulWidget {
-  static const id = '/category-products';
+  static const String id = '/category-products';
 
   static Route<void> route(RouteSettings settings) {
     final String category = settings.arguments as String;
