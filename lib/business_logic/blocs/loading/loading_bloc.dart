@@ -28,7 +28,7 @@ class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
     try {
       final List<dynamic> responses = await Future.wait<dynamic>([
         productRepository.fetchProducts(),
-        userRepository.fetchUser(userId: event.userId),
+        userRepository.getUser(userId: event.userId),
         cartRepository.fetchCartItems(event.userId),
       ]);
 

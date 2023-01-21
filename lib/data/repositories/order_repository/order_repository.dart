@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../utils/utils.dart';
 import '../../services/services.dart';
 import '../../models/models.dart';
+import '../../../utils/utils.dart';
 import './base_order_repository.dart';
 
 class OrderRepository extends BaseOrderRepository {
@@ -36,31 +36,35 @@ class OrderRepository extends BaseOrderRepository {
           final DocumentSnapshot productDoc =
               await productService.getProduct(productId);
 
-          final Product product = Product.fromDoc(productDoc);
+          if (productDoc.exists) {
+            final Product product = Product.fromDoc(productDoc);
 
-          final CartItem cartItem = CartItem.fromMap(
-            cartItemMap,
-            product: product,
-          );
+            final CartItem cartItem = CartItem.fromMap(
+              cartItemMap,
+              product: product,
+            );
 
-          cartItems.insert(0, cartItem);
+            cartItems.insert(0, cartItem);
+          }
         }
 
         final String userId = orderItemDoc.get(kUser);
         final DocumentSnapshot userDoc = await userService.getUser(userId);
 
-        final User user = User.fromDoc(
-          userDoc,
-          wishlist: const <Product>[], // wishlist is unnecessary to populate
-        );
+        if (userDoc.exists) {
+          final User user = User.fromDoc(
+            userDoc,
+            wishlist: const <Product>[], // wishlist is unnecessary to populate
+          );
 
-        final OrderItem orderItem = OrderItem.fromDoc(
-          orderItemDoc,
-          cartItems: cartItems,
-          user: user,
-        );
+          final OrderItem orderItem = OrderItem.fromDoc(
+            orderItemDoc,
+            cartItems: cartItems,
+            user: user,
+          );
 
-        orderItems.insert(0, orderItem);
+          orderItems.insert(0, orderItem);
+        }
       }
 
       orderItems.sort((OrderItem a, OrderItem b) {
@@ -90,14 +94,16 @@ class OrderRepository extends BaseOrderRepository {
         final DocumentSnapshot productDoc =
             await productService.getProduct(productId);
 
-        final Product product = Product.fromDoc(productDoc);
+        if (productDoc.exists) {
+          final Product product = Product.fromDoc(productDoc);
 
-        final CartItem cartItem = CartItem.fromMap(
-          cartItemMap,
-          product: product,
-        );
+          final CartItem cartItem = CartItem.fromMap(
+            cartItemMap,
+            product: product,
+          );
 
-        cartItems.insert(0, cartItem);
+          cartItems.insert(0, cartItem);
+        }
       }
 
       final String userId = orderItemDoc.get('user');

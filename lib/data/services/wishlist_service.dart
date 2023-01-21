@@ -27,7 +27,9 @@ class WishlistService {
         final DocumentSnapshot productDoc =
             await productService.getProduct(productId);
 
-        productDocs.insert(0, productDoc);
+        if (productDoc.exists) {
+          productDocs.insert(0, productDoc);
+        }
       }
 
       return productDocs;

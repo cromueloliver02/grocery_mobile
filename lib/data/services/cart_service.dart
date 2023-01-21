@@ -83,7 +83,7 @@ class CartService {
       final DocumentSnapshot productDoc =
           await productService.getProduct(productId);
 
-      CartItem existingCartItem = CartItem.fromMap(
+      final CartItem existingCartItem = CartItem.fromMap(
         existingCartItemMap,
         product: Product.fromDoc(productDoc),
       );
@@ -94,7 +94,8 @@ class CartService {
       });
 
       final CartItem updatedCartItem = existingCartItem.copyWith(
-          quantity: () => existingCartItem.quantity + 1);
+        quantity: () => existingCartItem.quantity + 1,
+      );
 
       // replace removed existing cart item but with an increased quantity
       await cartRef.update({

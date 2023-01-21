@@ -15,7 +15,7 @@ class UserRepository extends BaseUserRepository {
   });
 
   @override
-  Future<User> fetchUser({required String userId}) async {
+  Future<User> getUser({required String userId}) async {
     try {
       final List<Product> wishlist = [];
 
@@ -29,9 +29,11 @@ class UserRepository extends BaseUserRepository {
         final DocumentSnapshot productDoc =
             await productService.getProduct(productId);
 
-        final Product product = Product.fromDoc(productDoc);
+        if (productDoc.exists) {
+          final Product product = Product.fromDoc(productDoc);
 
-        wishlist.add(product);
+          wishlist.add(product);
+        }
       }
 
       final User user = User.fromDoc(userDoc, wishlist: wishlist);
