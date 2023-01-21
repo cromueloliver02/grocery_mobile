@@ -12,15 +12,17 @@ class WishlistRepository extends BaseWishlistRepository {
   });
 
   @override
-  Future<List<Product>> fetchWishlistItems(String userId) async {
+  Future<Wishlist> getWishlist(String userId) async {
     try {
-      final List<DocumentSnapshot> productDocs =
+      final List<DocumentSnapshot> wishlistItemDocs =
           await wishlistService.fetchWishlistItems(userId);
 
       final List<Product> wishlistItems =
-          productDocs.map((doc) => Product.fromDoc(doc)).toList();
+          wishlistItemDocs.map((doc) => Product.fromDoc(doc)).toList();
 
-      return wishlistItems;
+      final Wishlist wishlist = Wishlist(wishlistItems: wishlistItems);
+
+      return wishlist;
     } catch (err) {
       rethrow;
     }

@@ -28,15 +28,13 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(status: () => WishlistStatus.loading));
 
     try {
-      // FETCH wishlist items
-      final List<Product> wishlistItems =
-          await wishlistRepository.fetchWishlistItems(event.userId);
+      // get wishlist
+      final Wishlist wishlist =
+          await wishlistRepository.getWishlist(event.userId);
 
       emit(state.copyWith(
         status: () => WishlistStatus.success,
-        wishlist: () => state.wishlist.copyWith(
-          wishlistItems: () => wishlistItems,
-        ),
+        wishlist: () => wishlist,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

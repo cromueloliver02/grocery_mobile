@@ -1,7 +1,7 @@
 import '../../models/models.dart';
 
 abstract class BaseWishlistRepository {
-  Future<List<Product>> fetchWishlistItems(String userId);
+  Future<Wishlist> getWishlist(String userId);
 
   Future<void> addToWishlist({
     required String userId,
