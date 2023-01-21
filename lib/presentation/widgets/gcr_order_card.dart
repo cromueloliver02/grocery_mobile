@@ -72,6 +72,14 @@ class GCROrderCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
+                  DateFormat('h:mm a').format(orderItem.createdAt),
+                  style: textTheme.headline5!.copyWith(
+                    color: Colors.grey[500],
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
                   DateFormat('MM/d/yyyy').format(orderItem.createdAt),
                   style: textTheme.headline5!.copyWith(
                     color: Colors.grey[500],
