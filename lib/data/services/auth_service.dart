@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../data/services/services.dart';
@@ -160,6 +161,16 @@ class AuthService {
         userService.createUser(newUser),
         cartService.createCart(cart),
       ]);
+    } on PlatformException catch (err) {
+      if (err.code == kNetworkError) {
+        throw GCRError(
+          code: err.code,
+          message: 'Please connect to the internet',
+          plugin: 'flutter_error',
+        );
+      }
+
+      throw GCRError.exception(err);
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

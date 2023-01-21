@@ -42,7 +42,10 @@ const List<GestureType> kDismissKeyboardGestures = [
   GestureType.onPanUpdateDownDirection,
 ];
 
-// FIREBASE AUTH CODES
+// ERROR CODES
+const String kNetworkError = 'network_error';
+
+// FIREBASE ERROR CODES
 const String kEmailAlreadyInUse = 'email-already-in-use';
 const String kWrongPassword = 'wrong-password';
 const String kUserNotFound = 'user-not-found';
