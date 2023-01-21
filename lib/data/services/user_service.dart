@@ -10,7 +10,7 @@ class UserService {
     required this.firestore,
   });
 
-  Future<DocumentSnapshot> fetchUser({required String userId}) async {
+  Future<DocumentSnapshot> getUser(String userId) async {
     try {
       final DocumentSnapshot userDoc =
           await firestore.collection(kUsersCollectionPath).doc(userId).get();

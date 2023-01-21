@@ -44,19 +44,16 @@ class CartPageAppBar extends StatelessWidget {
       return;
     }
 
-    final String userId = userBloc.state.user.id;
+    final User user = userBloc.state.user;
     final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
     final OrderItem orderItem = OrderItem(
       id: '', // id is auto-generated in the backend
-      userId: userId,
+      user: user,
       cartItems: cartItems,
     );
 
-    ctx.read<OrderActionCubit>().placeOrder(
-          userId: userId,
-          orderItem: orderItem,
-        );
+    ctx.read<OrderActionCubit>().placeOrder(orderItem);
   }
 
   @override

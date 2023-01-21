@@ -20,8 +20,7 @@ class UserRepository extends BaseUserRepository {
           FirebaseFirestore.instance.collection(kProductsCollectionPath);
       final List<Product> wishlist = [];
 
-      final DocumentSnapshot userDoc =
-          await userService.fetchUser(userId: userId);
+      final DocumentSnapshot userDoc = await userService.getUser(userId);
 
       final List<String> productIds = List<String>.from(
         (userDoc.data() as Map<String, dynamic>)['wishlist'],

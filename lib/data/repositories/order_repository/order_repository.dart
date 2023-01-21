@@ -7,10 +7,12 @@ import './base_order_repository.dart';
 class OrderRepository extends BaseOrderRepository {
   final OrderService orderService;
   final ProductService productService;
+  final UserService userService;
 
   OrderRepository({
     required this.orderService,
     required this.productService,
+    required this.userService,
   });
 
   @override
@@ -47,9 +49,18 @@ class OrderRepository extends BaseOrderRepository {
           cartItems.insert(0, cartItem);
         }
 
+        final String userId = orderItemDoc.get('user');
+        final DocumentSnapshot userDoc = await userService.getUser(userId);
+
+        final User user = User.fromDoc(
+          userDoc,
+          wishlist: const <Product>[], // wishlist is unnecessary to populate
+        );
+
         final OrderItem orderItem = OrderItem.fromDoc(
           orderItemDoc,
           cartItems: cartItems,
+          user: user,
         );
 
         orderItems.insert(0, orderItem);
@@ -96,9 +107,18 @@ class OrderRepository extends BaseOrderRepository {
         cartItems.insert(0, cartItem);
       }
 
+      final String userId = orderItemDoc.get('user');
+      final DocumentSnapshot userDoc = await userService.getUser(userId);
+
+      final User user = User.fromDoc(
+        userDoc,
+        wishlist: const <Product>[], // wishlist is unnecessary to populate
+      );
+
       final OrderItem newOrderItem = OrderItem.fromDoc(
         orderItemDoc,
         cartItems: cartItems,
+        user: user,
       );
 
       return newOrderItem;

@@ -19,10 +19,7 @@ class OrderActionCubit extends Cubit<OrderActionState> {
     required this.orderRepository,
   }) : super(OrderActionState.initial());
 
-  void placeOrder({
-    required String userId,
-    required OrderItem orderItem,
-  }) async {
+  void placeOrder(OrderItem orderItem) async {
     emit(state.copyWith(status: () => OrderActionStatus.loading));
 
     try {
@@ -32,7 +29,7 @@ class OrderActionCubit extends Cubit<OrderActionState> {
 
       orderBloc.add(OrderPlaceRequested(orderItem: newOrderItem));
       cartActionCubit.clearCart(
-        userId: userId,
+        userId: orderItem.user.id,
         actionType: CartActionType.placeOrder,
       );
 

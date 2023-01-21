@@ -24,6 +24,7 @@ class RepositoryHandler {
       create: (ctx) => OrderRepository(
         orderService: orderService,
         productService: productService,
+        userService: userService,
       ),
     ),
     RepositoryProvider<WishlistRepository>(
