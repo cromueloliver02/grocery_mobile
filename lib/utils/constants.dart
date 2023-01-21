@@ -10,6 +10,7 @@ const String kOrdersCollectionPath = 'orders';
 // FIREBASE FIRESTORE DOCUMENT PROPERTIES
 const String kId = 'id';
 const String kName = 'name';
+const String kUser = 'user';
 const String kCartItems = 'cartItems';
 const String kWishlist = 'wishlist';
 const String kProduct = 'product';

@@ -14,7 +14,7 @@ class OrderService {
     try {
       final QuerySnapshot orderQuery = await firestore
           .collection(kOrdersCollectionPath)
-          .where('userId', isEqualTo: userId)
+          .where(kUser, isEqualTo: userId)
           .get();
 
       return orderQuery;

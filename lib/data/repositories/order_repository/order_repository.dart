@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../utils/utils.dart';
 import '../../services/services.dart';
 import '../../models/models.dart';
 import './base_order_repository.dart';
@@ -49,7 +50,7 @@ class OrderRepository extends BaseOrderRepository {
           cartItems.insert(0, cartItem);
         }
 
-        final String userId = orderItemDoc.get('user');
+        final String userId = orderItemDoc.get(kUser);
         final DocumentSnapshot userDoc = await userService.getUser(userId);
 
         final User user = User.fromDoc(
