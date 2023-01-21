@@ -29,18 +29,18 @@ class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
       final List<dynamic> responses = await Future.wait<dynamic>([
         productRepository.fetchProducts(),
         userRepository.getUser(userId: event.userId),
-        cartRepository.fetchCartItems(event.userId),
+        cartRepository.getCart(event.userId),
       ]);
 
       final List<Product> productList = responses[0];
       final User user = responses[1];
-      final List<CartItem> cartItems = responses[2];
+      final Cart cart = responses[2];
 
       emit(state.copyWith(
         status: () => LoadingStatus.success,
         productList: () => productList,
         user: () => user,
-        cart: () => Cart(userId: event.userId, cartItems: cartItems),
+        cart: () => cart,
       ));
     } on GCRError catch (err) {
       emit(state.copyWith(

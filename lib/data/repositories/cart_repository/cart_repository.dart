@@ -15,7 +15,7 @@ class CartRepository extends BaseCartRepository {
   });
 
   @override
-  Future<List<CartItem>> fetchCartItems(String userId) async {
+  Future<Cart> getCart(String userId) async {
     try {
       List<CartItem> cartItems = [];
 
@@ -45,7 +45,9 @@ class CartRepository extends BaseCartRepository {
         return b.createdAt.compareTo(a.createdAt);
       });
 
-      return cartItems;
+      final Cart cart = Cart.fromDoc(cartDoc, cartItems: cartItems);
+
+      return cart;
     } catch (err) {
       rethrow;
     }

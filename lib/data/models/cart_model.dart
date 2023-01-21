@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import './models.dart';
 
 class Cart {
@@ -46,6 +48,19 @@ class Cart {
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;
+  }
+
+  factory Cart.fromDoc(
+    DocumentSnapshot doc, {
+    required List<CartItem> cartItems,
+  }) {
+    final map = doc.data() as Map<String, dynamic>;
+
+    return Cart(
+      userId: doc.id, // id of cart document is the same as the userId
+      cartItems: cartItems,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+    );
   }
 
   static Cart dummyCart = Cart(
