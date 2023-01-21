@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/models.dart';
 import '../../../widgets/widgets.dart';
 
 class OrderedItemsList extends StatelessWidget {
-  const OrderedItemsList({super.key});
+  const OrderedItemsList({
+    super.key,
+    required this.cartItems,
+  });
+
+  final List<CartItem> cartItems;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: cartItems.length,
       separatorBuilder: (ctx, idx) => const Divider(thickness: 1),
-      itemBuilder: (ctx, idx) => const GCROrderDetailsCard(),
+      itemBuilder: (ctx, idx) => GCROrderDetailsCard(
+        name: cartItems[idx].product.name,
+        imageUrl: cartItems[idx].product.imageUrl,
+        quantity: cartItems[idx].quantity,
+        price: cartItems[idx].product.price,
+        salePrice: cartItems[idx].product.salePrice,
+        isOnSale: cartItems[idx].product.isOnSale,
+      ),
     );
   }
 }

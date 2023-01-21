@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/models.dart';
 import './order_details_page_app_bar.dart';
 import './shipping_info_section.dart';
 import './order_items_list.dart';
 
 class OrderDetailsView extends StatelessWidget {
-  const OrderDetailsView({super.key});
+  const OrderDetailsView({
+    super.key,
+    required this.orderItem,
+  });
+
+  final OrderItem orderItem;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: OrderDetailsPageAppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: OrderDetailsPageAppBar(
+          orderedItemCount: orderItem.cartItems.length,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              ShippingInfoSection(),
-              SizedBox(height: 25),
-              OrderedItemsList(),
+            children: [
+              const ShippingInfoSection(),
+              const SizedBox(height: 25),
+              OrderedItemsList(cartItems: orderItem.cartItems),
             ],
           ),
         ),

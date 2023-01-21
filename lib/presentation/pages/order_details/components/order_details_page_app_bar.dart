@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class OrderDetailsPageAppBar extends StatelessWidget {
-  const OrderDetailsPageAppBar({super.key});
+  const OrderDetailsPageAppBar({
+    super.key,
+    required this.orderedItemCount,
+  });
+
+  final int orderedItemCount;
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +14,7 @@ class OrderDetailsPageAppBar extends StatelessWidget {
 
     return AppBar(
       title: Text(
-        'Ordered Items (4)',
+        'Ordered Items ($orderedItemCount)',
         style: textTheme.headline3,
       ),
     );

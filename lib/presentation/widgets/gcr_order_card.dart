@@ -13,15 +13,19 @@ class GCROrderCard extends StatelessWidget {
 
   final OrderItem orderItem;
 
+  void _goToOrderDetailsPage(BuildContext ctx) {
+    Navigator.pushNamed(ctx, OrderDetailsPage.id, arguments: orderItem);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final screenSize = MediaQuery.of(context).size;
-    final CartItem cartItem = orderItem.cartItems[0];
+    final CartItem cartItem = orderItem.cartItems.first;
 
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, OrderDetailsPage.id),
+      onTap: () => _goToOrderDetailsPage(context),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
