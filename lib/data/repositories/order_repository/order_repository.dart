@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as fstore;
 
 import '../../services/services.dart';
 import '../../models/models.dart';
@@ -17,10 +17,11 @@ class OrderRepository extends BaseOrderRepository {
   });
 
   @override
-  Future<List<OrderItem>> fetchOrders(String userId) async {
+  Future<Order> getOrder(String userId) async {
     try {
-      final QuerySnapshot orderQuery = await orderService.fetchOrders(userId);
-      final List<DocumentSnapshot> orderItemDocs = orderQuery.docs;
+      final fstore.QuerySnapshot orderItemQuery =
+          await orderService.fetchOrderItems(userId);
+      final List<fstore.DocumentSnapshot> orderItemDocs = orderItemQuery.docs;
 
       final List<OrderItem> orderItems = [];
 
@@ -33,7 +34,7 @@ class OrderRepository extends BaseOrderRepository {
         for (final cartItemMap in cartItemMaps) {
           final String productId = cartItemMap['product'];
 
-          final DocumentSnapshot productDoc =
+          final fstore.DocumentSnapshot productDoc =
               await productService.getProduct(productId);
 
           if (productDoc.exists) {
@@ -49,7 +50,8 @@ class OrderRepository extends BaseOrderRepository {
         }
 
         final String userId = orderItemDoc.get(kUser);
-        final DocumentSnapshot userDoc = await userService.getUser(userId);
+        final fstore.DocumentSnapshot userDoc =
+            await userService.getUser(userId);
 
         if (userDoc.exists) {
           final User user = User.fromDoc(
@@ -71,7 +73,9 @@ class OrderRepository extends BaseOrderRepository {
         return b.createdAt.compareTo(a.createdAt);
       });
 
-      return orderItems;
+      final Order order = Order(orderItems: orderItems);
+
+      return order;
     } catch (err) {
       rethrow;
     }
@@ -80,7 +84,7 @@ class OrderRepository extends BaseOrderRepository {
   @override
   Future<OrderItem> placeOrder(OrderItem orderItem) async {
     try {
-      final DocumentSnapshot orderItemDoc =
+      final fstore.DocumentSnapshot orderItemDoc =
           await orderService.placeOrder(orderItem);
 
       final List<CartItem> cartItems = [];
@@ -91,7 +95,7 @@ class OrderRepository extends BaseOrderRepository {
       for (final cartItemMap in cartItemMaps) {
         final String productId = cartItemMap['product'];
 
-        final DocumentSnapshot productDoc =
+        final fstore.DocumentSnapshot productDoc =
             await productService.getProduct(productId);
 
         if (productDoc.exists) {
@@ -107,7 +111,7 @@ class OrderRepository extends BaseOrderRepository {
       }
 
       final String userId = orderItemDoc.get('user');
-      final DocumentSnapshot userDoc = await userService.getUser(userId);
+      final fstore.DocumentSnapshot userDoc = await userService.getUser(userId);
 
       final User user = User.fromDoc(
         userDoc,

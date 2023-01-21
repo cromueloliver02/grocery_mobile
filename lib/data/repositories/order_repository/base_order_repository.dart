@@ -1,7 +1,7 @@
 import '../../models/models.dart';
 
 abstract class BaseOrderRepository {
-  Future<List<OrderItem>> fetchOrders(String userId);
+  Future<Order> getOrder(String userId);
 
   Future<OrderItem> placeOrder(OrderItem orderItem);
 }

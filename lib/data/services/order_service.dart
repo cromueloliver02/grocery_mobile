@@ -10,14 +10,14 @@ class OrderService {
     required this.firestore,
   });
 
-  Future<QuerySnapshot> fetchOrders(String userId) async {
+  Future<QuerySnapshot> fetchOrderItems(String userId) async {
     try {
-      final QuerySnapshot orderQuery = await firestore
+      final QuerySnapshot orderItemQuery = await firestore
           .collection(kOrdersCollectionPath)
           .where(kUser, isEqualTo: userId)
           .get();
 
-      return orderQuery;
+      return orderItemQuery;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

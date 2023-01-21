@@ -23,11 +23,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(state.copyWith(status: () => OrderStatus.loading));
 
     try {
-      // fetch order items
-      final List<OrderItem> orderItems =
-          await orderRepository.fetchOrders(event.userId);
-
-      final Order order = Order(orderItems: orderItems);
+      // fetch order
+      final Order order = await orderRepository.getOrder(event.userId);
 
       emit(state.copyWith(
         status: () => OrderStatus.success,
