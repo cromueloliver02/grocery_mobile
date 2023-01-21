@@ -42,9 +42,7 @@ class ProductService {
     }
   }
 
-  Future<List<DocumentSnapshot>> searchProducts(
-    String keywords,
-  ) async {
+  Future<List<DocumentSnapshot>> searchProducts(String keywords) async {
     try {
       final QuerySnapshot productSnap = await firestore
           .collection(kProductsCollectionPath)

@@ -65,7 +65,7 @@ class AuthRepository extends BaseAuthRepository {
   @override
   Future<void> forgetPassword({required String email}) async {
     try {
-      await authService.forgetPassword(email: email);
+      await authService.forgetPassword(email);
     } catch (err) {
       rethrow;
     }

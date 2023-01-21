@@ -167,7 +167,7 @@ class AuthService {
     }
   }
 
-  Future<void> forgetPassword({required String email}) async {
+  Future<void> forgetPassword(String email) async {
     try {
       await fireAuth.sendPasswordResetEmail(email: email);
     } on FirebaseException catch (err) {
