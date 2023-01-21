@@ -116,6 +116,14 @@ class AuthService {
         );
       }
 
+      if (err.code == kNetworkRequestFailed) {
+        throw GCRError(
+          code: err.code,
+          message: 'Please connect to the internet',
+          plugin: 'flutter_error',
+        );
+      }
+
       throw GCRError.firebaseException(err);
     } catch (err) {
       throw GCRError.exception(err);
