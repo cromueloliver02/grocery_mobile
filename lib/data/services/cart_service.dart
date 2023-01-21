@@ -105,6 +105,8 @@ class CartService {
       });
 
       return updatedCartItem;
+    } on GCRError {
+      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -169,6 +171,8 @@ class CartService {
       await cartRef.update({
         kCartItems: FieldValue.arrayUnion([cartItemMap])
       });
+    } on GCRError {
+      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

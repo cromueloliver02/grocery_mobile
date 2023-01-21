@@ -22,6 +22,8 @@ class ProductService {
       }
 
       return productDoc;
+    } on GCRError {
+      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
