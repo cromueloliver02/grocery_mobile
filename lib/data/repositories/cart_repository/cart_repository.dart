@@ -59,7 +59,10 @@ class CartRepository extends BaseCartRepository {
     required CartItem cartItem,
   }) async {
     try {
-      return await cartService.addToCart(userId: userId, cartItem: cartItem);
+      final CartItem newCartItem =
+          await cartService.addToCart(userId: userId, cartItem: cartItem);
+
+      return newCartItem;
     } catch (err) {
       rethrow;
     }
@@ -71,7 +74,7 @@ class CartRepository extends BaseCartRepository {
     required String cartItemId,
   }) async {
     try {
-      return await cartService.removeFromCart(
+      await cartService.removeFromCart(
         userId: userId,
         cartItemId: cartItemId,
       );
@@ -87,7 +90,7 @@ class CartRepository extends BaseCartRepository {
     required CartItemQtyAction action,
   }) async {
     try {
-      return await cartService.changeCartItemQty(
+      await cartService.changeCartItemQty(
         userId: userId,
         cartItemId: cartItemId,
         action: action,
@@ -104,7 +107,7 @@ class CartRepository extends BaseCartRepository {
     required int newQuantity,
   }) async {
     try {
-      return await cartService.updateCartItemQty(
+      await cartService.updateCartItemQty(
         userId: userId,
         cartItemId: cartItemId,
         newQuantity: newQuantity,
@@ -117,7 +120,7 @@ class CartRepository extends BaseCartRepository {
   @override
   Future<void> clearCart(String userId) async {
     try {
-      return await cartService.clearCart(userId);
+      await cartService.clearCart(userId);
     } catch (err) {
       rethrow;
     }

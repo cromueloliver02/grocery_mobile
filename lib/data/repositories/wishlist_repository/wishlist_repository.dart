@@ -34,7 +34,7 @@ class WishlistRepository extends BaseWishlistRepository {
     required String productId,
   }) async {
     try {
-      return await wishlistService.addToWishlist(
+      await wishlistService.addToWishlist(
         userId: userId,
         productId: productId,
       );
@@ -49,7 +49,7 @@ class WishlistRepository extends BaseWishlistRepository {
     required String productId,
   }) async {
     try {
-      return await wishlistService.removeFromWishlist(
+      await wishlistService.removeFromWishlist(
         userId: userId,
         productId: productId,
       );
@@ -61,7 +61,7 @@ class WishlistRepository extends BaseWishlistRepository {
   @override
   Future<void> clearWishlist(String userId) async {
     try {
-      return await wishlistService.clearWishlist(userId);
+      await wishlistService.clearWishlist(userId);
     } catch (err) {
       rethrow;
     }
