@@ -26,7 +26,22 @@ class AuthService {
 
   Stream<fb_auth.User?> get user {
     try {
+      // THIS IS HOW TO TRIGGER ERROR IN STREAM
+      // throw Stream.error(GCRError.firebaseException(FirebaseException(
+      //   code: 'code',
+      //   message: 'gcr error message',
+      //   plugin: 'plugin',
+      // )));
+
+      // return Stream.error(FirebaseException(
+      //   code: 'code',
+      //   message: 'firebase exception message',
+      //   plugin: 'plugin',
+      // ));
+
       return fireAuth.userChanges();
+    } on GCRError {
+      rethrow;
     } on FirebaseException catch (err) {
       handleFirebaseException(err);
       return Stream.error(err);

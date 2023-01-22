@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
@@ -36,22 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             status: () => AuthStatus.authenticated,
           );
         },
-        onError: (err, stacktrace) {
-          logError(
-            state,
-            GCRError(
-              code: 'Exception',
-              message: err.toString(),
-              plugin: 'flutter_error/server_error',
-              stackTrace: stacktrace,
-            ),
-          );
-
-          return state.copyWith(
-            status: () => AuthStatus.failure,
-            error: () => GCRError.exception(err),
-          );
-        },
+        onError: _onError,
       );
     } on GCRError catch (err) {
       emit(state.copyWith(
@@ -68,5 +54,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) {
     authRepository.signout();
+  }
+
+  AuthState _onError(Object err, StackTrace stacktrace) {
+    if (err is GCRError) {
+      logError(state, err);
+
+      return state.copyWith(
+        status: () => AuthStatus.failure,
+        error: () => err,
+      );
+    }
+
+    if (err is FirebaseException) {
+      logError(state, GCRError.firebaseException(err));
+
+      return state.copyWith(
+        status: () => AuthStatus.failure,
+        error: () => GCRError.firebaseException(err),
+      );
+    }
+
+    logError(
+      state,
+      GCRError(
+        code: 'Exception',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+        stackTrace: stacktrace,
+      ),
+    );
+
+    return state.copyWith(
+      status: () => AuthStatus.failure,
+      error: () => GCRError.exception(err),
+    );
   }
 }
