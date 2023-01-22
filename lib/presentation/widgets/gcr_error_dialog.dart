@@ -51,13 +51,9 @@ class _ErrorDialogIOS extends StatelessWidget {
         error.code,
         style: textTheme.headline3,
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(error.plugin, style: textTheme.bodyText1),
-          const SizedBox(height: 10),
-          Text(error.message, style: textTheme.bodyText1),
-        ],
+      content: Text(
+        error.message,
+        style: textTheme.bodyText1,
       ),
       actions: [
         CupertinoDialogAction(
@@ -82,23 +78,27 @@ class _ErrorDialogAndroid extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AlertDialog(
+      contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      icon: const Icon(
+        Icons.error,
+        size: 30,
+      ),
       title: Text(
         error.code,
+        textAlign: TextAlign.center,
         style: textTheme.headline3,
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(error.plugin, style: textTheme.bodyText1),
-          const SizedBox(height: 10),
-          Text(error.message, style: textTheme.bodyText1),
-        ],
+      content: Text(
+        error.message,
+        textAlign: TextAlign.center,
+        style: textTheme.bodyText1,
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Ok'),
+        Center(
+          child: TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Ok'),
+          ),
         ),
       ],
     );
