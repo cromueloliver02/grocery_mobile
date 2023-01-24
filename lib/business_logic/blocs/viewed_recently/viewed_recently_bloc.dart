@@ -22,14 +22,7 @@ class ViewedRecentlyBloc
     emit(state.copyWith(status: () => ViewedRecentlyStatus.loading));
 
     try {
-      // FETCH viewed recently items
-      await Future.delayed(const Duration(seconds: 3));
-
-      final Map<String, Product> viewedItems = {
-        Product.productList[4].id: Product.productList[4],
-        Product.productList[8].id: Product.productList[8],
-        Product.productList[2].id: Product.productList[2],
-      };
+      final Map<String, Product> viewedItems = {};
 
       emit(state.copyWith(
         status: () => ViewedRecentlyStatus.success,

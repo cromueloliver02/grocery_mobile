@@ -17,10 +17,6 @@ class ViewedRecentlyActionCubit extends Cubit<ViewedRecentlyActionState> {
     emit(state.copyWith(status: () => ViewedRecentlyActionStatus.loading));
 
     try {
-      // TODO: create backend functionality
-      // POST viewed recently item
-      await Future.delayed(const Duration(seconds: 3));
-
       viewedRecentlyBloc.add(ViewedRecentlyItemAdded(product: product));
 
       emit(state.copyWith(
