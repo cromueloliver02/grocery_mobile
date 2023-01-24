@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
 import './components/sign_in_view.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   static const String id = '/sign-in';
 
   static Route<void> route(RouteSettings settings) {
@@ -29,6 +30,11 @@ class SignInPage extends StatelessWidget {
 
   const SignInPage({super.key});
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   void _signinListener(BuildContext ctx, SignInState state) {
     if (state.status == SigninStatus.failure) {
       showErrorDialog(ctx, state.error);
@@ -41,5 +47,11 @@ class SignInPage extends StatelessWidget {
       listener: _signinListener,
       child: const SignInView(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
   }
 }

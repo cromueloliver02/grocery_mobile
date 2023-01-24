@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
@@ -129,6 +130,8 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<OrderBloc>().add(OrderStarted(userId: userId));
     context.read<WishlistBloc>().add(WishlistStarted(userId: userId));
     context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
+
+    FlutterNativeSplash.remove();
   }
 
   @override
