@@ -110,7 +110,6 @@ class Product {
       salePrice: null,
       measureUnit: MeasureUnit.piece,
     ),
-    // Vegi
     Product(
       id: uuid.v4(),
       name: 'Carottes',
