@@ -36,11 +36,20 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
           status: () => WishlistActionStatus.success,
         ));
       } else {
+        final WishlistItem newWishlistItem = WishlistItem(
+          id: uuid.v4(),
+          product: product,
+        );
+
+        final List<WishlistItem> newWishlistItems = [
+          newWishlistItem,
+          ...wishlistItems,
+        ];
+
         // add wishlist item
         await wishlistRepository.addToWishlist(
           userId: userId,
-          product: product,
-          wishlistItems: wishlistItems,
+          newWishlistItems: newWishlistItems,
         );
 
         emit(state.copyWith(

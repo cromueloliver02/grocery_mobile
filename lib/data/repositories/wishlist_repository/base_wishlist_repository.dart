@@ -5,8 +5,7 @@ abstract class BaseWishlistRepository {
 
   Future<void> addToWishlist({
     required String userId,
-    required Product product,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   });
 
   Future<void> removeFromWishlist({

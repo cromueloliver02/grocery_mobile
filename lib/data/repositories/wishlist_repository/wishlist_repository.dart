@@ -50,14 +50,12 @@ class WishlistRepository extends BaseWishlistRepository {
   @override
   Future<void> addToWishlist({
     required String userId,
-    required Product product,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   }) async {
     try {
       await wishlistService.addToWishlist(
         userId: userId,
-        product: product,
-        wishlistItems: wishlistItems,
+        newWishlistItems: newWishlistItems,
       );
     } catch (err) {
       rethrow;

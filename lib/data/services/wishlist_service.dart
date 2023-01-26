@@ -34,20 +34,9 @@ class WishlistService {
 
   Future<void> addToWishlist({
     required String userId,
-    required Product product,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   }) async {
     try {
-      final WishlistItem newWishlistItem = WishlistItem(
-        id: uuid.v4(),
-        product: product,
-      );
-
-      final List<WishlistItem> newWishlistItems = [
-        newWishlistItem,
-        ...wishlistItems,
-      ];
-
       final List<Map<String, dynamic>> wishlistItemMaps =
           newWishlistItems.map((WishlistItem d) => d.toMap()).toList();
 
