@@ -32,7 +32,7 @@ class CartService {
     try {
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
+          .doc(cart.id) // the id of cart is the same as the user id
           .set(cart.toMap());
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);

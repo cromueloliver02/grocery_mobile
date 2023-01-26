@@ -94,7 +94,7 @@ class AuthService {
       );
 
       final Cart cart = Cart(
-        userId: user.uid,
+        id: user.uid,
         cartItems: <CartItem>[],
       );
 
@@ -149,7 +149,7 @@ class AuthService {
       );
 
       final Cart cart = Cart(
-        userId: user.uid,
+        id: user.uid,
         cartItems: <CartItem>[],
       );
 

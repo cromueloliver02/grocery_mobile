@@ -3,19 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './models.dart';
 
 class Cart {
-  final String userId;
+  final String id; // id is the same as the user id
   final List<CartItem> cartItems;
   final DateTime createdAt;
 
   Cart({
-    required this.userId,
+    required this.id,
     required this.cartItems,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
   factory Cart.initial() {
     return Cart(
-      userId: '',
+      id: '',
       cartItems: <CartItem>[],
     );
   }
@@ -30,15 +30,15 @@ class Cart {
 
   @override
   String toString() =>
-      'Cart(userId: $userId, cartItems: $cartItems, createdAt: $createdAt)';
+      'Cart(id: $id, cartItems: $cartItems, createdAt: $createdAt)';
 
   Cart copyWith({
-    String Function()? userId,
+    String Function()? id,
     List<CartItem> Function()? cartItems,
     DateTime Function()? createdAt,
   }) {
     return Cart(
-      userId: userId != null ? userId() : this.userId,
+      id: id != null ? id() : this.id,
       cartItems: cartItems != null ? cartItems() : this.cartItems,
       createdAt: createdAt != null ? createdAt() : this.createdAt,
     );
@@ -53,7 +53,7 @@ class Cart {
       return d.toMap();
     }).toList();
 
-    result.addAll({'userId': userId});
+    result.addAll({'id': id});
     result.addAll({'cartItems': cartItemsField});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
@@ -67,14 +67,14 @@ class Cart {
     final map = doc.data() as Map<String, dynamic>;
 
     return Cart(
-      userId: doc.id, // id of cart document is the same as the userId
+      id: doc.id, // id of cart document is the same as the id
       cartItems: cartItems,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
     );
   }
 
   static Cart dummyCart = Cart(
-    userId: 'unique-user-id',
+    id: 'unique-user-id',
     cartItems: CartItem.dummyCartItems,
     createdAt: DateTime.now(),
   );
