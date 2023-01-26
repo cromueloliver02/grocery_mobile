@@ -16,8 +16,6 @@ class UserService {
           firestore.collection(kUsersCollectionPath).doc(userId).snapshots();
 
       return userDocStream;
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

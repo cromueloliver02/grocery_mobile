@@ -40,8 +40,6 @@ class AuthService {
       // ));
 
       return fireAuth.userChanges();
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       handleFirebaseException(err);
       return Stream.error(err);

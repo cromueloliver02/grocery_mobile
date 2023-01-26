@@ -27,17 +27,7 @@ class OrderService {
 
   Future<void> placeOrder(OrderItem orderItem) async {
     try {
-      final DocumentReference orderItemRef = await firestore
-          .collection(kOrdersCollectionPath)
-          .add(orderItem.toMap());
-
-      final DocumentSnapshot orderItemDoc = await orderItemRef.get();
-
-      if (!orderItemDoc.exists) {
-        throw GCRError.exception('Order item does not exist');
-      }
-    } on GCRError {
-      rethrow;
+      await firestore.collection(kOrdersCollectionPath).add(orderItem.toMap());
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

@@ -23,8 +23,6 @@ class WishlistService {
 
         yield newWishlistItemMaps;
       }
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

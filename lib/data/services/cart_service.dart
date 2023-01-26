@@ -21,8 +21,6 @@ class CartService {
           .snapshots();
 
       return cartDocStream;
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -55,8 +53,6 @@ class CartService {
           .collection(kCartsCollectionPath)
           .doc(userId) // the id of cart is the same as the user id
           .update({kCartItems: newCartItemMaps});
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -76,8 +72,6 @@ class CartService {
           .collection(kCartsCollectionPath)
           .doc(userId) // the id of cart is the same as the user id
           .update({kCartItems: newCartItemMaps});
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -97,8 +91,6 @@ class CartService {
           .collection(kCartsCollectionPath)
           .doc(userId) // the id of cart is the same as the user id
           .update({kCartItems: newCartItemMaps});
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -118,8 +110,6 @@ class CartService {
           .collection(kCartsCollectionPath)
           .doc(userId) // the id of cart is the same as the user id
           .update({kCartItems: newCartItemMaps});
-    } on GCRError {
-      rethrow;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
