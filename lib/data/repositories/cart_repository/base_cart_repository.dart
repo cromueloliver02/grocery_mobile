@@ -5,8 +5,8 @@ abstract class BaseCartRepository {
   Stream<Cart> getCart(String userId);
 
   Future<void> addToCart({
-    required CartItem cartItem,
-    required Cart cart,
+    required String userId,
+    required List<CartItem> newCartItems,
   });
 
   Future<void> removeFromCart({

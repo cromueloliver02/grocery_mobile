@@ -1,3 +1,5 @@
+// ignore: depend_on_referenced_packages
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
@@ -15,21 +17,40 @@ class CartActionCubit extends Cubit<CartActionState> {
   }) : super(CartActionState.initial());
 
   void addToCart({
+    required String userId,
     required Product product,
-    required Cart cart,
+    required List<CartItem> cartItems,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      final CartItem cartItem = CartItem(
-        id: uuid.v4(),
-        product: product,
-        quantity: 1,
+      final CartItem? existingCartItem = cartItems.firstWhereOrNull(
+        (CartItem d) => d.product.id == product.id,
       );
 
+      late final List<CartItem> newCartItems;
+
+      if (existingCartItem != null) {
+        // increment cart item's quantity
+        newCartItems = cartItems
+            .map((CartItem d) => d.product.id == product.id
+                ? d.copyWith(quantity: () => d.quantity + 1)
+                : d)
+            .toList();
+      } else {
+        final CartItem cartItem = CartItem(
+          id: uuid.v4(),
+          product: product,
+          quantity: 1,
+        );
+
+        // insert product to cart
+        newCartItems = [cartItem, ...cartItems];
+      }
+
       await cartRepository.addToCart(
-        cartItem: cartItem,
-        cart: cart,
+        userId: userId,
+        newCartItems: newCartItems,
       );
 
       emit(state.copyWith(

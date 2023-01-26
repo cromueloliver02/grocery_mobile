@@ -6,12 +6,12 @@ import '../../../utils/utils.dart';
 import './base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
-  final ProductService productService;
   final CartService cartService;
+  final ProductService productService;
 
   CartRepository({
-    required this.productService,
     required this.cartService,
+    required this.productService,
   });
 
   @override
@@ -62,13 +62,13 @@ class CartRepository extends BaseCartRepository {
 
   @override
   Future<void> addToCart({
-    required CartItem cartItem,
-    required Cart cart,
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
       await cartService.addToCart(
-        cartItem: cartItem,
-        cart: cart,
+        userId: userId,
+        newCartItems: newCartItems,
       );
     } catch (err) {
       rethrow;

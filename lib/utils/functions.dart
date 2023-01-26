@@ -12,11 +12,13 @@ import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
 
 void addToCart(BuildContext ctx, Product product) {
-  final Cart cart = ctx.read<CartBloc>().state.cart;
+  final String userId = ctx.read<UserBloc>().state.user.id;
+  final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
   ctx.read<CartActionCubit>().addToCart(
+        userId: userId,
         product: product,
-        cart: cart,
+        cartItems: cartItems,
       );
 }
 

@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// ignore: depend_on_referenced_packages
-import 'package:collection/collection.dart';
 
 import './services.dart';
 import '../models/models.dart';
@@ -10,7 +8,7 @@ class CartService {
   final FirebaseFirestore firestore;
   final ProductService productService;
 
-  CartService({
+  const CartService({
     required this.firestore,
     required this.productService,
   });
@@ -44,36 +42,17 @@ class CartService {
   }
 
   Future<void> addToCart({
-    required CartItem cartItem,
-    required Cart cart,
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
-      final CartItem? existingCartItem = cart.cartItems.firstWhereOrNull(
-        (CartItem d) => d.product.id == cartItem.product.id,
-      );
-
-      late final Cart newCart;
-
-      if (existingCartItem != null) {
-        // increment cart item's quantity
-        final List<CartItem> cartItems = cart.cartItems
-            .map((CartItem d) => d.product.id == cartItem.product.id
-                ? d.copyWith(quantity: () => d.quantity + 1)
-                : d)
-            .toList();
-
-        newCart = cart.copyWith(cartItems: () => cartItems);
-      } else {
-        // insert product to cart
-        final List<CartItem> cartItems = [cartItem, ...cart.cartItems];
-
-        newCart = cart.copyWith(cartItems: () => cartItems);
-      }
+      final List<Map<String, dynamic>> newCartItemMaps =
+          newCartItems.map((CartItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
-          .set(newCart.toMap(populateCartItems: true));
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: newCartItemMaps});
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
