@@ -29,8 +29,8 @@ class OrderDetailsView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ShippingInfoSection(
-                customerName: orderItem.user.name,
-                customerAddress: orderItem.user.shipAddress!,
+                userName: orderItem.user.name,
+                userAddress: orderItem.user.shipAddress!,
                 orderedAt: orderItem.createdAt,
                 totalPaid: orderItem.grandTotalPrice,
               ),

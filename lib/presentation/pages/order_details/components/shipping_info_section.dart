@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:recase/recase.dart';
 
 class ShippingInfoSection extends StatelessWidget {
   const ShippingInfoSection({
     super.key,
-    required this.customerName,
-    required this.customerAddress,
+    required this.userName,
+    required this.userAddress,
     required this.orderedAt,
     required this.totalPaid,
   });
 
-  final String customerName;
-  final String customerAddress;
+  final String userName;
+  final String userAddress;
   final DateTime orderedAt;
   final double totalPaid;
 
@@ -38,12 +39,12 @@ class ShippingInfoSection extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Name: John Doe',
+                'Name: ${userName.titleCase}',
                 style: textTheme.bodyText1,
               ),
               const SizedBox(height: 10),
               Text(
-                'Address: Arabiat Echague, Isabela 3309',
+                'Address: $userAddress',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: textTheme.bodyText1,
