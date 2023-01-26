@@ -25,9 +25,10 @@ class GCRCartCard extends StatefulWidget {
 class _GCRCartCardState extends State<GCRCartCard> {
   late final TextEditingController _qtyController;
 
-  void _removeCartItem(BuildContext ctx) async {
+  void _removeCartItem(BuildContext ctx, {required String cartItemId}) async {
     final CartActionCubit removeCartItemCubit = ctx.read<CartActionCubit>();
-    final Cart cart = ctx.read<CartBloc>().state.cart;
+    final String userId = ctx.read<UserBloc>().state.user.id;
+    final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
     final bool? response = await showWarningDialog(
       ctx,
@@ -37,8 +38,9 @@ class _GCRCartCardState extends State<GCRCartCard> {
 
     if (response != null && response) {
       removeCartItemCubit.removeFromCart(
-        cartItemId: widget.cartItem.id,
-        cart: cart,
+        userId: userId,
+        cartItemId: cartItemId,
+        cartItems: cartItems,
       );
     }
   }
@@ -92,7 +94,10 @@ class _GCRCartCardState extends State<GCRCartCard> {
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () => _removeCartItem(context),
+                    onTap: () => _removeCartItem(
+                      context,
+                      cartItemId: widget.cartItem.id,
+                    ),
                     child: const Icon(
                       CupertinoIcons.cart_badge_minus,
                       color: Colors.red,

@@ -68,15 +68,19 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void removeFromCart({
-    required Cart cart,
+    required String userId,
     required String cartItemId,
+    required List<CartItem> cartItems,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
+      final List<CartItem> newCartItems =
+          cartItems.where((CartItem d) => d.id != cartItemId).toList();
+
       await cartRepository.removeFromCart(
-        cartItemId: cartItemId,
-        cart: cart,
+        userId: userId,
+        newCartItems: newCartItems,
       );
 
       emit(state.copyWith(

@@ -63,19 +63,17 @@ class CartService {
   }
 
   Future<void> removeFromCart({
-    required String cartItemId,
-    required Cart cart,
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
-      final Cart newCart = cart.copyWith(
-        cartItems: () =>
-            cart.cartItems.where((CartItem d) => d.id != cartItemId).toList(),
-      );
+      final List<Map<String, dynamic>> newCartItemMaps =
+          newCartItems.map((CartItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
-          .set(newCart.toMap(populateCartItems: true));
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: newCartItemMaps});
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {

@@ -10,8 +10,8 @@ abstract class BaseCartRepository {
   });
 
   Future<void> removeFromCart({
-    required String cartItemId,
-    required Cart cart,
+    required String userId,
+    required List<CartItem> newCartItems,
   });
 
   Future<void> changeCartItemQty({
