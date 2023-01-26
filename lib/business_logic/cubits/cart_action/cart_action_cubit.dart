@@ -197,13 +197,13 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void clearCart({
-    required Cart cart,
+    required String userId,
     required CartActionType actionType,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      await cartRepository.clearCart(cart);
+      await cartRepository.clearCart(userId);
 
       emit(state.copyWith(
         actionType: () => actionType,

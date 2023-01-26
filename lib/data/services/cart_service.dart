@@ -15,8 +15,10 @@ class CartService {
 
   Stream<DocumentSnapshot> getCart(String userId) {
     try {
-      final Stream<DocumentSnapshot> cartDocStream =
-          firestore.collection(kCartsCollectionPath).doc(userId).snapshots();
+      final Stream<DocumentSnapshot> cartDocStream = firestore
+          .collection(kCartsCollectionPath)
+          .doc(userId) // the id of cart is the same as the user id
+          .snapshots();
 
       return cartDocStream;
     } on GCRError {
@@ -32,7 +34,7 @@ class CartService {
     try {
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId)
+          .doc(cart.userId) // the id of cart is the same as the user id
           .set(cart.toMap());
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
@@ -144,14 +146,12 @@ class CartService {
     }
   }
 
-  Future<void> clearCart(Cart cart) async {
+  Future<void> clearCart(String userId) async {
     try {
-      final Cart newCart = cart.copyWith(cartItems: () => []);
-
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
-          .set(newCart.toMap(populateCartItems: true));
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: <CartItem>[]});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

@@ -28,5 +28,5 @@ abstract class BaseCartRepository {
     required List<CartItem> newCartItems,
   });
 
-  Future<void> clearCart(Cart cart);
+  Future<void> clearCart(String userId);
 }

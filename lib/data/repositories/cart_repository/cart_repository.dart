@@ -136,9 +136,9 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
-  Future<void> clearCart(Cart cart) async {
+  Future<void> clearCart(String userId) async {
     try {
-      await cartService.clearCart(cart);
+      await cartService.clearCart(userId);
     } catch (err) {
       rethrow;
     }
