@@ -72,7 +72,9 @@ class User extends Equatable {
     result.addAll({'name': name});
     result.addAll({'email': email});
     result.addAll({'shipAddress': shipAddress});
-    result.addAll({'wishlist': wishlist.map((WishlistItem d) => d.toMap())});
+    result.addAll({
+      'wishlist': wishlist.map((WishlistItem d) => d.toMap()).toList(),
+    });
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;
