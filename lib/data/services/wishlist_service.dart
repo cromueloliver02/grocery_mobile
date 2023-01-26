@@ -18,10 +18,10 @@ class WishlistService {
           .snapshots();
 
       await for (final DocumentSnapshot userDoc in userDocStream) {
-        final wishlistItemMaps =
+        final newWishlistItemMaps =
             List<Map<String, dynamic>>.from(userDoc.get(kWishlist));
 
-        yield wishlistItemMaps;
+        yield newWishlistItemMaps;
       }
     } on GCRError {
       rethrow;
@@ -37,13 +37,13 @@ class WishlistService {
     required List<WishlistItem> newWishlistItems,
   }) async {
     try {
-      final List<Map<String, dynamic>> wishlistItemMaps =
+      final List<Map<String, dynamic>> newWishlistItemMaps =
           newWishlistItems.map((WishlistItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kUsersCollectionPath)
           .doc(userId)
-          .update({kWishlist: wishlistItemMaps});
+          .update({kWishlist: newWishlistItemMaps});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
