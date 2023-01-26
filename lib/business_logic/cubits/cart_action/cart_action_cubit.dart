@@ -131,20 +131,26 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void decrementCartItem({
+    required String userId,
     required String cartItemId,
-    required Cart cart,
+    required List<CartItem> cartItems,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      await cartRepository.changeCartItemQty(
-        cartItemId: cartItemId,
-        cart: cart,
-        action: CartItemQtyAction.decrement,
+      final List<CartItem> newCartItems = cartItems
+          .map((CartItem d) => d.id == cartItemId
+              ? d.copyWith(quantity: () => d.quantity > 1 ? d.quantity - 1 : 1)
+              : d)
+          .toList();
+
+      await cartRepository.incrementCartItemQty(
+        userId: userId,
+        newCartItems: newCartItems,
       );
 
       emit(state.copyWith(
-        actionType: () => CartActionType.decrementQty,
+        actionType: () => CartActionType.incrementQty,
         status: () => CartActionStatus.success,
       ));
     } on GCRError catch (err) {

@@ -83,29 +83,18 @@ class CartService {
     }
   }
 
-  // TODO: to be deleted
-  Future<void> changeCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required CartItemQtyAction action,
+  Future<void> incrementCartItemQty({
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
-      final List<CartItem> cartItems = cart.cartItems.map((d) {
-        if (d.id != cartItemId) return d;
-
-        if (action == CartItemQtyAction.increment) {
-          return d.copyWith(quantity: () => d.quantity + 1);
-        } else {
-          return d.copyWith(quantity: () => d.quantity - 1);
-        }
-      }).toList();
-
-      final Cart newCart = cart.copyWith(cartItems: () => cartItems);
+      final List<Map<String, dynamic>> newCartItemMaps =
+          newCartItems.map((CartItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
-          .set(newCart.toMap(populateCartItems: true));
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: newCartItemMaps});
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -115,7 +104,7 @@ class CartService {
     }
   }
 
-  Future<void> incrementCartItemQty({
+  Future<void> decrementCartItemQty({
     required String userId,
     required List<CartItem> newCartItems,
   }) async {

@@ -90,24 +90,6 @@ class CartRepository extends BaseCartRepository {
     }
   }
 
-  // TODO: to be deleted
-  @override
-  Future<void> changeCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required CartItemQtyAction action,
-  }) async {
-    try {
-      await cartService.changeCartItemQty(
-        cartItemId: cartItemId,
-        cart: cart,
-        action: action,
-      );
-    } catch (err) {
-      rethrow;
-    }
-  }
-
   @override
   Future<void> incrementCartItemQty({
     required String userId,
@@ -115,6 +97,21 @@ class CartRepository extends BaseCartRepository {
   }) async {
     try {
       await cartService.incrementCartItemQty(
+        userId: userId,
+        newCartItems: newCartItems,
+      );
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> decrementCartItemQty({
+    required String userId,
+    required List<CartItem> newCartItems,
+  }) async {
+    try {
+      await cartService.decrementCartItemQty(
         userId: userId,
         newCartItems: newCartItems,
       );

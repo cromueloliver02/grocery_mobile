@@ -1,5 +1,4 @@
 import '../../models/models.dart';
-import '../../../utils/utils.dart';
 
 abstract class BaseCartRepository {
   Stream<Cart> getCart(String userId);
@@ -14,14 +13,12 @@ abstract class BaseCartRepository {
     required List<CartItem> newCartItems,
   });
 
-  // TODO: to be deleted
-  Future<void> changeCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required CartItemQtyAction action,
+  Future<void> incrementCartItemQty({
+    required String userId,
+    required List<CartItem> newCartItems,
   });
 
-  Future<void> incrementCartItemQty({
+  Future<void> decrementCartItemQty({
     required String userId,
     required List<CartItem> newCartItems,
   });

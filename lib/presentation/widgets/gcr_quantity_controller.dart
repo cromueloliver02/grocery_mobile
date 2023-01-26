@@ -35,14 +35,16 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
         );
   }
 
-  void _decrementQuantity(BuildContext ctx) {
+  void _decrementQuantity(BuildContext ctx, {required String cartItemId}) {
     if (widget.quantity <= 1) return;
 
-    final Cart cart = ctx.read<CartBloc>().state.cart;
+    final String userId = ctx.read<UserBloc>().state.user.id;
+    final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
     ctx.read<CartActionCubit>().decrementCartItem(
-          cartItemId: widget.cartItemId,
-          cart: cart,
+          userId: userId,
+          cartItemId: cartItemId,
+          cartItems: cartItems,
         );
   }
 
@@ -59,7 +61,10 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () => _decrementQuantity(context),
+          onTap: () => _decrementQuantity(
+            context,
+            cartItemId: widget.cartItemId,
+          ),
           child: Container(
             width: 30,
             height: 30,
