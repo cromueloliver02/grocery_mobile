@@ -70,6 +70,9 @@ class OrderRepository extends BaseOrderRepository {
           orderItems.insert(0, orderItem);
         }
 
+        orderItems.sort((model.OrderItem a, model.OrderItem b) =>
+            b.createdAt.compareTo(a.createdAt));
+
         yield model.Order(orderItems: orderItems);
       }
     } catch (err) {
