@@ -25,6 +25,7 @@ class UserView extends StatelessWidget {
                   builder: (ctx, state) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 10),
                       RichText(
                         text: TextSpan(
                           text: 'Hi, ',
