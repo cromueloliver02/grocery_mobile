@@ -10,8 +10,7 @@ abstract class BaseWishlistRepository {
 
   Future<void> removeFromWishlist({
     required String userId,
-    required String productId,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   });
 
   Future<void> clearWishlist(String userId);

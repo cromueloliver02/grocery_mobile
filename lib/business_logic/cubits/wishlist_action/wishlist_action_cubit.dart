@@ -24,11 +24,14 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
 
     try {
       if (isExist) {
+        final List<WishlistItem> newWishlistItems = wishlistItems
+            .where((WishlistItem d) => d.product.id != product.id)
+            .toList();
+
         // remove wishlist item
         await wishlistRepository.removeFromWishlist(
           userId: userId,
-          productId: product.id,
-          wishlistItems: wishlistItems,
+          newWishlistItems: newWishlistItems,
         );
 
         emit(state.copyWith(

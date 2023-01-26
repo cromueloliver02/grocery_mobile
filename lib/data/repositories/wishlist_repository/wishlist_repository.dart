@@ -65,14 +65,12 @@ class WishlistRepository extends BaseWishlistRepository {
   @override
   Future<void> removeFromWishlist({
     required String userId,
-    required String productId,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   }) async {
     try {
       await wishlistService.removeFromWishlist(
         userId: userId,
-        productId: productId,
-        wishlistItems: wishlistItems,
+        newWishlistItems: newWishlistItems,
       );
     } catch (err) {
       rethrow;

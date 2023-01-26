@@ -53,21 +53,16 @@ class WishlistService {
 
   Future<void> removeFromWishlist({
     required String userId,
-    required String productId,
-    required List<WishlistItem> wishlistItems,
+    required List<WishlistItem> newWishlistItems,
   }) async {
     try {
-      final List<WishlistItem> newWishlistItems = wishlistItems
-          .where((WishlistItem d) => d.product.id != productId)
-          .toList();
-
-      final List<Map<String, dynamic>> wishlistItemMaps =
+      final List<Map<String, dynamic>> newWishlistItemMaps =
           newWishlistItems.map((WishlistItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kUsersCollectionPath)
           .doc(userId)
-          .update({kWishlist: wishlistItemMaps});
+          .update({kWishlist: newWishlistItemMaps});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
