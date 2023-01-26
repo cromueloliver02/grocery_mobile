@@ -28,27 +28,27 @@ class GCRMenuListTile extends StatelessWidget {
           children: [
             leading,
             const SizedBox(width: 30),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style: textTheme.headline4!.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                if (subtitle != null)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   Text(
-                    subtitle!,
-                    style: textTheme.caption,
+                    title,
+                    style: textTheme.headline4!.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-              ],
+                  if (subtitle != null)
+                    Text(
+                      subtitle!,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.caption,
+                    ),
+                ],
+              ),
             ),
-            if (trailing != null) ...[
-              const Spacer(),
-              trailing!,
-            ],
+            if (trailing != null) trailing!,
           ],
         ),
       ),
