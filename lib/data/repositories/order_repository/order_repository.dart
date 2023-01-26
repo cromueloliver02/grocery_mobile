@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as fstore;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../services/services.dart';
-import '../../models/models.dart';
+import '../../models/models.dart' as model;
 import '../../../utils/utils.dart';
 import './base_order_repository.dart';
 
@@ -17,49 +17,51 @@ class OrderRepository extends BaseOrderRepository {
   });
 
   @override
-  Future<Order> getOrder(String userId) async {
+  Stream<model.Order> getOrder(String userId) async* {
     try {
-      final fstore.QuerySnapshot orderItemQuery =
-          await orderService.fetchOrderItems(userId);
-      final List<fstore.DocumentSnapshot> orderItemDocs = orderItemQuery.docs;
+      final Stream<QuerySnapshot> orderItemsQueryStream =
+          orderService.fetchOrderItems(userId);
 
-      final List<OrderItem> orderItems = [];
+      await for (final QuerySnapshot orderItemQuery in orderItemsQueryStream) {
+        final List<model.OrderItem> orderItems = [];
 
-      for (final orderItemDoc in orderItemDocs) {
-        final List<CartItem> cartItems = [];
+        for (final QueryDocumentSnapshot orderItemDoc in orderItemQuery.docs) {
+          final cartItemMaps =
+              List<Map<String, dynamic>>.from(orderItemDoc.get(kCartItems));
 
-        final cartItemMaps =
-            List<Map<String, dynamic>>.from(orderItemDoc.get('cartItems'));
+          final List<model.CartItem> cartItems = [];
 
-        for (final cartItemMap in cartItemMaps) {
-          final String productId = cartItemMap['product'];
+          for (final Map<String, dynamic> cartItemMap in cartItemMaps) {
+            final String productId = cartItemMap[kProduct];
 
-          final fstore.DocumentSnapshot productDoc =
-              await productService.getProduct(productId);
+            final DocumentSnapshot productDoc = await FirebaseFirestore.instance
+                .collection(kProductsCollectionPath)
+                .doc(productId)
+                .get();
 
-          if (productDoc.exists) {
-            final Product product = Product.fromDoc(productDoc);
+            final model.Product product = model.Product.fromDoc(productDoc);
 
-            final CartItem cartItem = CartItem.fromMap(
+            final model.CartItem cartItem = model.CartItem.fromMap(
               cartItemMap,
               product: product,
             );
 
             cartItems.insert(0, cartItem);
           }
-        }
 
-        final String userId = orderItemDoc.get(kUser);
-        final fstore.DocumentSnapshot userDoc =
-            await userService.getUser(userId);
+          final String userId = orderItemDoc.get(kUser);
 
-        if (userDoc.exists) {
-          final User user = User.fromDoc(
+          final DocumentSnapshot userDoc = await FirebaseFirestore.instance
+              .collection(kUsersCollectionPath)
+              .doc(userId)
+              .get();
+
+          final model.User user = model.User.fromDoc(
             userDoc,
-            wishlist: const <Product>[], // wishlist is unnecessary to populate
+            wishlist: const [], // wishlist is unnecessary to populate
           );
 
-          final OrderItem orderItem = OrderItem.fromDoc(
+          final model.OrderItem orderItem = model.OrderItem.fromDoc(
             orderItemDoc,
             cartItems: cartItems,
             user: user,
@@ -67,64 +69,18 @@ class OrderRepository extends BaseOrderRepository {
 
           orderItems.insert(0, orderItem);
         }
+
+        yield model.Order(orderItems: orderItems);
       }
-
-      orderItems.sort((OrderItem a, OrderItem b) {
-        return b.createdAt.compareTo(a.createdAt);
-      });
-
-      final Order order = Order(orderItems: orderItems);
-
-      return order;
     } catch (err) {
       rethrow;
     }
   }
 
   @override
-  Future<OrderItem> placeOrder(OrderItem orderItem) async {
+  Future<void> placeOrder(model.OrderItem orderItem) async {
     try {
-      final fstore.DocumentSnapshot orderItemDoc =
-          await orderService.placeOrder(orderItem);
-
-      final List<CartItem> cartItems = [];
-
-      final cartItemMaps =
-          List<Map<String, dynamic>>.from(orderItemDoc.get('cartItems'));
-
-      for (final cartItemMap in cartItemMaps) {
-        final String productId = cartItemMap['product'];
-
-        final fstore.DocumentSnapshot productDoc =
-            await productService.getProduct(productId);
-
-        if (productDoc.exists) {
-          final Product product = Product.fromDoc(productDoc);
-
-          final CartItem cartItem = CartItem.fromMap(
-            cartItemMap,
-            product: product,
-          );
-
-          cartItems.insert(0, cartItem);
-        }
-      }
-
-      final String userId = orderItemDoc.get('user');
-      final fstore.DocumentSnapshot userDoc = await userService.getUser(userId);
-
-      final User user = User.fromDoc(
-        userDoc,
-        wishlist: const <Product>[], // wishlist is unnecessary to populate
-      );
-
-      final OrderItem newOrderItem = OrderItem.fromDoc(
-        orderItemDoc,
-        cartItems: cartItems,
-        user: user,
-      );
-
-      return newOrderItem;
+      await orderService.placeOrder(orderItem);
     } catch (err) {
       rethrow;
     }

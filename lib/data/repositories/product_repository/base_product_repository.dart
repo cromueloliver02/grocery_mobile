@@ -1,7 +1,7 @@
 import '../../models/models.dart';
 
 abstract class BaseProductRepository {
-  Future<List<Product>> fetchProducts();
+  Stream<List<Product>> fetchProducts();
 
   Future<List<Product>> searchProducts(String keywords);
 }

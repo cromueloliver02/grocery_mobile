@@ -31,12 +31,12 @@ class ProductService {
     }
   }
 
-  Future<QuerySnapshot> fetchProducts() async {
+  Stream<QuerySnapshot> fetchProducts() {
     try {
-      final QuerySnapshot productQuery =
-          await firestore.collection(kProductsCollectionPath).get();
+      final Stream<QuerySnapshot> productQueryStream =
+          firestore.collection(kProductsCollectionPath).snapshots();
 
-      return productQuery;
+      return productQueryStream;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

@@ -15,54 +15,61 @@ class CartRepository extends BaseCartRepository {
   });
 
   @override
-  Future<Cart> getCart(String userId) async {
+  Stream<Cart> getCart(String userId) async* {
     try {
-      List<CartItem> cartItems = [];
+      final Stream<DocumentSnapshot> cartDocStream =
+          cartService.getCart(userId);
 
-      // the id of cart is the same as the user id
-      final DocumentSnapshot cartDoc = await cartService.getCart(userId);
+      await for (final DocumentSnapshot cartDoc in cartDocStream) {
+        final cartItemMaps =
+            List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
 
-      final List<Map<String, dynamic>> cartItemMaps =
-          List<Map<String, dynamic>>.from(cartDoc.get('cartItems'));
+        final List<CartItem> cartItems = [];
 
-      for (final cartItemMap in cartItemMaps) {
-        final String productId = cartItemMap['product'];
+        for (final cartItemMap in cartItemMaps) {
+          final String productId = cartItemMap['product'];
 
-        final DocumentSnapshot productDoc =
-            await productService.getProduct(productId);
+          final DocumentSnapshot productDoc = await FirebaseFirestore.instance
+              .collection(kProductsCollectionPath)
+              .doc(productId)
+              .get();
 
-        if (productDoc.exists) {
+          final Product product = Product.fromDoc(productDoc);
+
           final CartItem cartItem = CartItem.fromMap(
             cartItemMap,
-            product: Product.fromDoc(productDoc),
+            product: product,
           );
 
           cartItems.insert(0, cartItem);
         }
+
+        cartItems.sort(
+          (CartItem a, CartItem b) => b.createdAt.compareTo(a.createdAt),
+        );
+
+        final Cart cart = Cart.fromDoc(
+          cartDoc,
+          cartItems: cartItems,
+        );
+
+        yield cart;
       }
-
-      cartItems.sort((CartItem a, CartItem b) {
-        return b.createdAt.compareTo(a.createdAt);
-      });
-
-      final Cart cart = Cart.fromDoc(cartDoc, cartItems: cartItems);
-
-      return cart;
     } catch (err) {
       rethrow;
     }
   }
 
   @override
-  Future<CartItem> addToCart({
-    required String userId,
+  Future<void> addToCart({
     required CartItem cartItem,
+    required Cart cart,
   }) async {
     try {
-      final CartItem newCartItem =
-          await cartService.addToCart(userId: userId, cartItem: cartItem);
-
-      return newCartItem;
+      await cartService.addToCart(
+        cartItem: cartItem,
+        cart: cart,
+      );
     } catch (err) {
       rethrow;
     }
@@ -70,13 +77,13 @@ class CartRepository extends BaseCartRepository {
 
   @override
   Future<void> removeFromCart({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
   }) async {
     try {
       await cartService.removeFromCart(
-        userId: userId,
         cartItemId: cartItemId,
+        cart: cart,
       );
     } catch (err) {
       rethrow;
@@ -85,14 +92,14 @@ class CartRepository extends BaseCartRepository {
 
   @override
   Future<void> changeCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required CartItemQtyAction action,
   }) async {
     try {
       await cartService.changeCartItemQty(
-        userId: userId,
         cartItemId: cartItemId,
+        cart: cart,
         action: action,
       );
     } catch (err) {
@@ -102,14 +109,14 @@ class CartRepository extends BaseCartRepository {
 
   @override
   Future<void> updateCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required int newQuantity,
   }) async {
     try {
       await cartService.updateCartItemQty(
-        userId: userId,
         cartItemId: cartItemId,
+        cart: cart,
         newQuantity: newQuantity,
       );
     } catch (err) {
@@ -118,9 +125,9 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
-  Future<void> clearCart(String userId) async {
+  Future<void> clearCart(Cart cart) async {
     try {
-      await cartService.clearCart(userId);
+      await cartService.clearCart(cart);
     } catch (err) {
       rethrow;
     }

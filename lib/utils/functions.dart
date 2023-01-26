@@ -12,20 +12,26 @@ import '../business_logic/cubits/cubits.dart';
 import '../presentation/widgets/widgets.dart';
 
 void addToCart(BuildContext ctx, Product product) {
-  final String userId = ctx.read<UserBloc>().state.user.id;
+  final Cart cart = ctx.read<CartBloc>().state.cart;
 
   ctx.read<CartActionCubit>().addToCart(
-        userId: userId,
         product: product,
+        cart: cart,
       );
 }
 
 void toggleWishlist(BuildContext ctx, Product product) {
+  final bool isExist =
+      ctx.read<WishlistBloc>().state.wishlist.inWishlist(product.id);
   final String userId = ctx.read<UserBloc>().state.user.id;
+  final List<WishlistItem> wishlistItems =
+      ctx.read<WishlistBloc>().state.wishlist.wishlistItems;
 
   ctx.read<WishlistActionCubit>().toggleWishlist(
+        isExist: isExist,
         userId: userId,
         product: product,
+        wishlistItems: wishlistItems,
       );
 }
 

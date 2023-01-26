@@ -40,11 +40,17 @@ class Cart {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({bool populateCartItems = false}) {
     final result = <String, dynamic>{};
 
+    final Object cartItemsField = cartItems.map((CartItem d) {
+      if (!populateCartItems) return d.id;
+
+      return d.toMap();
+    }).toList();
+
     result.addAll({'userId': userId});
-    result.addAll({'cartItems': cartItems.map((d) => d.id).toList()});
+    result.addAll({'cartItems': cartItemsField});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;

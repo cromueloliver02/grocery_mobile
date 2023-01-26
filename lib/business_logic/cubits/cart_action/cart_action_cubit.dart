@@ -8,17 +8,15 @@ import '../../../utils/utils.dart';
 part 'cart_action_state.dart';
 
 class CartActionCubit extends Cubit<CartActionState> {
-  final CartBloc cartBloc;
   final CartRepository cartRepository;
 
   CartActionCubit({
     required this.cartRepository,
-    required this.cartBloc,
   }) : super(CartActionState.initial());
 
   void addToCart({
-    required String userId,
     required Product product,
+    required Cart cart,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
@@ -29,12 +27,10 @@ class CartActionCubit extends Cubit<CartActionState> {
         quantity: 1,
       );
 
-      final CartItem newCartItem = await cartRepository.addToCart(
-        userId: userId,
+      await cartRepository.addToCart(
         cartItem: cartItem,
+        cart: cart,
       );
-
-      cartBloc.add(CartItemAdded(cartItem: newCartItem));
 
       emit(state.copyWith(
         actionType: () => CartActionType.addToCart,
@@ -51,23 +47,21 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void removeFromCart({
-    required String userId,
+    required Cart cart,
     required String cartItemId,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      cartBloc.add(CartItemRemoved(cartItemId: cartItemId));
+      await cartRepository.removeFromCart(
+        cartItemId: cartItemId,
+        cart: cart,
+      );
 
       emit(state.copyWith(
         actionType: () => CartActionType.removeFromCart,
         status: () => CartActionStatus.success,
       ));
-
-      await cartRepository.removeFromCart(
-        userId: userId,
-        cartItemId: cartItemId,
-      );
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,
@@ -79,24 +73,22 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void incrementCartItem({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      cartBloc.add(CartItemIncremented(cartItemId: cartItemId));
+      await cartRepository.changeCartItemQty(
+        cartItemId: cartItemId,
+        cart: cart,
+        action: CartItemQtyAction.increment,
+      );
 
       emit(state.copyWith(
         actionType: () => CartActionType.incrementQty,
         status: () => CartActionStatus.success,
       ));
-
-      await cartRepository.changeCartItemQty(
-        userId: userId,
-        cartItemId: cartItemId,
-        action: CartItemQtyAction.increment,
-      );
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,
@@ -108,24 +100,22 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void decrementCartItem({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      cartBloc.add(CartItemDecremented(cartItemId: cartItemId));
+      await cartRepository.changeCartItemQty(
+        cartItemId: cartItemId,
+        cart: cart,
+        action: CartItemQtyAction.decrement,
+      );
 
       emit(state.copyWith(
         actionType: () => CartActionType.decrementQty,
         status: () => CartActionStatus.success,
       ));
-
-      await cartRepository.changeCartItemQty(
-        userId: userId,
-        cartItemId: cartItemId,
-        action: CartItemQtyAction.decrement,
-      );
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,
@@ -137,28 +127,23 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void updateCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required int newQuantity,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      cartBloc.add(CartItemQtyUpdated(
+      await cartRepository.updateCartItemQty(
         cartItemId: cartItemId,
+        cart: cart,
         newQuantity: newQuantity,
-      ));
+      );
 
       emit(state.copyWith(
         actionType: () => CartActionType.updateQty,
         status: () => CartActionStatus.success,
       ));
-
-      await cartRepository.updateCartItemQty(
-        userId: userId,
-        cartItemId: cartItemId,
-        newQuantity: newQuantity,
-      );
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,
@@ -170,20 +155,18 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void clearCart({
-    required String userId,
+    required Cart cart,
     required CartActionType actionType,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
-      cartBloc.add(CartCleared());
+      await cartRepository.clearCart(cart);
 
       emit(state.copyWith(
         actionType: () => actionType,
         status: () => CartActionStatus.success,
       ));
-
-      await cartRepository.clearCart(userId);
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => CartActionStatus.failure,

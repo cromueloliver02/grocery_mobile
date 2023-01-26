@@ -11,7 +11,7 @@ class CartPageAppBar extends StatelessWidget {
   const CartPageAppBar({super.key});
 
   void _showClearCartDialog(BuildContext ctx) async {
-    final UserBloc userBloc = ctx.read<UserBloc>();
+    final CartBloc cartBloc = ctx.read<CartBloc>();
     final CartActionCubit clearCartCubit = ctx.read<CartActionCubit>();
 
     final bool? response = await showWarningDialog(
@@ -21,10 +21,10 @@ class CartPageAppBar extends StatelessWidget {
     );
 
     if (response != null && response) {
-      final String userId = userBloc.state.user.id;
+      final Cart cart = cartBloc.state.cart;
 
       clearCartCubit.clearCart(
-        userId: userId,
+        cart: cart,
         actionType: CartActionType.clearCart,
       );
     }
@@ -45,7 +45,9 @@ class CartPageAppBar extends StatelessWidget {
     }
 
     final User user = userBloc.state.user;
-    final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
+    final CartBloc cartBloc = ctx.read<CartBloc>();
+    final Cart cart = cartBloc.state.cart;
+    final List<CartItem> cartItems = cartBloc.state.cart.cartItems;
 
     final OrderItem orderItem = OrderItem(
       id: '', // id is auto-generated in the backend
@@ -54,6 +56,10 @@ class CartPageAppBar extends StatelessWidget {
     );
 
     ctx.read<OrderActionCubit>().placeOrder(orderItem);
+    ctx.read<CartActionCubit>().clearCart(
+          cart: cart,
+          actionType: CartActionType.placeOrder,
+        );
   }
 
   @override

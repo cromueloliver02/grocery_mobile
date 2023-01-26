@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../data/services/services.dart';
 import '../../../data/models/models.dart';
+import '../../../utils/utils.dart';
 
 import './base_user_repository.dart';
 
@@ -15,30 +16,38 @@ class UserRepository extends BaseUserRepository {
   });
 
   @override
-  Future<User> getUser({required String userId}) async {
+  Stream<User> getUser(String userId) async* {
     try {
-      final List<Product> wishlist = [];
+      final Stream<DocumentSnapshot> userDocStream =
+          userService.getUser(userId);
 
-      final DocumentSnapshot userDoc = await userService.getUser(userId);
+      await for (final userDoc in userDocStream) {
+        final wishlistItemMaps = List<Map<String, dynamic>>.from(
+          (userDoc.data() as Map<String, dynamic>)['wishlist'],
+        );
 
-      final List<String> productIds = List<String>.from(
-        (userDoc.data() as Map<String, dynamic>)['wishlist'],
-      );
+        final List<WishlistItem> wishlist = [];
 
-      for (String productId in productIds) {
-        final DocumentSnapshot productDoc =
-            await productService.getProduct(productId);
+        for (final Map<String, dynamic> wishlistItemMap in wishlistItemMaps) {
+          final String productId = wishlistItemMap[kProduct];
 
-        if (productDoc.exists) {
-          final Product product = Product.fromDoc(productDoc);
+          final DocumentSnapshot productDoc =
+              await productService.getProduct(productId);
 
-          wishlist.add(product);
+          if (productDoc.exists) {
+            final Product product = Product.fromDoc(productDoc);
+
+            final WishlistItem wishlistItem =
+                WishlistItem.fromMap(wishlistItemMap, product: product);
+
+            wishlist.insert(0, wishlistItem);
+          }
         }
+
+        final User user = User.fromDoc(userDoc, wishlist: wishlist);
+
+        yield user;
       }
-
-      final User user = User.fromDoc(userDoc, wishlist: wishlist);
-
-      return user;
     } catch (err) {
       rethrow;
     }

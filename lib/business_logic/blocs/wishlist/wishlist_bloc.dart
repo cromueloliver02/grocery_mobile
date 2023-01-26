@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,9 +16,6 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     required this.wishlistRepository,
   }) : super(WishlistState.initial()) {
     on<WishlistStarted>(_onWishlistStarted);
-    on<WishlistItemAdded>(_onWishlistItemAdded);
-    on<WishlistItemRemoved>(_onWishlistItemRemoved);
-    on<WishlistCleared>(_onWishlistCleared);
     on<WishlistResetRequested>(_onWishlistResetRequested);
   }
 
@@ -28,14 +26,14 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(status: () => WishlistStatus.loading));
 
     try {
-      // get wishlist
-      final Wishlist wishlist =
-          await wishlistRepository.getWishlist(event.userId);
-
-      emit(state.copyWith(
-        status: () => WishlistStatus.success,
-        wishlist: () => wishlist,
-      ));
+      await emit.forEach<Wishlist>(
+        wishlistRepository.getWishlist(event.userId),
+        onData: (Wishlist wishlist) => state.copyWith(
+          wishlist: () => wishlist,
+          status: () => WishlistStatus.success,
+        ),
+        onError: _onError,
+      );
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => WishlistStatus.failure,
@@ -46,50 +44,45 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     }
   }
 
-  void _onWishlistItemAdded(
-    WishlistItemAdded event,
-    Emitter<WishlistState> emit,
-  ) async {
-    final List<Product> wishlistItems = [
-      event.product,
-      ...state.wishlist.wishlistItems,
-    ];
-
-    emit(state.copyWith(
-      wishlist: () => state.wishlist.copyWith(
-        wishlistItems: () => wishlistItems,
-      ),
-    ));
-  }
-
-  void _onWishlistItemRemoved(
-    WishlistItemRemoved event,
-    Emitter<WishlistState> emit,
-  ) async {
-    final List<Product> wishlistItems = state.wishlist.wishlistItems
-        .where((d) => d.id != event.productId)
-        .toList();
-
-    emit(state.copyWith(
-      wishlist: () => state.wishlist.copyWith(
-        wishlistItems: () => wishlistItems,
-      ),
-    ));
-  }
-
-  void _onWishlistCleared(
-    WishlistCleared event,
-    Emitter<WishlistState> emit,
-  ) {
-    emit(state.copyWith(
-      wishlist: () => Wishlist(wishlistItems: []),
-    ));
-  }
-
   void _onWishlistResetRequested(
     WishlistResetRequested event,
     Emitter<WishlistState> emit,
   ) {
     emit(WishlistState.initial());
+  }
+
+  WishlistState _onError(Object err, StackTrace stacktrace) {
+    if (err is GCRError) {
+      logError(state, err);
+
+      return state.copyWith(
+        status: () => WishlistStatus.failure,
+        error: () => err,
+      );
+    }
+
+    if (err is FirebaseException) {
+      logError(state, GCRError.firebaseException(err));
+
+      return state.copyWith(
+        status: () => WishlistStatus.failure,
+        error: () => GCRError.firebaseException(err),
+      );
+    }
+
+    logError(
+      state,
+      GCRError(
+        code: 'Something went wrong',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+        stackTrace: stacktrace,
+      ),
+    );
+
+    return state.copyWith(
+      status: () => WishlistStatus.failure,
+      error: () => GCRError.exception(err),
+    );
   }
 }

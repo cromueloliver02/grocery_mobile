@@ -35,12 +35,6 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
-  void _viewedRecentlyListener(BuildContext ctx, ViewedRecentlyState state) {
-    if (state.status == ViewedRecentlyStatus.failure) {
-      showErrorDialog(ctx, state.error);
-    }
-  }
-
   void _cartActionListener(BuildContext ctx, CartActionState state) {
     if (state.status == CartActionStatus.success &&
         state.actionType == CartActionType.addToCart) {
@@ -104,9 +98,6 @@ class _NavigationPageState extends State<NavigationPage> {
         BlocListener<WishlistBloc, WishlistState>(
           listener: _wishlistListener,
         ),
-        BlocListener<ViewedRecentlyBloc, ViewedRecentlyState>(
-          listener: _viewedRecentlyListener,
-        ),
         BlocListener<CartActionCubit, CartActionState>(
           listener: _cartActionListener,
         ),
@@ -129,7 +120,6 @@ class _NavigationPageState extends State<NavigationPage> {
 
     context.read<OrderBloc>().add(OrderStarted(userId: userId));
     context.read<WishlistBloc>().add(WishlistStarted(userId: userId));
-    context.read<ViewedRecentlyBloc>().add(ViewedRecentlyStarted());
 
     FlutterNativeSplash.remove();
   }
@@ -144,7 +134,6 @@ class _NavigationPageState extends State<NavigationPage> {
     context.read<CartActionCubit>().reset();
     context.read<OrderActionCubit>().reset();
     context.read<WishlistActionCubit>().reset();
-    context.read<ViewedRecentlyActionCubit>().reset();
     context.read<NavigationCubit>().reset();
 
     super.deactivate();

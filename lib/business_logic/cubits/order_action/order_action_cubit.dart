@@ -3,19 +3,14 @@ import 'package:equatable/equatable.dart';
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../blocs/blocs.dart';
-import '../cubits.dart';
 import '../../../utils/utils.dart';
 
 part 'order_action_state.dart';
 
 class OrderActionCubit extends Cubit<OrderActionState> {
-  final OrderBloc orderBloc;
-  final CartActionCubit cartActionCubit;
   final OrderRepository orderRepository;
 
   OrderActionCubit({
-    required this.orderBloc,
-    required this.cartActionCubit,
     required this.orderRepository,
   }) : super(OrderActionState.initial());
 
@@ -24,14 +19,7 @@ class OrderActionCubit extends Cubit<OrderActionState> {
 
     try {
       // place order
-      final OrderItem newOrderItem =
-          await orderRepository.placeOrder(orderItem);
-
-      orderBloc.add(OrderPlaceRequested(orderItem: newOrderItem));
-      cartActionCubit.clearCart(
-        userId: orderItem.user.id,
-        actionType: CartActionType.placeOrder,
-      );
+      await orderRepository.placeOrder(orderItem);
 
       emit(state.copyWith(
         status: () => OrderActionStatus.success,

@@ -1,16 +1,18 @@
 import '../../models/models.dart';
 
 abstract class BaseWishlistRepository {
-  Future<Wishlist> getWishlist(String userId);
+  Stream<Wishlist> getWishlist(String userId);
 
   Future<void> addToWishlist({
     required String userId,
-    required String productId,
+    required Product product,
+    required List<WishlistItem> wishlistItems,
   });
 
   Future<void> removeFromWishlist({
     required String userId,
     required String productId,
+    required List<WishlistItem> wishlistItems,
   });
 
   Future<void> clearWishlist(String userId);

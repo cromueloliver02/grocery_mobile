@@ -8,73 +8,14 @@ abstract class CartEvent extends Equatable {
 }
 
 class CartLoaded extends CartEvent {
-  final Cart cart;
+  final String userId;
 
   const CartLoaded({
-    required this.cart,
+    required this.userId,
   });
 
   @override
-  List<Object> get props => [cart];
+  List<Object> get props => [userId];
 }
-
-class CartItemAdded extends CartEvent {
-  final CartItem cartItem;
-
-  const CartItemAdded({
-    required this.cartItem,
-  });
-
-  @override
-  List<Object> get props => [cartItem];
-}
-
-class CartItemIncremented extends CartEvent {
-  final String cartItemId;
-
-  const CartItemIncremented({
-    required this.cartItemId,
-  });
-
-  @override
-  List<Object> get props => [cartItemId];
-}
-
-class CartItemDecremented extends CartEvent {
-  final String cartItemId;
-
-  const CartItemDecremented({
-    required this.cartItemId,
-  });
-
-  @override
-  List<Object> get props => [cartItemId];
-}
-
-class CartItemQtyUpdated extends CartEvent {
-  final String cartItemId;
-  final int newQuantity;
-
-  const CartItemQtyUpdated({
-    required this.cartItemId,
-    required this.newQuantity,
-  });
-
-  @override
-  List<Object> get props => [cartItemId, newQuantity];
-}
-
-class CartItemRemoved extends CartEvent {
-  final String cartItemId;
-
-  const CartItemRemoved({
-    required this.cartItemId,
-  });
-
-  @override
-  List<Object> get props => [cartItemId];
-}
-
-class CartCleared extends CartEvent {}
 
 class CartResetRequested extends CartEvent {}

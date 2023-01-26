@@ -15,17 +15,12 @@ class CartService {
     required this.productService,
   });
 
-  Future<DocumentSnapshot> getCart(String userId) async {
+  Stream<DocumentSnapshot> getCart(String userId) {
     try {
-      // the id of cart is the same as the user id
-      final DocumentSnapshot cartDoc =
-          await firestore.collection(kCartsCollectionPath).doc(userId).get();
+      final Stream<DocumentSnapshot> cartDocStream =
+          firestore.collection(kCartsCollectionPath).doc(userId).snapshots();
 
-      if (!cartDoc.exists) {
-        throw GCRError.exception('Cart does not exist');
-      }
-
-      return cartDoc;
+      return cartDocStream;
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -48,63 +43,37 @@ class CartService {
     }
   }
 
-  Future<CartItem> addToCart({
-    required String userId,
+  Future<void> addToCart({
     required CartItem cartItem,
+    required Cart cart,
   }) async {
     try {
-      // the id of cart is the same as the user id
-      final DocumentReference cartRef =
-          firestore.collection(kCartsCollectionPath).doc(userId);
+      final CartItem? existingCartItem = cart.cartItems.firstWhereOrNull(
+        (CartItem d) => d.product.id == cartItem.product.id,
+      );
 
-      final DocumentSnapshot cartDoc = await getCart(userId);
+      late final Cart newCart;
 
-      final Map<String, dynamic>? existingCartItemMap =
-          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems))
-              .firstWhereOrNull((d) => d[kProduct] == cartItem.product.id);
+      if (existingCartItem != null) {
+        // increment cart item's quantity
+        final List<CartItem> cartItems = cart.cartItems
+            .map((CartItem d) => d.product.id == cartItem.product.id
+                ? d.copyWith(quantity: () => d.quantity + 1)
+                : d)
+            .toList();
 
-      // cart item does not exist in the cart, add cart item into the cart
-      if (existingCartItemMap == null) {
-        await cartRef.update({
-          kCartItems: FieldValue.arrayUnion([cartItem.toMap()]),
-        });
+        newCart = cart.copyWith(cartItems: () => cartItems);
+      } else {
+        // insert product to cart
+        final List<CartItem> cartItems = [cartItem, ...cart.cartItems];
 
-        return cartItem;
+        newCart = cart.copyWith(cartItems: () => cartItems);
       }
 
-      // there's no cleaner way to update quantity of cart item as of
-      // Flutterfire Cloud Firestore version 4.3.1 (January 2023) so I
-      // manually used the remove and replace method instead
-      // reference: https://firebase.google.com/support/releases#firestore-index-name-sort
-
-      // else if cart item already exist, increment quantity instead
-      final String productId = existingCartItemMap[kProduct];
-
-      final DocumentSnapshot productDoc =
-          await productService.getProduct(productId);
-
-      final CartItem existingCartItem = CartItem.fromMap(
-        existingCartItemMap,
-        product: Product.fromDoc(productDoc),
-      );
-
-      // remove existing cart item
-      await cartRef.update({
-        kCartItems: FieldValue.arrayRemove([existingCartItem.toMap()]),
-      });
-
-      final CartItem updatedCartItem = existingCartItem.copyWith(
-        quantity: () => existingCartItem.quantity + 1,
-      );
-
-      // replace removed existing cart item but with an increased quantity
-      await cartRef.update({
-        kCartItems: FieldValue.arrayUnion([
-          updatedCartItem.toMap(),
-        ])
-      });
-
-      return updatedCartItem;
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId) // the id of cart is the same as the user id
+          .set(newCart.toMap(populateCartItems: true));
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -115,23 +84,19 @@ class CartService {
   }
 
   Future<void> removeFromCart({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
   }) async {
     try {
-      // the id of cart is the same as the user id
-      final DocumentReference cartRef =
-          firestore.collection(kCartsCollectionPath).doc(userId);
+      final Cart newCart = cart.copyWith(
+        cartItems: () =>
+            cart.cartItems.where((CartItem d) => d.id != cartItemId).toList(),
+      );
 
-      final DocumentSnapshot cartDoc = await getCart(userId);
-
-      final Map<String, dynamic> cartItemMap =
-          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems))
-              .firstWhere((d) => d[kId] == cartItemId);
-
-      await cartRef.update({
-        kCartItems: FieldValue.arrayRemove([cartItemMap]),
-      });
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId) // the id of cart is the same as the user id
+          .set(newCart.toMap(populateCartItems: true));
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -142,35 +107,27 @@ class CartService {
   }
 
   Future<void> changeCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required CartItemQtyAction action,
   }) async {
     try {
-      // the id of cart is the same as the user id
-      final DocumentReference cartRef =
-          firestore.collection(kCartsCollectionPath).doc(userId);
-      final DocumentSnapshot cartDoc = await getCart(userId);
+      final List<CartItem> cartItems = cart.cartItems.map((d) {
+        if (d.id != cartItemId) return d;
 
-      final cartItemMaps =
-          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems));
+        if (action == CartItemQtyAction.increment) {
+          return d.copyWith(quantity: () => d.quantity + 1);
+        } else {
+          return d.copyWith(quantity: () => d.quantity - 1);
+        }
+      }).toList();
 
-      Map<String, dynamic> cartItemMap =
-          cartItemMaps.firstWhere((d) => d[kId] == cartItemId);
+      final Cart newCart = cart.copyWith(cartItems: () => cartItems);
 
-      await cartRef.update({
-        kCartItems: FieldValue.arrayRemove([cartItemMap]),
-      });
-
-      if (action == CartItemQtyAction.increment) {
-        cartItemMap[kQuantity] = cartItemMap[kQuantity] + 1;
-      } else {
-        cartItemMap[kQuantity] = cartItemMap[kQuantity] - 1;
-      }
-
-      await cartRef.update({
-        kCartItems: FieldValue.arrayUnion([cartItemMap])
-      });
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId) // the id of cart is the same as the user id
+          .set(newCart.toMap(populateCartItems: true));
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -181,32 +138,22 @@ class CartService {
   }
 
   Future<void> updateCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required int newQuantity,
   }) async {
     try {
-      // the id of cart is the same as the user id
-      final DocumentReference cartRef =
-          firestore.collection(kCartsCollectionPath).doc(userId);
+      final List<CartItem> cartItems = cart.cartItems
+          .map((CartItem d) =>
+              d.id == cartItemId ? d.copyWith(quantity: () => newQuantity) : d)
+          .toList();
 
-      final DocumentSnapshot cartDoc = await cartRef.get();
+      final Cart newCart = cart.copyWith(cartItems: () => cartItems);
 
-      final cartItemMaps =
-          List<Map<String, dynamic>>.from(cartDoc.get(kCartItems));
-
-      Map<String, dynamic> cartItemMap =
-          cartItemMaps.firstWhere((d) => d[kId] == cartItemId);
-
-      await cartRef.update({
-        kCartItems: FieldValue.arrayRemove([cartItemMap]),
-      });
-
-      cartItemMap[kQuantity] = newQuantity;
-
-      await cartRef.update({
-        kCartItems: FieldValue.arrayUnion([cartItemMap])
-      });
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId) // the id of cart is the same as the user id
+          .set(newCart.toMap(populateCartItems: true));
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -214,13 +161,14 @@ class CartService {
     }
   }
 
-  Future<void> clearCart(String userId) async {
+  Future<void> clearCart(Cart cart) async {
     try {
-      // the id of cart is the same as the user id
-      final DocumentReference cartRef =
-          firestore.collection(kCartsCollectionPath).doc(userId);
+      final Cart newCart = cart.copyWith(cartItems: () => []);
 
-      await cartRef.update({kCartItems: []});
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(cart.userId) // the id of cart is the same as the user id
+          .set(newCart.toMap(populateCartItems: true));
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

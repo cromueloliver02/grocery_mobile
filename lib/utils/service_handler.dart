@@ -23,8 +23,6 @@ final OrderService orderService = OrderService(
 
 final WishlistService wishlistService = WishlistService(
   firestore: FirebaseFirestore.instance,
-  productService: productService,
-  userService: userService,
 );
 
 final AuthService authService = AuthService(

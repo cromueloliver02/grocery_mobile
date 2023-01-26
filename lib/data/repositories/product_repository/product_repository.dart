@@ -12,14 +12,19 @@ class ProductRepository extends BaseProductRepository {
   });
 
   @override
-  Future<List<Product>> fetchProducts() async {
+  Stream<List<Product>> fetchProducts() {
     try {
-      final QuerySnapshot productQuery = await productService.fetchProducts();
-      final List<DocumentSnapshot> productDocs = productQuery.docs;
-      final List<Product> products =
-          productDocs.map((doc) => Product.fromDoc(doc)).toList();
+      final Stream<QuerySnapshot> productQueryStream =
+          productService.fetchProducts();
 
-      return products;
+      final Stream<List<Product>> productListStream =
+          productQueryStream.map((snapshot) {
+        return snapshot.docs.map((QueryDocumentSnapshot productDoc) {
+          return Product.fromDoc(productDoc);
+        }).toList();
+      });
+
+      return productListStream;
     } catch (err) {
       rethrow;
     }

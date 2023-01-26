@@ -27,7 +27,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
 
   void _removeCartItem(BuildContext ctx) async {
     final CartActionCubit removeCartItemCubit = ctx.read<CartActionCubit>();
-    final String userId = ctx.read<UserBloc>().state.user.id;
+    final Cart cart = ctx.read<CartBloc>().state.cart;
 
     final bool? response = await showWarningDialog(
       ctx,
@@ -37,8 +37,8 @@ class _GCRCartCardState extends State<GCRCartCard> {
 
     if (response != null && response) {
       removeCartItemCubit.removeFromCart(
-        userId: userId,
         cartItemId: widget.cartItem.id,
+        cart: cart,
       );
     }
   }

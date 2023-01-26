@@ -10,14 +10,14 @@ class OrderService {
     required this.firestore,
   });
 
-  Future<QuerySnapshot> fetchOrderItems(String userId) async {
+  Stream<QuerySnapshot> fetchOrderItems(String userId) {
     try {
-      final QuerySnapshot orderItemQuery = await firestore
+      final Stream<QuerySnapshot> orderItemsQueryStream = firestore
           .collection(kOrdersCollectionPath)
           .where(kUser, isEqualTo: userId)
-          .get();
+          .snapshots();
 
-      return orderItemQuery;
+      return orderItemsQueryStream;
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -25,7 +25,7 @@ class OrderService {
     }
   }
 
-  Future<DocumentSnapshot> placeOrder(OrderItem orderItem) async {
+  Future<void> placeOrder(OrderItem orderItem) async {
     try {
       final DocumentReference orderItemRef = await firestore
           .collection(kOrdersCollectionPath)
@@ -36,8 +36,6 @@ class OrderService {
       if (!orderItemDoc.exists) {
         throw GCRError.exception('Order item does not exist');
       }
-
-      return orderItemDoc;
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {

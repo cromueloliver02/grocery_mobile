@@ -18,15 +18,4 @@ class OrderStarted extends OrderEvent {
   List<Object> get props => [userId];
 }
 
-class OrderPlaceRequested extends OrderEvent {
-  final OrderItem orderItem;
-
-  const OrderPlaceRequested({
-    required this.orderItem,
-  });
-
-  @override
-  List<Object> get props => [orderItem];
-}
-
 class OrderResetRequested extends OrderEvent {}

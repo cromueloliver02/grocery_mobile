@@ -8,11 +8,9 @@ import '../../../utils/utils.dart';
 part 'user_action_state.dart';
 
 class UserActionCubit extends Cubit<UserActionState> {
-  final UserBloc userBloc;
   final UserRepository userRepository;
 
   UserActionCubit({
-    required this.userBloc,
     required this.userRepository,
   }) : super(UserActionState.initial());
 
@@ -21,8 +19,6 @@ class UserActionCubit extends Cubit<UserActionState> {
     required String newShipAddress,
   }) async {
     emit(state.copyWith(status: () => UserActionStatus.loading));
-
-    userBloc.add(UserAddressUpdated(shipAddress: newShipAddress));
 
     try {
       await userRepository.updateShipAddress(

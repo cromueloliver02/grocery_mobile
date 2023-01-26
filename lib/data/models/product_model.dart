@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../utils/utils.dart';
 
-class Product {
+class Product extends Equatable {
   final String id;
   final String name;
   final String imageUrl;
@@ -11,7 +12,7 @@ class Product {
   final double? salePrice;
   final MeasureUnit measureUnit;
 
-  Product({
+  const Product({
     required this.id,
     required this.name,
     required this.imageUrl,
@@ -24,7 +25,7 @@ class Product {
   bool get isOnSale => salePrice != null;
 
   factory Product.initial() {
-    return Product(
+    return const Product(
       id: '',
       name: '',
       imageUrl: '',
@@ -33,6 +34,29 @@ class Product {
       salePrice: null,
       measureUnit: MeasureUnit.kg,
     );
+  }
+
+  @override
+  List<Object?> get props =>
+      [id, name, imageUrl, category, price, salePrice, measureUnit];
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, category: $category, price: $price, salePrice: $salePrice, measureUnit: $measureUnit)';
+  }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'id': id});
+    result.addAll({'name': name});
+    result.addAll({'imageUrl': imageUrl});
+    result.addAll({'category': category});
+    result.addAll({'price': price});
+    result.addAll({'salePrice': salePrice});
+    result.addAll({'measureUnit': measureUnit.name});
+
+    return result;
   }
 
   factory Product.fromDoc(DocumentSnapshot doc) {
@@ -50,9 +74,17 @@ class Product {
     );
   }
 
-  @override
-  String toString() {
-    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, category: $category, price: $price, salePrice: $salePrice, measureUnit: $measureUnit)';
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      category: map['category'] ?? '',
+      price: map['price']?.toDouble() ?? 0.0,
+      salePrice: map['salePrice']?.toDouble(),
+      measureUnit:
+          MeasureUnit.values.firstWhere((d) => d.name == map['measureUnit']),
+    );
   }
 
   static final List<Product> productList = [

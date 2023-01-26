@@ -8,7 +8,7 @@ class User extends Equatable {
   final String name;
   final String email;
   final String? shipAddress;
-  final List<Product> wishlist;
+  final List<WishlistItem> wishlist;
   final DateTime createdAt;
 
   const User({
@@ -26,7 +26,7 @@ class User extends Equatable {
       name: '',
       email: '',
       shipAddress: null,
-      wishlist: const [],
+      wishlist: const <WishlistItem>[],
       createdAt: DateTime.now(),
     );
   }
@@ -53,7 +53,7 @@ class User extends Equatable {
     String Function()? name,
     String Function()? email,
     String? Function()? shipAddress,
-    List<Product> Function()? wishlist,
+    List<WishlistItem> Function()? wishlist,
     DateTime Function()? createdAt,
   }) {
     return User(
@@ -72,7 +72,7 @@ class User extends Equatable {
     result.addAll({'name': name});
     result.addAll({'email': email});
     result.addAll({'shipAddress': shipAddress});
-    result.addAll({'wishlist': wishlist.map((d) => d.id).toList()});
+    result.addAll({'wishlist': wishlist.map((WishlistItem d) => d.toMap())});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
 
     return result;
@@ -80,7 +80,7 @@ class User extends Equatable {
 
   factory User.fromDoc(
     DocumentSnapshot doc, {
-    required List<Product> wishlist,
+    required List<WishlistItem> wishlist,
   }) {
     final map = doc.data() as Map<String, dynamic>;
 

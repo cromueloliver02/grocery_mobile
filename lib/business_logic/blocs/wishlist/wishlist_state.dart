@@ -13,7 +13,7 @@ class WishlistState extends Equatable {
 
   factory WishlistState.initial() {
     return WishlistState(
-      wishlist: Wishlist(wishlistItems: <Product>[]),
+      wishlist: Wishlist(wishlistItems: <WishlistItem>[]),
       status: WishlistStatus.initial,
       error: const GCRError(),
     );

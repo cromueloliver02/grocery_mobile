@@ -10,16 +10,12 @@ class UserService {
     required this.firestore,
   });
 
-  Future<DocumentSnapshot> getUser(String userId) async {
+  Stream<DocumentSnapshot> getUser(String userId) {
     try {
-      final DocumentSnapshot userDoc =
-          await firestore.collection(kUsersCollectionPath).doc(userId).get();
+      final Stream<DocumentSnapshot> userDocStream =
+          firestore.collection(kUsersCollectionPath).doc(userId).snapshots();
 
-      if (!userDoc.exists) {
-        throw GCRError.exception('User does not exist');
-      }
-
-      return userDoc;
+      return userDocStream;
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {

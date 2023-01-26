@@ -1,9 +1,9 @@
 part of 'order_bloc.dart';
 
 class OrderState extends Equatable {
-  final Order order;
+  final model.Order order;
   final OrderStatus status;
-  final GCRError error;
+  final model.GCRError error;
 
   const OrderState({
     required this.order,
@@ -13,9 +13,9 @@ class OrderState extends Equatable {
 
   factory OrderState.initial() {
     return OrderState(
-      order: Order.initial(),
+      order: model.Order.initial(),
       status: OrderStatus.initial,
-      error: const GCRError(),
+      error: const model.GCRError(),
     );
   }
 
@@ -27,9 +27,9 @@ class OrderState extends Equatable {
       'OrderState(order: $order, status: $status, error: $error)';
 
   OrderState copyWith({
-    Order Function()? order,
+    model.Order Function()? order,
     OrderStatus Function()? status,
-    GCRError Function()? error,
+    model.GCRError Function()? error,
   }) {
     return OrderState(
       order: order != null ? order() : this.order,

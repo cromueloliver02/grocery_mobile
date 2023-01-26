@@ -58,7 +58,7 @@ class WishlistView extends StatelessWidget {
                         childAspectRatio: 240 / 200,
                       ),
                       itemBuilder: (ctx, idx) => GCRProductCard.wishlist(
-                        product: state.wishlist.wishlistItems[idx],
+                        product: state.wishlist.wishlistItems[idx].product,
                       ),
                     );
                   },

@@ -7,8 +7,6 @@ abstract class ViewedRecentlyEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ViewedRecentlyStarted extends ViewedRecentlyEvent {}
-
 class ViewedRecentlyItemAdded extends ViewedRecentlyEvent {
   final Product product;
 

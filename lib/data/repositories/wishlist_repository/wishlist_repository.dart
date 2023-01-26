@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../data/services/services.dart';
 import '../../models/models.dart';
+import '../../../utils/utils.dart';
 import './base_wishlist_repository.dart';
 
 class WishlistRepository extends BaseWishlistRepository {
@@ -12,17 +13,35 @@ class WishlistRepository extends BaseWishlistRepository {
   });
 
   @override
-  Future<Wishlist> getWishlist(String userId) async {
+  Stream<Wishlist> getWishlist(String userId) async* {
     try {
-      final List<DocumentSnapshot> wishlistItemDocs =
-          await wishlistService.fetchWishlistItems(userId);
+      final Stream<List<Map<String, dynamic>>> wishlistItemMapsStream =
+          wishlistService.fetchWishlistItems(userId);
 
-      final List<Product> wishlistItems =
-          wishlistItemDocs.map((doc) => Product.fromDoc(doc)).toList();
+      await for (final List<Map<String, dynamic>> wishlistItemMaps
+          in wishlistItemMapsStream) {
+        final List<WishlistItem> wishlistItems = [];
 
-      final Wishlist wishlist = Wishlist(wishlistItems: wishlistItems);
+        for (final Map<String, dynamic> wishlistItemMap in wishlistItemMaps) {
+          final String productId = wishlistItemMap[kProduct];
 
-      return wishlist;
+          final DocumentSnapshot productDoc = await FirebaseFirestore.instance
+              .collection(kProductsCollectionPath)
+              .doc(productId)
+              .get();
+
+          final Product product = Product.fromDoc(productDoc);
+
+          final WishlistItem wishlistItem =
+              WishlistItem.fromMap(wishlistItemMap, product: product);
+
+          wishlistItems.insert(0, wishlistItem);
+        }
+
+        wishlistItems.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+        yield Wishlist(wishlistItems: wishlistItems);
+      }
     } catch (err) {
       rethrow;
     }
@@ -31,12 +50,14 @@ class WishlistRepository extends BaseWishlistRepository {
   @override
   Future<void> addToWishlist({
     required String userId,
-    required String productId,
+    required Product product,
+    required List<WishlistItem> wishlistItems,
   }) async {
     try {
       await wishlistService.addToWishlist(
         userId: userId,
-        productId: productId,
+        product: product,
+        wishlistItems: wishlistItems,
       );
     } catch (err) {
       rethrow;
@@ -47,11 +68,13 @@ class WishlistRepository extends BaseWishlistRepository {
   Future<void> removeFromWishlist({
     required String userId,
     required String productId,
+    required List<WishlistItem> wishlistItems,
   }) async {
     try {
       await wishlistService.removeFromWishlist(
         userId: userId,
         productId: productId,
+        wishlistItems: wishlistItems,
       );
     } catch (err) {
       rethrow;

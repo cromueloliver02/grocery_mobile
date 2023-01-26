@@ -1,41 +1,16 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
-import '../../../utils/utils.dart';
 
 part 'viewed_recently_event.dart';
 part 'viewed_recently_state.dart';
 
 class ViewedRecentlyBloc
-    extends Bloc<ViewedRecentlyEvent, ViewedRecentlyState> {
+    extends HydratedBloc<ViewedRecentlyEvent, ViewedRecentlyState> {
   ViewedRecentlyBloc() : super(ViewedRecentlyState.initial()) {
-    on<ViewedRecentlyStarted>(_onViewedRecentlyStarted);
     on<ViewedRecentlyItemAdded>(_onViewedRecentlyItemAdded);
     on<ViewedRecentlyResetRequested>(_onViewedRecentlyResetRequested);
-  }
-
-  void _onViewedRecentlyStarted(
-    ViewedRecentlyStarted event,
-    Emitter<ViewedRecentlyState> emit,
-  ) async {
-    emit(state.copyWith(status: () => ViewedRecentlyStatus.loading));
-
-    try {
-      final Map<String, Product> viewedItems = {};
-
-      emit(state.copyWith(
-        status: () => ViewedRecentlyStatus.success,
-        viewedItems: () => viewedItems,
-      ));
-    } on GCRError catch (err) {
-      emit(state.copyWith(
-        status: () => ViewedRecentlyStatus.failure,
-        error: () => err,
-      ));
-
-      logError(state, err);
-    }
   }
 
   void _onViewedRecentlyItemAdded(
@@ -53,5 +28,15 @@ class ViewedRecentlyBloc
     Emitter<ViewedRecentlyState> emit,
   ) {
     emit(ViewedRecentlyState.initial());
+  }
+
+  @override
+  ViewedRecentlyState? fromJson(Map<String, dynamic> json) {
+    return ViewedRecentlyState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(ViewedRecentlyState state) {
+    return state.toMap();
   }
 }

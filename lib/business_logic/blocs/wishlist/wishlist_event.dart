@@ -18,28 +18,4 @@ class WishlistStarted extends WishlistEvent {
   List<Object> get props => [userId];
 }
 
-class WishlistItemAdded extends WishlistEvent {
-  final Product product;
-
-  const WishlistItemAdded({
-    required this.product,
-  });
-
-  @override
-  List<Object> get props => [product];
-}
-
-class WishlistItemRemoved extends WishlistEvent {
-  final String productId;
-
-  const WishlistItemRemoved({
-    required this.productId,
-  });
-
-  @override
-  List<Object> get props => [productId];
-}
-
-class WishlistCleared extends WishlistEvent {}
-
 class WishlistResetRequested extends WishlistEvent {}

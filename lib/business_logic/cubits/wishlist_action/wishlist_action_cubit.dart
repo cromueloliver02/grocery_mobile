@@ -8,50 +8,45 @@ import '../../../utils/utils.dart';
 part 'wishlist_action_state.dart';
 
 class WishlistActionCubit extends Cubit<WishlistActionState> {
-  final WishlistBloc wishlistBloc;
   final WishlistRepository wishlistRepository;
 
   WishlistActionCubit({
-    required this.wishlistBloc,
     required this.wishlistRepository,
   }) : super(WishlistActionState.initial());
 
   void toggleWishlist({
+    required bool isExist,
     required String userId,
     required Product product,
+    required List<WishlistItem> wishlistItems,
   }) async {
     emit(state.copyWith(status: () => WishlistActionStatus.loading));
 
     try {
-      final bool isExist = wishlistBloc.state.wishlist.wishlistItems
-          .any((d) => d.id == product.id);
-
       if (isExist) {
-        wishlistBloc.add(WishlistItemRemoved(productId: product.id));
+        // remove wishlist item
+        await wishlistRepository.removeFromWishlist(
+          userId: userId,
+          productId: product.id,
+          wishlistItems: wishlistItems,
+        );
 
         emit(state.copyWith(
           actionType: () => WishlistActionType.remove,
           status: () => WishlistActionStatus.success,
         ));
-
-        // DELETE wishlist item
-        await wishlistRepository.removeFromWishlist(
-          userId: userId,
-          productId: product.id,
-        );
       } else {
-        wishlistBloc.add(WishlistItemAdded(product: product));
+        // add wishlist item
+        await wishlistRepository.addToWishlist(
+          userId: userId,
+          product: product,
+          wishlistItems: wishlistItems,
+        );
 
         emit(state.copyWith(
           actionType: () => WishlistActionType.add,
           status: () => WishlistActionStatus.success,
         ));
-
-        // POST wishlist item
-        await wishlistRepository.addToWishlist(
-          userId: userId,
-          productId: product.id,
-        );
       }
     } on GCRError catch (err) {
       emit(state.copyWith(
@@ -67,15 +62,13 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
     emit(state.copyWith(status: () => WishlistActionStatus.loading));
 
     try {
-      wishlistBloc.add(WishlistCleared());
+      // clear wishlist items
+      await wishlistRepository.clearWishlist(userId);
 
       emit(state.copyWith(
         status: () => WishlistActionStatus.success,
         actionType: () => WishlistActionType.clear,
       ));
-
-      // CLEAR wishlist items
-      await wishlistRepository.clearWishlist(userId);
     } on GCRError catch (err) {
       emit(state.copyWith(
         status: () => WishlistActionStatus.failure,

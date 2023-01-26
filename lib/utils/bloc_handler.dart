@@ -14,13 +14,6 @@ class BlocHandler {
       create: (ctx) => ThemeCubit(),
     ),
     // GENERATED ROUTE ACCESS BLOCS/CUBITS
-    BlocProvider<LoadingBloc>(
-      create: (ctx) => LoadingBloc(
-        productRepository: ctx.read<ProductRepository>(),
-        cartRepository: ctx.read<CartRepository>(),
-        userRepository: ctx.read<UserRepository>(),
-      ),
-    ),
     BlocProvider<ProductListBloc>(
       create: (ctx) => ProductListBloc(
         productRepository: ctx.read<ProductRepository>(),
@@ -30,10 +23,14 @@ class BlocHandler {
       create: (ctx) => ProductsOnSaleBloc(),
     ),
     BlocProvider<UserBloc>(
-      create: (ctx) => UserBloc(),
+      create: (ctx) => UserBloc(
+        userRepository: ctx.read<UserRepository>(),
+      ),
     ),
     BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc(),
+      create: (ctx) => CartBloc(
+        cartRepository: ctx.read<CartRepository>(),
+      ),
     ),
     BlocProvider<OrderBloc>(
       create: (ctx) => OrderBloc(
@@ -50,32 +47,22 @@ class BlocHandler {
     ),
     BlocProvider<UserActionCubit>(
       create: (ctx) => UserActionCubit(
-        userBloc: ctx.read<UserBloc>(),
         userRepository: ctx.read<UserRepository>(),
       ),
     ),
     BlocProvider<CartActionCubit>(
       create: (ctx) => CartActionCubit(
-        cartBloc: ctx.read<CartBloc>(),
         cartRepository: ctx.read<CartRepository>(),
       ),
     ),
     BlocProvider<OrderActionCubit>(
       create: (ctx) => OrderActionCubit(
-        orderBloc: ctx.read<OrderBloc>(),
-        cartActionCubit: ctx.read<CartActionCubit>(),
         orderRepository: ctx.read<OrderRepository>(),
       ),
     ),
     BlocProvider<WishlistActionCubit>(
       create: (ctx) => WishlistActionCubit(
-        wishlistBloc: ctx.read<WishlistBloc>(),
         wishlistRepository: ctx.read<WishlistRepository>(),
-      ),
-    ),
-    BlocProvider<ViewedRecentlyActionCubit>(
-      create: (ctx) => ViewedRecentlyActionCubit(
-        viewedRecentlyBloc: ctx.read<ViewedRecentlyBloc>(),
       ),
     ),
     BlocProvider<NavigationCubit>(

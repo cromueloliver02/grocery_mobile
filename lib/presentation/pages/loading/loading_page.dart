@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
-import '../pages.dart';
+import '../../../presentation/pages/pages.dart';
 import '../../../utils/utils.dart';
 import './components/loading_view.dart';
 
@@ -23,40 +23,60 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  void _initializeApp(BuildContext ctx, LoadingState state) {
-    final ProductListBloc productListBloc = ctx.read<ProductListBloc>();
-    final ProductsOnSaleBloc productsOnSaleBloc =
-        ctx.read<ProductsOnSaleBloc>();
-    final CartBloc cartBloc = ctx.read<CartBloc>();
-    final UserBloc userBloc = ctx.read<UserBloc>();
+  void _userListener(BuildContext ctx, UserState state) {
+    if (state.status == UserStatus.success) {
+      ctx.read<ProductListBloc>().add(ProductListLoaded());
+    }
 
-    final List<Product> onSaleProducts =
-        state.productList.where((d) => d.isOnSale).toList();
-
-    productListBloc.add(ProductListLoaded(productList: state.productList));
-    productsOnSaleBloc.add(
-      ProductsOnSaleLoaded(onSaleProducts: onSaleProducts),
-    );
-    cartBloc.add(CartLoaded(cart: state.cart));
-    userBloc.add(UserLoaded(user: state.user));
+    if (state.status == UserStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
   }
 
-  void _loadingListener(BuildContext ctx, LoadingState state) {
-    if (state.status == LoadingStatus.success) {
-      _initializeApp(ctx, state);
+  void _productListListener(BuildContext ctx, ProductListState state) {
+    if (state.status == ProductListStatus.success) {
+      final String userId = context.read<AuthBloc>().state.user!.uid;
 
+      final List<Product> onSaleProducts =
+          state.productList.where((d) => d.isOnSale).toList();
+
+      ctx.read<ProductsOnSaleBloc>().add(ProductsOnSaleLoaded(
+            onSaleProducts: onSaleProducts,
+          ));
+      ctx.read<CartBloc>().add(CartLoaded(userId: userId));
+    }
+
+    if (state.status == ProductListStatus.failure) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
+
+  void _cartListener(BuildContext ctx, CartState state) {
+    if (state.status == CartStatus.success) {
       Navigator.pushNamed(ctx, NavigationPage.id);
     }
 
-    if (state.status == LoadingStatus.failure) {
+    if (state.status == CartStatus.failure) {
       showErrorDialog(ctx, state.error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoadingBloc, LoadingState>(
-      listener: _loadingListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UserBloc, UserState>(
+          listenWhen: (prev, curr) => prev.status == UserStatus.loading,
+          listener: _userListener,
+        ),
+        BlocListener<ProductListBloc, ProductListState>(
+          listener: _productListListener,
+        ),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) => prev.status == CartStatus.loading,
+          listener: _cartListener,
+        ),
+      ],
       child: const LoadingView(),
     );
   }
@@ -67,18 +87,16 @@ class _LoadingPageState extends State<LoadingPage> {
 
     final String userId = context.read<AuthBloc>().state.user!.uid;
 
-    // start initialiazing app/fetch initial data
-    context.read<LoadingBloc>().add(LoadingStarted(userId: userId));
+    context.read<UserBloc>().add(UserLoaded(userId: userId));
   }
 
   @override
   void deactivate() {
     // reset loading-page-level states
-    context.read<LoadingBloc>().add(LoadingResetRequested());
+    context.read<UserBloc>().add(UserResetRequested());
     context.read<ProductListBloc>().add(ProductListResetRequested());
     context.read<ProductsOnSaleBloc>().add(ProductsOnSaleResetRequested());
     context.read<CartBloc>().add(CartResetRequested());
-    context.read<UserBloc>().add(UserResetRequested());
     super.deactivate();
   }
 }

@@ -1,38 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../data/services/services.dart';
 import '../models/models.dart';
 import '../../utils/utils.dart';
 
 class WishlistService {
   final FirebaseFirestore firestore;
-  final ProductService productService;
-  final UserService userService;
 
   WishlistService({
     required this.firestore,
-    required this.productService,
-    required this.userService,
   });
 
-  Future<List<DocumentSnapshot>> fetchWishlistItems(String userId) async {
+  Stream<List<Map<String, dynamic>>> fetchWishlistItems(String userId) async* {
     try {
-      final DocumentSnapshot userDoc = await userService.getUser(userId);
+      final Stream<DocumentSnapshot> userDocStream = FirebaseFirestore.instance
+          .collection(kUsersCollectionPath)
+          .doc(userId)
+          .snapshots();
 
-      final List<String> productIds = List<String>.from(userDoc.get(kWishlist));
+      await for (final DocumentSnapshot userDoc in userDocStream) {
+        final wishlistItemMaps =
+            List<Map<String, dynamic>>.from(userDoc.get(kWishlist));
 
-      final List<DocumentSnapshot> productDocs = [];
-
-      for (final productId in productIds) {
-        final DocumentSnapshot productDoc =
-            await productService.getProduct(productId);
-
-        if (productDoc.exists) {
-          productDocs.insert(0, productDoc);
-        }
+        yield wishlistItemMaps;
       }
-
-      return productDocs;
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {
@@ -44,15 +34,27 @@ class WishlistService {
 
   Future<void> addToWishlist({
     required String userId,
-    required String productId,
+    required Product product,
+    required List<WishlistItem> wishlistItems,
   }) async {
     try {
-      final DocumentReference userRef =
-          firestore.collection(kUsersCollectionPath).doc(userId);
+      final WishlistItem newWishlistItem = WishlistItem(
+        id: uuid.v4(),
+        product: product,
+      );
 
-      await userRef.update({
-        kWishlist: FieldValue.arrayUnion([productId]),
-      });
+      final List<WishlistItem> newWishlistItems = [
+        newWishlistItem,
+        ...wishlistItems,
+      ];
+
+      final List<Map<String, dynamic>> wishlistItemMaps =
+          newWishlistItems.map((WishlistItem d) => d.toMap()).toList();
+
+      await firestore
+          .collection(kUsersCollectionPath)
+          .doc(userId)
+          .update({kWishlist: wishlistItemMaps});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -63,14 +65,20 @@ class WishlistService {
   Future<void> removeFromWishlist({
     required String userId,
     required String productId,
+    required List<WishlistItem> wishlistItems,
   }) async {
     try {
-      final DocumentReference userRef =
-          firestore.collection(kUsersCollectionPath).doc(userId);
+      final List<WishlistItem> newWishlistItems = wishlistItems
+          .where((WishlistItem d) => d.product.id != productId)
+          .toList();
 
-      await userRef.update({
-        kWishlist: FieldValue.arrayRemove([productId]),
-      });
+      final List<Map<String, dynamic>> wishlistItemMaps =
+          newWishlistItems.map((WishlistItem d) => d.toMap()).toList();
+
+      await firestore
+          .collection(kUsersCollectionPath)
+          .doc(userId)
+          .update({kWishlist: wishlistItemMaps});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {
@@ -80,10 +88,10 @@ class WishlistService {
 
   Future<void> clearWishlist(String userId) async {
     try {
-      final DocumentReference userRef =
-          firestore.collection(kUsersCollectionPath).doc(userId);
-
-      await userRef.update({kWishlist: []});
+      await firestore
+          .collection(kUsersCollectionPath)
+          .doc(userId)
+          .update({kWishlist: []});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

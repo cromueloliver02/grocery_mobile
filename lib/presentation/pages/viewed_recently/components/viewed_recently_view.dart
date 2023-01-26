@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
-import '../../../../utils/utils.dart';
 import './viewed_recently_page_app_bar.dart';
 
 class ViewedRecentlyView extends StatelessWidget {
@@ -27,18 +26,6 @@ class ViewedRecentlyView extends StatelessWidget {
               Expanded(
                 child: BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
                   builder: (ctx, state) {
-                    if (state.status == ViewedRecentlyStatus.initial) {
-                      return const SizedBox.shrink();
-                    }
-
-                    if (state.status == ViewedRecentlyStatus.loading) {
-                      return const GCRLoadingCard();
-                    }
-
-                    if (state.status == ViewedRecentlyStatus.failure) {
-                      return const GCRErrorCard();
-                    }
-
                     if (state.viewedItems.isEmpty) {
                       return GCREmptyMessageCard(
                         image: 'assets/images/history.png',

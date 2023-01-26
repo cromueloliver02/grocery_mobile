@@ -1,7 +1,6 @@
 export 'package:flutter_bloc/flutter_bloc.dart';
 
 export './auth/auth_bloc.dart';
-export './loading/loading_bloc.dart';
 export './user/user_bloc.dart';
 export './product_list/product_list_bloc.dart';
 export './products_on_sale/products_on_sale_bloc.dart';

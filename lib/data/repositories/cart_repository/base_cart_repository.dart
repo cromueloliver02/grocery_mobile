@@ -1,31 +1,30 @@
-import 'package:grocery_mobile/utils/enums.dart';
-
 import '../../models/models.dart';
+import '../../../utils/utils.dart';
 
 abstract class BaseCartRepository {
-  Future<Cart> getCart(String userId);
+  Stream<Cart> getCart(String userId);
 
-  Future<CartItem> addToCart({
-    required String userId,
+  Future<void> addToCart({
     required CartItem cartItem,
+    required Cart cart,
   });
 
   Future<void> removeFromCart({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
   });
 
   Future<void> changeCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required CartItemQtyAction action,
   });
 
   Future<void> updateCartItemQty({
-    required String userId,
     required String cartItemId,
+    required Cart cart,
     required int newQuantity,
   });
 
-  Future<void> clearCart(String userId);
+  Future<void> clearCart(Cart cart);
 }

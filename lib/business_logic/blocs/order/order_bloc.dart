@@ -1,7 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-import '../../../data/models/models.dart';
+import '../../../data/models/models.dart' as model;
 import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
 
@@ -15,7 +16,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     required this.orderRepository,
   }) : super(OrderState.initial()) {
     on<OrderStarted>(_onOrderStarted);
-    on<OrderPlaceRequested>(_onOrderPlaceRequested);
     on<OrderResetRequested>(_onOrderResetRequested);
   }
 
@@ -23,14 +23,15 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(state.copyWith(status: () => OrderStatus.loading));
 
     try {
-      // fetch order
-      final Order order = await orderRepository.getOrder(event.userId);
-
-      emit(state.copyWith(
-        status: () => OrderStatus.success,
-        order: () => order,
-      ));
-    } on GCRError catch (err) {
+      await emit.forEach<model.Order>(
+        orderRepository.getOrder(event.userId),
+        onData: (model.Order order) => state.copyWith(
+          order: () => order,
+          status: () => OrderStatus.success,
+        ),
+        onError: _onError,
+      );
+    } on model.GCRError catch (err) {
       emit(state.copyWith(
         status: () => OrderStatus.failure,
         error: () => err,
@@ -40,26 +41,45 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     }
   }
 
-  void _onOrderPlaceRequested(
-    OrderPlaceRequested event,
-    Emitter<OrderState> emit,
-  ) {
-    final List<OrderItem> orderItems = [
-      event.orderItem,
-      ...state.order.orderItems,
-    ];
-
-    emit(state.copyWith(
-      order: () => state.order.copyWith(
-        orderItems: () => orderItems,
-      ),
-    ));
-  }
-
   void _onOrderResetRequested(
     OrderResetRequested event,
     Emitter<OrderState> emit,
   ) {
     emit(OrderState.initial());
+  }
+
+  OrderState _onError(Object err, StackTrace stacktrace) {
+    if (err is model.GCRError) {
+      logError(state, err);
+
+      return state.copyWith(
+        status: () => OrderStatus.failure,
+        error: () => err,
+      );
+    }
+
+    if (err is FirebaseException) {
+      logError(state, model.GCRError.firebaseException(err));
+
+      return state.copyWith(
+        status: () => OrderStatus.failure,
+        error: () => model.GCRError.firebaseException(err),
+      );
+    }
+
+    logError(
+      state,
+      model.GCRError(
+        code: 'Something went wrong',
+        message: err.toString(),
+        plugin: 'flutter_error/server_error',
+        stackTrace: stacktrace,
+      ),
+    );
+
+    return state.copyWith(
+      status: () => OrderStatus.failure,
+      error: () => model.GCRError.exception(err),
+    );
   }
 }
