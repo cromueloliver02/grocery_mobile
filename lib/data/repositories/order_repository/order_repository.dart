@@ -61,6 +61,9 @@ class OrderRepository extends BaseOrderRepository {
             wishlist: const [], // wishlist is unnecessary to populate
           );
 
+          cartItems.sort((model.CartItem a, model.CartItem b) =>
+              b.createdAt.compareTo(a.createdAt));
+
           final model.OrderItem orderItem = model.OrderItem.fromDoc(
             orderItemDoc,
             cartItems: cartItems,
