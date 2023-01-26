@@ -164,17 +164,22 @@ class CartActionCubit extends Cubit<CartActionState> {
   }
 
   void updateCartItemQty({
+    required String userId,
     required String cartItemId,
-    required Cart cart,
+    required List<CartItem> cartItems,
     required int newQuantity,
   }) async {
     emit(state.copyWith(status: () => CartActionStatus.loading));
 
     try {
+      final List<CartItem> newCartItems = cartItems
+          .map((CartItem d) =>
+              d.id == cartItemId ? d.copyWith(quantity: () => newQuantity) : d)
+          .toList();
+
       await cartRepository.updateCartItemQty(
-        cartItemId: cartItemId,
-        cart: cart,
-        newQuantity: newQuantity,
+        userId: userId,
+        newCartItems: newCartItems,
       );
 
       emit(state.copyWith(

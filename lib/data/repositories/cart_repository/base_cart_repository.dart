@@ -24,9 +24,8 @@ abstract class BaseCartRepository {
   });
 
   Future<void> updateCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required int newQuantity,
+    required String userId,
+    required List<CartItem> newCartItems,
   });
 
   Future<void> clearCart(Cart cart);

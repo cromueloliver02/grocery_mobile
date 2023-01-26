@@ -126,22 +126,17 @@ class CartService {
   }
 
   Future<void> updateCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required int newQuantity,
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
-      final List<CartItem> cartItems = cart.cartItems
-          .map((CartItem d) =>
-              d.id == cartItemId ? d.copyWith(quantity: () => newQuantity) : d)
-          .toList();
-
-      final Cart newCart = cart.copyWith(cartItems: () => cartItems);
+      final List<Map<String, dynamic>> newCartItemMaps =
+          newCartItems.map((CartItem d) => d.toMap()).toList();
 
       await firestore
           .collection(kCartsCollectionPath)
-          .doc(cart.userId) // the id of cart is the same as the user id
-          .set(newCart.toMap(populateCartItems: true));
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: newCartItemMaps});
     } on FirebaseException catch (err) {
       throw GCRError.firebaseException(err);
     } catch (err) {

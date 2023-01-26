@@ -122,15 +122,13 @@ class CartRepository extends BaseCartRepository {
 
   @override
   Future<void> updateCartItemQty({
-    required String cartItemId,
-    required Cart cart,
-    required int newQuantity,
+    required String userId,
+    required List<CartItem> newCartItems,
   }) async {
     try {
       await cartService.updateCartItemQty(
-        cartItemId: cartItemId,
-        cart: cart,
-        newQuantity: newQuantity,
+        userId: userId,
+        newCartItems: newCartItems,
       );
     } catch (err) {
       rethrow;

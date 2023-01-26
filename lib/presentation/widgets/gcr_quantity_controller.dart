@@ -130,11 +130,14 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
     _qtyNode.addListener(() {
       if (!_qtyNode.hasFocus &&
           widget.quantity != int.parse(widget.qtyController.text)) {
-        final Cart cart = context.read<CartBloc>().state.cart;
+        final String userId = context.read<UserBloc>().state.user.id;
+        final List<CartItem> cartItems =
+            context.read<CartBloc>().state.cart.cartItems;
 
         context.read<CartActionCubit>().updateCartItemQty(
+              userId: userId,
               cartItemId: widget.cartItemId,
-              cart: cart,
+              cartItems: cartItems,
               newQuantity: int.parse(widget.qtyController.text),
             );
       }
