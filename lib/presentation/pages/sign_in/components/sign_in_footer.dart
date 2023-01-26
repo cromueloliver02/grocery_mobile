@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../../business_logic/cubits/cubits.dart';
-import '../../../widgets/widgets.dart';
+// import '../../../widgets/widgets.dart';
 import '../../../pages/pages.dart';
 import '../../../../utils/utils.dart';
 
@@ -44,14 +44,14 @@ class SignInFooter extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: GCRButton.elevated(
-                labelText: 'Continue as a Guest',
-                backgroundColor: Colors.black,
-                onPressed: loading ? null : () {},
-              ),
-            ),
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: GCRButton.elevated(
+            //     labelText: 'Continue as a Guest',
+            //     backgroundColor: Colors.black,
+            //     onPressed: loading ? null : () {},
+            //   ),
+            // ),
             const SizedBox(height: 15),
             RichText(
               text: TextSpan(
