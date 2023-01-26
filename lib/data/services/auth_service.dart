@@ -91,7 +91,6 @@ class AuthService {
         email: email,
         shipAddress: shipAddress,
         wishlist: const <WishlistItem>[],
-        createdAt: DateTime.now(),
       );
 
       final Cart cart = Cart(
@@ -147,7 +146,6 @@ class AuthService {
         email: user.email!,
         shipAddress: null,
         wishlist: const <WishlistItem>[],
-        createdAt: DateTime.now(),
       );
 
       final Cart cart = Cart(

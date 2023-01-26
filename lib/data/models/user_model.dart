@@ -11,14 +11,14 @@ class User extends Equatable {
   final List<WishlistItem> wishlist;
   final DateTime createdAt;
 
-  const User({
+  User({
     required this.id,
     required this.name,
     required this.email,
     required this.shipAddress,
     required this.wishlist,
-    required this.createdAt,
-  });
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
 
   factory User.initial() {
     return User(
