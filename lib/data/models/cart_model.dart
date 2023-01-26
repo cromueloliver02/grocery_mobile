@@ -28,6 +28,10 @@ class Cart {
     return cartItems.any((d) => d.product.id == productId);
   }
 
+  @override
+  String toString() =>
+      'Cart(userId: $userId, cartItems: $cartItems, createdAt: $createdAt)';
+
   Cart copyWith({
     String Function()? userId,
     List<CartItem> Function()? cartItems,
