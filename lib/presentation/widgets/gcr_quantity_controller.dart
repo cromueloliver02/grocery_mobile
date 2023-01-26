@@ -24,12 +24,14 @@ class GCRQuantityController extends StatefulWidget {
 class _GCRQuantityControllerState extends State<GCRQuantityController> {
   late final FocusNode _qtyNode;
 
-  void _incrementQuantity(BuildContext ctx) {
-    final Cart cart = ctx.read<CartBloc>().state.cart;
+  void _incrementQuantity(BuildContext ctx, {required String cartItemId}) {
+    final String userId = ctx.read<UserBloc>().state.user.id;
+    final List<CartItem> cartItems = ctx.read<CartBloc>().state.cart.cartItems;
 
     ctx.read<CartActionCubit>().incrementCartItem(
-          cartItemId: widget.cartItemId,
-          cart: cart,
+          userId: userId,
+          cartItemId: cartItemId,
+          cartItems: cartItems,
         );
   }
 
@@ -93,7 +95,10 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
         ),
         const SizedBox(width: 10),
         GestureDetector(
-          onTap: () => _incrementQuantity(context),
+          onTap: () => _incrementQuantity(
+            context,
+            cartItemId: widget.cartItemId,
+          ),
           child: Container(
             width: 30,
             height: 30,

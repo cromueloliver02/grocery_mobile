@@ -83,6 +83,7 @@ class CartService {
     }
   }
 
+  // TODO: to be deleted
   Future<void> changeCartItemQty({
     required String cartItemId,
     required Cart cart,
@@ -105,6 +106,27 @@ class CartService {
           .collection(kCartsCollectionPath)
           .doc(cart.userId) // the id of cart is the same as the user id
           .set(newCart.toMap(populateCartItems: true));
+    } on GCRError {
+      rethrow;
+    } on FirebaseException catch (err) {
+      throw GCRError.firebaseException(err);
+    } catch (err) {
+      throw GCRError.exception(err);
+    }
+  }
+
+  Future<void> incrementCartItemQty({
+    required String userId,
+    required List<CartItem> newCartItems,
+  }) async {
+    try {
+      final List<Map<String, dynamic>> newCartItemMaps =
+          newCartItems.map((CartItem d) => d.toMap()).toList();
+
+      await firestore
+          .collection(kCartsCollectionPath)
+          .doc(userId) // the id of cart is the same as the user id
+          .update({kCartItems: newCartItemMaps});
     } on GCRError {
       rethrow;
     } on FirebaseException catch (err) {

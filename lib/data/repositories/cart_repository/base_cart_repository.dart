@@ -14,10 +14,16 @@ abstract class BaseCartRepository {
     required List<CartItem> newCartItems,
   });
 
+  // TODO: to be deleted
   Future<void> changeCartItemQty({
     required String cartItemId,
     required Cart cart,
     required CartItemQtyAction action,
+  });
+
+  Future<void> incrementCartItemQty({
+    required String userId,
+    required List<CartItem> newCartItems,
   });
 
   Future<void> updateCartItemQty({
