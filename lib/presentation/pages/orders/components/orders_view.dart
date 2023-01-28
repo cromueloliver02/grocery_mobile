@@ -4,7 +4,7 @@ import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
-import './orders_page_app_bar.dart';
+import 'orders_page_app_bar.dart';
 
 class OrdersView extends StatelessWidget {
   const OrdersView({super.key});

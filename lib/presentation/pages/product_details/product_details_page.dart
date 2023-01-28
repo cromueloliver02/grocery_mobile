@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
-import './components/product_details_view.dart';
+import 'components/product_details_view.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   static const String id = '/product-details';

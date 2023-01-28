@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import './models.dart';
+import 'models.dart';
 
 class Order extends Equatable {
   final List<OrderItem> orderItems;

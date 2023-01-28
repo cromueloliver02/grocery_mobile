@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../utils/utils.dart';
-import './on_sale_section.dart';
-import './our_products_section.dart';
+import 'on_sale_section.dart';
+import 'our_products_section.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

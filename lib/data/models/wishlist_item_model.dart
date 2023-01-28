@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import './models.dart';
+import 'models.dart';
 
 class WishlistItem extends Equatable {
   final String id;

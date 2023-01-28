@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './components/category_view.dart';
+import 'components/category_view.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});

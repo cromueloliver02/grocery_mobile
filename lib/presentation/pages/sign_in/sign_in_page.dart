@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/cubits/cubits.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../utils/utils.dart';
-import './components/sign_in_view.dart';
+import 'components/sign_in_view.dart';
 
 class SignInPage extends StatefulWidget {
   static const String id = '/sign-in';

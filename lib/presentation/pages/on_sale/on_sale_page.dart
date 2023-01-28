@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './components/on_sale_view.dart';
+import 'components/on_sale_view.dart';
 
 class OnSalePage extends StatelessWidget {
   static const String id = '/on-sale';

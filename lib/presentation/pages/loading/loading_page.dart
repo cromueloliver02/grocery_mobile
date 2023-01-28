@@ -4,7 +4,7 @@ import '../../../data/models/models.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../presentation/pages/pages.dart';
 import '../../../utils/utils.dart';
-import './components/loading_view.dart';
+import 'components/loading_view.dart';
 
 class LoadingPage extends StatefulWidget {
   static const String id = '/loading';

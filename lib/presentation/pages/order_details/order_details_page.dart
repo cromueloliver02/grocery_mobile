@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/models.dart';
-import './components/order_details_view.dart';
+import 'components/order_details_view.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   static const String id = '/order-details';

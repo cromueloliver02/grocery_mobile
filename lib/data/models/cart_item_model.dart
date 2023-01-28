@@ -1,4 +1,4 @@
-import './models.dart';
+import 'models.dart';
 import '../../utils/utils.dart';
 
 class CartItem {

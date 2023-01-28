@@ -4,8 +4,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
-import './sign_in_form.dart';
-import './sign_in_footer.dart';
+import 'sign_in_form.dart';
+import 'sign_in_footer.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});

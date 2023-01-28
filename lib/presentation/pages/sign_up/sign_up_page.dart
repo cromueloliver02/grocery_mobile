@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
-import './components/sign_up_view.dart';
+import 'components/sign_up_view.dart';
 
 class SignUpPage extends StatelessWidget {
   static const String id = '/sign-up';

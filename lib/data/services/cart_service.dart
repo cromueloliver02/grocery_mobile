@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './services.dart';
+import 'services.dart';
 import '../models/models.dart';
 import '../../utils/utils.dart';
 

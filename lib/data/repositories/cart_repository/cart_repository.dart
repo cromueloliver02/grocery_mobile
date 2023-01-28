@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../services/services.dart';
 import '../../models/models.dart';
 import '../../../utils/utils.dart';
-import './base_cart_repository.dart';
+import 'base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
   final CartService cartService;

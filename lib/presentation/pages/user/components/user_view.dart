@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
-import './menu_list.dart';
+import 'menu_list.dart';
 
 class UserView extends StatelessWidget {
   const UserView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './components/viewed_recently_view.dart';
+import 'components/viewed_recently_view.dart';
 
 class ViewedRecentlyPage extends StatelessWidget {
   static const String id = '/viewed-recently';

@@ -4,7 +4,7 @@ import '../../../data/services/services.dart';
 import '../../../data/models/models.dart';
 import '../../../utils/utils.dart';
 
-import './base_user_repository.dart';
+import 'base_user_repository.dart';
 
 class UserRepository extends BaseUserRepository {
   final UserService userService;

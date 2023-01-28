@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../services/auth_service.dart';
-import './base_auth_repository.dart';
+import 'base_auth_repository.dart';
 
 class AuthRepository extends BaseAuthRepository {
   final AuthService authService;

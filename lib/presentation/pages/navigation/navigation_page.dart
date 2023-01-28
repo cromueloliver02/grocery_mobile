@@ -4,7 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
-import './components/navigation_view.dart';
+import 'components/navigation_view.dart';
 
 class NavigationPage extends StatefulWidget {
   static const String id = '/navigation';

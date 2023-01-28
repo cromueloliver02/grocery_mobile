@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../data/models/models.dart';
 // import '../../../../presentation/widgets/widgets.dart';
 import './product_details_page_bottom_bar.dart';
 import './product_info_section.dart';
+import '../../../../data/models/models.dart';
 
 class ProductDetailsView extends StatefulWidget {
   const ProductDetailsView({

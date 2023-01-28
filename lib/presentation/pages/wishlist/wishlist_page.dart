@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './components/wishlist_view.dart';
+import 'components/wishlist_view.dart';
 
 class WishlistPage extends StatelessWidget {
   static const String id = '/wishlist';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import './category_products_page_search_bar.dart';
+import 'category_products_page_search_bar.dart';
 
 class CategoryProductsView extends StatelessWidget {
   const CategoryProductsView({

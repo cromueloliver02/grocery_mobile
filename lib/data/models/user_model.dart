@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-import './models.dart';
+import 'models.dart';
 
 class User extends Equatable {
   final String id;

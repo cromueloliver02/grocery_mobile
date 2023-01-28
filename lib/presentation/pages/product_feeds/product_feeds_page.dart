@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../business_logic/cubits/cubits.dart';
 import '../../../utils/utils.dart';
-import './components/product_feeds_view.dart';
+import 'components/product_feeds_view.dart';
 
 class ProductFeedsPage extends StatelessWidget {
   static const String id = '/product-feeds';

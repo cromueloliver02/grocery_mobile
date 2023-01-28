@@ -4,8 +4,8 @@ import '../../../../business_logic/blocs/blocs.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
-import './cart_page_app_bar.dart';
-import './cart_item_list.dart';
+import 'cart_page_app_bar.dart';
+import 'cart_item_list.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});

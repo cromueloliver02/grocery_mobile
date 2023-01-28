@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/blocs/blocs.dart';
-import './components/category_products_view.dart';
+import 'components/category_products_view.dart';
 
 class CategoryProductsPage extends StatefulWidget {
   static const String id = '/category-products';

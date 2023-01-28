@@ -4,8 +4,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import '../../../../business_logic/cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../../utils/utils.dart';
-import './sign_up_form.dart';
-import './sign_up_footer.dart';
+import 'sign_up_form.dart';
+import 'sign_up_footer.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});

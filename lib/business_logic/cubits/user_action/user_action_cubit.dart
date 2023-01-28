@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../business_logic/blocs/blocs.dart';
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
-import '../../../business_logic/blocs/blocs.dart';
 import '../../../utils/utils.dart';
 
 part 'user_action_state.dart';

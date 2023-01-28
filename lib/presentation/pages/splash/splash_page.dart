@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../business_logic/blocs/blocs.dart';
 import '../pages.dart';
 import '../../../utils/utils.dart';
-import './components/splash_view.dart';
+import 'components/splash_view.dart';
 
 class SplashPage extends StatefulWidget {
   static const String id = '/splash';

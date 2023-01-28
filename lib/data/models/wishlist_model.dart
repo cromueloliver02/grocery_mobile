@@ -1,4 +1,4 @@
-import './models.dart';
+import 'models.dart';
 
 class Wishlist {
   final List<WishlistItem> wishlistItems;

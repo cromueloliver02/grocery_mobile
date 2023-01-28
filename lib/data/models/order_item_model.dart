@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../utils/utils.dart';
-import './models.dart';
+import 'models.dart';
 
 class OrderItem extends Equatable {
   final String id;

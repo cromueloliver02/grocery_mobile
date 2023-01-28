@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../data/services/services.dart';
 import '../../models/models.dart';
 import '../../../utils/utils.dart';
-import './base_wishlist_repository.dart';
+import 'base_wishlist_repository.dart';
 
 class WishlistRepository extends BaseWishlistRepository {
   final WishlistService wishlistService;

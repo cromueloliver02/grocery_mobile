@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../services/services.dart';
 import '../../models/models.dart' as model;
 import '../../../utils/utils.dart';
-import './base_order_repository.dart';
+import 'base_order_repository.dart';
 
 class OrderRepository extends BaseOrderRepository {
   final UserService userService;

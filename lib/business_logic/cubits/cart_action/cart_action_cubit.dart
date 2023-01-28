@@ -4,8 +4,8 @@ import 'package:equatable/equatable.dart';
 
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
-import '../../blocs/blocs.dart';
 import '../../../utils/utils.dart';
+import '../../blocs/blocs.dart';
 
 part 'cart_action_state.dart';
 

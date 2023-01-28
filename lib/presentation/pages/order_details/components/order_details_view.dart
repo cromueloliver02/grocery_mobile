@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/models.dart';
-import './order_details_page_app_bar.dart';
-import './shipping_info_section.dart';
-import './order_items_list.dart';
+import 'order_details_page_app_bar.dart';
+import 'shipping_info_section.dart';
+import 'order_items_list.dart';
 
 class OrderDetailsView extends StatelessWidget {
   const OrderDetailsView({
