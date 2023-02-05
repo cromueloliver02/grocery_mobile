@@ -17,7 +17,7 @@ class ViewedRecentlyBloc
     ViewedRecentlyItemAdded event,
     Emitter<ViewedRecentlyState> emit,
   ) {
-    final Map<String, Product> viewedItems = state.viewedItems
+    final Map<String, Product> viewedItems = {...state.viewedItems}
       ..putIfAbsent(event.product.id, () => event.product);
 
     emit(state.copyWith(viewedItems: () => viewedItems));
