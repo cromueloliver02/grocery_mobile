@@ -1,46 +1,46 @@
 {
-  "project_info": {
-    "project_number": "889794234154",
-    "project_id": "grocery-app-02",
-    "storage_bucket": "grocery-app-02.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:889794234154:android:c708e73dd95d6789e00053",
-        "android_client_info": {
-          "package_name": "com.example.grocery_mobile"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "889794234154-4eijjg6pevcr56bgua9b1rnll0mkofr0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAeHmMnB20yKh3Gwss59F2MklFjf-xWWfo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "889794234154-4eijjg6pevcr56bgua9b1rnll0mkofr0.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "889794234154-djblsot2pv8k9fv85n335u8tq813rkkc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.groceryMobile"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+	"project_info": {
+		"project_number": "889794234154",
+		"project_id": "grocery-app-02",
+		"storage_bucket": "grocery-app-02.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:889794234154:android:c708e73dd95d6789e00053",
+				"android_client_info": {
+					"package_name": "com.cromdev.grocerymobile"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "889794234154-4eijjg6pevcr56bgua9b1rnll0mkofr0.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyAeHmMnB20yKh3Gwss59F2MklFjf-xWWfo"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "889794234154-4eijjg6pevcr56bgua9b1rnll0mkofr0.apps.googleusercontent.com",
+							"client_type": 3
+						},
+						{
+							"client_id": "889794234154-djblsot2pv8k9fv85n335u8tq813rkkc.apps.googleusercontent.com",
+							"client_type": 2,
+							"ios_info": {
+								"bundle_id": "com.example.groceryMobile"
+							}
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
 }
