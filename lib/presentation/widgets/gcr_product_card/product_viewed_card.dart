@@ -39,7 +39,7 @@ class _ProductViewedCard extends StatelessWidget {
                     product.name,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.headline4!.copyWith(
+                    style: textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -49,7 +49,7 @@ class _ProductViewedCard extends StatelessWidget {
                       if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline3!.copyWith(
+                          style: textTheme.displaySmall!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                           ),
@@ -57,7 +57,7 @@ class _ProductViewedCard extends StatelessWidget {
                       if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.headline3!.copyWith(
+                          style: textTheme.displaySmall!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                           ),
@@ -65,7 +65,7 @@ class _ProductViewedCard extends StatelessWidget {
                         const SizedBox(width: 5),
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline5!.copyWith(
+                          style: textTheme.headlineSmall!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w400,
                             decoration: TextDecoration.lineThrough,

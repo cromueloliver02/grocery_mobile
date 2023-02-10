@@ -24,7 +24,7 @@ class ViewedRecentlyPageAppBar extends StatelessWidget {
           child: BlocBuilder<ViewedRecentlyBloc, ViewedRecentlyState>(
             builder: (ctx, state) => Text(
               'History (${state.viewedItems.length})}',
-              style: textTheme.headline3,
+              style: textTheme.displaySmall,
             ),
           ),
         ),

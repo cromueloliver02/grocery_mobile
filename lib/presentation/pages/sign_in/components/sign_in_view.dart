@@ -45,16 +45,16 @@ class SignInView extends StatelessWidget {
                         children: [
                           Text(
                             'Welcome Back',
-                            style: textTheme.headline1!.copyWith(
+                            style: textTheme.displayLarge!.copyWith(
                               color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 15),
                           Text(
                             'Sign in to continue',
-                            style: textTheme.bodyText1!.copyWith(
+                            style: textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
-                              fontSize: textTheme.bodyText1!.fontSize! + 2,
+                              fontSize: textTheme.bodyLarge!.fontSize! + 2,
                             ),
                           ),
                           const SizedBox(height: 30),

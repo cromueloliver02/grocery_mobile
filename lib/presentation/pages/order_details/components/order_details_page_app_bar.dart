@@ -15,7 +15,7 @@ class OrderDetailsPageAppBar extends StatelessWidget {
     return AppBar(
       title: Text(
         'Ordered Items ($orderedItemCount)',
-        style: textTheme.headline3,
+        style: textTheme.displaySmall,
       ),
     );
   }

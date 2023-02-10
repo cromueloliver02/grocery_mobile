@@ -32,13 +32,13 @@ class GCRErrorCard extends StatelessWidget {
             Text(
               'ERROR',
               textAlign: TextAlign.center,
-              style: textTheme.headline5,
+              style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 5),
             Text(
               errorText,
               textAlign: TextAlign.center,
-              style: textTheme.bodyText1,
+              style: textTheme.bodyLarge,
             ),
           ],
         ),

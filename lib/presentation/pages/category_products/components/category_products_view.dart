@@ -21,7 +21,7 @@ class CategoryProductsView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           category,
-          style: textTheme.headline3,
+          style: textTheme.displaySmall,
         ),
       ),
       body: Padding(

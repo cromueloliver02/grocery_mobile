@@ -35,7 +35,7 @@ class GCREmptyMessageCard extends StatelessWidget {
             Text(
               'Whoops!',
               textAlign: TextAlign.center,
-              style: textTheme.headline1!.copyWith(
+              style: textTheme.displayLarge!.copyWith(
                 color: Colors.red,
               ),
             ),
@@ -43,8 +43,8 @@ class GCREmptyMessageCard extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: textTheme.bodyText1!.copyWith(
-                fontSize: textTheme.bodyText1!.fontSize! + 4,
+              style: textTheme.bodyLarge!.copyWith(
+                fontSize: textTheme.bodyLarge!.fontSize! + 4,
               ),
             ),
             const SizedBox(height: 20),

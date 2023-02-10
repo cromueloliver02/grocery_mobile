@@ -79,7 +79,7 @@ class _GCRCartCardState extends State<GCRCartCard> {
                 children: [
                   Text(
                     widget.cartItem.product.name,
-                    style: textTheme.headline4!.copyWith(
+                    style: textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -112,8 +112,8 @@ class _GCRCartCardState extends State<GCRCartCard> {
                   ),
                   Text(
                     '\$${(widget.cartItem.quantity * currentPrice).toStringAsFixed(2)}',
-                    style: textTheme.bodyText1!.copyWith(
-                      fontSize: textTheme.bodyText1!.fontSize! + 4,
+                    style: textTheme.bodyLarge!.copyWith(
+                      fontSize: textTheme.bodyLarge!.fontSize! + 4,
                     ),
                   ),
                 ],

@@ -43,7 +43,7 @@ class ForgetPasswordView extends StatelessWidget {
                         const SizedBox(height: 150),
                         Text(
                           'Forget Password',
-                          style: textTheme.headline1!.copyWith(
+                          style: textTheme.displayLarge!.copyWith(
                             color: Colors.white,
                           ),
                         ),

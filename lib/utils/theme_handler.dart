@@ -26,42 +26,42 @@ class ThemeHandler {
       cursorColor: Colors.grey,
     ),
     textTheme: const TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         color: Colors.black87,
         fontSize: 30,
         fontWeight: FontWeight.bold,
       ),
-      headline2: TextStyle(
+      displayMedium: TextStyle(
         color: Colors.black87,
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
-      headline3: TextStyle(
+      displaySmall: TextStyle(
         color: Colors.black87,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-      headline4: TextStyle(
+      headlineMedium: TextStyle(
         color: Colors.black87,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
-      headline5: TextStyle(
+      headlineSmall: TextStyle(
         color: Colors.black87,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
-      headline6: TextStyle(
+      titleLarge: TextStyle(
         color: Colors.black87,
         fontSize: 14,
         fontWeight: FontWeight.bold,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: Colors.black87,
         fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: Colors.black87,
         fontSize: 14,
         fontWeight: FontWeight.normal,
@@ -94,42 +94,42 @@ class ThemeHandler {
       cursorColor: Colors.white,
     ),
     textTheme: TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         color: Colors.grey[200],
         fontSize: 30,
         fontWeight: FontWeight.bold,
       ),
-      headline2: TextStyle(
+      displayMedium: TextStyle(
         color: Colors.grey[200],
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
-      headline3: TextStyle(
+      displaySmall: TextStyle(
         color: Colors.grey[200],
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-      headline4: TextStyle(
+      headlineMedium: TextStyle(
         color: Colors.grey[200],
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
-      headline5: TextStyle(
+      headlineSmall: TextStyle(
         color: Colors.grey[200],
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
-      headline6: TextStyle(
+      titleLarge: TextStyle(
         color: Colors.grey[200],
         fontSize: 14,
         fontWeight: FontWeight.bold,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: Colors.grey[200],
         fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: Colors.grey[200],
         fontSize: 14,
         fontWeight: FontWeight.normal,

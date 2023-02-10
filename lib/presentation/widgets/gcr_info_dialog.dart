@@ -30,13 +30,13 @@ class GCRInfoDialog extends StatelessWidget {
           const SizedBox(width: 10),
           Text(
             title,
-            style: textTheme.headline4,
+            style: textTheme.headlineMedium,
           ),
         ],
       ),
       content: Text(
         message,
-        style: textTheme.bodyText1,
+        style: textTheme.bodyLarge,
       ),
       actions: [
         GCRButton.text(

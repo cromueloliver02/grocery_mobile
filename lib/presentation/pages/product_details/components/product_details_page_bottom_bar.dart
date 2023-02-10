@@ -46,7 +46,7 @@ class _ProductDetailsPageBottomBarState
               children: [
                 Text(
                   'Total',
-                  style: textTheme.headline3!.copyWith(
+                  style: textTheme.displaySmall!.copyWith(
                     color: Colors.red,
                   ),
                 ),
@@ -59,11 +59,11 @@ class _ProductDetailsPageBottomBarState
                     return RichText(
                       text: TextSpan(
                         text: '\$${(totalPrice).toStringAsFixed(2)} / ',
-                        style: textTheme.headline3,
+                        style: textTheme.displaySmall,
                         children: [
                           TextSpan(
                             text: '${state.quantity}Kg',
-                            style: textTheme.bodyText1,
+                            style: textTheme.bodyLarge,
                           ),
                         ],
                       ),

@@ -40,7 +40,7 @@ class WishlistPageAppBar extends StatelessWidget {
         BlocBuilder<WishlistBloc, WishlistState>(
           builder: (ctx, state) => Text(
             'Wishlist (${state.wishlist.wishlistItems.length})',
-            style: textTheme.headline3,
+            style: textTheme.displaySmall,
           ),
         ),
         IconButton(

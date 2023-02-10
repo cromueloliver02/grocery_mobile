@@ -24,7 +24,7 @@ class ProductInfoSection extends StatelessWidget {
           children: [
             Text(
               product.name,
-              style: textTheme.headline2,
+              style: textTheme.displayMedium,
             ),
             BlocBuilder<WishlistBloc, WishlistState>(
               builder: (ctx, state) => IconButton(
@@ -45,13 +45,13 @@ class ProductInfoSection extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text: '\$${product.price} ',
-                  style: textTheme.headline2!.copyWith(
+                  style: textTheme.displayMedium!.copyWith(
                     color: Colors.green,
                   ),
                   children: [
                     TextSpan(
                       text: '/Kg',
-                      style: textTheme.bodyText2,
+                      style: textTheme.bodyMedium,
                     )
                   ],
                 ),
@@ -60,13 +60,13 @@ class ProductInfoSection extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text: '\$${product.salePrice} ',
-                  style: textTheme.headline2!.copyWith(
+                  style: textTheme.displayMedium!.copyWith(
                     color: Colors.green,
                   ),
                   children: [
                     TextSpan(
                       text: '/Kg',
-                      style: textTheme.bodyText2,
+                      style: textTheme.bodyMedium,
                     )
                   ],
                 ),
@@ -74,8 +74,8 @@ class ProductInfoSection extends StatelessWidget {
               const SizedBox(width: 15),
               Text(
                 '\$${product.price}',
-                style: textTheme.bodyText1!.copyWith(
-                  fontSize: textTheme.bodyText1!.fontSize! + 2,
+                style: textTheme.bodyLarge!.copyWith(
+                  fontSize: textTheme.bodyLarge!.fontSize! + 2,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -86,7 +86,7 @@ class ProductInfoSection extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Text(
                 'Free Delivery',
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                 ),

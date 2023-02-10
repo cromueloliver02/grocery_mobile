@@ -40,7 +40,7 @@ class GCRCategoryCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               name,
-              style: textTheme.headline4,
+              style: textTheme.headlineMedium,
             ),
           ],
         ),

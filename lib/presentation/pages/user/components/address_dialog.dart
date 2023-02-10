@@ -37,7 +37,7 @@ class _AddressDialogState extends State<AddressDialog> {
     return AlertDialog(
       title: Text(
         'Update Address',
-        style: textTheme.headline4,
+        style: textTheme.headlineMedium,
       ),
       content: TextField(
         controller: _addressController,

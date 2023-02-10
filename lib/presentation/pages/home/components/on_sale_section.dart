@@ -36,7 +36,7 @@ class OnSaleSection extends StatelessWidget {
                       children: [
                         Text(
                           'ON SALE',
-                          style: textTheme.headline3!.copyWith(
+                          style: textTheme.displaySmall!.copyWith(
                             color: Colors.red,
                           ),
                         ),

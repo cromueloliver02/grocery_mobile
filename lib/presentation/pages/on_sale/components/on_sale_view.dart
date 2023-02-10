@@ -15,7 +15,7 @@ class OnSaleView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Products On Sale',
-          style: textTheme.headline3,
+          style: textTheme.displaySmall,
         ),
       ),
       body: BlocBuilder<ProductsOnSaleBloc, ProductsOnSaleState>(

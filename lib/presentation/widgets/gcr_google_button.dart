@@ -31,9 +31,9 @@ class GCRGoogleButton extends StatelessWidget {
               const SizedBox(width: 20),
               Text(
                 'Sign In With Google',
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: Colors.white,
-                  fontSize: textTheme.bodyText1!.fontSize! + 2,
+                  fontSize: textTheme.bodyLarge!.fontSize! + 2,
                 ),
               ),
             ],

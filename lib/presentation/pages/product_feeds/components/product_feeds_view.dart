@@ -19,7 +19,7 @@ class FeedsView extends StatelessWidget {
           centerTitle: true,
           title: Text(
             'All Products',
-            style: textTheme.headline3,
+            style: textTheme.displaySmall,
           ),
         ),
         body: Padding(

@@ -56,7 +56,7 @@ class RouteHandler {
               const SizedBox(height: 30),
               Text(
                 '404: Page Not Found',
-                style: Theme.of(ctx).textTheme.headline5,
+                style: Theme.of(ctx).textTheme.headlineSmall,
               ),
               const SizedBox(height: 30),
               GCRButton.elevated(

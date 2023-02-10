@@ -35,7 +35,7 @@ class GCRMenuListTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: textTheme.headline4!.copyWith(
+                    style: textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -43,7 +43,7 @@ class GCRMenuListTile extends StatelessWidget {
                     Text(
                       subtitle!,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.caption,
+                      style: textTheme.bodySmall,
                     ),
                 ],
               ),

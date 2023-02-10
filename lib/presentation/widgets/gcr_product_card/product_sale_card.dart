@@ -44,7 +44,7 @@ class _ProductSaleCard extends StatelessWidget {
                     children: [
                       Text(
                         '1 ${product.measureUnit == MeasureUnit.kg ? "Kg." : "Pcs."}',
-                        style: textTheme.headline5,
+                        style: textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 5),
                       Row(
@@ -91,21 +91,21 @@ class _ProductSaleCard extends StatelessWidget {
                       if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline4!.copyWith(
+                          style: textTheme.headlineMedium!.copyWith(
                             color: Colors.green,
                           ),
                         ),
                       if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.headline4!.copyWith(
+                          style: textTheme.headlineMedium!.copyWith(
                             color: Colors.green,
                           ),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline6!.copyWith(
+                          style: textTheme.titleLarge!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w500,
                             decoration: TextDecoration.lineThrough,
@@ -124,9 +124,9 @@ class _ProductSaleCard extends StatelessWidget {
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.headline4!.copyWith(
+                  style: textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w500,
-                    fontSize: textTheme.headline4!.fontSize! - 2,
+                    fontSize: textTheme.headlineMedium!.fontSize! - 2,
                   ),
                 ),
               ),

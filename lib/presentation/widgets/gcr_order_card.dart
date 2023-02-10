@@ -45,14 +45,14 @@ class GCROrderCard extends StatelessWidget {
                     '${cartItem.product.name} x${cartItem.quantity}',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.headline4!.copyWith(
+                    style: textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     'Paid: \$${orderItem.grandTotalPrice.toStringAsFixed(2)}',
-                    style: textTheme.headline5!.copyWith(
+                    style: textTheme.headlineSmall!.copyWith(
                       color: Colors.grey[600],
                       fontWeight: FontWeight.w400,
                     ),
@@ -66,14 +66,14 @@ class GCROrderCard extends StatelessWidget {
               children: [
                 Text(
                   '${orderItem.cartItems.length} ${orderItem.cartItems.length == 1 ? 'item' : 'items'}',
-                  style: textTheme.headline5!.copyWith(
+                  style: textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   DateFormat('h:mm a').format(orderItem.createdAt),
-                  style: textTheme.headline5!.copyWith(
+                  style: textTheme.headlineSmall!.copyWith(
                     color: Colors.grey[500],
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -81,7 +81,7 @@ class GCROrderCard extends StatelessWidget {
                 ),
                 Text(
                   DateFormat('MM/d/yyyy').format(orderItem.createdAt),
-                  style: textTheme.headline5!.copyWith(
+                  style: textTheme.headlineSmall!.copyWith(
                     color: Colors.grey[500],
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

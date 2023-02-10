@@ -32,7 +32,7 @@ class GCRMessageCard extends StatelessWidget {
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: textTheme.headline3,
+                style: textTheme.displaySmall,
               ),
             ],
           ),

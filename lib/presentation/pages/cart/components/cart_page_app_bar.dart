@@ -72,7 +72,7 @@ class CartPageAppBar extends StatelessWidget {
             contentPadding: const EdgeInsets.only(left: 10),
             title: Text(
               'Cart (${state.cart.cartItems.length})',
-              style: textTheme.headline3,
+              style: textTheme.displaySmall,
             ),
             trailing: state.cart.cartItems.isEmpty
                 ? null
@@ -97,7 +97,7 @@ class CartPageAppBar extends StatelessWidget {
                 ),
                 Text(
                   'Total: \$${state.cart.grandTotalPrice.toStringAsFixed(2)}',
-                  style: textTheme.headline4!.copyWith(
+                  style: textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),

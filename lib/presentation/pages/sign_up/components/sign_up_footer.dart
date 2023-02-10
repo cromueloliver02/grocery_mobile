@@ -19,16 +19,16 @@ class SignUpFooter extends StatelessWidget {
         return RichText(
           text: TextSpan(
             text: 'Already a user? ',
-            style: textTheme.bodyText1!.copyWith(
+            style: textTheme.bodyLarge!.copyWith(
               color: Colors.white,
-              fontSize: textTheme.bodyText1!.fontSize! + 2,
+              fontSize: textTheme.bodyLarge!.fontSize! + 2,
             ),
             children: [
               TextSpan(
                 text: 'Sign in',
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: loading ? Colors.grey : Colors.lightBlue,
-                  fontSize: textTheme.bodyText1!.fontSize! + 2,
+                  fontSize: textTheme.bodyLarge!.fontSize! + 2,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = loading

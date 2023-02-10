@@ -26,7 +26,7 @@ class OurProductsSection extends StatelessWidget {
                 children: [
                   Text(
                     'Our Products',
-                    style: textTheme.headline3,
+                    style: textTheme.displaySmall,
                   ),
                   GCRButton.text(
                     labelText: 'Browse All',

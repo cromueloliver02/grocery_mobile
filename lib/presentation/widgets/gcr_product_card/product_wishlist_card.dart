@@ -76,7 +76,7 @@ class _ProductWishlistCard extends StatelessWidget {
                         product.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: textTheme.headline4!.copyWith(
+                        style: textTheme.headlineMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -84,20 +84,20 @@ class _ProductWishlistCard extends StatelessWidget {
                       if (!product.isOnSale)
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline3!.copyWith(
+                          style: textTheme.displaySmall!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       if (product.isOnSale) ...[
                         Text(
                           '\$${product.salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.headline3!.copyWith(
+                          style: textTheme.displaySmall!.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
                           '\$${product.price.toStringAsFixed(2)}',
-                          style: textTheme.headline5!.copyWith(
+                          style: textTheme.headlineSmall!.copyWith(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w400,
                             decoration: TextDecoration.lineThrough,

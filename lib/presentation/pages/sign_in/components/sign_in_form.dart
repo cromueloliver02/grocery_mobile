@@ -73,9 +73,9 @@ class _SignInFormState extends State<SignInForm> {
                         : () => Navigator.pushNamed(ctx, ForgetPasswordPage.id),
                     child: Text(
                       'Forgot Password?',
-                      style: textTheme.bodyText1!.copyWith(
+                      style: textTheme.bodyLarge!.copyWith(
                         color: loading ? Colors.grey : Colors.lightBlue,
-                        fontSize: textTheme.bodyText1!.fontSize! + 2,
+                        fontSize: textTheme.bodyLarge!.fontSize! + 2,
                         fontStyle: FontStyle.italic,
                         decoration: TextDecoration.underline,
                       ),

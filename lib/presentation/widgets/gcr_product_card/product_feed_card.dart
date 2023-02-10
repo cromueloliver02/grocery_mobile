@@ -52,7 +52,7 @@ class _FeedCardState extends State<_ProductFeedCard> {
                           widget.product.name,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.headline5!.copyWith(
+                          style: textTheme.headlineSmall!.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -80,21 +80,21 @@ class _FeedCardState extends State<_ProductFeedCard> {
                           if (!widget.product.isOnSale)
                             Text(
                               '\$${widget.product.price.toStringAsFixed(2)}',
-                              style: textTheme.headline4!.copyWith(
+                              style: textTheme.headlineMedium!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
                           if (widget.product.isOnSale) ...[
                             Text(
                               '\$${widget.product.salePrice!.toStringAsFixed(2)}',
-                              style: textTheme.headline4!.copyWith(
+                              style: textTheme.headlineMedium!.copyWith(
                                 color: Colors.green,
                               ),
                             ),
                             const SizedBox(width: 10),
                             Text(
                               '\$${widget.product.price.toStringAsFixed(2)}',
-                              style: textTheme.headline6!.copyWith(
+                              style: textTheme.titleLarge!.copyWith(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.lineThrough,

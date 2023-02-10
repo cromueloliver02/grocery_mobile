@@ -29,14 +29,14 @@ class UserView extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: 'Hi, ',
-                          style: textTheme.headline2!.copyWith(
+                          style: textTheme.displayMedium!.copyWith(
                             color: Colors.cyan,
-                            fontSize: textTheme.headline2!.fontSize! + 2,
+                            fontSize: textTheme.displayMedium!.fontSize! + 2,
                           ),
                           children: [
                             TextSpan(
                               text: state.user.name,
-                              style: textTheme.headline2,
+                              style: textTheme.displayMedium,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   // This is just for learning purposes
@@ -49,8 +49,8 @@ class UserView extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         state.user.email,
-                        style: textTheme.bodyText1!.copyWith(
-                          fontSize: textTheme.bodyText1!.fontSize! + 4,
+                        style: textTheme.bodyLarge!.copyWith(
+                          fontSize: textTheme.bodyLarge!.fontSize! + 4,
                         ),
                       ),
                     ],

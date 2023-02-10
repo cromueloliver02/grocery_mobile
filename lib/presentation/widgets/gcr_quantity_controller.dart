@@ -90,7 +90,7 @@ class _GCRQuantityControllerState extends State<GCRQuantityController> {
               FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             ],
             decoration: InputDecoration(
-              labelStyle: textTheme.bodyText2,
+              labelStyle: textTheme.bodyMedium,
               focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black),
               ),

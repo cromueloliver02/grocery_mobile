@@ -49,11 +49,11 @@ class _ErrorDialogIOS extends StatelessWidget {
     return CupertinoAlertDialog(
       title: Text(
         error.code,
-        style: textTheme.headline3,
+        style: textTheme.displaySmall,
       ),
       content: Text(
         error.message,
-        style: textTheme.bodyText1,
+        style: textTheme.bodyLarge,
       ),
       actions: [
         CupertinoDialogAction(
@@ -86,12 +86,12 @@ class _ErrorDialogAndroid extends StatelessWidget {
       title: Text(
         error.code,
         textAlign: TextAlign.center,
-        style: textTheme.headline3,
+        style: textTheme.displaySmall,
       ),
       content: Text(
         error.message,
         textAlign: TextAlign.center,
-        style: textTheme.bodyText1,
+        style: textTheme.bodyLarge,
       ),
       actions: [
         Center(

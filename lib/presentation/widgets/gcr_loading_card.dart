@@ -27,7 +27,7 @@ class GCRLoadingCard extends StatelessWidget {
             const SizedBox(height: 40),
             Text(
               loadingText,
-              style: textTheme.headline4,
+              style: textTheme.headlineMedium,
             ),
           ],
         ),

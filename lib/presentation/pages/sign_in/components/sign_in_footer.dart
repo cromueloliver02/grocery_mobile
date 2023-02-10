@@ -30,7 +30,7 @@ class SignInFooter extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text(
                   'OR',
-                  style: textTheme.bodyText1!.copyWith(
+                  style: textTheme.bodyLarge!.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -56,16 +56,16 @@ class SignInFooter extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: 'Don\'t have an account? ',
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: Colors.white,
-                  fontSize: textTheme.bodyText1!.fontSize! + 2,
+                  fontSize: textTheme.bodyLarge!.fontSize! + 2,
                 ),
                 children: [
                   TextSpan(
                     text: 'Sign up',
-                    style: textTheme.bodyText1!.copyWith(
+                    style: textTheme.bodyLarge!.copyWith(
                       color: loading ? Colors.grey : Colors.lightBlue,
-                      fontSize: textTheme.bodyText1!.fontSize! + 2,
+                      fontSize: textTheme.bodyLarge!.fontSize! + 2,
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = loading

@@ -18,7 +18,7 @@ class OrdersPageAppBar extends StatelessWidget {
 
           return Text(
             'Your Orders ${showCount ? '(${state.order.orderItems.length})' : ''}',
-            style: textTheme.headline3,
+            style: textTheme.displaySmall,
           );
         },
       ),

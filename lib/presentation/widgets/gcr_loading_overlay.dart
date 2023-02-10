@@ -34,7 +34,7 @@ class GCRLoadingOverlay extends StatelessWidget {
                 const SizedBox(height: 30),
                 Text(
                   loadingText,
-                  style: textTheme.headline3!.copyWith(
+                  style: textTheme.displaySmall!.copyWith(
                     color: Colors.white,
                   ),
                 ),

@@ -50,7 +50,7 @@ class GCROrderDetailsCard extends StatelessWidget {
                         name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
-                        style: textTheme.headline4!.copyWith(
+                        style: textTheme.headlineMedium!.copyWith(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -66,31 +66,31 @@ class GCROrderDetailsCard extends StatelessWidget {
                     children: [
                       Text(
                         'x$quantity',
-                        style: textTheme.bodyText1!.copyWith(
+                        style: textTheme.bodyLarge!.copyWith(
                           color: Colors.grey[600],
-                          fontSize: textTheme.bodyText1!.fontSize!,
+                          fontSize: textTheme.bodyLarge!.fontSize!,
                         ),
                       ),
                       const SizedBox(height: 5),
                       if (!isOnSale)
                         Text(
                           '\$${price.toStringAsFixed(2)}',
-                          style: textTheme.bodyText1!.copyWith(
-                            fontSize: textTheme.bodyText1!.fontSize! + 2,
+                          style: textTheme.bodyLarge!.copyWith(
+                            fontSize: textTheme.bodyLarge!.fontSize! + 2,
                           ),
                         ),
                       if (isOnSale) ...[
                         Text(
                           '\$${salePrice!.toStringAsFixed(2)}',
-                          style: textTheme.bodyText1!.copyWith(
-                            fontSize: textTheme.bodyText1!.fontSize! + 2,
+                          style: textTheme.bodyLarge!.copyWith(
+                            fontSize: textTheme.bodyLarge!.fontSize! + 2,
                           ),
                         ),
                         Text(
                           '\$${price.toStringAsFixed(2)}',
-                          style: textTheme.bodyText1!.copyWith(
+                          style: textTheme.bodyLarge!.copyWith(
                             color: Colors.grey[600],
-                            fontSize: textTheme.bodyText1!.fontSize! - 2,
+                            fontSize: textTheme.bodyLarge!.fontSize! - 2,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
