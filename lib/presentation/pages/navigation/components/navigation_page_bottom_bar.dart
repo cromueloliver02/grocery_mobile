@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../business_logic/blocs/blocs.dart';
@@ -35,12 +35,12 @@ class NavigationPageBottomBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             label: 'Cart',
-            icon: Badge(
+            icon: badges.Badge(
               toAnimate: true,
-              shape: BadgeShape.circle,
+              shape: badges.BadgeShape.circle,
               badgeColor: Colors.blue,
               borderRadius: BorderRadius.circular(8),
-              position: BadgePosition.topEnd(top: -7, end: -7),
+              position: badges.BadgePosition.topEnd(top: -7, end: -7),
               badgeContent: BlocBuilder<CartBloc, CartState>(
                 builder: (ctx, state) => Text(
                   '${state.cart.cartItems.length}',
@@ -49,12 +49,12 @@ class NavigationPageBottomBar extends StatelessWidget {
               ),
               child: const Icon(IconlyLight.buy),
             ),
-            activeIcon: Badge(
+            activeIcon: badges.Badge(
               toAnimate: true,
-              shape: BadgeShape.circle,
+              shape: badges.BadgeShape.circle,
               badgeColor: Colors.blue,
               borderRadius: BorderRadius.circular(8),
-              position: BadgePosition.topEnd(top: -7, end: -7),
+              position: badges.BadgePosition.topEnd(top: -7, end: -7),
               badgeContent: FittedBox(
                 child: BlocBuilder<CartBloc, CartState>(
                   builder: (ctx, state) => Text(
